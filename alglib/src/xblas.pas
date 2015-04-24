@@ -8,23 +8,23 @@ procedure XDot(const A : TReal1DArray;
      const B : TReal1DArray;
      N : AlglibInteger;
      var Temp : TReal1DArray;
-     var R : Double;
-     var RErr : Double);
+     var R : Extended;
+     var RErr : Extended);
 procedure XCDot(const A : TComplex1DArray;
      const B : TComplex1DArray;
      N : AlglibInteger;
      var Temp : TReal1DArray;
      var R : Complex;
-     var RErr : Double);
+     var RErr : Extended);
 
 implementation
 
 procedure XSum(var W : TReal1DArray;
-     MX : Double;
+     MX : Extended;
      N : AlglibInteger;
-     var R : Double;
-     var RErr : Double);forward;
-function XFastPow(R : Double; N : AlglibInteger):Double;forward;
+     var R : Extended;
+     var RErr : Extended);forward;
+function XFastPow(R : Extended; N : AlglibInteger):Extended;forward;
 
 
 (*************************************************************************
@@ -43,7 +43,7 @@ OUTPUT PARAMETERS
     R       -   (A,B)
     RErr    -   estimate of error. This estimate accounts for both  errors
                 during  calculation  of  (A,B)  and  errors  introduced by
-                rounding of A and B to fit in double (about 1 ulp).
+                rounding of A and B to fit in Extended (about 1 ulp).
 
   -- ALGLIB --
      Copyright 24.08.2009 by Bochkanov Sergey
@@ -52,12 +52,12 @@ procedure XDot(const A : TReal1DArray;
      const B : TReal1DArray;
      N : AlglibInteger;
      var Temp : TReal1DArray;
-     var R : Double;
-     var RErr : Double);
+     var R : Extended;
+     var RErr : Extended);
 var
     I : AlglibInteger;
-    MX : Double;
-    V : Double;
+    MX : Extended;
+    V : Extended;
 begin
     
     //
@@ -105,7 +105,7 @@ OUTPUT PARAMETERS
     R       -   (A,B)
     RErr    -   estimate of error. This estimate accounts for both  errors
                 during  calculation  of  (A,B)  and  errors  introduced by
-                rounding of A and B to fit in double (about 1 ulp).
+                rounding of A and B to fit in Extended (about 1 ulp).
 
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
@@ -115,13 +115,13 @@ procedure XCDot(const A : TComplex1DArray;
      N : AlglibInteger;
      var Temp : TReal1DArray;
      var R : Complex;
-     var RErr : Double);
+     var RErr : Extended);
 var
     I : AlglibInteger;
-    MX : Double;
-    V : Double;
-    RErrX : Double;
-    RErrY : Double;
+    MX : Extended;
+    V : Extended;
+    RErrX : Extended;
+    RErrY : Extended;
 begin
     
     //
@@ -216,19 +216,19 @@ OUTPUT PARAMETERS:
      Copyright 24.08.2009 by Bochkanov Sergey
 *************************************************************************)
 procedure XSum(var W : TReal1DArray;
-     MX : Double;
+     MX : Extended;
      N : AlglibInteger;
-     var R : Double;
-     var RErr : Double);
+     var R : Extended;
+     var RErr : Extended);
 var
     I : AlglibInteger;
     K : AlglibInteger;
     KS : AlglibInteger;
-    V : Double;
-    S : Double;
-    LN2 : Double;
-    Chunk : Double;
-    InvChunk : Double;
+    V : Extended;
+    S : Extended;
+    LN2 : Extended;
+    Chunk : Extended;
+    InvChunk : Extended;
     AllZeros : Boolean;
 begin
     
@@ -333,7 +333,7 @@ Fast Pow
   -- ALGLIB --
      Copyright 24.08.2009 by Bochkanov Sergey
 *************************************************************************)
-function XFastPow(R : Double; N : AlglibInteger):Double;
+function XFastPow(R : Extended; N : AlglibInteger):Extended;
 begin
     Result := 0;
     if N>0 then
