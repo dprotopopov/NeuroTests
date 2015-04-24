@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{3E3CFFD0-F4ED-4583-B7D1-300DDA5BE622}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="test02\classification.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="test01\_demo_mlp_process_cls.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="classification">
+        <MSBuild Projects="test02\classification.dproj"/>
+    </Target>
+    <Target Name="classification:Clean">
+        <MSBuild Projects="test02\classification.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="classification:Make">
+        <MSBuild Projects="test02\classification.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="_demo_mlp_process_cls">
+        <MSBuild Projects="test01\_demo_mlp_process_cls.dproj"/>
+    </Target>
+    <Target Name="_demo_mlp_process_cls:Clean">
+        <MSBuild Projects="test01\_demo_mlp_process_cls.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="_demo_mlp_process_cls:Make">
+        <MSBuild Projects="test01\_demo_mlp_process_cls.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="classification;_demo_mlp_process_cls"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="classification:Clean;_demo_mlp_process_cls:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="classification:Make;_demo_mlp_process_cls:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
