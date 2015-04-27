@@ -1,0 +1,3 @@
+http://alglib.sources.ru/ - кросс-платформенная библиотека численного анализа
+http://solair.eunet.rs/~ilicv/free_eng.html - libraries and samples of fuzzy logics
+http://www.efg2.com/Lab/Library/Delphi/Algorithms/ - Algorithms Reference Library page
