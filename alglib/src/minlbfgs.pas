@@ -27,13 +27,13 @@ type
 MinLBFGSState = record
     N : AlglibInteger;
     M : AlglibInteger;
-    EpsG : Double;
-    EpsF : Double;
-    EpsX : Double;
+    EpsG : Extended;
+    EpsF : Extended;
+    EpsX : Extended;
     MaxIts : AlglibInteger;
     Flags : AlglibInteger;
     XRep : Boolean;
-    StpMax : Double;
+    StpMax : Extended;
     NFEV : AlglibInteger;
     MCStage : AlglibInteger;
     K : AlglibInteger;
@@ -44,12 +44,12 @@ MinLBFGSState = record
     S : TReal2DArray;
     Theta : TReal1DArray;
     D : TReal1DArray;
-    Stp : Double;
+    Stp : Extended;
     WORK : TReal1DArray;
-    FOld : Double;
-    GammaK : Double;
+    FOld : Extended;
+    GammaK : Extended;
     X : TReal1DArray;
-    F : Double;
+    F : Extended;
     G : TReal1DArray;
     NeedFG : Boolean;
     XUpdated : Boolean;
@@ -72,27 +72,27 @@ end;
 procedure MinLBFGSCreate(N : AlglibInteger;
      M : AlglibInteger;
      const X : TReal1DArray;
-     var State : MinLBFGSState);
+     var State : MinLBFGSState);inline;
 procedure MinLBFGSSetCond(var State : MinLBFGSState;
-     EpsG : Double;
-     EpsF : Double;
-     EpsX : Double;
-     MaxIts : AlglibInteger);
-procedure MinLBFGSSetXRep(var State : MinLBFGSState; NeedXRep : Boolean);
-procedure MinLBFGSSetStpMax(var State : MinLBFGSState; StpMax : Double);
+     EpsG : Extended;
+     EpsF : Extended;
+     EpsX : Extended;
+     MaxIts : AlglibInteger);inline;
+procedure MinLBFGSSetXRep(var State : MinLBFGSState; NeedXRep : Boolean);inline;
+procedure MinLBFGSSetStpMax(var State : MinLBFGSState; StpMax : Extended);inline;
 procedure MinLBFGSCreateX(N : AlglibInteger;
      M : AlglibInteger;
      const X : TReal1DArray;
      Flags : AlglibInteger;
-     var State : MinLBFGSState);
+     var State : MinLBFGSState);inline;
 function MinLBFGSIteration(var State : MinLBFGSState):Boolean;
 procedure MinLBFGSResults(const State : MinLBFGSState;
      var X : TReal1DArray;
-     var Rep : MinLBFGSReport);
+     var Rep : MinLBFGSReport);inline;
 
 implementation
 
-procedure ClearRequestFields(var State : MinLBFGSState);forward;
+procedure ClearRequestFields(var State : MinLBFGSState);forward;inline;
 
 
 (*************************************************************************
@@ -175,9 +175,9 @@ automatic stopping criterion selection (small EpsX).
      Copyright 02.04.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure MinLBFGSSetCond(var State : MinLBFGSState;
-     EpsG : Double;
-     EpsF : Double;
-     EpsX : Double;
+     EpsG : Extended;
+     EpsF : Extended;
+     EpsX : Extended;
      MaxIts : AlglibInteger);
 begin
     Assert(AP_FP_Greater_Eq(EpsG,0), 'MinLBFGSSetCond: negative EpsG!');
@@ -239,7 +239,7 @@ overflow) without actually calculating function value at the x+stp*d.
   -- ALGLIB --
      Copyright 02.04.2010 by Bochkanov Sergey
 *************************************************************************)
-procedure MinLBFGSSetStpMax(var State : MinLBFGSState; StpMax : Double);
+procedure MinLBFGSSetStpMax(var State : MinLBFGSState; StpMax : Extended);
 begin
     Assert(AP_FP_Greater_Eq(StpMax,0), 'MinLBFGSSetStpMax: StpMax<0!');
     State.StpMax := StpMax;
@@ -351,15 +351,15 @@ var
     N : AlglibInteger;
     M : AlglibInteger;
     MaxIts : AlglibInteger;
-    EpsF : Double;
-    EpsG : Double;
-    EpsX : Double;
+    EpsF : Extended;
+    EpsG : Extended;
+    EpsX : Extended;
     I : AlglibInteger;
     J : AlglibInteger;
     IC : AlglibInteger;
     MCINFO : AlglibInteger;
-    V : Double;
-    VV : Double;
+    V : Extended;
+    VV : Extended;
 label
 lbl_0, lbl_1, lbl_4, lbl_6, lbl_8, lbl_2, lbl_9, lbl_3, lbl_10, lbl_7, lbl_rcomm;
 begin

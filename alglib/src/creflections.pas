@@ -31,7 +31,7 @@ uses Math, Sysutils, Ap;
 
 procedure ComplexGenerateReflection(var X : TComplex1DArray;
      N : AlglibInteger;
-     var Tau : Complex);
+     var Tau : Complex);inline;
 procedure ComplexApplyReflectionFromTheLeft(var C : TComplex2DArray;
      Tau : Complex;
      const V : TComplex1DArray;
@@ -39,7 +39,7 @@ procedure ComplexApplyReflectionFromTheLeft(var C : TComplex2DArray;
      M2 : AlglibInteger;
      N1 : AlglibInteger;
      N2 : AlglibInteger;
-     var WORK : TComplex1DArray);
+     var WORK : TComplex1DArray);inline;
 procedure ComplexApplyReflectionFromTheRight(var C : TComplex2DArray;
      Tau : Complex;
      var V : TComplex1DArray;
@@ -47,7 +47,7 @@ procedure ComplexApplyReflectionFromTheRight(var C : TComplex2DArray;
      M2 : AlglibInteger;
      N1 : AlglibInteger;
      N2 : AlglibInteger;
-     var WORK : TComplex1DArray);
+     var WORK : TComplex1DArray);inline;
 
 implementation
 
@@ -93,13 +93,13 @@ procedure ComplexGenerateReflection(var X : TComplex1DArray;
 var
     J : AlglibInteger;
     ALPHA : Complex;
-    ALPHI : Double;
-    ALPHR : Double;
-    BETA : Double;
-    XNORM : Double;
-    MX : Double;
+    ALPHI : Extended;
+    ALPHR : Extended;
+    BETA : Extended;
+    XNORM : Extended;
+    MX : Extended;
     T : Complex;
-    S : Double;
+    S : Extended;
     V : Complex;
     i_ : AlglibInteger;
 begin

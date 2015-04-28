@@ -29,42 +29,42 @@ LINMINState = record
     BRACKT : Boolean;
     STAGE1 : Boolean;
     INFOC : AlglibInteger;
-    DG : Double;
-    DGM : Double;
-    DGINIT : Double;
-    DGTEST : Double;
-    DGX : Double;
-    DGXM : Double;
-    DGY : Double;
-    DGYM : Double;
-    FINIT : Double;
-    FTEST1 : Double;
-    FM : Double;
-    FX : Double;
-    FXM : Double;
-    FY : Double;
-    FYM : Double;
-    STX : Double;
-    STY : Double;
-    STMIN : Double;
-    STMAX : Double;
-    WIDTH : Double;
-    WIDTH1 : Double;
-    XTRAPF : Double;
+    DG : Extended;
+    DGM : Extended;
+    DGINIT : Extended;
+    DGTEST : Extended;
+    DGX : Extended;
+    DGXM : Extended;
+    DGY : Extended;
+    DGYM : Extended;
+    FINIT : Extended;
+    FTEST1 : Extended;
+    FM : Extended;
+    FX : Extended;
+    FXM : Extended;
+    FY : Extended;
+    FYM : Extended;
+    STX : Extended;
+    STY : Extended;
+    STMIN : Extended;
+    STMAX : Extended;
+    WIDTH : Extended;
+    WIDTH1 : Extended;
+    XTRAPF : Extended;
 end;
 
 
 
 procedure LinMinNormalizeD(var D : TReal1DArray;
-     var Stp : Double;
-     N : AlglibInteger);
+     var Stp : Extended;
+     N : AlglibInteger);inline;
 procedure MCSRCH(const N : AlglibInteger;
      var X : TReal1DArray;
-     var F : Double;
+     var F : Extended;
      var G : TReal1DArray;
      const S : TReal1DArray;
-     var STP : Double;
-     STPMAX : Double;
+     var STP : Extended;
+     STPMAX : Extended;
      var INFO : AlglibInteger;
      var NFEV : AlglibInteger;
      var WA : TReal1DArray;
@@ -81,18 +81,18 @@ const
     STPMIN = 1.0E-50;
     DefSTPMAX = 1.0E+50;
 
-procedure MCSTEP(var STX : Double;
-     var FX : Double;
-     var DX : Double;
-     var STY : Double;
-     var FY : Double;
-     var DY : Double;
-     var STP : Double;
-     const FP : Double;
-     const DP : Double;
+procedure MCSTEP(var STX : Extended;
+     var FX : Extended;
+     var DX : Extended;
+     var STY : Extended;
+     var FY : Extended;
+     var DY : Extended;
+     var STP : Extended;
+     const FP : Extended;
+     const DP : Extended;
      var BRACKT : Boolean;
-     const STMIN : Double;
-     const STMAX : Double;
+     const STMIN : Extended;
+     const STMAX : Extended;
      var INFO : AlglibInteger);forward;
 
 
@@ -104,11 +104,11 @@ If |D|=0, it returns, leavind D/Stp unchanged.
      Copyright 01.04.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure LinMinNormalizeD(var D : TReal1DArray;
-     var Stp : Double;
+     var Stp : Extended;
      N : AlglibInteger);
 var
-    MX : Double;
-    S : Double;
+    MX : Extended;
+    S : Extended;
     I : AlglibInteger;
 begin
     
@@ -229,21 +229,21 @@ JORGE J. MORE', DAVID J. THUENTE
 *************************************************************************)
 procedure MCSRCH(const N : AlglibInteger;
      var X : TReal1DArray;
-     var F : Double;
+     var F : Extended;
      var G : TReal1DArray;
      const S : TReal1DArray;
-     var STP : Double;
-     STPMAX : Double;
+     var STP : Extended;
+     STPMAX : Extended;
      var INFO : AlglibInteger;
      var NFEV : AlglibInteger;
      var WA : TReal1DArray;
      var State : LINMINState;
      var Stage : AlglibInteger);
 var
-    V : Double;
-    P5 : Double;
-    P66 : Double;
-    ZERO : Double;
+    V : Extended;
+    P5 : Extended;
+    P66 : Extended;
+    ZERO : Extended;
 begin
     
     //
@@ -524,31 +524,31 @@ begin
 end;
 
 
-procedure MCSTEP(var STX : Double;
-     var FX : Double;
-     var DX : Double;
-     var STY : Double;
-     var FY : Double;
-     var DY : Double;
-     var STP : Double;
-     const FP : Double;
-     const DP : Double;
+procedure MCSTEP(var STX : Extended;
+     var FX : Extended;
+     var DX : Extended;
+     var STY : Extended;
+     var FY : Extended;
+     var DY : Extended;
+     var STP : Extended;
+     const FP : Extended;
+     const DP : Extended;
      var BRACKT : Boolean;
-     const STMIN : Double;
-     const STMAX : Double;
+     const STMIN : Extended;
+     const STMAX : Extended;
      var INFO : AlglibInteger);
 var
     BOUND : Boolean;
-    GAMMA : Double;
-    P : Double;
-    Q : Double;
-    R : Double;
-    S : Double;
-    SGND : Double;
-    STPC : Double;
-    STPF : Double;
-    STPQ : Double;
-    THETA : Double;
+    GAMMA : Extended;
+    P : Extended;
+    Q : Extended;
+    R : Extended;
+    S : Extended;
+    SGND : Extended;
+    STPC : Extended;
+    STPF : Extended;
+    STPQ : Extended;
+    THETA : Extended;
 begin
     INFO := 0;
     

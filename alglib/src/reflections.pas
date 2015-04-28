@@ -31,7 +31,7 @@ uses Math, Sysutils, Ap;
 
 procedure GenerateReflection(var X : TReal1DArray;
      N : AlglibInteger;
-     var Tau : Extended);
+     var Tau : Extended);inline;
 procedure ApplyReflectionFromTheLeft(var C : TReal2DArray;
      Tau : Extended;
      const V : TReal1DArray;
@@ -39,7 +39,7 @@ procedure ApplyReflectionFromTheLeft(var C : TReal2DArray;
      M2 : AlglibInteger;
      N1 : AlglibInteger;
      N2 : AlglibInteger;
-     var WORK : TReal1DArray);
+     var WORK : TReal1DArray);inline;
 procedure ApplyReflectionFromTheRight(var C : TReal2DArray;
      Tau : Extended;
      const V : TReal1DArray;
@@ -47,7 +47,7 @@ procedure ApplyReflectionFromTheRight(var C : TReal2DArray;
      M2 : AlglibInteger;
      N1 : AlglibInteger;
      N2 : AlglibInteger;
-     var WORK : TReal1DArray);
+     var WORK : TReal1DArray);inline;
 
 implementation
 

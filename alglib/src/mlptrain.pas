@@ -41,11 +41,11 @@ end;
 Cross-validation estimates of generalization error
 *************************************************************************)
 MLPCVReport = record
-    RelCLSError : Double;
-    AvgCE : Double;
-    RMSError : Double;
-    AvgError : Double;
-    AvgRelError : Double;
+    RelCLSError : Extended;
+    AvgCE : Extended;
+    RMSError : Extended;
+    AvgError : Extended;
+    AvgRelError : Extended;
 end;
 
 
@@ -53,16 +53,16 @@ end;
 procedure MLPTrainLM(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      NPoints : AlglibInteger;
-     Decay : Double;
+     Decay : Extended;
      Restarts : AlglibInteger;
      var Info : AlglibInteger;
      var Rep : MLPReport);
 procedure MLPTrainLBFGS(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      NPoints : AlglibInteger;
-     Decay : Double;
+     Decay : Extended;
      Restarts : AlglibInteger;
-     WStep : Double;
+     WStep : Extended;
      MaxIts : AlglibInteger;
      var Info : AlglibInteger;
      var Rep : MLPReport);
@@ -71,44 +71,40 @@ procedure MLPTrainES(var Network : MultiLayerPerceptron;
      TrnSize : AlglibInteger;
      const ValXY : TReal2DArray;
      ValSize : AlglibInteger;
-     Decay : Double;
+     Decay : Extended;
      Restarts : AlglibInteger;
      var Info : AlglibInteger;
      var Rep : MLPReport);
 procedure MLPKFoldCVLBFGS(const Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      NPoints : AlglibInteger;
-     Decay : Double;
+     Decay : Extended;
      Restarts : AlglibInteger;
-     WStep : Double;
+     WStep : Extended;
      MaxIts : AlglibInteger;
      FoldsCount : AlglibInteger;
      var Info : AlglibInteger;
      var Rep : MLPReport;
-     var CVRep : MLPCVReport);
+     var CVRep : MLPCVReport);inline;
 procedure MLPKFoldCVLM(const Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      NPoints : AlglibInteger;
-     Decay : Double;
+     Decay : Extended;
      Restarts : AlglibInteger;
      FoldsCount : AlglibInteger;
      var Info : AlglibInteger;
      var Rep : MLPReport;
-     var CVRep : MLPCVReport);
+     var CVRep : MLPCVReport);inline;
 
-implementation
-
-const
-    MinDecay = 0.001;
 
 procedure MLPKFoldCVGeneral(const N : MultiLayerPerceptron;
      const XY : TReal2DArray;
      NPoints : AlglibInteger;
-     Decay : Double;
+     Decay : Extended;
      Restarts : AlglibInteger;
      FoldsCount : AlglibInteger;
      LMAlgorithm : Boolean;
-     WStep : Double;
+     WStep : Extended;
      MaxIts : AlglibInteger;
      var Info : AlglibInteger;
      var Rep : MLPReport;
@@ -118,7 +114,12 @@ procedure MLPKFoldSplit(const XY : TReal2DArray;
      NClasses : AlglibInteger;
      FoldsCount : AlglibInteger;
      StratifiedSplits : Boolean;
-     var Folds : TInteger1DArray);forward;
+     var Folds : TInteger1DArray);forward;inline;
+
+implementation
+
+const
+    MinDecay = 0.001;
 
 
 (*************************************************************************
@@ -155,7 +156,7 @@ OUTPUT PARAMETERS:
 procedure MLPTrainLM(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      NPoints : AlglibInteger;
-     Decay : Double;
+     Decay : Extended;
      Restarts : AlglibInteger;
      var Info : AlglibInteger;
      var Rep : MLPReport);
@@ -163,25 +164,25 @@ var
     NIn : AlglibInteger;
     NOut : AlglibInteger;
     WCount : AlglibInteger;
-    LMFTol : Double;
-    LMStepTol : Double;
+    LMFTol : Extended;
+    LMStepTol : Extended;
     I : AlglibInteger;
     K : AlglibInteger;
-    V : Double;
-    E : Double;
-    ENew : Double;
-    XNorm2 : Double;
-    StepNorm : Double;
+    V : Extended;
+    E : Extended;
+    ENew : Extended;
+    XNorm2 : Extended;
+    StepNorm : Extended;
     G : TReal1DArray;
     D : TReal1DArray;
     H : TReal2DArray;
     HMod : TReal2DArray;
     Z : TReal2DArray;
     SPD : Boolean;
-    Nu : Double;
-    Lambda : Double;
-    LambdaUp : Double;
-    LambdaDown : Double;
+    Nu : Extended;
+    Lambda : Extended;
+    LambdaUp : Extended;
+    LambdaDown : Extended;
     InternalRep : MinLBFGSReport;
     State : MinLBFGSState;
     X : TReal1DArray;
@@ -192,7 +193,7 @@ var
     WX : TReal1DArray;
     Pass : AlglibInteger;
     WBest : TReal1DArray;
-    EBest : Double;
+    EBest : Extended;
     InvInfo : AlglibInteger;
     InvRep : MatInvReport;
     SolverInfo : AlglibInteger;
@@ -528,9 +529,9 @@ OUTPUT PARAMETERS:
 procedure MLPTrainLBFGS(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      NPoints : AlglibInteger;
-     Decay : Double;
+     Decay : Extended;
      Restarts : AlglibInteger;
-     WStep : Double;
+     WStep : Extended;
      MaxIts : AlglibInteger;
      var Info : AlglibInteger;
      var Rep : MLPReport);
@@ -542,9 +543,9 @@ var
     WCount : AlglibInteger;
     W : TReal1DArray;
     WBest : TReal1DArray;
-    E : Double;
-    V : Double;
-    EBest : Double;
+    E : Extended;
+    V : Extended;
+    EBest : Extended;
     InternalRep : MinLBFGSReport;
     State : MinLBFGSState;
 begin
@@ -683,7 +684,7 @@ procedure MLPTrainES(var Network : MultiLayerPerceptron;
      TrnSize : AlglibInteger;
      const ValXY : TReal2DArray;
      ValSize : AlglibInteger;
-     Decay : Double;
+     Decay : Extended;
      Restarts : AlglibInteger;
      var Info : AlglibInteger;
      var Rep : MLPReport);
@@ -695,15 +696,15 @@ var
     WCount : AlglibInteger;
     W : TReal1DArray;
     WBest : TReal1DArray;
-    E : Double;
-    V : Double;
-    EBest : Double;
+    E : Extended;
+    V : Extended;
+    EBest : Extended;
     WFinal : TReal1DArray;
-    EFinal : Double;
+    EFinal : Extended;
     ItBest : AlglibInteger;
     InternalRep : MinLBFGSReport;
     State : MinLBFGSState;
-    WStep : Double;
+    WStep : Extended;
 begin
     WStep := 0.001;
     
@@ -862,9 +863,9 @@ OUTPUT PARAMETERS:
 procedure MLPKFoldCVLBFGS(const Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      NPoints : AlglibInteger;
-     Decay : Double;
+     Decay : Extended;
      Restarts : AlglibInteger;
-     WStep : Double;
+     WStep : Extended;
      MaxIts : AlglibInteger;
      FoldsCount : AlglibInteger;
      var Info : AlglibInteger;
@@ -905,7 +906,7 @@ OUTPUT PARAMETERS:
 procedure MLPKFoldCVLM(const Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      NPoints : AlglibInteger;
-     Decay : Double;
+     Decay : Extended;
      Restarts : AlglibInteger;
      FoldsCount : AlglibInteger;
      var Info : AlglibInteger;
@@ -922,11 +923,11 @@ Internal cross-validation subroutine
 procedure MLPKFoldCVGeneral(const N : MultiLayerPerceptron;
      const XY : TReal2DArray;
      NPoints : AlglibInteger;
-     Decay : Double;
+     Decay : Extended;
      Restarts : AlglibInteger;
      FoldsCount : AlglibInteger;
      LMAlgorithm : Boolean;
-     WStep : Double;
+     WStep : Extended;
      MaxIts : AlglibInteger;
      var Info : AlglibInteger;
      var Rep : MLPReport;

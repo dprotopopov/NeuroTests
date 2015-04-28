@@ -32,104 +32,105 @@ uses Math, Sysutils, Ap, reflections, creflections, hqrnd, matgen, ablasf, ablas
 procedure RMatrixLU(var A : TReal2DArray;
      M : AlglibInteger;
      N : AlglibInteger;
-     var Pivots : TInteger1DArray);
+     var Pivots : TInteger1DArray);inline;
 procedure CMatrixLU(var A : TComplex2DArray;
      M : AlglibInteger;
      N : AlglibInteger;
-     var Pivots : TInteger1DArray);
+     var Pivots : TInteger1DArray);inline;
 function HPDMatrixCholesky(var A : TComplex2DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Boolean;
+     IsUpper : Boolean):Boolean;inline;
 function SPDMatrixCholesky(var A : TReal2DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Boolean;
+     IsUpper : Boolean):Boolean;inline;
 procedure RMatrixLUP(var A : TReal2DArray;
      M : AlglibInteger;
      N : AlglibInteger;
-     var Pivots : TInteger1DArray);
+     var Pivots : TInteger1DArray);inline;
 procedure CMatrixLUP(var A : TComplex2DArray;
      M : AlglibInteger;
      N : AlglibInteger;
-     var Pivots : TInteger1DArray);
+     var Pivots : TInteger1DArray);inline;
 procedure RMatrixPLU(var A : TReal2DArray;
      M : AlglibInteger;
      N : AlglibInteger;
-     var Pivots : TInteger1DArray);
+     var Pivots : TInteger1DArray);inline;
 procedure CMatrixPLU(var A : TComplex2DArray;
      M : AlglibInteger;
      N : AlglibInteger;
-     var Pivots : TInteger1DArray);
+     var Pivots : TInteger1DArray);inline;
 
-implementation
 
 procedure CMatrixLUPRec(var A : TComplex2DArray;
      Offs : AlglibInteger;
      M : AlglibInteger;
      N : AlglibInteger;
      var Pivots : TInteger1DArray;
-     var Tmp : TComplex1DArray);forward;
+     var Tmp : TComplex1DArray);forward;inline;
 procedure RMatrixLUPRec(var A : TReal2DArray;
      Offs : AlglibInteger;
      M : AlglibInteger;
      N : AlglibInteger;
      var Pivots : TInteger1DArray;
-     var Tmp : TReal1DArray);forward;
+     var Tmp : TReal1DArray);forward;inline;
 procedure CMatrixPLURec(var A : TComplex2DArray;
      Offs : AlglibInteger;
      M : AlglibInteger;
      N : AlglibInteger;
      var Pivots : TInteger1DArray;
-     var Tmp : TComplex1DArray);forward;
+     var Tmp : TComplex1DArray);forward;inline;
 procedure RMatrixPLURec(var A : TReal2DArray;
      Offs : AlglibInteger;
      M : AlglibInteger;
      N : AlglibInteger;
      var Pivots : TInteger1DArray;
-     var Tmp : TReal1DArray);forward;
+     var Tmp : TReal1DArray);forward;inline;
 procedure CMatrixLUP2(var A : TComplex2DArray;
      Offs : AlglibInteger;
      M : AlglibInteger;
      N : AlglibInteger;
      var Pivots : TInteger1DArray;
-     var Tmp : TComplex1DArray);forward;
+     var Tmp : TComplex1DArray);forward;inline;
 procedure RMatrixLUP2(var A : TReal2DArray;
      Offs : AlglibInteger;
      M : AlglibInteger;
      N : AlglibInteger;
      var Pivots : TInteger1DArray;
-     var Tmp : TReal1DArray);forward;
+     var Tmp : TReal1DArray);forward;inline;
 procedure CMatrixPLU2(var A : TComplex2DArray;
      Offs : AlglibInteger;
      M : AlglibInteger;
      N : AlglibInteger;
      var Pivots : TInteger1DArray;
-     var Tmp : TComplex1DArray);forward;
+     var Tmp : TComplex1DArray);forward;inline;
 procedure RMatrixPLU2(var A : TReal2DArray;
      Offs : AlglibInteger;
      M : AlglibInteger;
      N : AlglibInteger;
      var Pivots : TInteger1DArray;
-     var Tmp : TReal1DArray);forward;
+     var Tmp : TReal1DArray);forward;inline;
 function HPDMatrixCholeskyRec(var A : TComplex2DArray;
      Offs : AlglibInteger;
      N : AlglibInteger;
      IsUpper : Boolean;
-     var Tmp : TComplex1DArray):Boolean;forward;
+     var Tmp : TComplex1DArray):Boolean;forward;inline;
 function SPDMatrixCholeskyRec(var A : TReal2DArray;
      Offs : AlglibInteger;
      N : AlglibInteger;
      IsUpper : Boolean;
-     var Tmp : TReal1DArray):Boolean;forward;
+     var Tmp : TReal1DArray):Boolean;forward;inline;
 function HPDMatrixCholesky2(var AAA : TComplex2DArray;
      Offs : AlglibInteger;
      N : AlglibInteger;
      IsUpper : Boolean;
-     var Tmp : TComplex1DArray):Boolean;forward;
+     var Tmp : TComplex1DArray):Boolean;forward;inline;
 function SPDMatrixCholesky2(var AAA : TReal2DArray;
      Offs : AlglibInteger;
      N : AlglibInteger;
      IsUpper : Boolean;
-     var Tmp : TReal1DArray):Boolean;forward;
+     var Tmp : TReal1DArray):Boolean;forward;inline;
+
+implementation
 
 
 (*************************************************************************
@@ -314,8 +315,8 @@ var
     Tmp : TReal1DArray;
     I : AlglibInteger;
     J : AlglibInteger;
-    MX : Double;
-    V : Double;
+    MX : Extended;
+    V : Extended;
 begin
     
     //
@@ -375,8 +376,8 @@ var
     Tmp : TComplex1DArray;
     I : AlglibInteger;
     J : AlglibInteger;
-    MX : Double;
-    V : Double;
+    MX : Extended;
+    V : Extended;
     i_ : AlglibInteger;
 begin
     
@@ -443,8 +444,8 @@ var
     Tmp : TReal1DArray;
     I : AlglibInteger;
     J : AlglibInteger;
-    MX : Double;
-    V : Double;
+    MX : Extended;
+    V : Extended;
 begin
     
     //
@@ -504,7 +505,7 @@ var
     Tmp : TComplex1DArray;
     I : AlglibInteger;
     J : AlglibInteger;
-    MX : Double;
+    MX : Extended;
     V : Complex;
     i_ : AlglibInteger;
 begin
@@ -1142,7 +1143,7 @@ var
     I : AlglibInteger;
     J : AlglibInteger;
     JP : AlglibInteger;
-    S : Double;
+    S : Extended;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin
@@ -1340,7 +1341,7 @@ var
     I : AlglibInteger;
     J : AlglibInteger;
     JP : AlglibInteger;
-    S : Double;
+    S : Extended;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin
@@ -1596,9 +1597,9 @@ var
     K : AlglibInteger;
     J1 : AlglibInteger;
     J2 : AlglibInteger;
-    AJJ : Double;
+    AJJ : Extended;
     V : Complex;
-    R : Double;
+    R : Extended;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin
@@ -1752,9 +1753,9 @@ function SPDMatrixCholesky2(var AAA : TReal2DArray;
 var
     I : AlglibInteger;
     J : AlglibInteger;
-    AJJ : Double;
-    V : Double;
-    R : Double;
+    AJJ : Extended;
+    V : Extended;
+    R : Extended;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin
