@@ -1,5 +1,3 @@
-{.$MODESWITCH RESULT+}
-{.$GOTO ON}
 (*************************************************************************
 Copyright (c) 2005-2007, Sergey Bochkanov (ALGLIB project).
 
@@ -25,7 +23,7 @@ uses Math, Sysutils, Ap;
 
 function VectorNorm2(const X : TReal1DArray;
      I1 : AlglibInteger;
-     I2 : AlglibInteger):Double;
+     I2 : AlglibInteger):Extended;
 function VectorIdxAbsMax(const X : TReal1DArray;
      I1 : AlglibInteger;
      I2 : AlglibInteger):AlglibInteger;
@@ -42,7 +40,7 @@ function UpperHessenberg1Norm(const A : TReal2DArray;
      I2 : AlglibInteger;
      J1 : AlglibInteger;
      J2 : AlglibInteger;
-     var WORK : TReal1DArray):Double;
+     var WORK : TReal1DArray):Extended;
 procedure CopyMatrix(const A : TReal2DArray;
      IS1 : AlglibInteger;
      IS2 : AlglibInteger;
@@ -78,12 +76,12 @@ procedure MatrixVectorMultiply(const A : TReal2DArray;
      const X : TReal1DArray;
      IX1 : AlglibInteger;
      IX2 : AlglibInteger;
-     Alpha : Double;
+     Alpha : Extended;
      var Y : TReal1DArray;
      IY1 : AlglibInteger;
      IY2 : AlglibInteger;
-     Beta : Double);
-function Pythag2(X : Double; Y : Double):Double;
+     Beta : Extended);
+function Pythag2(X : Extended; Y : Extended):Extended;
 procedure MatrixMatrixMultiply(const A : TReal2DArray;
      AI1 : AlglibInteger;
      AI2 : AlglibInteger;
@@ -96,26 +94,26 @@ procedure MatrixMatrixMultiply(const A : TReal2DArray;
      BJ1 : AlglibInteger;
      BJ2 : AlglibInteger;
      TransB : Boolean;
-     Alpha : Double;
+     Alpha : Extended;
      var C : TReal2DArray;
      CI1 : AlglibInteger;
      CI2 : AlglibInteger;
      CJ1 : AlglibInteger;
      CJ2 : AlglibInteger;
-     Beta : Double;
+     Beta : Extended;
      var WORK : TReal1DArray);
 
 implementation
 
 function VectorNorm2(const X : TReal1DArray;
      I1 : AlglibInteger;
-     I2 : AlglibInteger):Double;
+     I2 : AlglibInteger):Extended;
 var
     N : AlglibInteger;
     IX : AlglibInteger;
-    ABSXI : Double;
-    SCL : Double;
-    SSQ : Double;
+    ABSXI : Extended;
+    SCL : Extended;
+    SSQ : Extended;
 begin
     N := I2-I1+1;
     if N<1 then
@@ -157,7 +155,7 @@ function VectorIdxAbsMax(const X : TReal1DArray;
      I2 : AlglibInteger):AlglibInteger;
 var
     I : AlglibInteger;
-    A : Double;
+    A : Extended;
 begin
     Result := I1;
     A := AbsReal(X[Result]);
@@ -179,7 +177,7 @@ function ColumnIdxAbsMax(const X : TReal2DArray;
      J : AlglibInteger):AlglibInteger;
 var
     I : AlglibInteger;
-    A : Double;
+    A : Extended;
 begin
     Result := I1;
     A := AbsReal(X[Result,J]);
@@ -201,7 +199,7 @@ function RowIdxAbsMax(const X : TReal2DArray;
      I : AlglibInteger):AlglibInteger;
 var
     J : AlglibInteger;
-    A : Double;
+    A : Extended;
 begin
     Result := J1;
     A := AbsReal(X[I,Result]);
@@ -222,7 +220,7 @@ function UpperHessenberg1Norm(const A : TReal2DArray;
      I2 : AlglibInteger;
      J1 : AlglibInteger;
      J2 : AlglibInteger;
-     var WORK : TReal1DArray):Double;
+     var WORK : TReal1DArray):Extended;
 var
     I : AlglibInteger;
     J : AlglibInteger;
@@ -373,14 +371,14 @@ procedure MatrixVectorMultiply(const A : TReal2DArray;
      const X : TReal1DArray;
      IX1 : AlglibInteger;
      IX2 : AlglibInteger;
-     Alpha : Double;
+     Alpha : Extended;
      var Y : TReal1DArray;
      IY1 : AlglibInteger;
      IY2 : AlglibInteger;
-     Beta : Double);
+     Beta : Extended);
 var
     I : AlglibInteger;
-    V : Double;
+    V : Extended;
 begin
     if  not Trans then
     begin
@@ -467,12 +465,12 @@ begin
 end;
 
 
-function Pythag2(X : Double; Y : Double):Double;
+function Pythag2(X : Extended; Y : Extended):Extended;
 var
-    W : Double;
-    XABS : Double;
-    YABS : Double;
-    Z : Double;
+    W : Extended;
+    XABS : Extended;
+    YABS : Extended;
+    Z : Extended;
 begin
     XABS := AbsReal(X);
     YABS := AbsReal(Y);
@@ -501,13 +499,13 @@ procedure MatrixMatrixMultiply(const A : TReal2DArray;
      BJ1 : AlglibInteger;
      BJ2 : AlglibInteger;
      TransB : Boolean;
-     Alpha : Double;
+     Alpha : Extended;
      var C : TReal2DArray;
      CI1 : AlglibInteger;
      CI2 : AlglibInteger;
      CJ1 : AlglibInteger;
      CJ2 : AlglibInteger;
-     Beta : Double;
+     Beta : Extended;
      var WORK : TReal1DArray);
 var
     ARows : AlglibInteger;
@@ -521,7 +519,7 @@ var
     K : AlglibInteger;
     L : AlglibInteger;
     R : AlglibInteger;
-    V : Double;
+    V : Extended;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin

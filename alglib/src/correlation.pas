@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Copyright (c) 2007, Sergey Bochkanov (ALGLIB project).
 
@@ -25,10 +23,10 @@ uses Math, Sysutils, Ap;
 
 function PearsonCorrelation(const X : TReal1DArray;
      const Y : TReal1DArray;
-     N : AlglibInteger):Double;
+     N : AlglibInteger):Extended;
 function SpearmanRankCorrelation(X : TReal1DArray;
      Y : TReal1DArray;
-     N : AlglibInteger):Double;
+     N : AlglibInteger):Extended;
 
 implementation
 
@@ -51,16 +49,16 @@ Result:
 *************************************************************************)
 function PearsonCorrelation(const X : TReal1DArray;
      const Y : TReal1DArray;
-     N : AlglibInteger):Double;
+     N : AlglibInteger):Extended;
 var
     I : AlglibInteger;
-    XMean : Double;
-    YMean : Double;
-    S : Double;
-    XV : Double;
-    YV : Double;
-    T1 : Double;
-    T2 : Double;
+    XMean : Extended;
+    YMean : Extended;
+    S : Extended;
+    XV : Extended;
+    YV : Extended;
+    T1 : Extended;
+    T2 : Extended;
 begin
     XV := 0;
     YV := 0;
@@ -128,7 +126,7 @@ Result:
 *************************************************************************)
 function SpearmanRankCorrelation(X : TReal1DArray;
      Y : TReal1DArray;
-     N : AlglibInteger):Double;
+     N : AlglibInteger):Extended;
 begin
     X := DynamicArrayCopy(X);
     Y := DynamicArrayCopy(Y);
@@ -147,7 +145,7 @@ var
     J : AlglibInteger;
     K : AlglibInteger;
     T : AlglibInteger;
-    Tmp : Double;
+    Tmp : Extended;
     TmpI : AlglibInteger;
     R : TReal1DArray;
     C : TInteger1DArray;

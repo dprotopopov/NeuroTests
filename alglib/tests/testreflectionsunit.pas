@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testreflectionsunit;
 interface
 uses Math, Sysutils, Ap, reflections;
@@ -334,7 +332,7 @@ begin
     I:=1;
     while I<=10 do
     begin
-        V[I] := MaxRealNumber*Double(0.01)*(2*RandomReal-1);
+        V[I] := MaxRealNumber*0.01*(2*RandomReal-1);
         Inc(I);
     end;
     GenerateReflection(V, 10, Tau);

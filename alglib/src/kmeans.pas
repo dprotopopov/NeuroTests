@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Copyright (c) 2008, Sergey Bochkanov (ALGLIB project).
 
@@ -83,17 +81,17 @@ var
     CT : TReal2DArray;
     CTBest : TReal2DArray;
     XYCBest : TInteger1DArray;
-    E : Double;
-    EBest : Double;
+    E : Extended;
+    EBest : Extended;
     X : TReal1DArray;
     Tmp : TReal1DArray;
     D2 : TReal1DArray;
     P : TReal1DArray;
     CSizes : TInteger1DArray;
     CBusy : TBoolean1DArray;
-    V : Double;
+    V : Extended;
     CClosest : AlglibInteger;
-    DClosest : Double;
+    DClosest : Extended;
     WORK : TReal1DArray;
     WasChanges : Boolean;
     ZeroSizeClusters : Boolean;
@@ -320,8 +318,8 @@ var
     I : AlglibInteger;
     J : AlglibInteger;
     CC : AlglibInteger;
-    V : Double;
-    S : Double;
+    V : Extended;
+    S : Extended;
 begin
     BusyCenters := DynamicArrayCopy(BusyCenters);
     Result := True;

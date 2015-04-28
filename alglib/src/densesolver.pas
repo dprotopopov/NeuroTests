@@ -1,5 +1,3 @@
-{.$MODESWITCH RESULT+}
-{.$GOTO ON}
 (*************************************************************************
 Copyright (c) 2007-2008, Sergey Bochkanov (ALGLIB project).
 
@@ -21,7 +19,7 @@ http://www.fsf.org/licensing/licenses
 *************************************************************************)
 unit densesolver;
 interface
-uses Math, Sysutils, System.Threading, Ap, hblas, reflections, creflections, sblas, ablasf, ablas, ortfac, blas, rotations, bdsvd, svd, hqrnd, matgen, trfac, trlinsolve, safesolve, rcond, xblas;
+uses Math, Sysutils, Ap, hblas, reflections, creflections, sblas, ablasf, ablas, ortfac, blas, rotations, bdsvd, svd, hqrnd, matgen, trfac, trlinsolve, safesolve, rcond, xblas;
 
 type
 DenseSolverReport = record
@@ -44,7 +42,7 @@ procedure RMatrixSolve(const A : TReal2DArray;
      const B : TReal1DArray;
      var Info : AlglibInteger;
      var Rep : DenseSolverReport;
-     var X : TReal1DArray);inline;
+     var X : TReal1DArray);
 procedure RMatrixSolveM(const A : TReal2DArray;
      N : AlglibInteger;
      const B : TReal2DArray;
@@ -52,14 +50,14 @@ procedure RMatrixSolveM(const A : TReal2DArray;
      RFS : Boolean;
      var Info : AlglibInteger;
      var Rep : DenseSolverReport;
-     var X : TReal2DArray);inline;
+     var X : TReal2DArray);
 procedure RMatrixLUSolve(const LUA : TReal2DArray;
      const P : TInteger1DArray;
      N : AlglibInteger;
      const B : TReal1DArray;
      var Info : AlglibInteger;
      var Rep : DenseSolverReport;
-     var X : TReal1DArray);inline;
+     var X : TReal1DArray);
 procedure RMatrixLUSolveM(const LUA : TReal2DArray;
      const P : TInteger1DArray;
      N : AlglibInteger;
@@ -67,7 +65,7 @@ procedure RMatrixLUSolveM(const LUA : TReal2DArray;
      M : AlglibInteger;
      var Info : AlglibInteger;
      var Rep : DenseSolverReport;
-     var X : TReal2DArray);inline;
+     var X : TReal2DArray);
 procedure RMatrixMixedSolve(const A : TReal2DArray;
      const LUA : TReal2DArray;
      const P : TInteger1DArray;
@@ -75,7 +73,7 @@ procedure RMatrixMixedSolve(const A : TReal2DArray;
      const B : TReal1DArray;
      var Info : AlglibInteger;
      var Rep : DenseSolverReport;
-     var X : TReal1DArray);inline;
+     var X : TReal1DArray);
 procedure RMatrixMixedSolveM(const A : TReal2DArray;
      const LUA : TReal2DArray;
      const P : TInteger1DArray;
@@ -84,7 +82,7 @@ procedure RMatrixMixedSolveM(const A : TReal2DArray;
      M : AlglibInteger;
      var Info : AlglibInteger;
      var Rep : DenseSolverReport;
-     var X : TReal2DArray);inline;
+     var X : TReal2DArray);
 procedure CMatrixSolveM(const A : TComplex2DArray;
      N : AlglibInteger;
      const B : TComplex2DArray;
@@ -92,13 +90,13 @@ procedure CMatrixSolveM(const A : TComplex2DArray;
      RFS : Boolean;
      var Info : AlglibInteger;
      var Rep : DenseSolverReport;
-     var X : TComplex2DArray);inline;
+     var X : TComplex2DArray);
 procedure CMatrixSolve(const A : TComplex2DArray;
      N : AlglibInteger;
      const B : TComplex1DArray;
      var Info : AlglibInteger;
      var Rep : DenseSolverReport;
-     var X : TComplex1DArray);inline;
+     var X : TComplex1DArray);
 procedure CMatrixLUSolveM(const LUA : TComplex2DArray;
      const P : TInteger1DArray;
      N : AlglibInteger;
@@ -106,14 +104,14 @@ procedure CMatrixLUSolveM(const LUA : TComplex2DArray;
      M : AlglibInteger;
      var Info : AlglibInteger;
      var Rep : DenseSolverReport;
-     var X : TComplex2DArray);inline;
+     var X : TComplex2DArray);
 procedure CMatrixLUSolve(const LUA : TComplex2DArray;
      const P : TInteger1DArray;
      N : AlglibInteger;
      const B : TComplex1DArray;
      var Info : AlglibInteger;
      var Rep : DenseSolverReport;
-     var X : TComplex1DArray);inline;
+     var X : TComplex1DArray);
 procedure CMatrixMixedSolveM(const A : TComplex2DArray;
      const LUA : TComplex2DArray;
      const P : TInteger1DArray;
@@ -122,7 +120,7 @@ procedure CMatrixMixedSolveM(const A : TComplex2DArray;
      M : AlglibInteger;
      var Info : AlglibInteger;
      var Rep : DenseSolverReport;
-     var X : TComplex2DArray);inline;
+     var X : TComplex2DArray);
 procedure CMatrixMixedSolve(const A : TComplex2DArray;
      const LUA : TComplex2DArray;
      const P : TInteger1DArray;
@@ -130,7 +128,7 @@ procedure CMatrixMixedSolve(const A : TComplex2DArray;
      const B : TComplex1DArray;
      var Info : AlglibInteger;
      var Rep : DenseSolverReport;
-     var X : TComplex1DArray);inline;
+     var X : TComplex1DArray);
 procedure SPDMatrixSolveM(const A : TReal2DArray;
      N : AlglibInteger;
      IsUpper : Boolean;
@@ -138,14 +136,14 @@ procedure SPDMatrixSolveM(const A : TReal2DArray;
      M : AlglibInteger;
      var Info : AlglibInteger;
      var Rep : DenseSolverReport;
-     var X : TReal2DArray);//inline;
+     var X : TReal2DArray);
 procedure SPDMatrixSolve(const A : TReal2DArray;
      N : AlglibInteger;
      IsUpper : Boolean;
      const B : TReal1DArray;
      var Info : AlglibInteger;
      var Rep : DenseSolverReport;
-     var X : TReal1DArray);//inline;
+     var X : TReal1DArray);
 procedure SPDMatrixCholeskySolveM(const CHA : TReal2DArray;
      N : AlglibInteger;
      IsUpper : Boolean;
@@ -153,14 +151,14 @@ procedure SPDMatrixCholeskySolveM(const CHA : TReal2DArray;
      M : AlglibInteger;
      var Info : AlglibInteger;
      var Rep : DenseSolverReport;
-     var X : TReal2DArray);//inline;
+     var X : TReal2DArray);
 procedure SPDMatrixCholeskySolve(const CHA : TReal2DArray;
      N : AlglibInteger;
      IsUpper : Boolean;
      const B : TReal1DArray;
      var Info : AlglibInteger;
      var Rep : DenseSolverReport;
-     var X : TReal1DArray);//inline;
+     var X : TReal1DArray);
 procedure HPDMatrixSolveM(const A : TComplex2DArray;
      N : AlglibInteger;
      IsUpper : Boolean;
@@ -168,14 +166,14 @@ procedure HPDMatrixSolveM(const A : TComplex2DArray;
      M : AlglibInteger;
      var Info : AlglibInteger;
      var Rep : DenseSolverReport;
-     var X : TComplex2DArray);inline;
+     var X : TComplex2DArray);
 procedure HPDMatrixSolve(const A : TComplex2DArray;
      N : AlglibInteger;
      IsUpper : Boolean;
      const B : TComplex1DArray;
      var Info : AlglibInteger;
      var Rep : DenseSolverReport;
-     var X : TComplex1DArray);inline;
+     var X : TComplex1DArray);
 procedure HPDMatrixCholeskySolveM(const CHA : TComplex2DArray;
      N : AlglibInteger;
      IsUpper : Boolean;
@@ -183,14 +181,14 @@ procedure HPDMatrixCholeskySolveM(const CHA : TComplex2DArray;
      M : AlglibInteger;
      var Info : AlglibInteger;
      var Rep : DenseSolverReport;
-     var X : TComplex2DArray);inline;
+     var X : TComplex2DArray);
 procedure HPDMatrixCholeskySolve(const CHA : TComplex2DArray;
      N : AlglibInteger;
      IsUpper : Boolean;
      const B : TComplex1DArray;
      var Info : AlglibInteger;
      var Rep : DenseSolverReport;
-     var X : TComplex1DArray);inline;
+     var X : TComplex1DArray);
 procedure RMatrixSolveLS(const A : TReal2DArray;
      NRows : AlglibInteger;
      NCols : AlglibInteger;
@@ -198,8 +196,9 @@ procedure RMatrixSolveLS(const A : TReal2DArray;
      Threshold : Extended;
      var Info : AlglibInteger;
      var Rep : DenseSolverLSReport;
-     var X : TReal1DArray);inline;
+     var X : TReal1DArray);
 
+implementation
 
 procedure RMatrixLUSolveInternal(const LUA : TReal2DArray;
      const P : TInteger1DArray;
@@ -247,7 +246,7 @@ procedure HPDMatrixCholeskySolveInternal(const CHA : TComplex2DArray;
      var X : TComplex2DArray);forward;
 function DenseSolverRFSMax(N : AlglibInteger;
      R1 : Extended;
-     RInf : Extended):AlglibInteger;forward;inline;
+     RInf : Extended):AlglibInteger;forward;
 function DenseSolverRFSMaxV2(N : AlglibInteger;
      R2 : Extended):AlglibInteger;forward;
 procedure RBasicLUSolve(const LUA : TReal2DArray;
@@ -255,7 +254,7 @@ procedure RBasicLUSolve(const LUA : TReal2DArray;
      ScaleA : Extended;
      N : AlglibInteger;
      var XB : TReal1DArray;
-     var Tmp : TReal1DArray);forward;inline;
+     var Tmp : TReal1DArray);forward;
 procedure SPDBasicCholeskySolve(const CHA : TReal2DArray;
      SqrtScaleA : Extended;
      N : AlglibInteger;
@@ -267,15 +266,13 @@ procedure CBasicLUSolve(const LUA : TComplex2DArray;
      ScaleA : Extended;
      N : AlglibInteger;
      var XB : TComplex1DArray;
-     var Tmp : TComplex1DArray);forward;inline;
+     var Tmp : TComplex1DArray);forward;
 procedure HPDBasicCholeskySolve(const CHA : TComplex2DArray;
      SqrtScaleA : Extended;
      N : AlglibInteger;
      IsUpper : Boolean;
      var XB : TComplex1DArray;
-     var Tmp : TComplex1DArray);forward;inline;
-implementation
-
+     var Tmp : TComplex1DArray);forward;
 
 
 (*************************************************************************
@@ -1394,7 +1391,8 @@ begin
     // 3. solve
     //
     SqrtScaleA := 0;
-    for I := 0 to N-1 do      
+    I:=0;
+    while I<=N-1 do
     begin
         if IsUpper then
         begin
@@ -1412,6 +1410,7 @@ begin
             SqrtScaleA := Max(SqrtScaleA, AbsReal(CHA[I,J]));
             Inc(J);
         end;
+        Inc(I);
     end;
     if AP_FP_Eq(SqrtScaleA,0) then
     begin
@@ -2346,6 +2345,8 @@ var
     I : AlglibInteger;
     J : AlglibInteger;
     K : AlglibInteger;
+    RFS : AlglibInteger;
+    NRFS : AlglibInteger;
     XC : TReal1DArray;
     Y : TReal1DArray;
     BC : TReal1DArray;
@@ -2353,10 +2354,12 @@ var
     XB : TReal1DArray;
     TX : TReal1DArray;
     V : Extended;
+    VErr : Extended;
     MXB : Extended;
     ScaleRight : Extended;
+    SmallErr : Boolean;
+    TerminateNextTime : Boolean;
     i_ : AlglibInteger;
-    //Xcopy : TReal2DArray;
 begin
     Assert(AP_FP_Greater(SqrtScaleA,0));
     
@@ -2383,12 +2386,16 @@ begin
     Rep.RInf := Rep.R1;
     if AP_FP_Less(Rep.R1,RCondThreshold) then
     begin
-        for I := 0 to N-1 do
+        I:=0;
+        while I<=N-1 do
         begin
-            for J := 0 to M-1 do
+            J:=0;
+            while J<=M-1 do
             begin
                 X[I,J] := 0;
+                Inc(J);
             end;
+            Inc(I);
         end;
         Rep.R1 := 0;
         Rep.RInf := 0;
@@ -2400,11 +2407,10 @@ begin
     //
     // solve
     //
-    //Xcopy := X;
-    //TParallel.For(0, M-1, procedure (K: Integer)
-    for K := 0 to M-1 do 
+    K:=0;
+    while K<=M-1 do
     begin
-
+        
         //
         // copy B to contiguous storage
         //
@@ -2420,9 +2426,11 @@ begin
         //   it is chosen to make |scaleRight*b| close to 1.
         //
         MXB := 0;
-        for I := 0 to N-1 do
+        I:=0;
+        while I<=N-1 do
         begin
             MXB := Max(MXB, AbsReal(BC[I]));
+            Inc(I);
         end;
         if AP_FP_Eq(MXB,0) then
         begin
@@ -2447,6 +2455,7 @@ begin
         begin
             X[i_,K] := V*XC[i_];
         end;
+        Inc(K);
     end;
 end;
 
@@ -2684,6 +2693,8 @@ var
     I : AlglibInteger;
     J : AlglibInteger;
     K : AlglibInteger;
+    RFS : AlglibInteger;
+    NRFS : AlglibInteger;
     XC : TComplex1DArray;
     Y : TComplex1DArray;
     BC : TComplex1DArray;
@@ -2691,8 +2702,11 @@ var
     XB : TComplex1DArray;
     TX : TComplex1DArray;
     V : Extended;
+    VErr : Extended;
     MXB : Extended;
     ScaleRight : Extended;
+    SmallErr : Boolean;
+    TerminateNextTime : Boolean;
     i_ : AlglibInteger;
 begin
     Assert(AP_FP_Greater(SqrtScaleA,0));
@@ -2900,7 +2914,6 @@ procedure SPDBasicCholeskySolve(const CHA : TReal2DArray;
 var
     I : AlglibInteger;
     V : Extended;
-    XBcopy, Tmpcopy : TReal1DArray;
 begin
     
     //
@@ -2912,34 +2925,34 @@ begin
         //
         // Solve U'*y=b first.
         //
-        XBcopy := XB;
-        Tmpcopy := Tmp;
-        TParallel.For(0, N-1, procedure (I: Integer)
+        I:=0;
+        while I<=N-1 do
         begin
-            XBcopy[I] := XBcopy[I]/(SqrtScaleA*CHA[I,I]);
+            XB[I] := XB[I]/(SqrtScaleA*CHA[I,I]);
             if I<N-1 then
             begin
-                V := XBcopy[I];
-                APVMove(@Tmpcopy[0], I+1, N-1, @CHA[I][0], I+1, N-1, SqrtScaleA);
-                APVSub(@XBcopy[0], I+1, N-1, @Tmpcopy[0], I+1, N-1, V);
+                V := XB[I];
+                APVMove(@Tmp[0], I+1, N-1, @CHA[I][0], I+1, N-1, SqrtScaleA);
+                APVSub(@XB[0], I+1, N-1, @Tmp[0], I+1, N-1, V);
             end;
-        end);
+            Inc(I);
+        end;
         
         //
         // Solve U*x=y then.
         //
-        TParallel.For(0, N-1, procedure (I: Integer)
+        I:=N-1;
+        while I>=0 do
         begin
-            I:=N-1 - I; // invert
             if I<N-1 then
             begin
-                APVMove(@Tmpcopy[0], I+1, N-1, @CHA[I][0], I+1, N-1, SqrtScaleA);
-                V := APVDotProduct(@Tmpcopy[0], I+1, N-1, @XBcopy[0], I+1, N-1);
-                XBcopy[I] := XBcopy[I]-V;
+                APVMove(@Tmp[0], I+1, N-1, @CHA[I][0], I+1, N-1, SqrtScaleA);
+                V := APVDotProduct(@Tmp[0], I+1, N-1, @XB[0], I+1, N-1);
+                XB[I] := XB[I]-V;
             end;
-            XBcopy[I] := XBcopy[I]/(SqrtScaleA*CHA[I,I]);
-        end);
-        
+            XB[I] := XB[I]/(SqrtScaleA*CHA[I,I]);
+            Dec(I);
+        end;
     end
     else
     begin

@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Copyright (c) 2008, Sergey Bochkanov (ALGLIB project).
 
@@ -33,28 +31,28 @@ LOGITMCState = record
     BRACKT : Boolean;
     STAGE1 : Boolean;
     INFOC : AlglibInteger;
-    DG : Double;
-    DGM : Double;
-    DGINIT : Double;
-    DGTEST : Double;
-    DGX : Double;
-    DGXM : Double;
-    DGY : Double;
-    DGYM : Double;
-    FINIT : Double;
-    FTEST1 : Double;
-    FM : Double;
-    FX : Double;
-    FXM : Double;
-    FY : Double;
-    FYM : Double;
-    STX : Double;
-    STY : Double;
-    STMIN : Double;
-    STMAX : Double;
-    WIDTH : Double;
-    WIDTH1 : Double;
-    XTRAPF : Double;
+    DG : Extended;
+    DGM : Extended;
+    DGINIT : Extended;
+    DGTEST : Extended;
+    DGX : Extended;
+    DGXM : Extended;
+    DGY : Extended;
+    DGYM : Extended;
+    FINIT : Extended;
+    FTEST1 : Extended;
+    FM : Extended;
+    FX : Extended;
+    FXM : Extended;
+    FY : Extended;
+    FYM : Extended;
+    STX : Extended;
+    STY : Extended;
+    STMIN : Extended;
+    STMAX : Extended;
+    WIDTH : Extended;
+    WIDTH1 : Extended;
+    XTRAPF : Extended;
 end;
 
 
@@ -95,19 +93,19 @@ procedure MNLSerialize(const LM : LogitModel;
 procedure MNLUnserialize(const RA : TReal1DArray; var LM : LogitModel);
 function MNLAvgCE(var LM : LogitModel;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):Extended;
 function MNLRelClsError(var LM : LogitModel;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):Extended;
 function MNLRMSError(var LM : LogitModel;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):Extended;
 function MNLAvgError(var LM : LogitModel;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):Extended;
 function MNLAvgRelError(var LM : LogitModel;
      const XY : TReal2DArray;
-     SSize : AlglibInteger):Double;
+     SSize : AlglibInteger):Extended;
 function MNLClsError(var LM : LogitModel;
      const XY : TReal2DArray;
      NPoints : AlglibInteger):AlglibInteger;
@@ -116,45 +114,45 @@ implementation
 
 const
     XTOL = 100*MachineEpsilon;
-    FTOL = Double(0.0001);
-    GTOL = Double(0.3);
+    FTOL = 0.0001;
+    GTOL = 0.3;
     MAXFEV = 20;
-    STPMIN = Double(1.0E-2);
-    STPMAX = Double(1.0E5);
+    STPMIN = 1.0E-2;
+    STPMAX = 1.0E5;
     LogitVNum = 6;
 
 procedure MNLIExp(var W : TReal1DArray; const X : TReal1DArray);forward;
 procedure MNLAllErrors(var LM : LogitModel;
      const XY : TReal2DArray;
      NPoints : AlglibInteger;
-     var RelCls : Double;
-     var AvgCE : Double;
-     var RMS : Double;
-     var Avg : Double;
-     var AvgRel : Double);forward;
+     var RelCls : Extended;
+     var AvgCE : Extended;
+     var RMS : Extended;
+     var Avg : Extended;
+     var AvgRel : Extended);forward;
 procedure MNLMCSRCH(const N : AlglibInteger;
      var X : TReal1DArray;
-     var F : Double;
+     var F : Extended;
      var G : TReal1DArray;
      const S : TReal1DArray;
-     var STP : Double;
+     var STP : Extended;
      var INFO : AlglibInteger;
      var NFEV : AlglibInteger;
      var WA : TReal1DArray;
      var State : LOGITMCState;
      var Stage : AlglibInteger);forward;
-procedure MNLMCSTEP(var STX : Double;
-     var FX : Double;
-     var DX : Double;
-     var STY : Double;
-     var FY : Double;
-     var DY : Double;
-     var STP : Double;
-     const FP : Double;
-     const DP : Double;
+procedure MNLMCSTEP(var STX : Extended;
+     var FX : Extended;
+     var DX : Extended;
+     var STY : Extended;
+     var FY : Extended;
+     var DY : Extended;
+     var STP : Extended;
+     const FP : Extended;
+     const DP : Extended;
      var BRACKT : Boolean;
-     const STMIN : Double;
-     const STMAX : Double;
+     const STMIN : Extended;
+     const STMAX : Extended;
      var INFO : AlglibInteger);forward;
 
 
@@ -198,25 +196,25 @@ var
     SSize : AlglibInteger;
     AllSame : Boolean;
     Offs : AlglibInteger;
-    Threshold : Double;
-    WMinStep : Double;
-    Decay : Double;
+    Threshold : Extended;
+    WMinStep : Extended;
+    Decay : Extended;
     WDim : AlglibInteger;
     ExpOffs : AlglibInteger;
-    V : Double;
-    S : Double;
+    V : Extended;
+    S : Extended;
     Network : MultiLayerPerceptron;
     NIn : AlglibInteger;
     NOut : AlglibInteger;
     WCount : AlglibInteger;
-    E : Double;
+    E : Extended;
     G : TReal1DArray;
     H : TReal2DArray;
     SPD : Boolean;
     X : TReal1DArray;
     Y : TReal1DArray;
     WBase : TReal1DArray;
-    WStep : Double;
+    WStep : Extended;
     WDir : TReal1DArray;
     WORK : TReal1DArray;
     MCStage : AlglibInteger;
@@ -227,8 +225,8 @@ var
     SolverRep : DenseSolverReport;
 begin
     Threshold := 1000*MachineEpsilon;
-    WMinStep := Double(0.001);
-    Decay := Double(0.001);
+    WMinStep := 0.001;
+    Decay := 0.001;
     
     //
     // Test for inputs
@@ -352,7 +350,7 @@ begin
         //
         MLPGradNBatch(Network, XY, NPoints, E, G);
         V := APVDotProduct(@Network.Weights[0], 0, WCount-1, @Network.Weights[0], 0, WCount-1);
-        E := E+Double(0.5)*Decay*V;
+        E := E+0.5*Decay*V;
         APVAdd(@G[0], 0, WCount-1, @Network.Weights[0], 0, WCount-1, Decay);
         Rep.NGrad := Rep.NGrad+1;
         
@@ -370,7 +368,7 @@ begin
         begin
             MLPGradNBatch(Network, XY, NPoints, E, G);
             V := APVDotProduct(@Network.Weights[0], 0, WCount-1, @Network.Weights[0], 0, WCount-1);
-            E := E+Double(0.5)*Decay*V;
+            E := E+0.5*Decay*V;
             APVAdd(@G[0], 0, WCount-1, @Network.Weights[0], 0, WCount-1, Decay);
             Rep.NGrad := Rep.NGrad+1;
             MNLMCSRCH(WCount, Network.Weights, E, G, WDir, WStep, MCInfo, MCNFEV, WORK, MCState, MCStage);
@@ -389,7 +387,7 @@ begin
         //
         MLPHessianNBatch(Network, XY, NPoints, E, G, H);
         V := APVDotProduct(@Network.Weights[0], 0, WCount-1, @Network.Weights[0], 0, WCount-1);
-        E := E+Double(0.5)*Decay*V;
+        E := E+0.5*Decay*V;
         APVAdd(@G[0], 0, WCount-1, @Network.Weights[0], 0, WCount-1, Decay);
         K:=0;
         while K<=WCount-1 do
@@ -441,7 +439,7 @@ begin
         begin
             MLPGradNBatch(Network, XY, NPoints, E, G);
             V := APVDotProduct(@Network.Weights[0], 0, WCount-1, @Network.Weights[0], 0, WCount-1);
-            E := E+Double(0.5)*Decay*V;
+            E := E+0.5*Decay*V;
             APVAdd(@G[0], 0, WCount-1, @Network.Weights[0], 0, WCount-1, Decay);
             Rep.NGrad := Rep.NGrad+1;
             MNLMCSRCH(WCount, Network.Weights, E, G, WDir, WStep, MCInfo, MCNFEV, WORK, MCState, MCStage);
@@ -512,7 +510,7 @@ var
     Offs : AlglibInteger;
     I : AlglibInteger;
     I1 : AlglibInteger;
-    S : Double;
+    S : Extended;
 begin
     Assert(AP_FP_Eq(LM.W[1],LogitVNum), 'MNLProcess: unexpected model version');
     NVars := Round(LM.W[2]);
@@ -702,7 +700,7 @@ RESULT:
 *************************************************************************)
 function MNLAvgCE(var LM : LogitModel;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):Extended;
 var
     NVars : AlglibInteger;
     NClasses : AlglibInteger;
@@ -756,7 +754,7 @@ RESULT:
 *************************************************************************)
 function MNLRelClsError(var LM : LogitModel;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):Extended;
 begin
     Result := AP_Double(MNLClsError(LM, XY, NPoints))/NPoints;
 end;
@@ -778,13 +776,13 @@ RESULT:
 *************************************************************************)
 function MNLRMSError(var LM : LogitModel;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):Extended;
 var
-    RelCls : Double;
-    AvgCE : Double;
-    RMS : Double;
-    Avg : Double;
-    AvgRel : Double;
+    RelCls : Extended;
+    AvgCE : Extended;
+    RMS : Extended;
+    Avg : Extended;
+    AvgRel : Extended;
 begin
     Assert(Round(LM.W[1])=LogitVNum, 'MNLRMSError: Incorrect MNL version!');
     MNLAllErrors(LM, XY, NPoints, RelCls, AvgCE, RMS, Avg, AvgRel);
@@ -808,13 +806,13 @@ RESULT:
 *************************************************************************)
 function MNLAvgError(var LM : LogitModel;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):Extended;
 var
-    RelCls : Double;
-    AvgCE : Double;
-    RMS : Double;
-    Avg : Double;
-    AvgRel : Double;
+    RelCls : Extended;
+    AvgCE : Extended;
+    RMS : Extended;
+    Avg : Extended;
+    AvgRel : Extended;
 begin
     Assert(Round(LM.W[1])=LogitVNum, 'MNLRMSError: Incorrect MNL version!');
     MNLAllErrors(LM, XY, NPoints, RelCls, AvgCE, RMS, Avg, AvgRel);
@@ -838,13 +836,13 @@ RESULT:
 *************************************************************************)
 function MNLAvgRelError(var LM : LogitModel;
      const XY : TReal2DArray;
-     SSize : AlglibInteger):Double;
+     SSize : AlglibInteger):Extended;
 var
-    RelCls : Double;
-    AvgCE : Double;
-    RMS : Double;
-    Avg : Double;
-    AvgRel : Double;
+    RelCls : Extended;
+    AvgCE : Extended;
+    RMS : Extended;
+    Avg : Extended;
+    AvgRel : Extended;
 begin
     Assert(Round(LM.W[1])=LogitVNum, 'MNLRMSError: Incorrect MNL version!');
     MNLAllErrors(LM, XY, SSize, RelCls, AvgCE, RMS, Avg, AvgRel);
@@ -923,8 +921,8 @@ var
     Offs : AlglibInteger;
     I : AlglibInteger;
     I1 : AlglibInteger;
-    V : Double;
-    MX : Double;
+    V : Extended;
+    MX : Extended;
 begin
     Assert(AP_FP_Eq(W[1],LogitVNum), 'LOGIT: unexpected model version');
     NVars := Round(W[2]);
@@ -964,11 +962,11 @@ Calculation of all types of errors
 procedure MNLAllErrors(var LM : LogitModel;
      const XY : TReal2DArray;
      NPoints : AlglibInteger;
-     var RelCls : Double;
-     var AvgCE : Double;
-     var RMS : Double;
-     var Avg : Double;
-     var AvgRel : Double);
+     var RelCls : Extended;
+     var AvgCE : Extended;
+     var RMS : Extended;
+     var Avg : Extended;
+     var AvgRel : Extended);
 var
     NVars : AlglibInteger;
     NClasses : AlglibInteger;
@@ -1092,28 +1090,28 @@ JORGE J. MORE', DAVID J. THUENTE
 *************************************************************************)
 procedure MNLMCSRCH(const N : AlglibInteger;
      var X : TReal1DArray;
-     var F : Double;
+     var F : Extended;
      var G : TReal1DArray;
      const S : TReal1DArray;
-     var STP : Double;
+     var STP : Extended;
      var INFO : AlglibInteger;
      var NFEV : AlglibInteger;
      var WA : TReal1DArray;
      var State : LOGITMCState;
      var Stage : AlglibInteger);
 var
-    V : Double;
-    P5 : Double;
-    P66 : Double;
-    ZERO : Double;
+    V : Extended;
+    P5 : Extended;
+    P66 : Extended;
+    ZERO : Extended;
 begin
     
     //
     // init
     //
-    P5 := Double(0.5);
-    P66 := Double(0.66);
-    State.XTRAPF := Double(4.0);
+    P5 := 0.5;
+    P66 := 0.66;
+    State.XTRAPF := 4.0;
     ZERO := 0;
     
     //
@@ -1374,31 +1372,31 @@ begin
 end;
 
 
-procedure MNLMCSTEP(var STX : Double;
-     var FX : Double;
-     var DX : Double;
-     var STY : Double;
-     var FY : Double;
-     var DY : Double;
-     var STP : Double;
-     const FP : Double;
-     const DP : Double;
+procedure MNLMCSTEP(var STX : Extended;
+     var FX : Extended;
+     var DX : Extended;
+     var STY : Extended;
+     var FY : Extended;
+     var DY : Extended;
+     var STP : Extended;
+     const FP : Extended;
+     const DP : Extended;
      var BRACKT : Boolean;
-     const STMIN : Double;
-     const STMAX : Double;
+     const STMIN : Extended;
+     const STMAX : Extended;
      var INFO : AlglibInteger);
 var
     BOUND : Boolean;
-    GAMMA : Double;
-    P : Double;
-    Q : Double;
-    R : Double;
-    S : Double;
-    SGND : Double;
-    STPC : Double;
-    STPF : Double;
-    STPQ : Double;
-    THETA : Double;
+    GAMMA : Extended;
+    P : Extended;
+    Q : Extended;
+    R : Extended;
+    S : Extended;
+    SGND : Extended;
+    STPC : Extended;
+    STPF : Extended;
+    STPQ : Extended;
+    THETA : Extended;
 begin
     INFO := 0;
     
@@ -1606,7 +1604,7 @@ begin
     end
     else
     begin
-        if AP_FP_Less(SGND,Double(0.0)) then
+        if AP_FP_Less(SGND,0.0) then
         begin
             STY := STX;
             FY := FX;
@@ -1627,11 +1625,11 @@ begin
     begin
         if AP_FP_Greater(STY,STX) then
         begin
-            STP := Min(STX+Double(0.66)*(STY-STX), STP);
+            STP := Min(STX+0.66*(STY-STX), STP);
         end
         else
         begin
-            STP := Max(STX+Double(0.66)*(STY-STX), STP);
+            STP := Max(STX+0.66*(STY-STX), STP);
         end;
     end;
 end;

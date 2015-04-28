@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testgammaunit;
 interface
 uses Math, Sysutils, Ap, gammafunc;
@@ -27,12 +25,12 @@ begin
     //
     //
     //
-    GammaErrors := GammaErrors or AP_FP_Greater(AbsReal(Gamma(Double(0.5))-Sqrt(Pi)),Threshold);
-    GammaErrors := GammaErrors or AP_FP_Greater(AbsReal(Gamma(Double(1.5))-Double(0.5)*Sqrt(Pi)),Threshold);
-    V := LnGamma(Double(0.5), S);
+    GammaErrors := GammaErrors or AP_FP_Greater(AbsReal(Gamma(0.5)-Sqrt(Pi)),Threshold);
+    GammaErrors := GammaErrors or AP_FP_Greater(AbsReal(Gamma(1.5)-0.5*Sqrt(Pi)),Threshold);
+    V := LnGamma(0.5, S);
     LnGammaErrors := LnGammaErrors or AP_FP_Greater(AbsReal(V-Ln(Sqrt(Pi))),Threshold) or AP_FP_Neq(S,1);
-    V := LnGamma(Double(1.5), S);
-    LnGammaErrors := LnGammaErrors or AP_FP_Greater(AbsReal(V-Ln(Double(0.5)*Sqrt(Pi))),Threshold) or AP_FP_Neq(S,1);
+    V := LnGamma(1.5, S);
+    LnGammaErrors := LnGammaErrors or AP_FP_Greater(AbsReal(V-Ln(0.5*Sqrt(Pi))),Threshold) or AP_FP_Neq(S,1);
     
     //
     // report

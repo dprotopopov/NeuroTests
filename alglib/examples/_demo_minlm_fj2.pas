@@ -1,4 +1,4 @@
-{$MODESWITCH RESULT+}
+
 program _demo;
 Array[0]
 var
@@ -32,7 +32,7 @@ begin
     I:=0;
     while I<=N-1 do
     begin
-        S[I] := RandomReal-Double(0.5);
+        S[I] := RandomReal-0.5;
         Inc(I);
     end;
     M := 100;
@@ -50,7 +50,7 @@ begin
     // Now S stores starting point, X and Y store points being fitted.
     //
     MinLMCreateFJ(N, M, S, State);
-    MinLMSetCond(State, Double(0.0), Double(0.0), Double(0.001), 0);
+    MinLMSetCond(State, 0.0, 0.0, 0.001, 0);
     while MinLMIteration(State) do
     begin
         if State.NeedF then

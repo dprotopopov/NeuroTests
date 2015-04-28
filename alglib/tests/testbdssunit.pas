@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testbdssunit;
 interface
 uses Math, Sysutils, Ap, tsort, descriptivestatistics, bdss;
@@ -107,7 +105,7 @@ begin
                 //
                 // A is randomly permuted
                 //
-                A[I] := A[I-1]+Double(0.1)*RandomReal+Double(0.1);
+                A[I] := A[I-1]+0.1*RandomReal+0.1;
                 Tmp[I] := RandomReal;
                 Inc(I);
             end;
@@ -257,7 +255,7 @@ begin
                 Inc(N);
                 Continue;
             end;
-            Split2Errors := Split2Errors or AP_FP_Greater(AbsReal(Threshold-Double(0.5)),100*MachineEpsilon);
+            Split2Errors := Split2Errors or AP_FP_Greater(AbsReal(Threshold-0.5),100*MachineEpsilon);
             Split2Errors := Split2Errors or AP_FP_Greater(AbsReal(PAL-1),100*MachineEpsilon);
             Split2Errors := Split2Errors or AP_FP_Greater(AbsReal(PBL-0),100*MachineEpsilon);
             Split2Errors := Split2Errors or AP_FP_Greater(AbsReal(PAR-0),100*MachineEpsilon);
@@ -272,225 +270,225 @@ begin
     N := 110;
     SetLength(A, N-1+1);
     SetLength(C, N-1+1);
-    A[0] := Double(0.000);
+    A[0] := 0.000;
     C[0] := 0;
-    A[1] := Double(0.000);
+    A[1] := 0.000;
     C[1] := 0;
-    A[2] := Double(0.000);
+    A[2] := 0.000;
     C[2] := 0;
-    A[3] := Double(0.000);
+    A[3] := 0.000;
     C[3] := 0;
-    A[4] := Double(0.000);
+    A[4] := 0.000;
     C[4] := 0;
-    A[5] := Double(0.000);
+    A[5] := 0.000;
     C[5] := 0;
-    A[6] := Double(0.000);
+    A[6] := 0.000;
     C[6] := 0;
-    A[7] := Double(0.000);
+    A[7] := 0.000;
     C[7] := 1;
-    A[8] := Double(0.000);
+    A[8] := 0.000;
     C[8] := 0;
-    A[9] := Double(0.000);
+    A[9] := 0.000;
     C[9] := 1;
-    A[10] := Double(0.000);
+    A[10] := 0.000;
     C[10] := 0;
-    A[11] := Double(0.000);
+    A[11] := 0.000;
     C[11] := 0;
-    A[12] := Double(0.000);
+    A[12] := 0.000;
     C[12] := 0;
-    A[13] := Double(0.000);
+    A[13] := 0.000;
     C[13] := 0;
-    A[14] := Double(0.000);
+    A[14] := 0.000;
     C[14] := 0;
-    A[15] := Double(0.000);
+    A[15] := 0.000;
     C[15] := 0;
-    A[16] := Double(0.000);
+    A[16] := 0.000;
     C[16] := 0;
-    A[17] := Double(0.000);
+    A[17] := 0.000;
     C[17] := 0;
-    A[18] := Double(0.000);
+    A[18] := 0.000;
     C[18] := 0;
-    A[19] := Double(0.000);
+    A[19] := 0.000;
     C[19] := 0;
-    A[20] := Double(0.000);
+    A[20] := 0.000;
     C[20] := 0;
-    A[21] := Double(0.000);
+    A[21] := 0.000;
     C[21] := 0;
-    A[22] := Double(0.000);
+    A[22] := 0.000;
     C[22] := 1;
-    A[23] := Double(0.000);
+    A[23] := 0.000;
     C[23] := 0;
-    A[24] := Double(0.000);
+    A[24] := 0.000;
     C[24] := 0;
-    A[25] := Double(0.000);
+    A[25] := 0.000;
     C[25] := 0;
-    A[26] := Double(0.000);
+    A[26] := 0.000;
     C[26] := 0;
-    A[27] := Double(0.000);
+    A[27] := 0.000;
     C[27] := 1;
-    A[28] := Double(0.000);
+    A[28] := 0.000;
     C[28] := 0;
-    A[29] := Double(0.000);
+    A[29] := 0.000;
     C[29] := 1;
-    A[30] := Double(0.000);
+    A[30] := 0.000;
     C[30] := 0;
-    A[31] := Double(0.000);
+    A[31] := 0.000;
     C[31] := 1;
-    A[32] := Double(0.000);
+    A[32] := 0.000;
     C[32] := 0;
-    A[33] := Double(0.000);
+    A[33] := 0.000;
     C[33] := 1;
-    A[34] := Double(0.000);
+    A[34] := 0.000;
     C[34] := 0;
-    A[35] := Double(0.030);
+    A[35] := 0.030;
     C[35] := 0;
-    A[36] := Double(0.030);
+    A[36] := 0.030;
     C[36] := 0;
-    A[37] := Double(0.050);
+    A[37] := 0.050;
     C[37] := 0;
-    A[38] := Double(0.070);
+    A[38] := 0.070;
     C[38] := 1;
-    A[39] := Double(0.110);
+    A[39] := 0.110;
     C[39] := 0;
-    A[40] := Double(0.110);
+    A[40] := 0.110;
     C[40] := 1;
-    A[41] := Double(0.120);
+    A[41] := 0.120;
     C[41] := 0;
-    A[42] := Double(0.130);
+    A[42] := 0.130;
     C[42] := 0;
-    A[43] := Double(0.140);
+    A[43] := 0.140;
     C[43] := 0;
-    A[44] := Double(0.140);
+    A[44] := 0.140;
     C[44] := 0;
-    A[45] := Double(0.140);
+    A[45] := 0.140;
     C[45] := 0;
-    A[46] := Double(0.150);
+    A[46] := 0.150;
     C[46] := 0;
-    A[47] := Double(0.150);
+    A[47] := 0.150;
     C[47] := 0;
-    A[48] := Double(0.170);
+    A[48] := 0.170;
     C[48] := 0;
-    A[49] := Double(0.190);
+    A[49] := 0.190;
     C[49] := 1;
-    A[50] := Double(0.200);
+    A[50] := 0.200;
     C[50] := 0;
-    A[51] := Double(0.200);
+    A[51] := 0.200;
     C[51] := 0;
-    A[52] := Double(0.250);
+    A[52] := 0.250;
     C[52] := 0;
-    A[53] := Double(0.250);
+    A[53] := 0.250;
     C[53] := 0;
-    A[54] := Double(0.260);
+    A[54] := 0.260;
     C[54] := 0;
-    A[55] := Double(0.270);
+    A[55] := 0.270;
     C[55] := 0;
-    A[56] := Double(0.280);
+    A[56] := 0.280;
     C[56] := 0;
-    A[57] := Double(0.310);
+    A[57] := 0.310;
     C[57] := 0;
-    A[58] := Double(0.310);
+    A[58] := 0.310;
     C[58] := 0;
-    A[59] := Double(0.330);
+    A[59] := 0.330;
     C[59] := 0;
-    A[60] := Double(0.330);
+    A[60] := 0.330;
     C[60] := 0;
-    A[61] := Double(0.340);
+    A[61] := 0.340;
     C[61] := 0;
-    A[62] := Double(0.340);
+    A[62] := 0.340;
     C[62] := 0;
-    A[63] := Double(0.370);
+    A[63] := 0.370;
     C[63] := 0;
-    A[64] := Double(0.380);
+    A[64] := 0.380;
     C[64] := 1;
-    A[65] := Double(0.380);
+    A[65] := 0.380;
     C[65] := 0;
-    A[66] := Double(0.410);
+    A[66] := 0.410;
     C[66] := 0;
-    A[67] := Double(0.460);
+    A[67] := 0.460;
     C[67] := 0;
-    A[68] := Double(0.520);
+    A[68] := 0.520;
     C[68] := 0;
-    A[69] := Double(0.530);
+    A[69] := 0.530;
     C[69] := 0;
-    A[70] := Double(0.540);
+    A[70] := 0.540;
     C[70] := 0;
-    A[71] := Double(0.560);
+    A[71] := 0.560;
     C[71] := 0;
-    A[72] := Double(0.560);
+    A[72] := 0.560;
     C[72] := 0;
-    A[73] := Double(0.570);
+    A[73] := 0.570;
     C[73] := 0;
-    A[74] := Double(0.600);
+    A[74] := 0.600;
     C[74] := 0;
-    A[75] := Double(0.600);
+    A[75] := 0.600;
     C[75] := 0;
-    A[76] := Double(0.620);
+    A[76] := 0.620;
     C[76] := 0;
-    A[77] := Double(0.650);
+    A[77] := 0.650;
     C[77] := 0;
-    A[78] := Double(0.660);
+    A[78] := 0.660;
     C[78] := 0;
-    A[79] := Double(0.680);
+    A[79] := 0.680;
     C[79] := 0;
-    A[80] := Double(0.700);
+    A[80] := 0.700;
     C[80] := 0;
-    A[81] := Double(0.750);
+    A[81] := 0.750;
     C[81] := 0;
-    A[82] := Double(0.770);
+    A[82] := 0.770;
     C[82] := 0;
-    A[83] := Double(0.770);
+    A[83] := 0.770;
     C[83] := 0;
-    A[84] := Double(0.770);
+    A[84] := 0.770;
     C[84] := 0;
-    A[85] := Double(0.790);
+    A[85] := 0.790;
     C[85] := 0;
-    A[86] := Double(0.810);
+    A[86] := 0.810;
     C[86] := 0;
-    A[87] := Double(0.840);
+    A[87] := 0.840;
     C[87] := 0;
-    A[88] := Double(0.860);
+    A[88] := 0.860;
     C[88] := 0;
-    A[89] := Double(0.870);
+    A[89] := 0.870;
     C[89] := 0;
-    A[90] := Double(0.890);
+    A[90] := 0.890;
     C[90] := 0;
-    A[91] := Double(0.900);
+    A[91] := 0.900;
     C[91] := 1;
-    A[92] := Double(0.900);
+    A[92] := 0.900;
     C[92] := 0;
-    A[93] := Double(0.910);
+    A[93] := 0.910;
     C[93] := 0;
-    A[94] := Double(0.940);
+    A[94] := 0.940;
     C[94] := 0;
-    A[95] := Double(0.950);
+    A[95] := 0.950;
     C[95] := 0;
-    A[96] := Double(0.952);
+    A[96] := 0.952;
     C[96] := 0;
-    A[97] := Double(0.970);
+    A[97] := 0.970;
     C[97] := 0;
-    A[98] := Double(0.970);
+    A[98] := 0.970;
     C[98] := 0;
-    A[99] := Double(0.980);
+    A[99] := 0.980;
     C[99] := 0;
-    A[100] := Double(1.000);
+    A[100] := 1.000;
     C[100] := 0;
-    A[101] := Double(1.000);
+    A[101] := 1.000;
     C[101] := 0;
-    A[102] := Double(1.000);
+    A[102] := 1.000;
     C[102] := 0;
-    A[103] := Double(1.000);
+    A[103] := 1.000;
     C[103] := 0;
-    A[104] := Double(1.000);
+    A[104] := 1.000;
     C[104] := 0;
-    A[105] := Double(1.020);
+    A[105] := 1.020;
     C[105] := 0;
-    A[106] := Double(1.090);
+    A[106] := 1.090;
     C[106] := 0;
-    A[107] := Double(1.130);
+    A[107] := 1.130;
     C[107] := 0;
-    A[108] := Double(1.840);
+    A[108] := 1.840;
     C[108] := 0;
-    A[109] := Double(2.470);
+    A[109] := 2.470;
     C[109] := 0;
     DSOptimalSplit2(A, C, N, Info, Threshold, PAL, PBL, PAR, PBR, CVE);
     if Info<>1 then
@@ -499,11 +497,11 @@ begin
     end
     else
     begin
-        Split2Errors := Split2Errors or AP_FP_Greater(AbsReal(Threshold-Double(0.195)),100*MachineEpsilon);
-        Split2Errors := Split2Errors or AP_FP_Greater(AbsReal(PAL-Double(0.80)),Double(0.02));
-        Split2Errors := Split2Errors or AP_FP_Greater(AbsReal(PBL-Double(0.20)),Double(0.02));
-        Split2Errors := Split2Errors or AP_FP_Greater(AbsReal(PAR-Double(0.97)),Double(0.02));
-        Split2Errors := Split2Errors or AP_FP_Greater(AbsReal(PBR-Double(0.03)),Double(0.02));
+        Split2Errors := Split2Errors or AP_FP_Greater(AbsReal(Threshold-0.195),100*MachineEpsilon);
+        Split2Errors := Split2Errors or AP_FP_Greater(AbsReal(PAL-0.80),0.02);
+        Split2Errors := Split2Errors or AP_FP_Greater(AbsReal(PBL-0.20),0.02);
+        Split2Errors := Split2Errors or AP_FP_Greater(AbsReal(PAR-0.97),0.02);
+        Split2Errors := Split2Errors or AP_FP_Greater(AbsReal(PBR-0.03),0.02);
     end;
     
     //
@@ -533,7 +531,7 @@ begin
                 C[I] := I mod 2;
                 Inc(I);
             end;
-            DSOptimalSplit2Fast(A, C, TieBuf, CntBuf, N, 2, Double(0.00), Info, Threshold, RMS, CVRMS);
+            DSOptimalSplit2Fast(A, C, TieBuf, CntBuf, N, 2, 0.00, Info, Threshold, RMS, CVRMS);
             if Info<>-3 then
             begin
                 Split2Errors := True;
@@ -558,24 +556,24 @@ begin
                 C[I] := I div ((N+1) div 2);
                 Inc(I);
             end;
-            DSOptimalSplit2Fast(A, C, TieBuf, CntBuf, N, 2, Double(0.00), Info, Threshold, RMS, CVRMS);
+            DSOptimalSplit2Fast(A, C, TieBuf, CntBuf, N, 2, 0.00, Info, Threshold, RMS, CVRMS);
             if Info<>1 then
             begin
                 Split2Errors := True;
                 Inc(N);
                 Continue;
             end;
-            Split2Errors := Split2Errors or AP_FP_Greater(AbsReal(Threshold-Double(0.5)),100*MachineEpsilon);
+            Split2Errors := Split2Errors or AP_FP_Greater(AbsReal(Threshold-0.5),100*MachineEpsilon);
             Split2Errors := Split2Errors or AP_FP_Greater(AbsReal(RMS-0),100*MachineEpsilon);
             if N=2 then
             begin
-                Split2Errors := Split2Errors or AP_FP_Greater(AbsReal(CVRMS-Double(0.5)),100*MachineEpsilon);
+                Split2Errors := Split2Errors or AP_FP_Greater(AbsReal(CVRMS-0.5),100*MachineEpsilon);
             end
             else
             begin
                 if N=3 then
                 begin
-                    Split2Errors := Split2Errors or AP_FP_Greater(AbsReal(CVRMS-Sqrt((2*0+2*0+2*Double(0.25))/6)),100*MachineEpsilon);
+                    Split2Errors := Split2Errors or AP_FP_Greater(AbsReal(CVRMS-Sqrt((2*0+2*0+2*0.25)/6)),100*MachineEpsilon);
                 end
                 else
                 begin
@@ -608,15 +606,15 @@ begin
         end;
         Inc(I);
     end;
-    DSOptimalSplit2Fast(A, C, TieBuf, CntBuf, N, 3, Double(0.00), Info, Threshold, RMS, CVRMS);
+    DSOptimalSplit2Fast(A, C, TieBuf, CntBuf, N, 3, 0.00, Info, Threshold, RMS, CVRMS);
     if Info<>1 then
     begin
         Split2Errors := True;
     end
     else
     begin
-        Split2Errors := Split2Errors or AP_FP_Greater(AbsReal(Threshold-(N-Double(2.5))),100*MachineEpsilon);
-        Split2Errors := Split2Errors or AP_FP_Greater(AbsReal(RMS-Sqrt((Double(0.25)+Double(0.25)+Double(0.25)+Double(0.25))/(3*N))),100*MachineEpsilon);
+        Split2Errors := Split2Errors or AP_FP_Greater(AbsReal(Threshold-(N-2.5)),100*MachineEpsilon);
+        Split2Errors := Split2Errors or AP_FP_Greater(AbsReal(RMS-Sqrt((0.25+0.25+0.25+0.25)/(3*N))),100*MachineEpsilon);
         Split2Errors := Split2Errors or AP_FP_Greater(AbsReal(CVRMS-Sqrt(AP_Double((1+1+1+1))/(3*N))),100*MachineEpsilon);
     end;
     
@@ -688,7 +686,7 @@ begin
                 Continue;
             end;
             OptimalSplitKErrors := OptimalSplitKErrors or (NI<>2);
-            OptimalSplitKErrors := OptimalSplitKErrors or AP_FP_Greater(AbsReal(Thresholds[0]-Double(0.5)),100*MachineEpsilon);
+            OptimalSplitKErrors := OptimalSplitKErrors or AP_FP_Greater(AbsReal(Thresholds[0]-0.5),100*MachineEpsilon);
             OptimalSplitKErrors := OptimalSplitKErrors or AP_FP_Greater(AbsReal(CVE-(-C0*Ln(AP_Double(C0)/(C0+1))-C1*Ln(AP_Double(C1)/(C1+1)))),100*MachineEpsilon);
         end;
         
@@ -722,7 +720,7 @@ begin
                 Continue;
             end;
             OptimalSplitKErrors := OptimalSplitKErrors or (NI<>2);
-            OptimalSplitKErrors := OptimalSplitKErrors or AP_FP_Greater(AbsReal(Thresholds[0]-Double(0.5)),100*MachineEpsilon);
+            OptimalSplitKErrors := OptimalSplitKErrors or AP_FP_Greater(AbsReal(Thresholds[0]-0.5),100*MachineEpsilon);
             OptimalSplitKErrors := OptimalSplitKErrors or AP_FP_Greater(AbsReal(CVE-(-C0*Ln(AP_Double(C0)/(C0+1))-C1*Ln(AP_Double(C1)/(C1+1)))),100*MachineEpsilon);
         end;
         
@@ -773,7 +771,7 @@ begin
                 I:=0;
                 while I<=NC-2 do
                 begin
-                    OptimalSplitKErrors := OptimalSplitKErrors or AP_FP_Greater(AbsReal(Thresholds[I]-(C0*(I+1)-1+Double(0.5))),100*MachineEpsilon);
+                    OptimalSplitKErrors := OptimalSplitKErrors or AP_FP_Greater(AbsReal(Thresholds[I]-(C0*(I+1)-1+0.5)),100*MachineEpsilon);
                     Inc(I);
                 end;
                 CVR := -((NC-1)*C0*Ln(AP_Double(C0)/(C0+NC-1))+C1*Ln(AP_Double(C1)/(C1+NC-1)));
@@ -853,7 +851,7 @@ begin
             SplitKErrors := SplitKErrors or (NI<>2);
             if NI=2 then
             begin
-                SplitKErrors := SplitKErrors or AP_FP_Greater(AbsReal(Thresholds[0]-Double(0.5)),100*MachineEpsilon);
+                SplitKErrors := SplitKErrors or AP_FP_Greater(AbsReal(Thresholds[0]-0.5),100*MachineEpsilon);
                 SplitKErrors := SplitKErrors or AP_FP_Greater(AbsReal(CVE-(-C0*Ln(AP_Double(C0)/(C0+1))-C1*Ln(AP_Double(C1)/(C1+1)))),100*MachineEpsilon);
             end;
         end;
@@ -890,7 +888,7 @@ begin
             SplitKErrors := SplitKErrors or (NI<>2);
             if NI=2 then
             begin
-                SplitKErrors := SplitKErrors or AP_FP_Greater(AbsReal(Thresholds[0]-Double(0.5)),100*MachineEpsilon);
+                SplitKErrors := SplitKErrors or AP_FP_Greater(AbsReal(Thresholds[0]-0.5),100*MachineEpsilon);
                 SplitKErrors := SplitKErrors or AP_FP_Greater(AbsReal(CVE-(-C0*Ln(AP_Double(C0)/(C0+1))-C1*Ln(AP_Double(C1)/(C1+1)))),100*MachineEpsilon);
             end;
         end;
@@ -929,7 +927,7 @@ begin
                     I:=0;
                     while I<=NC-2 do
                     begin
-                        SplitKErrors := SplitKErrors or AP_FP_Greater(AbsReal(Thresholds[I]-(C0*(I+1)-1+Double(0.5))),100*MachineEpsilon);
+                        SplitKErrors := SplitKErrors or AP_FP_Greater(AbsReal(Thresholds[I]-(C0*(I+1)-1+0.5)),100*MachineEpsilon);
                         Inc(I);
                     end;
                     CVR := -NC*C0*Ln(AP_Double(C0)/(C0+NC-1));

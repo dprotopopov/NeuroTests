@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Copyright (c) 2005-2007, Sergey Bochkanov (ALGLIB project).
 
@@ -25,17 +23,17 @@ uses Math, Sysutils, Ap, reflections, creflections, hqrnd, matgen, ablasf, ablas
 
 function RMatrixLUDet(const A : TReal2DArray;
      const Pivots : TInteger1DArray;
-     N : AlglibInteger):Double;
-function RMatrixDet(A : TReal2DArray; N : AlglibInteger):Double;
+     N : AlglibInteger):Extended;
+function RMatrixDet(A : TReal2DArray; N : AlglibInteger):Extended;
 function CMatrixLUDet(const A : TComplex2DArray;
      const Pivots : TInteger1DArray;
      N : AlglibInteger):Complex;
 function CMatrixDet(A : TComplex2DArray; N : AlglibInteger):Complex;
 function SPDMatrixCholeskyDet(const A : TReal2DArray;
-     N : AlglibInteger):Double;
+     N : AlglibInteger):Extended;
 function SPDMatrixDet(A : TReal2DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Double;
+     IsUpper : Boolean):Extended;
 
 implementation
 
@@ -57,7 +55,7 @@ Result: matrix determinant.
 *************************************************************************)
 function RMatrixLUDet(const A : TReal2DArray;
      const Pivots : TInteger1DArray;
-     N : AlglibInteger):Double;
+     N : AlglibInteger):Extended;
 var
     I : AlglibInteger;
     S : AlglibInteger;
@@ -90,7 +88,7 @@ Result: determinant of matrix A.
   -- ALGLIB --
      Copyright 2005 by Bochkanov Sergey
 *************************************************************************)
-function RMatrixDet(A : TReal2DArray; N : AlglibInteger):Double;
+function RMatrixDet(A : TReal2DArray; N : AlglibInteger):Extended;
 var
     Pivots : TInteger1DArray;
 begin
@@ -180,7 +178,7 @@ Result:
      Copyright 2005-2008 by Bochkanov Sergey
 *************************************************************************)
 function SPDMatrixCholeskyDet(const A : TReal2DArray;
-     N : AlglibInteger):Double;
+     N : AlglibInteger):Extended;
 var
     I : AlglibInteger;
 begin
@@ -214,7 +212,7 @@ Result:
 *************************************************************************)
 function SPDMatrixDet(A : TReal2DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Double;
+     IsUpper : Boolean):Extended;
 begin
     A := DynamicArrayCopy(A);
     if  not SPDMatrixCholesky(A, N, IsUpper) then

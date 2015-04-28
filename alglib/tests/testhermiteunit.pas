@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testhermiteunit;
 interface
 uses Math, Sysutils, Ap, hermite;
@@ -29,7 +27,7 @@ begin
     Err := 0;
     SumErr := 0;
     CErr := 0;
-    Threshold := Double(1.0E-9);
+    Threshold := 1.0E-9;
     WasErrors := False;
     
     //

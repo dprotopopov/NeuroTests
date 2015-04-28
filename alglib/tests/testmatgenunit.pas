@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testmatgenunit;
 interface
 uses Math, Sysutils, Ap, reflections, creflections, hqrnd, matgen;
@@ -1076,9 +1074,9 @@ begin
     begin
         MinMN := N;
     end;
-    g := Double(0.0);
-    vscale := Double(0.0);
-    anorm := Double(0.0);
+    g := 0.0;
+    vscale := 0.0;
+    anorm := 0.0;
     i:=1;
     while i<=n do
     begin
@@ -1095,7 +1093,7 @@ begin
                 vscale := vscale+AbsReal(a[k,i]);
                 Inc(k);
             end;
-            if AP_FP_Neq(vscale,Double(0.0)) then
+            if AP_FP_Neq(vscale,0.0) then
             begin
                 k:=i;
                 while k<=m do
@@ -1113,7 +1111,7 @@ begin
                     j:=l;
                     while j<=n do
                     begin
-                        s := Double(0.0);
+                        s := 0.0;
                         k:=i;
                         while k<=m do
                         begin
@@ -1139,9 +1137,9 @@ begin
             end;
         end;
         w[i] := vscale*g;
-        g := Double(0.0);
-        s := Double(0.0);
-        vscale := Double(0.0);
+        g := 0.0;
+        s := 0.0;
+        vscale := 0.0;
         if (i<=m) and (i<>n) then
         begin
             k:=l;
@@ -1150,7 +1148,7 @@ begin
                 vscale := vscale+AbsReal(a[i,k]);
                 Inc(k);
             end;
-            if AP_FP_Neq(vscale,Double(0.0)) then
+            if AP_FP_Neq(vscale,0.0) then
             begin
                 k:=l;
                 while k<=n do
@@ -1174,7 +1172,7 @@ begin
                     j:=l;
                     while j<=m do
                     begin
-                        s := Double(0.0);
+                        s := 0.0;
                         k:=l;
                         while k<=n do
                         begin
@@ -1206,7 +1204,7 @@ begin
     begin
         if i<n then
         begin
-            if AP_FP_Neq(g,Double(0.0)) then
+            if AP_FP_Neq(g,0.0) then
             begin
                 j:=l;
                 while j<=n do
@@ -1217,7 +1215,7 @@ begin
                 j:=l;
                 while j<=n do
                 begin
-                    s := Double(0.0);
+                    s := 0.0;
                     k:=l;
                     while k<=n do
                     begin
@@ -1236,12 +1234,12 @@ begin
             j:=l;
             while j<=n do
             begin
-                v[i,j] := Double(0.0);
-                v[j,i] := Double(0.0);
+                v[i,j] := 0.0;
+                v[j,i] := 0.0;
                 Inc(j);
             end;
         end;
-        v[i,i] := Double(1.0);
+        v[i,i] := 1.0;
         g := rv1[i];
         l := i;
         Dec(i);
@@ -1256,19 +1254,19 @@ begin
             j:=l;
             while j<=n do
             begin
-                a[i,j] := Double(0.0);
+                a[i,j] := 0.0;
                 Inc(j);
             end;
         end;
-        if AP_FP_Neq(g,Double(0.0)) then
+        if AP_FP_Neq(g,0.0) then
         begin
-            g := Double(1.0)/g;
+            g := 1.0/g;
             if i<>n then
             begin
                 j:=l;
                 while j<=n do
                 begin
-                    s := Double(0.0);
+                    s := 0.0;
                     k:=l;
                     while k<=m do
                     begin
@@ -1297,11 +1295,11 @@ begin
             j:=i;
             while j<=m do
             begin
-                a[j,i] := Double(0.0);
+                a[j,i] := 0.0;
                 Inc(j);
             end;
         end;
-        a[i,i] := a[i,i]+Double(1.0);
+        a[i,i] := a[i,i]+1.0;
         Dec(i);
     end;
     k:=n;
@@ -1328,8 +1326,8 @@ begin
             end;
             if Flag then
             begin
-                c := Double(0.0);
-                s := Double(1.0);
+                c := 0.0;
+                s := 1.0;
                 i:=l;
                 while i<=k do
                 begin
@@ -1339,7 +1337,7 @@ begin
                         g := w[i];
                         h := Pythag(f, g);
                         w[i] := h;
-                        h := Double(1.0)/h;
+                        h := 1.0/h;
                         c := g*h;
                         s := -f*h;
                         j:=1;
@@ -1358,7 +1356,7 @@ begin
             z := w[k];
             if l=k then
             begin
-                if AP_FP_Less(z,Double(0.0)) then
+                if AP_FP_Less(z,0.0) then
                 begin
                     w[k] := -z;
                     j:=1;
@@ -1380,11 +1378,11 @@ begin
             y := w[nm];
             g := rv1[nm];
             h := rv1[k];
-            f := ((y-z)*(y+z)+(g-h)*(g+h))/(Double(2.0)*h*y);
+            f := ((y-z)*(y+z)+(g-h)*(g+h))/(2.0*h*y);
             g := Pythag(f, 1);
             f := ((x-z)*(x+z)+h*(y/(f+ExtSign(g, f))-h))/x;
-            c := Double(1.0);
-            s := Double(1.0);
+            c := 1.0;
+            s := 1.0;
             j:=l;
             while j<=nm do
             begin
@@ -1412,9 +1410,9 @@ begin
                 end;
                 z := Pythag(f, h);
                 w[j] := z;
-                if AP_FP_Neq(z,Double(0.0)) then
+                if AP_FP_Neq(z,0.0) then
                 begin
-                    z := Double(1.0)/z;
+                    z := 1.0/z;
                     c := f*z;
                     s := h*z;
                 end;
@@ -1431,7 +1429,7 @@ begin
                 end;
                 Inc(j);
             end;
-            rv1[l] := Double(0.0);
+            rv1[l] := 0.0;
             rv1[k] := f;
             w[k] := x;
             Inc(its);

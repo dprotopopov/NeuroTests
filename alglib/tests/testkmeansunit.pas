@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testkmeansunit;
 interface
 uses Math, Sysutils, Ap, blas, kmeans;
@@ -412,7 +410,7 @@ begin
         end;
         if AP_FP_Eq(EA,EB) then
         begin
-            P := P+Double(0.5);
+            P := P+0.5;
         end;
         Inc(Pass);
     end;
@@ -425,7 +423,7 @@ begin
     // If Restarts do influence quality of solution, P must be significantly
     // lower than 0.5*PassCount.
     //
-    S := (P-Double(0.5)*PassCount)/Sqrt(AP_Double(PassCount)/4);
+    S := (P-0.5*PassCount)/Sqrt(AP_Double(PassCount)/4);
     RestartsErrors := RestartsErrors or AP_FP_Greater(S,-SigmaThreshold);
 end;
 

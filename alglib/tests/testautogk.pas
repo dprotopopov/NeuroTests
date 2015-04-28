@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testautogk;
 interface
 uses Math, Sysutils, Ap, tsort, hblas, reflections, creflections, sblas, ablasf, ablas, ortfac, blas, rotations, hsschur, evd, gammafunc, gq, gkq, autogk;
@@ -37,8 +35,8 @@ begin
     //
     // Simple test: integral(exp(x),+-1,+-2), no maximum width requirements
     //
-    A := (2*RandomInteger(2)-1)*Double(1.0);
-    B := (2*RandomInteger(2)-1)*Double(2.0);
+    A := (2*RandomInteger(2)-1)*1.0;
+    B := (2*RandomInteger(2)-1)*2.0;
     AutoGKSmooth(A, B, State);
     while AutoGKIteration(State) do
     begin
@@ -59,9 +57,9 @@ begin
     //
     // Simple test: integral(exp(x),+-1,+-2), XWidth=0.1
     //
-    A := (2*RandomInteger(2)-1)*Double(1.0);
-    B := (2*RandomInteger(2)-1)*Double(2.0);
-    AutoGKSmoothW(A, B, Double(0.1), State);
+    A := (2*RandomInteger(2)-1)*1.0;
+    B := (2*RandomInteger(2)-1)*2.0;
+    AutoGKSmoothW(A, B, 0.1, State);
     while AutoGKIteration(State) do
     begin
         State.F := Exp(State.X);
@@ -105,7 +103,7 @@ begin
     //
     A := 0;
     B := 2*Pi;
-    AutoGKSmoothW(A, B, Double(0.3), State);
+    AutoGKSmoothW(A, B, 0.3, State);
     while AutoGKIteration(State) do
     begin
         State.F := Cos(100*State.X);
@@ -129,35 +127,35 @@ begin
     PKind:=0;
     while PKind<=6 do
     begin
-        A := Double(0.1);
-        B := Double(0.5);
+        A := 0.1;
+        B := 0.5;
         if PKind=0 then
         begin
-            Alpha := -Double(0.9);
+            Alpha := -0.9;
         end;
         if PKind=1 then
         begin
-            Alpha := -Double(0.5);
+            Alpha := -0.5;
         end;
         if PKind=2 then
         begin
-            Alpha := -Double(0.1);
+            Alpha := -0.1;
         end;
         if PKind=3 then
         begin
-            Alpha := Double(0.0);
+            Alpha := 0.0;
         end;
         if PKind=4 then
         begin
-            Alpha := Double(0.1);
+            Alpha := 0.1;
         end;
         if PKind=5 then
         begin
-            Alpha := Double(0.5);
+            Alpha := 0.5;
         end;
         if PKind=6 then
         begin
-            Alpha := Double(0.9);
+            Alpha := 0.9;
         end;
         
         //
@@ -167,10 +165,10 @@ begin
         //
         Exact := Power(B-A, Alpha+2)/(Alpha+2)+(1+A)*Power(B-A, Alpha+1)/(Alpha+1);
         EAbs := AbsReal(Exact);
-        AutoGKSingular(A, B, Alpha, Double(0.0), State);
+        AutoGKSingular(A, B, Alpha, 0.0, State);
         while AutoGKIteration(State) do
         begin
-            if AP_FP_Less(State.XMinusA,Double(0.01)) then
+            if AP_FP_Less(State.XMinusA,0.01) then
             begin
                 State.F := Power(State.XMinusA, Alpha)*(1+State.X);
             end
@@ -188,10 +186,10 @@ begin
         begin
             SngEndErrors := SngEndErrors or AP_FP_Greater(AbsReal(V-Exact),ErrTol*EAbs);
         end;
-        AutoGKSingular(B, A, Double(0.0), Alpha, State);
+        AutoGKSingular(B, A, 0.0, Alpha, State);
         while AutoGKIteration(State) do
         begin
-            if AP_FP_Greater(State.BMinusX,-Double(0.01)) then
+            if AP_FP_Greater(State.BMinusX,-0.01) then
             begin
                 State.F := Power(-State.BMinusX, Alpha)*(1+State.X);
             end
@@ -217,10 +215,10 @@ begin
         //
         Exact := (1+B)*Power(B-A, Alpha+1)/(Alpha+1)-Power(B-A, Alpha+2)/(Alpha+2);
         EAbs := AbsReal(Exact);
-        AutoGKSingular(A, B, Double(0.0), Alpha, State);
+        AutoGKSingular(A, B, 0.0, Alpha, State);
         while AutoGKIteration(State) do
         begin
-            if AP_FP_Less(State.BMinusX,Double(0.01)) then
+            if AP_FP_Less(State.BMinusX,0.01) then
             begin
                 State.F := Power(State.BMinusX, Alpha)*(1+State.X);
             end
@@ -238,10 +236,10 @@ begin
         begin
             SngEndErrors := SngEndErrors or AP_FP_Greater(AbsReal(V-Exact),ErrTol*EAbs);
         end;
-        AutoGKSingular(B, A, Alpha, Double(0.0), State);
+        AutoGKSingular(B, A, Alpha, 0.0, State);
         while AutoGKIteration(State) do
         begin
-            if AP_FP_Greater(State.XMinusA,-Double(0.01)) then
+            if AP_FP_Greater(State.XMinusA,-0.01) then
             begin
                 State.F := Power(-State.XMinusA, Alpha)*(1+State.X);
             end

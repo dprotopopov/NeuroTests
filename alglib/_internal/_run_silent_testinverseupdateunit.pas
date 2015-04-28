@@ -1,4 +1,4 @@
-{$MODESWITCH EXCEPTIONS+}
+
 program _test;
 uses Sysutils, testinverseupdateunit;
 

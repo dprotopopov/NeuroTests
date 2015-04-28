@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testasa;
 interface
 uses Math, Sysutils, Ap, linmin, minasa;
@@ -79,14 +77,14 @@ begin
             begin
                 C[I] := 1+RandomReal;
                 XE[I] := 4*RandomReal-2;
-                BndL[I] := -Max(RandomReal, Double(0.2));
-                BndU[I] := +Max(RandomReal, Double(0.2));
-                X[I] := Double(0.5)*(BndL[I]+BndU[I]);
+                BndL[I] := -Max(RandomReal, 0.2);
+                BndU[I] := +Max(RandomReal, 0.2);
+                X[I] := 0.5*(BndL[I]+BndU[I]);
                 Inc(I);
             end;
-            Tol := Double(0.001);
+            Tol := 0.001;
             MinASACreate(N, X, BndL, BndU, State);
-            MinASASetCond(State, Tol, Double(0.0), Double(0.0), 0);
+            MinASASetCond(State, Tol, 0.0, 0.0, 0);
             MinASASetAlgorithm(State, AlgoType);
             while MinASAIteration(State) do
             begin
@@ -105,7 +103,7 @@ begin
             I:=0;
             while I<=N-1 do
             begin
-                RefError := RefError or AP_FP_Greater(AbsReal(ASABoundVal(XE[I], BndL[I], BndU[I])-X[I]),Double(0.01));
+                RefError := RefError or AP_FP_Greater(AbsReal(ASABoundVal(XE[I], BndL[I], BndU[I])-X[I]),0.01);
                 Inc(I);
             end;
             Inc(N);
@@ -134,10 +132,10 @@ begin
         BndL[1] := 1;
         BndU[1] := 2;
         X[1] := 2;
-        Tol := Double(0.001);
-        S := Double(0.01);
+        Tol := 0.001;
+        S := 0.01;
         MinASACreate(2, X, BndL, BndU, State);
-        MinASASetCond(State, Tol, Double(0.0), Double(0.0), 0);
+        MinASASetCond(State, Tol, 0.0, 0.0, 0);
         MinASASetAlgorithm(State, AlgoType);
         while MinASAIteration(State) do
         begin
@@ -147,7 +145,7 @@ begin
             State.G[1] := S*(2*(State.X[0]+State.X[1])+2*(State.X[0]-State.X[1]));
         end;
         MinASAResults(State, X, Rep);
-        RefError := RefError or (Rep.TerminationType<=0) or AP_FP_Greater(AbsReal(State.X[0]+2),Double(0.01)) or AP_FP_Greater(AbsReal(State.X[1]-2),Double(0.01));
+        RefError := RefError or (Rep.TerminationType<=0) or AP_FP_Greater(AbsReal(State.X[0]+2),0.01) or AP_FP_Greater(AbsReal(State.X[1]-2),0.01);
         
         //
         // function #1 with 'x[0]>=ln(2)' constraint.
@@ -172,7 +170,7 @@ begin
             Inc(I);
         end;
         MinASACreate(N, X, BndL, BndU, State);
-        MinASASetCond(State, Double(0.0000001), Double(0.0), Double(0.0), 0);
+        MinASASetCond(State, 0.0000001, 0.0, 0.0, 0);
         MinASASetAlgorithm(State, AlgoType);
         while MinASAIteration(State) do
         begin
@@ -181,9 +179,9 @@ begin
         end;
         MinASAResults(State, X, Rep);
         RefError := RefError or (Rep.TerminationType<=0);
-        RefError := RefError or AP_FP_Greater(AbsReal(X[0]-Ln(2)),Double(0.05));
-        RefError := RefError or AP_FP_Greater(AbsReal(X[1]),Double(0.05));
-        RefError := RefError or AP_FP_Greater(AbsReal(X[2]-Ln(2)),Double(0.05));
+        RefError := RefError or AP_FP_Greater(AbsReal(X[0]-Ln(2)),0.05);
+        RefError := RefError or AP_FP_Greater(AbsReal(X[1]),0.05);
+        RefError := RefError or AP_FP_Greater(AbsReal(X[2]-Ln(2)),0.05);
         
         //
         // Testing convergence properties
@@ -207,7 +205,7 @@ begin
             Inc(I);
         end;
         MinASACreate(N, X, BndL, BndU, State);
-        MinASASetCond(State, Double(0.001), Double(0.0), Double(0.0), 0);
+        MinASASetCond(State, 0.001, 0.0, 0.0, 0);
         MinASASetAlgorithm(State, AlgoType);
         while MinASAIteration(State) do
         begin
@@ -223,7 +221,7 @@ begin
             Inc(I);
         end;
         MinASACreate(N, X, BndL, BndU, State);
-        MinASASetCond(State, Double(0.0), Double(0.001), Double(0.0), 0);
+        MinASASetCond(State, 0.0, 0.001, 0.0, 0);
         MinASASetAlgorithm(State, AlgoType);
         while MinASAIteration(State) do
         begin
@@ -239,7 +237,7 @@ begin
             Inc(I);
         end;
         MinASACreate(N, X, BndL, BndU, State);
-        MinASASetCond(State, Double(0.0), Double(0.0), Double(0.001), 0);
+        MinASASetCond(State, 0.0, 0.0, 0.001, 0);
         MinASASetAlgorithm(State, AlgoType);
         while MinASAIteration(State) do
         begin
@@ -255,7 +253,7 @@ begin
             Inc(I);
         end;
         MinASACreate(N, X, BndL, BndU, State);
-        MinASASetCond(State, Double(0.0), Double(0.0), Double(0.0), 3);
+        MinASASetCond(State, 0.0, 0.0, 0.0, 3);
         MinASASetAlgorithm(State, AlgoType);
         while MinASAIteration(State) do
         begin
@@ -335,9 +333,9 @@ begin
         X[0] := 100;
         BndL[0] := -1000000;
         BndU[0] := +1000000;
-        StpMax := Double(0.05)+Double(0.05)*RandomReal;
+        StpMax := 0.05+0.05*RandomReal;
         MinASACreate(N, X, BndL, BndU, State);
-        MinASASetCond(State, Double(1.0E-9), 0, 0, 0);
+        MinASASetCond(State, 1.0E-9, 0, 0, 0);
         MinASASetStpMax(State, StpMax);
         MinASASetXRep(State, True);
         XPrev := X[0];
@@ -471,7 +469,7 @@ procedure TestFunc3(var State : MinASAState);
 var
     S : Double;
 begin
-    S := Double(0.001);
+    S := 0.001;
     if AP_FP_Less(State.X[0],100) then
     begin
         State.F := AP_Sqr(Exp(State.X[0])-2)+AP_Sqr(AP_Sqr(State.X[1])+S)+AP_Sqr(State.X[2]-State.X[0]);

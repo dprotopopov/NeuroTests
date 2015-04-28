@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testspline1dunit;
 interface
 uses Math, Sysutils, Ap, spline3, blas, reflections, creflections, hqrnd, matgen, ablasf, ablas, trfac, trlinsolve, safesolve, rcond, matinv, hblas, sblas, ortfac, rotations, bdsvd, svd, xblas, densesolver, linmin, minlbfgs, minlm, lsfit, apserv, spline1d;
@@ -111,11 +109,11 @@ var
 begin
     WasErrors := False;
     PassCount := 20;
-    LStep := Double(0.005);
-    H := Double(0.00001);
+    LStep := 0.005;
+    H := 0.00001;
     MaxN := 10;
     Threshold := 10000*MachineEpsilon;
-    NonStrictThreshold := Double(0.00001);
+    NonStrictThreshold := 0.00001;
     LSErrors := False;
     CSErrors := False;
     CRSErrors := False;
@@ -155,7 +153,7 @@ begin
             I:=0;
             while I<=N-1 do
             begin
-                X[I] := Double(0.5)*(B+A)+Double(0.5)*(B-A)*Cos(PI*(2*i+1)/(2*n));
+                X[I] := 0.5*(B+A)+0.5*(B-A)*Cos(PI*(2*i+1)/(2*n));
                 if I=0 then
                 begin
                     X[I] := A;
@@ -164,9 +162,9 @@ begin
                 begin
                     X[I] := B;
                 end;
-                Y[I] := Cos(Double(1.3)*Pi*X[I]+Double(0.4));
+                Y[I] := Cos(1.3*Pi*X[I]+0.4);
                 YP[I] := Y[I];
-                D[I] := -Double(1.3)*Pi*Sin(Double(1.3)*Pi*X[I]+Double(0.4));
+                D[I] := -1.3*Pi*Sin(1.3*Pi*X[I]+0.4);
                 Inc(I);
             end;
             YP[N-1] := YP[0];
@@ -210,7 +208,7 @@ begin
             LSErrors := LSErrors or AP_FP_Greater(Err,Threshold);
             LConst(A, B, C, LStep, L10, L11, L12);
             LConst(A, B, C, LStep/3, L20, L21, L22);
-            LSErrors := LSErrors or AP_FP_Greater(L20/L10,Double(1.2));
+            LSErrors := LSErrors or AP_FP_Greater(L20/L10,1.2);
             
             //
             // Build cubic spline.
@@ -352,24 +350,24 @@ begin
                         Err := Max(Err, AbsReal(DS-DS2));
                         Err := Max(Err, AbsReal(D2S-D2S2));
                     end;
-                    CSErrors := CSErrors or AP_FP_Greater(Err,Double(1.0E-3));
+                    CSErrors := CSErrors or AP_FP_Greater(Err,1.0E-3);
                     
                     //
                     // Check Lipschitz continuity
                     //
                     LConst(A, B, C, LStep, L10, L11, L12);
                     LConst(A, B, C, LStep/3, L20, L21, L22);
-                    if AP_FP_Greater(L10,Double(1.0E-6)) then
+                    if AP_FP_Greater(L10,1.0E-6) then
                     begin
-                        CSErrors := CSErrors or AP_FP_Greater(L20/L10,Double(1.2));
+                        CSErrors := CSErrors or AP_FP_Greater(L20/L10,1.2);
                     end;
-                    if AP_FP_Greater(L11,Double(1.0E-6)) then
+                    if AP_FP_Greater(L11,1.0E-6) then
                     begin
-                        CSErrors := CSErrors or AP_FP_Greater(L21/L11,Double(1.2));
+                        CSErrors := CSErrors or AP_FP_Greater(L21/L11,1.2);
                     end;
-                    if AP_FP_Greater(L12,Double(1.0E-6)) then
+                    if AP_FP_Greater(L12,1.0E-6) then
                     begin
-                        CSErrors := CSErrors or AP_FP_Greater(L22/L12,Double(1.2));
+                        CSErrors := CSErrors or AP_FP_Greater(L22/L12,1.2);
                     end;
                     Inc(BRType);
                 end;
@@ -393,9 +391,9 @@ begin
                 //
                 // select random tension value, then build
                 //
-                if AP_FP_Greater(RandomReal,Double(0.5)) then
+                if AP_FP_Greater(RandomReal,0.5) then
                 begin
-                    if AP_FP_Greater(RandomReal,Double(0.5)) then
+                    if AP_FP_Greater(RandomReal,0.5) then
                     begin
                         Tension := 0;
                     end
@@ -491,20 +489,20 @@ begin
                     Err := Max(Err, AbsReal(S-S2));
                     Err := Max(Err, AbsReal(DS-DS2));
                 end;
-                CRSErrors := CRSErrors or AP_FP_Greater(Err,Double(1.0E-3));
+                CRSErrors := CRSErrors or AP_FP_Greater(Err,1.0E-3);
                 
                 //
                 // Check Lipschitz continuity
                 //
                 LConst(A, B, C, LStep, L10, L11, L12);
                 LConst(A, B, C, LStep/3, L20, L21, L22);
-                if AP_FP_Greater(L10,Double(1.0E-6)) then
+                if AP_FP_Greater(L10,1.0E-6) then
                 begin
-                    CRSErrors := CRSErrors or AP_FP_Greater(L20/L10,Double(1.2));
+                    CRSErrors := CRSErrors or AP_FP_Greater(L20/L10,1.2);
                 end;
-                if AP_FP_Greater(L11,Double(1.0E-6)) then
+                if AP_FP_Greater(L11,1.0E-6) then
                 begin
-                    CRSErrors := CRSErrors or AP_FP_Greater(L21/L11,Double(1.2));
+                    CRSErrors := CRSErrors or AP_FP_Greater(L21/L11,1.2);
                 end;
                 Inc(BLType);
             end;
@@ -533,11 +531,11 @@ begin
                 Err := Max(Err, AbsReal(D[I]-T));
                 Inc(I);
             end;
-            HSErrors := HSErrors or AP_FP_Greater(Err,Double(1.0E-3));
+            HSErrors := HSErrors or AP_FP_Greater(Err,1.0E-3);
             LConst(A, B, C, LStep, L10, L11, L12);
             LConst(A, B, C, LStep/3, L20, L21, L22);
-            HSErrors := HSErrors or AP_FP_Greater(L20/L10,Double(1.2));
-            HSErrors := HSErrors or AP_FP_Greater(L21/L11,Double(1.2));
+            HSErrors := HSErrors or AP_FP_Greater(L20/L10,1.2);
+            HSErrors := HSErrors or AP_FP_Greater(L21/L11,1.2);
             
             //
             // Build Akima spline
@@ -560,8 +558,8 @@ begin
                 ASErrors := ASErrors or AP_FP_Greater(Err,Threshold);
                 LConst(A, B, C, LStep, L10, L11, L12);
                 LConst(A, B, C, LStep/3, L20, L21, L22);
-                HSErrors := HSErrors or AP_FP_Greater(L20/L10,Double(1.2));
-                HSErrors := HSErrors or AP_FP_Greater(L21/L11,Double(1.2));
+                HSErrors := HSErrors or AP_FP_Greater(L20/L10,1.2);
+                HSErrors := HSErrors or AP_FP_Greater(L21/L11,1.2);
             end;
             Inc(Pass);
         end;
@@ -636,7 +634,7 @@ begin
         while I<=N-1 do
         begin
             X[I] := A+(B-A)*I/(N-1);
-            Y[I] := Cos(Double(1.3)*Pi*X[I]+Double(0.4));
+            Y[I] := Cos(1.3*Pi*X[I]+0.4);
             Inc(I);
         end;
         Spline1DBuildAkima(X, Y, N, C);
@@ -707,10 +705,10 @@ begin
         while I<=N-1 do
         begin
             X[I] := A+(B-A)*I/(N-1);
-            Y[I] := Cos(Double(1.3)*Pi*X[I]+Double(0.4));
+            Y[I] := Cos(1.3*Pi*X[I]+0.4);
             Inc(I);
         end;
-        Spline1DBuildCubic(X, Y, N, 2, Double(0.0), 2, Double(0.0), C);
+        Spline1DBuildCubic(X, Y, N, 2, 0.0, 2, 0.0, C);
         
         //
         // Test diff
@@ -729,7 +727,7 @@ begin
             Err := Max(Err, AbsReal(D2S-(VR-2*VM+VL)/AP_Sqr(H)));
             Inc(Pass);
         end;
-        DSErrors := DSErrors or AP_FP_Greater(Err,Double(0.001));
+        DSErrors := DSErrors or AP_FP_Greater(Err,0.001);
         
         //
         // Test copy
@@ -824,37 +822,37 @@ begin
             //
             // Prepare cubic spline
             //
-            A := -1-Double(0.2)*RandomReal;
-            B := +1+Double(0.2)*RandomReal;
+            A := -1-0.2*RandomReal;
+            B := +1+0.2*RandomReal;
             I:=0;
             while I<=N-1 do
             begin
                 X[I] := A+(B-A)*I/(N-1);
-                Y[I] := Sin(Pi*X[I]+Double(0.4))+Exp(X[I]);
+                Y[I] := Sin(Pi*X[I]+0.4)+Exp(X[I]);
                 Inc(I);
             end;
-            BL := Pi*Cos(Pi*A+Double(0.4))+Exp(A);
-            BR := Pi*Cos(Pi*B+Double(0.4))+Exp(B);
+            BL := Pi*Cos(Pi*A+0.4)+Exp(A);
+            BR := Pi*Cos(Pi*B+0.4)+Exp(B);
             Spline1DBuildCubic(X, Y, N, 1, BL, 1, BR, C);
             
             //
             // Test
             //
             T := A+(B-A)*RandomReal;
-            V := -Cos(Pi*A+Double(0.4))/Pi+Exp(A);
-            V := -Cos(Pi*T+Double(0.4))/Pi+Exp(T)-V;
+            V := -Cos(Pi*A+0.4)/Pi+Exp(A);
+            V := -Cos(Pi*T+0.4)/Pi+Exp(T)-V;
             V := V-Spline1DIntegrate(C, T);
             Err := Max(Err, AbsReal(V));
             Inc(Pass);
         end;
         Inc(N);
     end;
-    IErrors := IErrors or AP_FP_Greater(Err,Double(0.001));
+    IErrors := IErrors or AP_FP_Greater(Err,0.001);
     P0 := 2*RandomReal-1;
     P1 := 2*RandomReal-1;
     P2 := 2*RandomReal-1;
-    A := -RandomReal-Double(0.5);
-    B := +RandomReal+Double(0.5);
+    A := -RandomReal-0.5;
+    B := +RandomReal+0.5;
     N := 2;
     SetLength(X, N);
     SetLength(Y, N);
@@ -891,18 +889,18 @@ begin
     end;
     Y[0] := 2;
     Y[N-1] := 2;
-    Spline1DBuildCubic(X, Y, N, -1, Double(0.0), -1, Double(0.0), C);
-    IntAB := Spline1DIntegrate(C, Double(1.0));
+    Spline1DBuildCubic(X, Y, N, -1, 0.0, -1, 0.0, C);
+    IntAB := Spline1DIntegrate(C, 1.0);
     V := RandomReal;
     VR := Spline1DIntegrate(C, V);
-    IErrors := IErrors or AP_FP_Greater(AbsReal(IntAB-1),Double(0.001));
+    IErrors := IErrors or AP_FP_Greater(AbsReal(IntAB-1),0.001);
     I:=-10;
     while I<=10 do
     begin
-        IErrors := IErrors or AP_FP_Greater(AbsReal(Spline1DIntegrate(C, I+V)-(I*IntAB+VR)),Double(0.001));
-        IErrors := IErrors or AP_FP_Greater(AbsReal(Spline1DIntegrate(C, I-1000*MachineEpsilon)-I*IntAB),Double(0.001));
-        IErrors := IErrors or AP_FP_Greater(AbsReal(Spline1DIntegrate(C, I)-I*IntAB),Double(0.001));
-        IErrors := IErrors or AP_FP_Greater(AbsReal(Spline1DIntegrate(C, I+1000*MachineEpsilon)-I*IntAB),Double(0.001));
+        IErrors := IErrors or AP_FP_Greater(AbsReal(Spline1DIntegrate(C, I+V)-(I*IntAB+VR)),0.001);
+        IErrors := IErrors or AP_FP_Greater(AbsReal(Spline1DIntegrate(C, I-1000*MachineEpsilon)-I*IntAB),0.001);
+        IErrors := IErrors or AP_FP_Greater(AbsReal(Spline1DIntegrate(C, I)-I*IntAB),0.001);
+        IErrors := IErrors or AP_FP_Greater(AbsReal(Spline1DIntegrate(C, I+1000*MachineEpsilon)-I*IntAB),0.001);
         Inc(I);
     end;
     
@@ -1438,7 +1436,7 @@ begin
         end
         else
         begin
-            RefAvgRel := Double(0.25)*(AbsReal(V2)/AbsReal(V-V2)+AbsReal(V1)/AbsReal(V-V1)+AbsReal(V1)/AbsReal(V+V1)+AbsReal(V2)/AbsReal(V+V2));
+            RefAvgRel := 0.25*(AbsReal(V2)/AbsReal(V-V2)+AbsReal(V1)/AbsReal(V-V1)+AbsReal(V1)/AbsReal(V+V1)+AbsReal(V2)/AbsReal(V+V2));
         end;
         RefMax := Max(V1, V2);
         
@@ -1633,14 +1631,14 @@ begin
     L0 := 0;
     L1 := 0;
     L2 := 0;
-    T := A-Double(0.1);
+    T := A-0.1;
     VL := Spline1DCalc(C, T-2*LStep);
     VM := Spline1DCalc(C, T-LStep);
     VR := Spline1DCalc(C, T);
     F := VM;
     D := (VR-VL)/(2*LStep);
     D2 := (VR-2*VM+VL)/AP_Sqr(LStep);
-    while AP_FP_Less_Eq(T,B+Double(0.1)) do
+    while AP_FP_Less_Eq(T,B+0.1) do
     begin
         PrevF := F;
         PrevD := D;
@@ -1755,7 +1753,7 @@ var
     S3 : Double;
     Delta : Double;
 begin
-    Delta := Double(0.001);
+    Delta := 0.001;
     
     //
     // Test result

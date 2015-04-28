@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Copyright (c) 2005-2007, Sergey Bochkanov (ALGLIB project).
 
@@ -27,7 +25,7 @@ procedure RMatrixInvUpdateSimple(var InvA : TReal2DArray;
      N : AlglibInteger;
      UpdRow : AlglibInteger;
      UpdColumn : AlglibInteger;
-     UpdVal : Double);
+     UpdVal : Extended);
 procedure RMatrixInvUpdateRow(var InvA : TReal2DArray;
      N : AlglibInteger;
      UpdRow : AlglibInteger;
@@ -44,7 +42,7 @@ procedure ShermanMorrisonSimpleUpdate(var InvA : TReal2DArray;
      N : AlglibInteger;
      UpdRow : AlglibInteger;
      UpdColumn : AlglibInteger;
-     UpdVal : Double);
+     UpdVal : Extended);
 procedure ShermanMorrisonUpdateRow(var InvA : TReal2DArray;
      N : AlglibInteger;
      UpdRow : AlglibInteger;
@@ -85,13 +83,13 @@ procedure RMatrixInvUpdateSimple(var InvA : TReal2DArray;
      N : AlglibInteger;
      UpdRow : AlglibInteger;
      UpdColumn : AlglibInteger;
-     UpdVal : Double);
+     UpdVal : Extended);
 var
     T1 : TReal1DArray;
     T2 : TReal1DArray;
     I : AlglibInteger;
-    Lambda : Double;
-    VT : Double;
+    Lambda : Extended;
+    VT : Extended;
     i_ : AlglibInteger;
 begin
     Assert((UpdRow>=0) and (UpdRow<N), 'RMatrixInvUpdateSimple: incorrect UpdRow!');
@@ -161,8 +159,8 @@ var
     T2 : TReal1DArray;
     I : AlglibInteger;
     J : AlglibInteger;
-    Lambda : Double;
-    VT : Double;
+    Lambda : Extended;
+    VT : Extended;
     i_ : AlglibInteger;
 begin
     SetLength(T1, N-1+1);
@@ -235,8 +233,8 @@ var
     T1 : TReal1DArray;
     T2 : TReal1DArray;
     I : AlglibInteger;
-    Lambda : Double;
-    VT : Double;
+    Lambda : Extended;
+    VT : Extended;
 begin
     SetLength(T1, N-1+1);
     SetLength(T2, N-1+1);
@@ -302,8 +300,8 @@ var
     T2 : TReal1DArray;
     I : AlglibInteger;
     J : AlglibInteger;
-    Lambda : Double;
-    VT : Double;
+    Lambda : Extended;
+    VT : Extended;
     i_ : AlglibInteger;
 begin
     SetLength(T1, N-1+1);
@@ -354,13 +352,13 @@ procedure ShermanMorrisonSimpleUpdate(var InvA : TReal2DArray;
      N : AlglibInteger;
      UpdRow : AlglibInteger;
      UpdColumn : AlglibInteger;
-     UpdVal : Double);
+     UpdVal : Extended);
 var
     T1 : TReal1DArray;
     T2 : TReal1DArray;
     I : AlglibInteger;
-    Lambda : Double;
-    VT : Double;
+    Lambda : Extended;
+    VT : Extended;
     i_ : AlglibInteger;
 begin
     SetLength(T1, N+1);
@@ -407,8 +405,8 @@ var
     T2 : TReal1DArray;
     I : AlglibInteger;
     J : AlglibInteger;
-    Lambda : Double;
-    VT : Double;
+    Lambda : Extended;
+    VT : Extended;
     i_ : AlglibInteger;
 begin
     SetLength(T1, N+1);
@@ -460,8 +458,8 @@ var
     T1 : TReal1DArray;
     T2 : TReal1DArray;
     I : AlglibInteger;
-    Lambda : Double;
-    VT : Double;
+    Lambda : Extended;
+    VT : Extended;
 begin
     SetLength(T1, N+1);
     SetLength(T2, N+1);
@@ -506,8 +504,8 @@ var
     T2 : TReal1DArray;
     I : AlglibInteger;
     J : AlglibInteger;
-    Lambda : Double;
-    VT : Double;
+    Lambda : Extended;
+    VT : Extended;
     i_ : AlglibInteger;
 begin
     SetLength(T1, N+1);

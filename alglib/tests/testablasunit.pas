@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testablasunit;
 interface
 uses Math, Sysutils, Ap, ablasf, ablas;
@@ -1725,7 +1723,7 @@ begin
         //
         M := 1+RandomInteger(MX);
         N := 1+RandomInteger(MX);
-        if AP_FP_Greater(RandomReal,Double(0.5)) then
+        if AP_FP_Greater(RandomReal,0.5) then
         begin
             M := MX;
         end
@@ -1749,7 +1747,7 @@ begin
             J:=0;
             while J<=M-1 do
             begin
-                RefRA[I,J] := Double(0.2)*RandomReal-Double(0.1);
+                RefRA[I,J] := 0.2*RandomReal-0.1;
                 Inc(J);
             end;
             Inc(I);
@@ -1780,8 +1778,8 @@ begin
             J:=0;
             while J<=M-1 do
             begin
-                RefCA[I,J].X := Double(0.2)*RandomReal-Double(0.1);
-                RefCA[I,J].Y := Double(0.2)*RandomReal-Double(0.1);
+                RefCA[I,J].X := 0.2*RandomReal-0.1;
+                RefCA[I,J].Y := 0.2*RandomReal-0.1;
                 Inc(J);
             end;
             Inc(I);
@@ -2086,7 +2084,7 @@ begin
         //
         K := 1+RandomInteger(MX);
         N := 1+RandomInteger(MX);
-        if AP_FP_Greater(RandomReal,Double(0.5)) then
+        if AP_FP_Greater(RandomReal,0.5) then
         begin
             K := MX;
         end
@@ -2236,7 +2234,7 @@ begin
         // Test complex
         // Only one of transform types is selected and tested
         //
-        if AP_FP_Greater(RandomReal,Double(0.5)) then
+        if AP_FP_Greater(RandomReal,0.5) then
         begin
             CMatrixSYRK(N-XOffsI, K-XOffsJ, Alpha, CC, XOffsI, XOffsJ, 0, Beta, CA1, AOffsI, AOffsJ, UpperType=0);
             RefCMatrixSYRK(N-XOffsI, K-XOffsJ, Alpha, CC, XOffsI, XOffsJ, 0, Beta, CA2, AOffsI, AOffsJ, UpperType=0);
@@ -2262,7 +2260,7 @@ begin
         // Test real
         // Only one of transform types is selected and tested
         //
-        if AP_FP_Greater(RandomReal,Double(0.5)) then
+        if AP_FP_Greater(RandomReal,0.5) then
         begin
             RMatrixSYRK(N-XOffsI, K-XOffsJ, Alpha, RC, XOffsI, XOffsJ, 0, Beta, RA1, AOffsI, AOffsJ, UpperType=0);
             RefRMatrixSYRK(N-XOffsI, K-XOffsJ, Alpha, RC, XOffsI, XOffsJ, 0, Beta, RA2, AOffsI, AOffsJ, UpperType=0);
@@ -2405,7 +2403,7 @@ begin
         COffsJ := RandomInteger(2);
         AlphaR := RandomInteger(2)*(2*RandomReal-1);
         BetaR := RandomInteger(2)*(2*RandomReal-1);
-        if AP_FP_Greater(RandomReal,Double(0.5)) then
+        if AP_FP_Greater(RandomReal,0.5) then
         begin
             AlphaC.X := 2*RandomReal-1;
             AlphaC.Y := 2*RandomReal-1;
@@ -2414,7 +2412,7 @@ begin
         begin
             AlphaC := C_Complex(0);
         end;
-        if AP_FP_Greater(RandomReal,Double(0.5)) then
+        if AP_FP_Greater(RandomReal,0.5) then
         begin
             BetaC.X := 2*RandomReal-1;
             BetaC.Y := 2*RandomReal-1;

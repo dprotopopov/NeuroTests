@@ -1,5 +1,3 @@
-{.$MODESWITCH RESULT+}
-{.$GOTO ON}
 (*************************************************************************
 This file is a part of ALGLIB project.
 
@@ -26,14 +24,14 @@ uses Math, Sysutils, Ap;
 procedure RMatrixTRSafeSolve(const A : TReal2DArray;
      N : AlglibInteger;
      var X : TReal1DArray;
-     var S : Double;
+     var S : Extended;
      IsUpper : Boolean;
      IsTrans : Boolean;
      Isunit : Boolean);
 procedure SafeSolveTriangular(const A : TReal2DArray;
      N : AlglibInteger;
      var X : TReal1DArray;
-     var S : Double;
+     var S : Extended;
      IsUpper : Boolean;
      IsTrans : Boolean;
      Isunit : Boolean;
@@ -86,7 +84,7 @@ Output parameters:
 procedure RMatrixTRSafeSolve(const A : TReal2DArray;
      N : AlglibInteger;
      var X : TReal1DArray;
-     var S : Double;
+     var S : Extended;
      IsUpper : Boolean;
      IsTrans : Boolean;
      Isunit : Boolean);
@@ -131,7 +129,7 @@ See RMatrixTRSafeSolve for 0-based replacement.
 procedure SafeSolveTriangular(const A : TReal2DArray;
      N : AlglibInteger;
      var X : TReal1DArray;
-     var S : Double;
+     var S : Extended;
      IsUpper : Boolean;
      IsTrans : Boolean;
      Isunit : Boolean;
@@ -150,21 +148,21 @@ var
     IM1 : AlglibInteger;
     K : AlglibInteger;
     Flg : AlglibInteger;
-    V : Double;
-    VD : Double;
-    BIGNUM : Double;
-    GROW : Double;
-    REC : Double;
-    SMLNUM : Double;
-    SUMJ : Double;
-    TJJ : Double;
-    TJJS : Double;
-    TMAX : Double;
-    TSCAL : Double;
-    USCAL : Double;
-    XBND : Double;
-    XJ : Double;
-    XMAX : Double;
+    V : Extended;
+    VD : Extended;
+    BIGNUM : Extended;
+    GROW : Extended;
+    REC : Extended;
+    SMLNUM : Extended;
+    SUMJ : Extended;
+    TJJ : Extended;
+    TJJS : Extended;
+    TMAX : Extended;
+    TSCAL : Extended;
+    USCAL : Extended;
+    XBND : Extended;
+    XJ : Extended;
+    XMAX : Extended;
     NOTRAN : Boolean;
     UPPER : Boolean;
     NOunit : Boolean;

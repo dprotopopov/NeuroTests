@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Copyright (c) 2005-2007, Sergey Bochkanov (ALGLIB project).
 
@@ -26,17 +24,17 @@ uses Math, Sysutils, Ap, ldlt;
 function SMatrixLDLTDet(const A : TReal2DArray;
      const Pivots : TInteger1DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Double;
+     IsUpper : Boolean):Extended;
 function SMatrixDet(A : TReal2DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Double;
+     IsUpper : Boolean):Extended;
 function DeterminantLDLT(const A : TReal2DArray;
      const Pivots : TInteger1DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Double;
+     IsUpper : Boolean):Extended;
 function DeterminantSymmetric(A : TReal2DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Double;
+     IsUpper : Boolean):Extended;
 
 implementation
 
@@ -61,7 +59,7 @@ Result:
 function SMatrixLDLTDet(const A : TReal2DArray;
      const Pivots : TInteger1DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Double;
+     IsUpper : Boolean):Extended;
 var
     K : AlglibInteger;
 begin
@@ -122,7 +120,7 @@ Result:
 *************************************************************************)
 function SMatrixDet(A : TReal2DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Double;
+     IsUpper : Boolean):Extended;
 var
     Pivots : TInteger1DArray;
 begin
@@ -135,7 +133,7 @@ end;
 function DeterminantLDLT(const A : TReal2DArray;
      const Pivots : TInteger1DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Double;
+     IsUpper : Boolean):Extended;
 var
     K : AlglibInteger;
 begin
@@ -179,7 +177,7 @@ end;
 
 function DeterminantSymmetric(A : TReal2DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Double;
+     IsUpper : Boolean):Extended;
 var
     Pivots : TInteger1DArray;
 begin

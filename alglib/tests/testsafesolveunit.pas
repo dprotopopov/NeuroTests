@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testsafesolveunit;
 interface
 uses Math, Sysutils, Ap, safesolve;
@@ -75,10 +73,10 @@ begin
         // 3. prepare task (exact X is stored in CXE, right part - in CXS),
         //    solve and compare CXS and CXE
         //
-        IsUpper := AP_FP_Greater(RandomReal,Double(0.5));
+        IsUpper := AP_FP_Greater(RandomReal,0.5);
         Trans := RandomInteger(3);
-        IsUnit := AP_FP_Greater(RandomReal,Double(0.5));
-        ScaleA := RandomReal+Double(0.5);
+        IsUnit := AP_FP_Greater(RandomReal,0.5);
+        ScaleA := RandomReal+0.5;
         SetLength(CA, N, N);
         I:=0;
         while I<=N-1 do
@@ -93,8 +91,8 @@ begin
                 end
                 else
                 begin
-                    CA[I,J].X := Double(0.2)*RandomReal-Double(0.1);
-                    CA[I,J].Y := Double(0.2)*RandomReal-Double(0.1);
+                    CA[I,J].X := 0.2*RandomReal-0.1;
+                    CA[I,J].Y := 0.2*RandomReal-0.1;
                 end;
                 Inc(J);
             end;
@@ -190,10 +188,10 @@ begin
         //
         // same with real
         //
-        IsUpper := AP_FP_Greater(RandomReal,Double(0.5));
+        IsUpper := AP_FP_Greater(RandomReal,0.5);
         Trans := RandomInteger(2);
-        IsUnit := AP_FP_Greater(RandomReal,Double(0.5));
-        ScaleA := RandomReal+Double(0.5);
+        IsUnit := AP_FP_Greater(RandomReal,0.5);
+        ScaleA := RandomReal+0.5;
         SetLength(RA, N, N);
         I:=0;
         while I<=N-1 do
@@ -207,7 +205,7 @@ begin
                 end
                 else
                 begin
-                    RA[I,J] := Double(0.2)*RandomReal-Double(0.1);
+                    RA[I,J] := 0.2*RandomReal-0.1;
                 end;
                 Inc(J);
             end;
@@ -303,20 +301,20 @@ begin
     CA[1,0] := C_Complex(0);
     CA[1,1] := C_Complex(1/Growth);
     SetLength(CXS, N);
-    CXS[0] := C_Complex(Double(1.0));
-    CXS[1] := C_Complex(Double(0.5));
-    CErrors := CErrors or  not CMatrixScaledTRSafeSolve(CA, Double(1.0), N, CXS, AP_FP_Greater(RandomReal,Double(0.5)), RandomInteger(3), False, Double(1.05)*Max(AbsComplex(CXS[1])*Growth, Double(1.0)));
-    CErrors := CErrors or  not CMatrixScaledTRSafeSolve(CA, Double(1.0), N, CXS, AP_FP_Greater(RandomReal,Double(0.5)), RandomInteger(3), False, Double(0.95)*Max(AbsComplex(CXS[1])*Growth, Double(1.0)));
+    CXS[0] := C_Complex(1.0);
+    CXS[1] := C_Complex(0.5);
+    CErrors := CErrors or  not CMatrixScaledTRSafeSolve(CA, 1.0, N, CXS, AP_FP_Greater(RandomReal,0.5), RandomInteger(3), False, 1.05*Max(AbsComplex(CXS[1])*Growth, 1.0));
+    CErrors := CErrors or  not CMatrixScaledTRSafeSolve(CA, 1.0, N, CXS, AP_FP_Greater(RandomReal,0.5), RandomInteger(3), False, 0.95*Max(AbsComplex(CXS[1])*Growth, 1.0));
     SetLength(RA, N, N);
     RA[0,0] := 1;
     RA[0,1] := 0;
     RA[1,0] := 0;
     RA[1,1] := 1/Growth;
     SetLength(RXS, N);
-    RXS[0] := Double(1.0);
-    RXS[1] := Double(0.5);
-    RErrors := RErrors or  not RMatrixScaledTRSafeSolve(RA, Double(1.0), N, RXS, AP_FP_Greater(RandomReal,Double(0.5)), RandomInteger(2), False, Double(1.05)*Max(AbsReal(RXS[1])*Growth, Double(1.0)));
-    RErrors := RErrors or  not RMatrixScaledTRSafeSolve(RA, Double(1.0), N, RXS, AP_FP_Greater(RandomReal,Double(0.5)), RandomInteger(2), False, Double(0.95)*Max(AbsReal(RXS[1])*Growth, Double(1.0)));
+    RXS[0] := 1.0;
+    RXS[1] := 0.5;
+    RErrors := RErrors or  not RMatrixScaledTRSafeSolve(RA, 1.0, N, RXS, AP_FP_Greater(RandomReal,0.5), RandomInteger(2), False, 1.05*Max(AbsReal(RXS[1])*Growth, 1.0));
+    RErrors := RErrors or  not RMatrixScaledTRSafeSolve(RA, 1.0, N, RXS, AP_FP_Greater(RandomReal,0.5), RandomInteger(2), False, 0.95*Max(AbsReal(RXS[1])*Growth, 1.0));
     
     //
     // Special test with diagonal degenerate matrix:
@@ -333,18 +331,18 @@ begin
     CA[1,0] := C_Complex(0);
     CA[1,1] := C_Complex(0);
     SetLength(CXS, N);
-    CXS[0] := C_Complex(Double(1.0));
-    CXS[1] := C_Complex(Double(0.5));
-    CErrors := CErrors or CMatrixScaledTRSafeSolve(CA, Double(1.0), N, CXS, AP_FP_Greater(RandomReal,Double(0.5)), RandomInteger(3), False, Sqrt(MaxRealNumber));
+    CXS[0] := C_Complex(1.0);
+    CXS[1] := C_Complex(0.5);
+    CErrors := CErrors or CMatrixScaledTRSafeSolve(CA, 1.0, N, CXS, AP_FP_Greater(RandomReal,0.5), RandomInteger(3), False, Sqrt(MaxRealNumber));
     SetLength(RA, N, N);
     RA[0,0] := 1;
     RA[0,1] := 0;
     RA[1,0] := 0;
     RA[1,1] := 0;
     SetLength(RXS, N);
-    RXS[0] := Double(1.0);
-    RXS[1] := Double(0.5);
-    RErrors := RErrors or RMatrixScaledTRSafeSolve(RA, Double(1.0), N, RXS, AP_FP_Greater(RandomReal,Double(0.5)), RandomInteger(2), False, Sqrt(MaxRealNumber));
+    RXS[0] := 1.0;
+    RXS[1] := 0.5;
+    RErrors := RErrors or RMatrixScaledTRSafeSolve(RA, 1.0, N, RXS, AP_FP_Greater(RandomReal,0.5), RandomInteger(2), False, Sqrt(MaxRealNumber));
     
     //
     // report

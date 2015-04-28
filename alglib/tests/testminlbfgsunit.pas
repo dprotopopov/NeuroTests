@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testminlbfgsunit;
 interface
 uses Math, Sysutils, Ap, linmin, minlbfgs;
@@ -62,7 +60,7 @@ begin
         State.G[2] := 2*(State.X[2]-State.X[0]);
     end;
     MinLBFGSResults(State, X, Rep);
-    RefError := (Rep.TerminationType<=0) or AP_FP_Greater(AbsReal(X[0]-2),Double(0.001)) or AP_FP_Greater(AbsReal(X[1]),Double(0.001)) or AP_FP_Greater(AbsReal(X[2]-2),Double(0.001));
+    RefError := (Rep.TerminationType<=0) or AP_FP_Greater(AbsReal(X[0]-2),0.001) or AP_FP_Greater(AbsReal(X[1]),0.001) or AP_FP_Greater(AbsReal(X[2]-2),0.001);
     
     //
     // nonconvex problems with hard relief: we start from point with very small
@@ -74,19 +72,19 @@ begin
     N := 1;
     M := 1;
     V := -100;
-    while AP_FP_Less(V,Double(0.1)) do
+    while AP_FP_Less(V,0.1) do
     begin
         X[0] := V;
         MinLBFGSCreate(N, M, X, State);
-        MinLBFGSSetCond(State, Double(1.0E-9), 0, 0, 0);
+        MinLBFGSSetCond(State, 1.0E-9, 0, 0, 0);
         while MinLBFGSIteration(State) do
         begin
             State.F := AP_Sqr(State.X[0])/(1+AP_Sqr(State.X[0]));
             State.G[0] := (2*State.X[0]*(1+AP_Sqr(State.X[0]))-AP_Sqr(State.X[0])*2*State.X[0])/AP_Sqr(1+AP_Sqr(State.X[0]));
         end;
         MinLBFGSResults(State, X, Rep);
-        NonConvError := NonConvError or (Rep.TerminationType<=0) or AP_FP_Greater(AbsReal(X[0]),Double(0.001));
-        V := V+Double(0.1);
+        NonConvError := NonConvError or (Rep.TerminationType<=0) or AP_FP_Greater(AbsReal(X[0]),0.001);
+        V := V+0.1;
     end;
     
     //
@@ -176,7 +174,7 @@ begin
             I:=0;
             while I<=N-1 do
             begin
-                EqError := EqError or AP_FP_Greater(AbsReal(X[I]-XE[I]),Double(0.001));
+                EqError := EqError or AP_FP_Greater(AbsReal(X[I]-XE[I]),0.001);
                 Inc(I);
             end;
             Inc(M);
@@ -198,7 +196,7 @@ begin
         Inc(I);
     end;
     MinLBFGSCreate(N, M, X, State);
-    MinLBFGSSetCond(State, Double(0.001), 0, 0, 0);
+    MinLBFGSSetCond(State, 0.001, 0, 0, 0);
     while MinLBFGSIteration(State) do
     begin
         TestFunc3(State);
@@ -212,7 +210,7 @@ begin
         Inc(I);
     end;
     MinLBFGSCreate(N, M, X, State);
-    MinLBFGSSetCond(State, 0, Double(0.001), 0, 0);
+    MinLBFGSSetCond(State, 0, 0.001, 0, 0);
     while MinLBFGSIteration(State) do
     begin
         TestFunc3(State);
@@ -226,7 +224,7 @@ begin
         Inc(I);
     end;
     MinLBFGSCreate(N, M, X, State);
-    MinLBFGSSetCond(State, 0, 0, Double(0.001), 0);
+    MinLBFGSSetCond(State, 0, 0, 0.001, 0);
     while MinLBFGSIteration(State) do
     begin
         TestFunc3(State);
@@ -335,9 +333,9 @@ begin
     M := 1;
     SetLength(X, N);
     X[0] := 100;
-    StpMax := Double(0.05)+Double(0.05)*RandomReal;
+    StpMax := 0.05+0.05*RandomReal;
     MinLBFGSCreate(N, M, X, State);
-    MinLBFGSSetCond(State, Double(1.0E-9), 0, 0, 0);
+    MinLBFGSSetCond(State, 1.0E-9, 0, 0, 0);
     MinLBFGSSetStpMax(State, StpMax);
     MinLBFGSSetXRep(State, True);
     XPrev := X[0];
@@ -495,7 +493,7 @@ procedure TestFunc3(var State : MinLBFGSState);
 var
     S : Double;
 begin
-    S := Double(0.001);
+    S := 0.001;
     if AP_FP_Less(State.X[0],100) then
     begin
         State.F := AP_Sqr(Exp(State.X[0])-2)+AP_Sqr(AP_Sqr(State.X[1])+S)+AP_Sqr(State.X[2]-State.X[0]);

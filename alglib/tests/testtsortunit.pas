@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testtsortunit;
 interface
 uses Math, Sysutils, Ap, tsort;

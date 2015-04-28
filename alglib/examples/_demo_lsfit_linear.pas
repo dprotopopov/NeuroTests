@@ -1,4 +1,4 @@
-{$MODESWITCH RESULT+}
+
 program _demo;
 Array[0]
 var
@@ -29,7 +29,7 @@ begin
     M := 4;
     N := 100;
     A := 0;
-    B := Double(0.4)*Pi;
+    B := 0.4*Pi;
     
     //
     // Prepare task matrix
@@ -41,7 +41,7 @@ begin
     begin
         X := A+(B-A)*I/(N-1);
         Y[I] := Tan(X);
-        FMatrix[I,0] := Double(1.0);
+        FMatrix[I,0] := 1.0;
         J:=1;
         while J<=M-1 do
         begin

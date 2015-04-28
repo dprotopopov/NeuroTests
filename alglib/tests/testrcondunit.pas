@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testrcondunit;
 interface
 uses Math, Sysutils, Ap, reflections, creflections, hqrnd, matgen, ablasf, ablas, trfac, trlinsolve, safesolve, rcond;
@@ -11,8 +9,8 @@ function testrcondunit_test():Boolean;
 implementation
 
 const
-    Threshold50 = Double(0.25);
-    Threshold90 = Double(0.10);
+    Threshold50 = 0.25;
+    Threshold90 = 0.10;
 
 procedure RMatrixMakeACopy(const A : TReal2DArray;
      M : AlglibInteger;
@@ -1075,8 +1073,8 @@ begin
         // special test for zero matrix
         //
         RMatrixGenZero(A, N);
-        ErrSpec := ErrSpec or AP_FP_Neq(RMatrixTRRCond1(A, N, AP_FP_Greater(RandomReal,Double(0.5)), False),0);
-        ErrSpec := ErrSpec or AP_FP_Neq(RMatrixTRRCondInf(A, N, AP_FP_Greater(RandomReal,Double(0.5)), False),0);
+        ErrSpec := ErrSpec or AP_FP_Neq(RMatrixTRRCond1(A, N, AP_FP_Greater(RandomReal,0.5), False),0);
+        ErrSpec := ErrSpec or AP_FP_Neq(RMatrixTRRCondInf(A, N, AP_FP_Greater(RandomReal,0.5), False),0);
         
         //
         // general test
@@ -1092,15 +1090,15 @@ begin
         Pass:=1;
         while Pass<=PassCount do
         begin
-            IsUpper := AP_FP_Greater(RandomReal,Double(0.5));
-            IsUnit := AP_FP_Greater(RandomReal,Double(0.5));
+            IsUpper := AP_FP_Greater(RandomReal,0.5);
+            IsUnit := AP_FP_Greater(RandomReal,0.5);
             I:=0;
             while I<=N-1 do
             begin
                 J:=0;
                 while J<=N-1 do
                 begin
-                    A[I,J] := RandomReal-Double(0.5);
+                    A[I,J] := RandomReal-0.5;
                     Inc(J);
                 end;
                 Inc(I);
@@ -1151,7 +1149,7 @@ begin
             begin
                 Q90[0] := Q90[0]+AP_Double(1)/PassCount;
             end;
-            ErrLess := ErrLess or AP_FP_Greater(V,ERC1*Double(1.001));
+            ErrLess := ErrLess or AP_FP_Greater(V,ERC1*1.001);
             
             //
             // Inf-norm
@@ -1165,14 +1163,14 @@ begin
             begin
                 Q90[1] := Q90[1]+AP_Double(1)/PassCount;
             end;
-            ErrLess := ErrLess or AP_FP_Greater(V,ERCInf*Double(1.001));
+            ErrLess := ErrLess or AP_FP_Greater(V,ERCInf*1.001);
             Inc(Pass);
         end;
         I:=0;
         while I<=1 do
         begin
-            Err50 := Err50 or AP_FP_Less(Q50[I],Double(0.50));
-            Err90 := Err90 or AP_FP_Less(Q90[I],Double(0.90));
+            Err50 := Err50 or AP_FP_Less(Q50[I],0.50);
+            Err90 := Err90 or AP_FP_Less(Q90[I],0.90);
             Inc(I);
         end;
         
@@ -1188,15 +1186,15 @@ begin
                 J:=0;
                 while J<=N-1 do
                 begin
-                    A[I,J] := Double(0.0);
+                    A[I,J] := 0.0;
                     Inc(J);
                 end;
                 Inc(I);
             end;
             A[0,0] := 1;
             A[N-1,N-1] := 1;
-            ErrSpec := ErrSpec or AP_FP_Neq(RMatrixTRRCond1(A, N, AP_FP_Greater(RandomReal,Double(0.5)), False),0);
-            ErrSpec := ErrSpec or AP_FP_Neq(RMatrixTRRCondInf(A, N, AP_FP_Greater(RandomReal,Double(0.5)), False),0);
+            ErrSpec := ErrSpec or AP_FP_Neq(RMatrixTRRCond1(A, N, AP_FP_Greater(RandomReal,0.5), False),0);
+            ErrSpec := ErrSpec or AP_FP_Neq(RMatrixTRRCondInf(A, N, AP_FP_Greater(RandomReal,0.5), False),0);
         end;
         
         //
@@ -1211,7 +1209,7 @@ begin
                 J:=0;
                 while J<=N-1 do
                 begin
-                    A[I,J] := Double(0.0);
+                    A[I,J] := 0.0;
                     Inc(J);
                 end;
                 Inc(I);
@@ -1223,9 +1221,9 @@ begin
                 Inc(I);
             end;
             I := RandomInteger(N);
-            A[I,I] := Double(0.1)*MaxRealNumber;
-            ErrSpec := ErrSpec or AP_FP_Neq(RMatrixTRRCond1(A, N, AP_FP_Greater(RandomReal,Double(0.5)), False),0);
-            ErrSpec := ErrSpec or AP_FP_Neq(RMatrixTRRCondInf(A, N, AP_FP_Greater(RandomReal,Double(0.5)), False),0);
+            A[I,I] := 0.1*MaxRealNumber;
+            ErrSpec := ErrSpec or AP_FP_Neq(RMatrixTRRCond1(A, N, AP_FP_Greater(RandomReal,0.5), False),0);
+            ErrSpec := ErrSpec or AP_FP_Neq(RMatrixTRRCondInf(A, N, AP_FP_Greater(RandomReal,0.5), False),0);
         end;
         Inc(N);
     end;
@@ -1278,8 +1276,8 @@ begin
         // special test for zero matrix
         //
         CMatrixGenZero(A, N);
-        ErrSpec := ErrSpec or AP_FP_Neq(CMatrixTRRCond1(A, N, AP_FP_Greater(RandomReal,Double(0.5)), False),0);
-        ErrSpec := ErrSpec or AP_FP_Neq(CMatrixTRRCondInf(A, N, AP_FP_Greater(RandomReal,Double(0.5)), False),0);
+        ErrSpec := ErrSpec or AP_FP_Neq(CMatrixTRRCond1(A, N, AP_FP_Greater(RandomReal,0.5), False),0);
+        ErrSpec := ErrSpec or AP_FP_Neq(CMatrixTRRCondInf(A, N, AP_FP_Greater(RandomReal,0.5), False),0);
         
         //
         // general test
@@ -1295,16 +1293,16 @@ begin
         Pass:=1;
         while Pass<=PassCount do
         begin
-            IsUpper := AP_FP_Greater(RandomReal,Double(0.5));
-            IsUnit := AP_FP_Greater(RandomReal,Double(0.5));
+            IsUpper := AP_FP_Greater(RandomReal,0.5);
+            IsUnit := AP_FP_Greater(RandomReal,0.5);
             I:=0;
             while I<=N-1 do
             begin
                 J:=0;
                 while J<=N-1 do
                 begin
-                    A[I,J].X := RandomReal-Double(0.5);
-                    A[I,J].Y := RandomReal-Double(0.5);
+                    A[I,J].X := RandomReal-0.5;
+                    A[I,J].Y := RandomReal-0.5;
                     Inc(J);
                 end;
                 Inc(I);
@@ -1356,7 +1354,7 @@ begin
             begin
                 Q90[0] := Q90[0]+AP_Double(1)/PassCount;
             end;
-            ErrLess := ErrLess or AP_FP_Greater(V,ERC1*Double(1.001));
+            ErrLess := ErrLess or AP_FP_Greater(V,ERC1*1.001);
             
             //
             // Inf-norm
@@ -1370,14 +1368,14 @@ begin
             begin
                 Q90[1] := Q90[1]+AP_Double(1)/PassCount;
             end;
-            ErrLess := ErrLess or AP_FP_Greater(V,ERCInf*Double(1.001));
+            ErrLess := ErrLess or AP_FP_Greater(V,ERCInf*1.001);
             Inc(Pass);
         end;
         I:=0;
         while I<=1 do
         begin
-            Err50 := Err50 or AP_FP_Less(Q50[I],Double(0.50));
-            Err90 := Err90 or AP_FP_Less(Q90[I],Double(0.90));
+            Err50 := Err50 or AP_FP_Less(Q50[I],0.50);
+            Err90 := Err90 or AP_FP_Less(Q90[I],0.90);
             Inc(I);
         end;
         
@@ -1393,15 +1391,15 @@ begin
                 J:=0;
                 while J<=N-1 do
                 begin
-                    A[I,J] := C_Complex(Double(0.0));
+                    A[I,J] := C_Complex(0.0);
                     Inc(J);
                 end;
                 Inc(I);
             end;
             A[0,0] := C_Complex(1);
             A[N-1,N-1] := C_Complex(1);
-            ErrSpec := ErrSpec or AP_FP_Neq(CMatrixTRRCond1(A, N, AP_FP_Greater(RandomReal,Double(0.5)), False),0);
-            ErrSpec := ErrSpec or AP_FP_Neq(CMatrixTRRCondInf(A, N, AP_FP_Greater(RandomReal,Double(0.5)), False),0);
+            ErrSpec := ErrSpec or AP_FP_Neq(CMatrixTRRCond1(A, N, AP_FP_Greater(RandomReal,0.5), False),0);
+            ErrSpec := ErrSpec or AP_FP_Neq(CMatrixTRRCondInf(A, N, AP_FP_Greater(RandomReal,0.5), False),0);
         end;
         
         //
@@ -1416,7 +1414,7 @@ begin
                 J:=0;
                 while J<=N-1 do
                 begin
-                    A[I,J] := C_Complex(Double(0.0));
+                    A[I,J] := C_Complex(0.0);
                     Inc(J);
                 end;
                 Inc(I);
@@ -1428,9 +1426,9 @@ begin
                 Inc(I);
             end;
             I := RandomInteger(N);
-            A[I,I] := C_Complex(Double(0.1)*MaxRealNumber);
-            ErrSpec := ErrSpec or AP_FP_Neq(CMatrixTRRCond1(A, N, AP_FP_Greater(RandomReal,Double(0.5)), False),0);
-            ErrSpec := ErrSpec or AP_FP_Neq(CMatrixTRRCondInf(A, N, AP_FP_Greater(RandomReal,Double(0.5)), False),0);
+            A[I,I] := C_Complex(0.1*MaxRealNumber);
+            ErrSpec := ErrSpec or AP_FP_Neq(CMatrixTRRCond1(A, N, AP_FP_Greater(RandomReal,0.5), False),0);
+            ErrSpec := ErrSpec or AP_FP_Neq(CMatrixTRRCondInf(A, N, AP_FP_Greater(RandomReal,0.5), False),0);
         end;
         Inc(N);
     end;
@@ -1517,7 +1515,7 @@ begin
             begin
                 Q90[0] := Q90[0]+AP_Double(1)/PassCount;
             end;
-            ErrLess := ErrLess or AP_FP_Greater(V,ERC1*Double(1.001));
+            ErrLess := ErrLess or AP_FP_Greater(V,ERC1*1.001);
             
             //
             // 1-norm, LU
@@ -1531,7 +1529,7 @@ begin
             begin
                 Q90[1] := Q90[1]+AP_Double(1)/PassCount;
             end;
-            ErrLess := ErrLess or AP_FP_Greater(V,ERC1*Double(1.001));
+            ErrLess := ErrLess or AP_FP_Greater(V,ERC1*1.001);
             
             //
             // Inf-norm, normal
@@ -1545,7 +1543,7 @@ begin
             begin
                 Q90[2] := Q90[2]+AP_Double(1)/PassCount;
             end;
-            ErrLess := ErrLess or AP_FP_Greater(V,ERCInf*Double(1.001));
+            ErrLess := ErrLess or AP_FP_Greater(V,ERCInf*1.001);
             
             //
             // Inf-norm, LU
@@ -1559,14 +1557,14 @@ begin
             begin
                 Q90[3] := Q90[3]+AP_Double(1)/PassCount;
             end;
-            ErrLess := ErrLess or AP_FP_Greater(V,ERCInf*Double(1.001));
+            ErrLess := ErrLess or AP_FP_Greater(V,ERCInf*1.001);
             Inc(Pass);
         end;
         I:=0;
         while I<=3 do
         begin
-            Err50 := Err50 or AP_FP_Less(Q50[I],Double(0.50));
-            Err90 := Err90 or AP_FP_Less(Q90[I],Double(0.90));
+            Err50 := Err50 or AP_FP_Less(Q50[I],0.50);
+            Err90 := Err90 or AP_FP_Less(Q90[I],0.90);
             Inc(I);
         end;
         
@@ -1582,7 +1580,7 @@ begin
                 J:=0;
                 while J<=N-1 do
                 begin
-                    A[I,J] := Double(0.0);
+                    A[I,J] := 0.0;
                     Inc(J);
                 end;
                 Inc(I);
@@ -1607,7 +1605,7 @@ begin
                 J:=0;
                 while J<=N-1 do
                 begin
-                    A[I,J] := Double(0.0);
+                    A[I,J] := 0.0;
                     Inc(J);
                 end;
                 Inc(I);
@@ -1619,7 +1617,7 @@ begin
                 Inc(I);
             end;
             I := RandomInteger(N);
-            A[I,I] := Double(0.1)*MaxRealNumber;
+            A[I,I] := 0.1*MaxRealNumber;
             ErrSpec := ErrSpec or AP_FP_Neq(RMatrixRCond1(A, N),0);
             ErrSpec := ErrSpec or AP_FP_Neq(RMatrixRCondInf(A, N),0);
             ErrSpec := ErrSpec or AP_FP_Neq(RMatrixLURCond1(A, N),0);
@@ -1668,7 +1666,7 @@ begin
     N:=1;
     while N<=MaxN do
     begin
-        IsUpper := AP_FP_Greater(RandomReal,Double(0.5));
+        IsUpper := AP_FP_Greater(RandomReal,0.5);
         
         //
         // general test
@@ -1702,7 +1700,7 @@ begin
             begin
                 Q90[0] := Q90[0]+AP_Double(1)/PassCount;
             end;
-            ErrLess := ErrLess or AP_FP_Greater(V,ERC1*Double(1.001));
+            ErrLess := ErrLess or AP_FP_Greater(V,ERC1*1.001);
             
             //
             // Cholesky
@@ -1716,14 +1714,14 @@ begin
             begin
                 Q90[1] := Q90[1]+AP_Double(1)/PassCount;
             end;
-            ErrLess := ErrLess or AP_FP_Greater(V,ERC1*Double(1.001));
+            ErrLess := ErrLess or AP_FP_Greater(V,ERC1*1.001);
             Inc(Pass);
         end;
         I:=0;
         while I<=1 do
         begin
-            Err50 := Err50 or AP_FP_Less(Q50[I],Double(0.50));
-            Err90 := Err90 or AP_FP_Less(Q90[I],Double(0.90));
+            Err50 := Err50 or AP_FP_Less(Q50[I],0.50);
+            Err90 := Err90 or AP_FP_Less(Q90[I],0.90);
             Inc(I);
         end;
         
@@ -1739,7 +1737,7 @@ begin
                 J:=0;
                 while J<=N-1 do
                 begin
-                    A[I,J] := Double(0.0);
+                    A[I,J] := 0.0;
                     Inc(J);
                 end;
                 Inc(I);
@@ -1762,7 +1760,7 @@ begin
                 J:=0;
                 while J<=N-1 do
                 begin
-                    A[I,J] := Double(0.0);
+                    A[I,J] := 0.0;
                     Inc(J);
                 end;
                 Inc(I);
@@ -1774,7 +1772,7 @@ begin
                 Inc(I);
             end;
             I := RandomInteger(N);
-            A[I,I] := Double(0.1)*MaxRealNumber;
+            A[I,I] := 0.1*MaxRealNumber;
             ErrSpec := ErrSpec or AP_FP_Neq(SPDMatrixRCond(A, N, IsUpper),0);
             ErrSpec := ErrSpec or AP_FP_Neq(SPDMatrixCholeskyRCond(A, N, IsUpper),0);
         end;
@@ -1867,7 +1865,7 @@ begin
             begin
                 Q90[0] := Q90[0]+AP_Double(1)/PassCount;
             end;
-            ErrLess := ErrLess or AP_FP_Greater(V,ERC1*Double(1.001));
+            ErrLess := ErrLess or AP_FP_Greater(V,ERC1*1.001);
             
             //
             // 1-norm, LU
@@ -1881,7 +1879,7 @@ begin
             begin
                 Q90[1] := Q90[1]+AP_Double(1)/PassCount;
             end;
-            ErrLess := ErrLess or AP_FP_Greater(V,ERC1*Double(1.001));
+            ErrLess := ErrLess or AP_FP_Greater(V,ERC1*1.001);
             
             //
             // Inf-norm, normal
@@ -1895,7 +1893,7 @@ begin
             begin
                 Q90[2] := Q90[2]+AP_Double(1)/PassCount;
             end;
-            ErrLess := ErrLess or AP_FP_Greater(V,ERCInf*Double(1.001));
+            ErrLess := ErrLess or AP_FP_Greater(V,ERCInf*1.001);
             
             //
             // Inf-norm, LU
@@ -1909,14 +1907,14 @@ begin
             begin
                 Q90[3] := Q90[3]+AP_Double(1)/PassCount;
             end;
-            ErrLess := ErrLess or AP_FP_Greater(V,ERCInf*Double(1.001));
+            ErrLess := ErrLess or AP_FP_Greater(V,ERCInf*1.001);
             Inc(Pass);
         end;
         I:=0;
         while I<=3 do
         begin
-            Err50 := Err50 or AP_FP_Less(Q50[I],Double(0.50));
-            Err90 := Err90 or AP_FP_Less(Q90[I],Double(0.90));
+            Err50 := Err50 or AP_FP_Less(Q50[I],0.50);
+            Err90 := Err90 or AP_FP_Less(Q90[I],0.90);
             Inc(I);
         end;
         
@@ -1932,7 +1930,7 @@ begin
                 J:=0;
                 while J<=N-1 do
                 begin
-                    A[I,J] := C_Complex(Double(0.0));
+                    A[I,J] := C_Complex(0.0);
                     Inc(J);
                 end;
                 Inc(I);
@@ -1957,7 +1955,7 @@ begin
                 J:=0;
                 while J<=N-1 do
                 begin
-                    A[I,J] := C_Complex(Double(0.0));
+                    A[I,J] := C_Complex(0.0);
                     Inc(J);
                 end;
                 Inc(I);
@@ -1969,7 +1967,7 @@ begin
                 Inc(I);
             end;
             I := RandomInteger(N);
-            A[I,I] := C_Complex(Double(0.1)*MaxRealNumber);
+            A[I,I] := C_Complex(0.1*MaxRealNumber);
             ErrSpec := ErrSpec or AP_FP_Neq(CMatrixRCond1(A, N),0);
             ErrSpec := ErrSpec or AP_FP_Neq(cMatrixRCondInf(A, N),0);
             ErrSpec := ErrSpec or AP_FP_Neq(CMatrixLURCond1(A, N),0);
@@ -2018,7 +2016,7 @@ begin
     N:=1;
     while N<=MaxN do
     begin
-        IsUpper := AP_FP_Greater(RandomReal,Double(0.5));
+        IsUpper := AP_FP_Greater(RandomReal,0.5);
         
         //
         // general test
@@ -2052,7 +2050,7 @@ begin
             begin
                 Q90[0] := Q90[0]+AP_Double(1)/PassCount;
             end;
-            ErrLess := ErrLess or AP_FP_Greater(V,ERC1*Double(1.001));
+            ErrLess := ErrLess or AP_FP_Greater(V,ERC1*1.001);
             
             //
             // Cholesky
@@ -2066,14 +2064,14 @@ begin
             begin
                 Q90[1] := Q90[1]+AP_Double(1)/PassCount;
             end;
-            ErrLess := ErrLess or AP_FP_Greater(V,ERC1*Double(1.001));
+            ErrLess := ErrLess or AP_FP_Greater(V,ERC1*1.001);
             Inc(Pass);
         end;
         I:=0;
         while I<=1 do
         begin
-            Err50 := Err50 or AP_FP_Less(Q50[I],Double(0.50));
-            Err90 := Err90 or AP_FP_Less(Q90[I],Double(0.90));
+            Err50 := Err50 or AP_FP_Less(Q50[I],0.50);
+            Err90 := Err90 or AP_FP_Less(Q90[I],0.90);
             Inc(I);
         end;
         
@@ -2089,7 +2087,7 @@ begin
                 J:=0;
                 while J<=N-1 do
                 begin
-                    A[I,J] := C_Complex(Double(0.0));
+                    A[I,J] := C_Complex(0.0);
                     Inc(J);
                 end;
                 Inc(I);
@@ -2112,7 +2110,7 @@ begin
                 J:=0;
                 while J<=N-1 do
                 begin
-                    A[I,J] := C_Complex(Double(0.0));
+                    A[I,J] := C_Complex(0.0);
                     Inc(J);
                 end;
                 Inc(I);
@@ -2124,7 +2122,7 @@ begin
                 Inc(I);
             end;
             I := RandomInteger(N);
-            A[I,I] := C_Complex(Double(0.1)*MaxRealNumber);
+            A[I,I] := C_Complex(0.1*MaxRealNumber);
             ErrSpec := ErrSpec or AP_FP_Neq(HPDMatrixRCond(A, N, IsUpper),0);
             ErrSpec := ErrSpec or AP_FP_Neq(HPDMatrixCholeskyRCond(A, N, IsUpper),0);
         end;

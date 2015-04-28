@@ -1,4 +1,4 @@
-{$MODESWITCH RESULT+}
+
 program _demo;
 Array[0]
 var
@@ -16,8 +16,8 @@ begin
     MLPCreate0(2, 2, Net);
     SetLength(X, 2);
     SetLength(Y, 2);
-    X[0] := RandomReal-Double(0.5);
-    X[1] := RandomReal-Double(0.5);
+    X[0] := RandomReal-0.5;
+    X[1] := RandomReal-0.5;
     MLPProcess(Net, X, Y);
     Write(Format('Regression task'#13#10'',[]));
     Write(Format('IN[0]  = %5.2f'#13#10'',[

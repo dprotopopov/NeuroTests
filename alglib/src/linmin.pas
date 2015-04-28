@@ -1,5 +1,3 @@
-{.$MODESWITCH RESULT+}
-{.$GOTO ON}
 (*************************************************************************
 ARGONNE NATIONAL LABORATORY. MINPACK PROJECT. JUNE 1983
 JORGE J. MORE', DAVID J. THUENTE
@@ -57,7 +55,7 @@ end;
 
 procedure LinMinNormalizeD(var D : TReal1DArray;
      var Stp : Extended;
-     N : AlglibInteger);inline;
+     N : AlglibInteger);
 procedure MCSRCH(const N : AlglibInteger;
      var X : TReal1DArray;
      var F : Extended;

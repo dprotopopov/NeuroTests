@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Copyright (c) 2010, Sergey Bochkanov (ALGLIB project).
 
@@ -26,12 +24,12 @@ uses Math, Sysutils, Ap, linmin;
 type
 MinASAState = record
     N : AlglibInteger;
-    EpsG : Double;
-    EpsF : Double;
-    EpsX : Double;
+    EpsG : Extended;
+    EpsF : Extended;
+    EpsX : Extended;
     MaxIts : AlglibInteger;
     XRep : Boolean;
-    StpMax : Double;
+    StpMax : Extended;
     CGType : AlglibInteger;
     K : AlglibInteger;
     NFEV : AlglibInteger;
@@ -40,9 +38,9 @@ MinASAState = record
     BndU : TReal1DArray;
     CurAlgo : AlglibInteger;
     ACount : AlglibInteger;
-    Mu : Double;
-    FInit : Double;
-    DGInit : Double;
+    Mu : Extended;
+    FInit : Extended;
+    DGInit : Extended;
     AK : TReal1DArray;
     XK : TReal1DArray;
     DK : TReal1DArray;
@@ -50,13 +48,13 @@ MinASAState = record
     XN : TReal1DArray;
     DN : TReal1DArray;
     D : TReal1DArray;
-    FOld : Double;
-    Stp : Double;
+    FOld : Extended;
+    Stp : Extended;
     WORK : TReal1DArray;
     YK : TReal1DArray;
     GC : TReal1DArray;
     X : TReal1DArray;
-    F : Double;
+    F : Extended;
     G : TReal1DArray;
     NeedFG : Boolean;
     XUpdated : Boolean;
@@ -66,8 +64,8 @@ MinASAState = record
     RepTerminationType : AlglibInteger;
     DebugRestartsCount : AlglibInteger;
     LState : LINMINState;
-    BetaHS : Double;
-    BetaDY : Double;
+    BetaHS : Extended;
+    BetaDY : Extended;
 end;
 
 
@@ -86,14 +84,14 @@ procedure MinASACreate(N : AlglibInteger;
      const BndU : TReal1DArray;
      var State : MinASAState);
 procedure MinASASetCond(var State : MinASAState;
-     EpsG : Double;
-     EpsF : Double;
-     EpsX : Double;
+     EpsG : Extended;
+     EpsF : Extended;
+     EpsX : Extended;
      MaxIts : AlglibInteger);
 procedure MinASASetXRep(var State : MinASAState; NeedXRep : Boolean);
 procedure MinASASetAlgorithm(var State : MinASAState;
      AlgoType : AlglibInteger);
-procedure MinASASetStpMax(var State : MinASAState; StpMax : Double);
+procedure MinASASetStpMax(var State : MinASAState; StpMax : Extended);
 function MinASAIteration(var State : MinASAState):Boolean;
 procedure MinASAResults(const State : MinASAState;
      var X : TReal1DArray;
@@ -104,15 +102,15 @@ implementation
 const
     N1 = 2;
     N2 = 2;
-    STPMIN = Double(1.0E-300);
-    GPAFTol = Double(0.0001);
-    GPADecay = Double(0.5);
-    ASARho = Double(0.5);
+    STPMIN = 1.0E-300;
+    GPAFTol = 0.0001;
+    GPADecay = 0.5;
+    ASARho = 0.5;
 
-function ASABoundVal(X : Double; B1 : Double; B2 : Double):Double;forward;
-function ASABoundedAntiGradNorm(const State : MinASAState):Double;forward;
-function ASAGINorm(const State : MinASAState):Double;forward;
-function ASAD1Norm(const State : MinASAState):Double;forward;
+function ASABoundVal(X : Extended; B1 : Extended; B2 : Extended):Extended;forward;
+function ASABoundedAntiGradNorm(const State : MinASAState):Extended;forward;
+function ASAGINorm(const State : MinASAState):Extended;forward;
+function ASAD1Norm(const State : MinASAState):Extended;forward;
 function ASAUIsEmpty(const State : MinASAState):Boolean;forward;
 function ASAWantToUnstick(const State : MinASAState):Boolean;forward;
 procedure ClearRequestFields(var State : MinASAState);forward;
@@ -259,9 +257,9 @@ automatic stopping criterion selection (small EpsX).
      Copyright 02.04.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure MinASASetCond(var State : MinASAState;
-     EpsG : Double;
-     EpsF : Double;
-     EpsX : Double;
+     EpsG : Extended;
+     EpsF : Extended;
+     EpsX : Extended;
      MaxIts : AlglibInteger);
 begin
     Assert(AP_FP_Greater_Eq(EpsG,0), 'MinASASetCond: negative EpsG!');
@@ -270,7 +268,7 @@ begin
     Assert(MaxIts>=0, 'MinASASetCond: negative MaxIts!');
     if AP_FP_Eq(EpsG,0) and AP_FP_Eq(EpsF,0) and AP_FP_Eq(EpsX,0) and (MaxIts=0) then
     begin
-        EpsX := Double(1.0E-6);
+        EpsX := 1.0E-6;
     end;
     State.EpsG := EpsG;
     State.EpsF := EpsF;
@@ -348,7 +346,7 @@ overflow) without actually calculating function value at the x+stp*d.
   -- ALGLIB --
      Copyright 02.04.2010 by Bochkanov Sergey
 *************************************************************************)
-procedure MinASASetStpMax(var State : MinASAState; StpMax : Double);
+procedure MinASASetStpMax(var State : MinASAState; StpMax : Extended);
 begin
     Assert(AP_FP_Greater_Eq(StpMax,0), 'MinASASetStpMax: StpMax<0!');
     State.StpMax := StpMax;
@@ -396,9 +394,9 @@ function MinASAIteration(var State : MinASAState):Boolean;
 var
     N : AlglibInteger;
     I : AlglibInteger;
-    BetaK : Double;
-    V : Double;
-    VV : Double;
+    BetaK : Extended;
+    V : Extended;
+    VV : Extended;
     MCINFO : AlglibInteger;
     B : Boolean;
     StepFound : Boolean;
@@ -529,7 +527,7 @@ begin
         end;
         Inc(I);
     end;
-    State.Mu := Double(0.1);
+    State.Mu := 0.1;
     State.CurAlgo := 0;
     
     //
@@ -815,7 +813,7 @@ lbl_41:
     Result := False;
     Exit;
 lbl_39:
-    if AP_FP_Greater(State.FInit-State.F,State.EpsF*Max(AbsReal(State.FInit), Max(AbsReal(State.F), Double(1.0)))) then
+    if AP_FP_Greater(State.FInit-State.F,State.EpsF*Max(AbsReal(State.FInit), Max(AbsReal(State.F), 1.0))) then
     begin
         goto lbl_43;
     end;
@@ -1108,7 +1106,7 @@ lbl_59:
     // conditions and we DON'T switch to GPA, so we cycle
     // indefinitely).
     //
-    if AP_FP_Greater(State.FOld-State.F,State.EpsF*Max(AbsReal(State.FOld), Max(AbsReal(State.F), Double(1.0)))) then
+    if AP_FP_Greater(State.FOld-State.F,State.EpsF*Max(AbsReal(State.FOld), Max(AbsReal(State.F), 1.0))) then
     begin
         goto lbl_65;
     end;
@@ -1311,7 +1309,7 @@ end;
   -- ALGLIB --
      Copyright 20.03.2009 by Bochkanov Sergey
 *************************************************************************)
-function ASABoundVal(X : Double; B1 : Double; B2 : Double):Double;
+function ASABoundVal(X : Extended; B1 : Extended; B2 : Extended):Extended;
 begin
     if AP_FP_Less_Eq(X,B1) then
     begin
@@ -1342,10 +1340,10 @@ This function may be used to check a stopping criterion.
   -- ALGLIB --
      Copyright 20.03.2009 by Bochkanov Sergey
 *************************************************************************)
-function ASABoundedAntiGradNorm(const State : MinASAState):Double;
+function ASABoundedAntiGradNorm(const State : MinASAState):Extended;
 var
     I : AlglibInteger;
-    V : Double;
+    V : Extended;
 begin
     Result := 0;
     I:=0;
@@ -1379,10 +1377,10 @@ sign.
   -- ALGLIB --
      Copyright 20.03.2009 by Bochkanov Sergey
 *************************************************************************)
-function ASAGINorm(const State : MinASAState):Double;
+function ASAGINorm(const State : MinASAState):Extended;
 var
     I : AlglibInteger;
-    V : Double;
+    V : Extended;
 begin
     Result := 0;
     I:=0;
@@ -1407,7 +1405,7 @@ OPTIMIZATION' by WILLIAM W. HAGER AND HONGCHAO ZHANG.
   -- ALGLIB --
      Copyright 20.03.2009 by Bochkanov Sergey
 *************************************************************************)
-function ASAD1Norm(const State : MinASAState):Double;
+function ASAD1Norm(const State : MinASAState):Extended;
 var
     I : AlglibInteger;
 begin
@@ -1439,9 +1437,9 @@ OPTIMIZATION' by WILLIAM W. HAGER AND HONGCHAO ZHANG.
 function ASAUIsEmpty(const State : MinASAState):Boolean;
 var
     I : AlglibInteger;
-    D : Double;
-    D2 : Double;
-    D32 : Double;
+    D : Extended;
+    D2 : Extended;
+    D32 : Extended;
 begin
     D := ASAD1Norm(State);
     D2 := Sqrt(D);

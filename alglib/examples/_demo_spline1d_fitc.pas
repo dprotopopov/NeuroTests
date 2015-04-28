@@ -1,4 +1,4 @@
-{$MODESWITCH RESULT+}
+
 program _demo;
 Array[0]
 var
@@ -67,14 +67,14 @@ begin
         Write(Format(''#13#10'OK, we have finished'#13#10''#13#10'',[]));
         Write(Format('     x   F(x)   S(x)  Error'#13#10'',[]));
         T := 0;
-        while AP_FP_Less(T,Double(0.999999)*Pi) do
+        while AP_FP_Less(T,0.999999*Pi) do
         begin
             Write(Format('%6.3f %6.3f %6.3f %6.3f'#13#10'',[
                 T,
                 Sin(T),
                 Spline1DCalc(S, T),
                 AbsReal(Spline1DCalc(S, T)-Sin(T))]));
-            T := Min(Pi, T+Double(0.25));
+            T := Min(Pi, T+0.25);
         end;
         Write(Format('%6.3f %6.3f %6.3f %6.3f'#13#10''#13#10'',[
             T,

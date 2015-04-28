@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testxblasunit;
 interface
 uses Math, Sysutils, Ap, xblas;
@@ -70,7 +68,7 @@ begin
             I:=0;
             while I<=N-1 do
             begin
-                if AP_FP_Greater(RandomReal,Double(0.2)) then
+                if AP_FP_Greater(RandomReal,0.2) then
                 begin
                     RX[I] := 2*RandomReal-1;
                 end
@@ -78,7 +76,7 @@ begin
                 begin
                     RX[I] := 0;
                 end;
-                if AP_FP_Greater(RandomReal,Double(0.2)) then
+                if AP_FP_Greater(RandomReal,0.2) then
                 begin
                     RY[I] := 2*RandomReal-1;
                 end
@@ -101,7 +99,7 @@ begin
             I:=0;
             while I<=N-1 do
             begin
-                if AP_FP_Greater(RandomReal,Double(0.2)) then
+                if AP_FP_Greater(RandomReal,0.2) then
                 begin
                     CX[I].X := 2*RandomReal-1;
                     CX[I].Y := 2*RandomReal-1;
@@ -110,7 +108,7 @@ begin
                 begin
                     CX[I] := C_Complex(0);
                 end;
-                if AP_FP_Greater(RandomReal,Double(0.2)) then
+                if AP_FP_Greater(RandomReal,0.2) then
                 begin
                     CY[I].X := 2*RandomReal-1;
                     CY[I].Y := 2*RandomReal-1;

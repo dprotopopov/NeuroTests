@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Copyright 2008 by Sergey Bochkanov (ALGLIB project).
 
@@ -37,12 +35,12 @@ procedure TagSortFast(var A : TReal1DArray; N : AlglibInteger);
 procedure TagHeapPushI(var A : TReal1DArray;
      var B : TInteger1DArray;
      var N : AlglibInteger;
-     VA : Double;
+     VA : Extended;
      VB : AlglibInteger);
 procedure TagHeapReplaceTopI(var A : TReal1DArray;
      var B : TInteger1DArray;
      N : AlglibInteger;
-     VA : Double;
+     VA : Extended;
      VB : AlglibInteger);
 procedure TagHeapPopI(var A : TReal1DArray;
      var B : TInteger1DArray;
@@ -154,7 +152,7 @@ var
     I : AlglibInteger;
     K : AlglibInteger;
     T : AlglibInteger;
-    Tmp : Double;
+    Tmp : Extended;
     TmpI : AlglibInteger;
 begin
     
@@ -245,8 +243,8 @@ var
     I : AlglibInteger;
     K : AlglibInteger;
     T : AlglibInteger;
-    Tmp : Double;
-    TmpR : Double;
+    Tmp : Extended;
+    TmpR : Extended;
 begin
     
     //
@@ -334,7 +332,7 @@ var
     I : AlglibInteger;
     K : AlglibInteger;
     T : AlglibInteger;
-    Tmp : Double;
+    Tmp : Extended;
 begin
     
     //
@@ -426,12 +424,12 @@ PARAMETERS:
 procedure TagHeapPushI(var A : TReal1DArray;
      var B : TInteger1DArray;
      var N : AlglibInteger;
-     VA : Double;
+     VA : Extended;
      VB : AlglibInteger);
 var
     J : AlglibInteger;
     K : AlglibInteger;
-    V : Double;
+    V : Extended;
 begin
     if N<0 then
     begin
@@ -505,15 +503,15 @@ PARAMETERS:
 procedure TagHeapReplaceTopI(var A : TReal1DArray;
      var B : TInteger1DArray;
      N : AlglibInteger;
-     VA : Double;
+     VA : Extended;
      VB : AlglibInteger);
 var
     J : AlglibInteger;
     K1 : AlglibInteger;
     K2 : AlglibInteger;
-    V : Double;
-    V1 : Double;
-    V2 : Double;
+    V : Extended;
+    V1 : Extended;
+    V2 : Extended;
 begin
     if N<1 then
     begin
@@ -625,7 +623,7 @@ procedure TagHeapPopI(var A : TReal1DArray;
      var B : TInteger1DArray;
      var N : AlglibInteger);
 var
-    VA : Double;
+    VA : Extended;
     VB : AlglibInteger;
 begin
     if N<1 then

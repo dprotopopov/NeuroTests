@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Copyright (c) 2010, Sergey Bochkanov (ALGLIB project).
 
@@ -36,14 +34,14 @@ KDTree = record
     BoxMax : TReal1DArray;
     CurBoxMin : TReal1DArray;
     CurBoxMax : TReal1DArray;
-    CurDist : Double;
+    CurDist : Extended;
     Nodes : TInteger1DArray;
     Splits : TReal1DArray;
     X : TReal1DArray;
     KNeeded : AlglibInteger;
-    RNeeded : Double;
+    RNeeded : Extended;
     SelfMatch : Boolean;
-    ApproxF : Double;
+    ApproxF : Extended;
     KCur : AlglibInteger;
     Idx : TInteger1DArray;
     R : TReal1DArray;
@@ -72,13 +70,13 @@ function KDTreeQueryKNN(var KDT : KDTree;
      SelfMatch : Boolean):AlglibInteger;
 function KDTreeQueryRNN(var KDT : KDTree;
      const X : TReal1DArray;
-     R : Double;
+     R : Extended;
      SelfMatch : Boolean):AlglibInteger;
 function KDTreeQueryAKNN(var KDT : KDTree;
      const X : TReal1DArray;
      K : AlglibInteger;
      SelfMatch : Boolean;
-     Eps : Double):AlglibInteger;
+     Eps : Extended):AlglibInteger;
 procedure KDTreeQueryResultsX(const KDT : KDTree;
      var X : TReal2DArray;
      var K : AlglibInteger);
@@ -101,7 +99,7 @@ procedure KDTreeSplit(var KDT : KDTree;
      I1 : AlglibInteger;
      I2 : AlglibInteger;
      D : AlglibInteger;
-     S : Double;
+     S : Extended;
      var I3 : AlglibInteger);forward;
 procedure KDTreeGenerateTreeRec(var KDT : KDTree;
      var NodesOffs : AlglibInteger;
@@ -113,10 +111,10 @@ procedure KDTreeQueryNNRec(var KDT : KDTree; Offs : AlglibInteger);forward;
 procedure KDTreeInitBox(var KDT : KDTree; const X : TReal1DArray);forward;
 function VRootFreeNorm(const X : TReal1DArray;
      N : AlglibInteger;
-     NormType : AlglibInteger):Double;forward;
-function VRootFreeComponentNorm(X : Double;
-     NormType : AlglibInteger):Double;forward;
-function VRangeDist(X : Double; A : Double; B : Double):Double;forward;
+     NormType : AlglibInteger):Extended;forward;
+function VRootFreeComponentNorm(X : Extended;
+     NormType : AlglibInteger):Extended;forward;
+function VRangeDist(X : Extended; A : Extended; B : Extended):Extended;forward;
 
 
 (*************************************************************************
@@ -337,7 +335,7 @@ function KDTreeQueryKNN(var KDT : KDTree;
      K : AlglibInteger;
      SelfMatch : Boolean):AlglibInteger;
 begin
-    Result := KDTreeQueryAKNN(KDT, X, K, SelfMatch, Double(0.0));
+    Result := KDTreeQueryAKNN(KDT, X, K, SelfMatch, 0.0);
 end;
 
 
@@ -370,14 +368,14 @@ actual results:
 *************************************************************************)
 function KDTreeQueryRNN(var KDT : KDTree;
      const X : TReal1DArray;
-     R : Double;
+     R : Extended;
      SelfMatch : Boolean):AlglibInteger;
 var
     I : AlglibInteger;
     J : AlglibInteger;
-    VX : Double;
-    VMin : Double;
-    VMax : Double;
+    VX : Extended;
+    VMin : Extended;
+    VMax : Extended;
 begin
     Assert(AP_FP_Greater(R,0), 'KDTreeQueryRNN: incorrect R!');
     
@@ -463,13 +461,13 @@ function KDTreeQueryAKNN(var KDT : KDTree;
      const X : TReal1DArray;
      K : AlglibInteger;
      SelfMatch : Boolean;
-     Eps : Double):AlglibInteger;
+     Eps : Extended):AlglibInteger;
 var
     I : AlglibInteger;
     J : AlglibInteger;
-    VX : Double;
-    VMin : Double;
-    VMax : Double;
+    VX : Extended;
+    VMin : Extended;
+    VMax : Extended;
 begin
     Assert(K>0, 'KDTreeQueryKNN: incorrect K!');
     Assert(AP_FP_Greater_Eq(Eps,0), 'KDTreeQueryKNN: incorrect Eps!');
@@ -712,14 +710,14 @@ procedure KDTreeSplit(var KDT : KDTree;
      I1 : AlglibInteger;
      I2 : AlglibInteger;
      D : AlglibInteger;
-     S : Double;
+     S : Extended;
      var I3 : AlglibInteger);
 var
     I : AlglibInteger;
     J : AlglibInteger;
     ILeft : AlglibInteger;
     IRight : AlglibInteger;
-    V : Double;
+    V : Extended;
 begin
     
     //
@@ -808,14 +806,14 @@ var
     I3 : AlglibInteger;
     CntLess : AlglibInteger;
     CntGreater : AlglibInteger;
-    MinV : Double;
-    MaxV : Double;
+    MinV : Extended;
+    MaxV : Extended;
     MinIdx : AlglibInteger;
     MaxIdx : AlglibInteger;
     D : AlglibInteger;
-    DS : Double;
-    S : Double;
-    V : Double;
+    DS : Extended;
+    S : Extended;
+    V : Extended;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin
@@ -860,7 +858,7 @@ begin
     // Select split position S using sliding midpoint rule,
     // rearrange points into [I1,I3) and [I3,I2)
     //
-    S := KDT.CurBoxMin[D]+Double(0.5)*DS;
+    S := KDT.CurBoxMin[D]+0.5*DS;
     i1_ := (I1) - (0);
     for i_ := 0 to I2-I1-1 do
     begin
@@ -1001,7 +999,7 @@ Recursive subroutine for NN queries.
 *************************************************************************)
 procedure KDTreeQueryNNRec(var KDT : KDTree; Offs : AlglibInteger);
 var
-    PtDist : Double;
+    PtDist : Extended;
     I : AlglibInteger;
     J : AlglibInteger;
     K : AlglibInteger;
@@ -1011,16 +1009,16 @@ var
     I2 : AlglibInteger;
     K1 : AlglibInteger;
     K2 : AlglibInteger;
-    R1 : Double;
-    R2 : Double;
+    R1 : Extended;
+    R2 : Extended;
     D : AlglibInteger;
-    S : Double;
-    V : Double;
-    T1 : Double;
+    S : Extended;
+    V : Extended;
+    T1 : Extended;
     ChildBestOffs : AlglibInteger;
     ChildWorstOffs : AlglibInteger;
     ChildOffs : AlglibInteger;
-    PrevDist : Double;
+    PrevDist : Extended;
     ToDive : Boolean;
     BestIsLeft : Boolean;
     UpdateMin : Boolean;
@@ -1293,9 +1291,9 @@ Initializes CurBox[].
 procedure KDTreeInitBox(var KDT : KDTree; const X : TReal1DArray);
 var
     I : AlglibInteger;
-    VX : Double;
-    VMin : Double;
-    VMax : Double;
+    VX : Extended;
+    VMin : Extended;
+    VMax : Extended;
 begin
     
     //
@@ -1388,7 +1386,7 @@ Returns norm_k(x)^k (root-free = faster, but preserves ordering)
 *************************************************************************)
 function VRootFreeNorm(const X : TReal1DArray;
      N : AlglibInteger;
-     NormType : AlglibInteger):Double;
+     NormType : AlglibInteger):Extended;
 var
     I : AlglibInteger;
 begin
@@ -1435,7 +1433,7 @@ Returns norm_k(x)^k (root-free = faster, but preserves ordering)
   -- ALGLIB --
      Copyright 28.02.2010 by Bochkanov Sergey
 *************************************************************************)
-function VRootFreeComponentNorm(X : Double; NormType : AlglibInteger):Double;
+function VRootFreeComponentNorm(X : Extended; NormType : AlglibInteger):Extended;
 begin
     Result := 0;
     if NormType=0 then
@@ -1459,7 +1457,7 @@ Returns range distance: distance from X to [A,B]
   -- ALGLIB --
      Copyright 28.02.2010 by Bochkanov Sergey
 *************************************************************************)
-function VRangeDist(X : Double; A : Double; B : Double):Double;
+function VRangeDist(X : Extended; A : Extended; B : Extended):Extended;
 begin
     if AP_FP_Less(X,A) then
     begin

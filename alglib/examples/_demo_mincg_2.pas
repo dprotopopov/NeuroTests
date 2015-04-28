@@ -1,4 +1,4 @@
-{$MODESWITCH RESULT+}
+
 program _demo;
 Array[0]
 var
@@ -22,11 +22,11 @@ begin
     N := 2;
     SetLength(S, 2);
     S[0] := 10;
-    S[1] := RandomReal-Double(0.5);
+    S[1] := RandomReal-0.5;
     MinCGCreate(N, S, State);
-    MinCGSetCond(State, Double(0.0), Double(0.0), Double(0.0001), 0);
+    MinCGSetCond(State, 0.0, 0.0, 0.0001, 0);
     MinCGSetXRep(State, True);
-    MinCGSetStpMax(State, Double(1.0));
+    MinCGSetStpMax(State, 1.0);
     Write(Format(''#13#10''#13#10'F = exp(x-1) + exp(1-x) + (y-x)^2'#13#10'',[]));
     Write(Format('OPTIMIZATION STARTED'#13#10'',[]));
     while MinCGIteration(State) do

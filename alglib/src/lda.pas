@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Copyright (c) 2008, Sergey Bochkanov (ALGLIB project).
 
@@ -138,7 +136,7 @@ var
     J : AlglibInteger;
     K : AlglibInteger;
     M : AlglibInteger;
-    V : Double;
+    V : Extended;
     C : TInteger1DArray;
     Mu : TReal1DArray;
     MuC : TReal2DArray;
@@ -405,7 +403,7 @@ begin
         end;
         Assert(M<>0, 'FisherLDAN: internal error #1');
         SetLength(XYProj, NPoints-1+1, NVars-M+1);
-        MatrixMatrixMultiply(XY, 0, NPoints-1, 0, NVars-1, False, Z, 0, NVars-1, M, NVars-1, False, Double(1.0), XYProj, 0, NPoints-1, 0, NVars-M-1, Double(0.0), WORK);
+        MatrixMatrixMultiply(XY, 0, NPoints-1, 0, NVars-1, False, Z, 0, NVars-1, M, NVars-1, False, 1.0, XYProj, 0, NPoints-1, 0, NVars-M-1, 0.0, WORK);
         I:=0;
         while I<=NPoints-1 do
         begin
@@ -417,7 +415,7 @@ begin
         begin
             Exit;
         end;
-        MatrixMatrixMultiply(Z, 0, NVars-1, M, NVars-1, False, WProj, 0, NVars-M-1, 0, NVars-M-1, False, Double(1.0), W, 0, NVars-1, 0, NVars-M-1, Double(0.0), WORK);
+        MatrixMatrixMultiply(Z, 0, NVars-1, M, NVars-1, False, WProj, 0, NVars-M-1, 0, NVars-M-1, False, 1.0, W, 0, NVars-1, 0, NVars-M-1, 0.0, WORK);
         K:=NVars-M;
         while K<=NVars-1 do
         begin
@@ -437,8 +435,8 @@ begin
         //
         SetLength(TM, NVars-1+1, NVars-1+1);
         SetLength(A, NVars-1+1, NVars-1+1);
-        MatrixMatrixMultiply(SW, 0, NVars-1, 0, NVars-1, False, Z, 0, NVars-1, 0, NVars-1, False, Double(1.0), TM, 0, NVars-1, 0, NVars-1, Double(0.0), WORK);
-        MatrixMatrixMultiply(Z, 0, NVars-1, 0, NVars-1, True, TM, 0, NVars-1, 0, NVars-1, False, Double(1.0), A, 0, NVars-1, 0, NVars-1, Double(0.0), WORK);
+        MatrixMatrixMultiply(SW, 0, NVars-1, 0, NVars-1, False, Z, 0, NVars-1, 0, NVars-1, False, 1.0, TM, 0, NVars-1, 0, NVars-1, 0.0, WORK);
+        MatrixMatrixMultiply(Z, 0, NVars-1, 0, NVars-1, True, TM, 0, NVars-1, 0, NVars-1, False, 1.0, A, 0, NVars-1, 0, NVars-1, 0.0, WORK);
         I:=0;
         while I<=NVars-1 do
         begin

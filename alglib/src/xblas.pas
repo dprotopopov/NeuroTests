@@ -1,5 +1,3 @@
-{.$MODESWITCH RESULT+}
-{.$GOTO ON}
 unit xblas;
 interface
 uses Math, Sysutils, Ap;
@@ -314,6 +312,7 @@ begin
             Inc(I);
         end;
         R := R+S*KS;
+        V := AbsReal(R);
         if AllZeros or AP_FP_Eq(S*N+MX,MX) then
         begin
             Break;
@@ -335,7 +334,6 @@ Fast Pow
 *************************************************************************)
 function XFastPow(R : Extended; N : AlglibInteger):Extended;
 begin
-    Result := 0;
     if N>0 then
     begin
         if N mod 2=0 then
@@ -347,11 +345,11 @@ begin
             Result := R*XFastPow(R, N-1);
         end;
         Exit;
-    end else
+    end;
     if N=0 then
     begin
         Result := 1;
-    end else
+    end;
     if N<0 then
     begin
         Result := XFastPow(1/R, -N);

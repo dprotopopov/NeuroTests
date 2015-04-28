@@ -36,7 +36,7 @@ var
 
   lNHid1: Integer;
   lNHid2: Integer;
-  
+
   lInfo: Integer;
   lReport: MLPReport;
 
@@ -46,19 +46,19 @@ begin
 
   lInCount := 2; // количество точек данных в одной выборке
   lOutCount := 1; // кличество точек - заведомо корректных результатов
-  lMaxIts := 400; // количество итераций обучения (внутреннее)
-  lMaxStep := 0.2; // внутренний параметр обучения нейросети
-  lRestarts := 10; // внутренний параметр обучения нейросети
+  lMaxIts := 500; // количество итераций обучения (внутреннее)
+  lMaxStep := 0.001; // внутренний параметр обучения нейросети
+  lRestarts := 500; // внутренний параметр обучения нейросети
   lDecay := 0.001; // затухание.  внутренний параметр обучения нейросети
-  lPoints := 10; // количество обучающих выборок (в нашем лучае можно и поменьше)
+  lPoints := 3; // количество обучающих выборок
 
   lNHid1 := lInCount; // количество узлов в 1-ом скрытом слое
   lNHid2 := lInCount; // количество узлов во 2-ом скрытом слое
 
   // здесь можно использовать любую из функций MLPCreate
-  //MLPCreate2(lInCount, lNHid1, lNHid2, lOutCount, lNetwork);
+  // MLPCreate2(lInCount, lNHid1, lNHid2, lOutCount, lNetwork);
   MLPCreate0(lInCount, lOutCount, lNetwork);
-  
+
   SetLength(lXY, lPoints, lInCount + lOutCount);
   SetLength(lX, lInCount);
   SetLength(lY, lOutCount);
@@ -81,7 +81,7 @@ begin
   begin
     Write(Format('Classification task'#13#10'', []));
     DoProcess(1 + i, 2 + i, lNetwork, lX, lY);
-    //DoProcess(1 + i, 2 + i * 2, lNetwork, lX, lY); - будет отличаться
+    // DoProcess(1 + i, 2 + i * 2, lNetwork, lX, lY); - будет отличаться
     PrintMatrix(lX, lY, i + 1);
   end;
 

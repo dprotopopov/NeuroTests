@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testmatinvunit;
 interface
 uses Math, Sysutils, Ap, reflections, creflections, hqrnd, matgen, ablasf, ablas, trfac, trlinsolve, safesolve, rcond, matinv;
@@ -115,7 +113,7 @@ begin
     MaxCN := 3*ABLASBlockSize(EmptyCA)+1;
     PassCount := 1;
     Threshold := 10000*MachineEpsilon;
-    RCondTol := Double(0.01);
+    RCondTol := 0.01;
     RTRErrors := False;
     CTRErrors := False;
     RErrors := False;
@@ -704,7 +702,7 @@ begin
                         end
                         else
                         begin
-                            A[I,J] := Double(0.2)*RandomReal-Double(0.1);
+                            A[I,J] := 0.2*RandomReal-0.1;
                         end;
                         B[I,J] := A[I,J];
                         Inc(J);
@@ -885,8 +883,8 @@ begin
                         end
                         else
                         begin
-                            A[I,J].X := Double(0.2)*RandomReal-Double(0.1);
-                            A[I,J].Y := Double(0.2)*RandomReal-Double(0.1);
+                            A[I,J].X := 0.2*RandomReal-0.1;
+                            A[I,J].Y := 0.2*RandomReal-0.1;
                         end;
                         B[I,J] := A[I,J];
                         Inc(J);
@@ -1485,7 +1483,7 @@ begin
         N:=1;
         while N<=MaxN do
         begin
-            IsUpper := AP_FP_Greater(RandomReal,Double(0.5));
+            IsUpper := AP_FP_Greater(RandomReal,0.5);
             
             //
             // ********************************************************
@@ -1654,7 +1652,7 @@ begin
         N:=1;
         while N<=MaxN do
         begin
-            IsUpper := AP_FP_Greater(RandomReal,Double(0.5));
+            IsUpper := AP_FP_Greater(RandomReal,0.5);
             
             //
             // ********************************************************

@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
@@ -30,9 +28,9 @@ unit chisquaredistr;
 interface
 uses Math, Sysutils, Ap, gammafunc, normaldistr, igammaf;
 
-function ChiSquareDistribution(v : Double; x : Double):Double;
-function ChiSquareCDistribution(v : Double; x : Double):Double;
-function InvChiSquareDistribution(v : Double; y : Double):Double;
+function ChiSquareDistribution(v : Extended; x : Extended):Extended;
+function ChiSquareCDistribution(v : Extended; x : Extended):Extended;
+function InvChiSquareDistribution(v : Extended; y : Extended):Extended;
 
 implementation
 
@@ -69,10 +67,10 @@ See incomplete gamma function
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-function ChiSquareDistribution(v : Double; x : Double):Double;
+function ChiSquareDistribution(v : Extended; x : Extended):Extended;
 begin
     Assert(AP_FP_Greater_Eq(x,0) and AP_FP_Greater_Eq(v,1), 'Domain error in ChiSquareDistribution');
-    Result := IncompleteGamma(v/Double(2.0), x/Double(2.0));
+    Result := IncompleteGamma(v/2.0, x/2.0);
 end;
 
 
@@ -107,10 +105,10 @@ See incomplete gamma function
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-function ChiSquareCDistribution(v : Double; x : Double):Double;
+function ChiSquareCDistribution(v : Extended; x : Extended):Extended;
 begin
     Assert(AP_FP_Greater_Eq(x,0) and AP_FP_Greater_Eq(v,1), 'Domain error in ChiSquareDistributionC');
-    Result := IncompleteGammaC(v/Double(2.0), x/Double(2.0));
+    Result := IncompleteGammaC(v/2.0, x/2.0);
 end;
 
 
@@ -134,10 +132,10 @@ See inverse incomplete gamma function
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-function InvChiSquareDistribution(v : Double; y : Double):Double;
+function InvChiSquareDistribution(v : Extended; y : Extended):Extended;
 begin
     Assert(AP_FP_Greater_Eq(y,0) and AP_FP_Less_Eq(y,1) and AP_FP_Greater_Eq(v,1), 'Domain error in InvChiSquareDistribution');
-    Result := 2*InvIncompleteGammaC(Double(0.5)*v, y);
+    Result := 2*InvIncompleteGammaC(0.5*v, y);
 end;
 
 

@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Copyright (c) 1992-2007 The University of Tennessee.  All rights reserved.
 
@@ -91,18 +89,18 @@ var
     K : AlglibInteger;
     KP : AlglibInteger;
     KSTEP : AlglibInteger;
-    AK : Double;
-    AKKP1 : Double;
-    AKP1 : Double;
-    D : Double;
-    T : Double;
-    TEMP : Double;
+    AK : Extended;
+    AKKP1 : Extended;
+    AKP1 : Extended;
+    D : Extended;
+    T : Extended;
+    TEMP : Extended;
     KM1 : AlglibInteger;
     KP1 : AlglibInteger;
     L : AlglibInteger;
     I1 : AlglibInteger;
     I2 : AlglibInteger;
-    V : Double;
+    V : Extended;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin
@@ -493,18 +491,18 @@ var
     K : AlglibInteger;
     KP : AlglibInteger;
     KSTEP : AlglibInteger;
-    AK : Double;
-    AKKP1 : Double;
-    AKP1 : Double;
-    D : Double;
-    T : Double;
-    TEMP : Double;
+    AK : Extended;
+    AKKP1 : Extended;
+    AKP1 : Extended;
+    D : Extended;
+    T : Extended;
+    TEMP : Extended;
     KM1 : AlglibInteger;
     KP1 : AlglibInteger;
     L : AlglibInteger;
     I1 : AlglibInteger;
     I2 : AlglibInteger;
-    V : Double;
+    V : Extended;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin

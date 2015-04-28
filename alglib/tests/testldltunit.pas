@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testldltunit;
 interface
 uses Math, Sysutils, Ap, ldlt;
@@ -579,7 +577,7 @@ begin
             J:=I+1;
             while J<=N-1 do
             begin
-                if AP_FP_Greater(RandomReal,Double(0.95)) then
+                if AP_FP_Greater(RandomReal,0.95) then
                 begin
                     A[I,J] := 2*RandomReal-1;
                 end
@@ -590,9 +588,9 @@ begin
                 A[J,I] := A[I,J];
                 Inc(J);
             end;
-            if AP_FP_Greater(RandomReal,Double(0.95)) then
+            if AP_FP_Greater(RandomReal,0.95) then
             begin
-                A[I,I] := (2*RandomInteger(2)-1)*(Double(0.8)+RandomReal);
+                A[I,I] := (2*RandomInteger(2)-1)*(0.8+RandomReal);
             end
             else
             begin
@@ -617,7 +615,7 @@ begin
                 A[J,I] := A[I,J];
                 Inc(J);
             end;
-            A[I,I] := (2*RandomInteger(2)-1)*(Double(0.8)+RandomReal);
+            A[I,I] := (2*RandomInteger(2)-1)*(0.8+RandomReal);
             Inc(I);
         end;
     end;

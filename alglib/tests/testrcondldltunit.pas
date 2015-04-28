@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testrcondldltunit;
 interface
 uses Math, Sysutils, Ap, ldlt, ssolve, estnorm, srcond;
@@ -69,8 +67,8 @@ begin
     ErrLess := False;
     MaxN := 10;
     PassCount := 100;
-    Threshold50 := Double(0.5);
-    Threshold90 := Double(0.1);
+    Threshold50 := 0.5;
+    Threshold90 := 0.1;
     SetLength(Q50, 1+1);
     SetLength(Q90, 1+1);
     
@@ -159,7 +157,7 @@ begin
                     begin
                         Q90[0] := Q90[0]+AP_Double(1)/PassCount;
                     end;
-                    ErrLess := ErrLess or AP_FP_Less(V,ERC1/Double(1.001));
+                    ErrLess := ErrLess or AP_FP_Less(V,ERC1/1.001);
                     
                     //
                     // LDLT
@@ -174,14 +172,14 @@ begin
                     begin
                         Q90[1] := Q90[1]+AP_Double(1)/PassCount;
                     end;
-                    ErrLess := ErrLess or AP_FP_Less(V,ERC1/Double(1.001));
+                    ErrLess := ErrLess or AP_FP_Less(V,ERC1/1.001);
                     Inc(Pass);
                 end;
                 I:=0;
                 while I<=1 do
                 begin
-                    Err50 := Err50 or AP_FP_Less(Q50[I],Double(0.50));
-                    Err90 := Err90 or AP_FP_Less(Q90[I],Double(0.90));
+                    Err50 := Err50 or AP_FP_Less(Q50[I],0.50);
+                    Err90 := Err90 or AP_FP_Less(Q90[I],0.90);
                     Inc(I);
                 end;
                 Inc(MTask);
@@ -267,7 +265,7 @@ begin
             J:=I+1;
             while J<=N-1 do
             begin
-                if AP_FP_Greater(RandomReal,Double(0.95)) then
+                if AP_FP_Greater(RandomReal,0.95) then
                 begin
                     A[I,J] := 2*RandomReal-1;
                 end
@@ -278,9 +276,9 @@ begin
                 A[J,I] := A[I,J];
                 Inc(J);
             end;
-            if AP_FP_Greater(RandomReal,Double(0.95)) then
+            if AP_FP_Greater(RandomReal,0.95) then
             begin
-                A[I,I] := (2*RandomInteger(2)-1)*(Double(0.8)+RandomReal);
+                A[I,I] := (2*RandomInteger(2)-1)*(0.8+RandomReal);
             end
             else
             begin
@@ -305,7 +303,7 @@ begin
                 A[J,I] := A[I,J];
                 Inc(J);
             end;
-            A[I,I] := (2*RandomInteger(2)-1)*(Double(0.7)+RandomReal);
+            A[I,I] := (2*RandomInteger(2)-1)*(0.7+RandomReal);
             Inc(I);
         end;
     end;
@@ -774,8 +772,8 @@ begin
     //
     // result
     //
-    RC1 := Double(1.0)/(Nrm1InvA*Nrm1A);
-    RCInf := Double(1.0)/(NrmInfInvA*NrmInfA);
+    RC1 := 1.0/(Nrm1InvA*Nrm1A);
+    RCInf := 1.0/(NrmInfInvA*NrmInfA);
 end;
 
 

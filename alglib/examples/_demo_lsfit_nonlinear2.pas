@@ -1,4 +1,4 @@
-{$MODESWITCH RESULT+}
+
 program _demo;
 Array[0]
 var
@@ -51,10 +51,10 @@ begin
         Y[I] := 1-AP_Sqr(X[I,0]);
         Inc(I);
     end;
-    C[0] := Double(1.0);
-    C[1] := Double(0.0);
-    EpsF := Double(0.0);
-    EpsX := Double(0.0001);
+    C[0] := 1.0;
+    C[1] := 0.0;
+    EpsF := 0.0;
+    EpsX := 0.0001;
     MaxIts := 0;
     
     //
@@ -78,7 +78,7 @@ begin
         if State.NeedFG or State.NeedFGH then
         begin
             State.G[0] := -Pi*State.X[0]*Sin(State.C[0]*Pi*State.X[0]);
-            State.G[1] := Double(1.0);
+            State.G[1] := 1.0;
         end;
         
         //
@@ -90,9 +90,9 @@ begin
         if State.NeedFGH then
         begin
             State.H[0,0] := -AP_Sqr(Pi*State.X[0])*Cos(State.C[0]*Pi*State.X[0]);
-            State.H[0,1] := Double(0.0);
-            State.H[1,0] := Double(0.0);
-            State.H[1,1] := Double(0.0);
+            State.H[0,1] := 0.0;
+            State.H[1,0] := 0.0;
+            State.H[1,1] := 0.0;
         end;
     end;
     LSFitNonlinearResults(State, Info, C, Rep);

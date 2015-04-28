@@ -1,5 +1,3 @@
-{.$MODESWITCH RESULT+}
-{.$GOTO ON}
 (*************************************************************************
 Copyright (c) 2007-2008, Sergey Bochkanov (ALGLIB project).
 
@@ -72,27 +70,27 @@ end;
 procedure MinLBFGSCreate(N : AlglibInteger;
      M : AlglibInteger;
      const X : TReal1DArray;
-     var State : MinLBFGSState);inline;
+     var State : MinLBFGSState);
 procedure MinLBFGSSetCond(var State : MinLBFGSState;
      EpsG : Extended;
      EpsF : Extended;
      EpsX : Extended;
-     MaxIts : AlglibInteger);inline;
-procedure MinLBFGSSetXRep(var State : MinLBFGSState; NeedXRep : Boolean);inline;
-procedure MinLBFGSSetStpMax(var State : MinLBFGSState; StpMax : Extended);inline;
+     MaxIts : AlglibInteger);
+procedure MinLBFGSSetXRep(var State : MinLBFGSState; NeedXRep : Boolean);
+procedure MinLBFGSSetStpMax(var State : MinLBFGSState; StpMax : Extended);
 procedure MinLBFGSCreateX(N : AlglibInteger;
      M : AlglibInteger;
      const X : TReal1DArray;
      Flags : AlglibInteger;
-     var State : MinLBFGSState);inline;
+     var State : MinLBFGSState);
 function MinLBFGSIteration(var State : MinLBFGSState):Boolean;
 procedure MinLBFGSResults(const State : MinLBFGSState;
      var X : TReal1DArray;
-     var Rep : MinLBFGSReport);inline;
+     var Rep : MinLBFGSReport);
 
 implementation
 
-procedure ClearRequestFields(var State : MinLBFGSState);forward;inline;
+procedure ClearRequestFields(var State : MinLBFGSState);forward;
 
 
 (*************************************************************************

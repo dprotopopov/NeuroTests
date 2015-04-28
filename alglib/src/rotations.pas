@@ -1,5 +1,3 @@
-{.$MODESWITCH RESULT+}
-{.$GOTO ON}
 (*************************************************************************
 Copyright (c) 1992-2007 The University of Tennessee.  All rights reserved.
 
@@ -47,11 +45,11 @@ procedure ApplyRotationsFromTheRight(IsForward : Boolean;
      const S : TReal1DArray;
      var A : TReal2DArray;
      var WORK : TReal1DArray);
-procedure GenerateRotation(F : Double;
-     G : Double;
-     var CS : Double;
-     var SN : Double;
-     var R : Double);
+procedure GenerateRotation(F : Extended;
+     G : Extended;
+     var CS : Extended;
+     var SN : Extended;
+     var R : Extended);
 
 implementation
 
@@ -92,9 +90,9 @@ procedure ApplyRotationsFromTheLeft(IsForward : Boolean;
 var
     J : AlglibInteger;
     JP1 : AlglibInteger;
-    CTEMP : Double;
-    STEMP : Double;
-    TEMP : Double;
+    CTEMP : Extended;
+    STEMP : Extended;
+    TEMP : Extended;
 begin
     if (M1>M2) or (N1>N2) then
     begin
@@ -236,9 +234,9 @@ procedure ApplyRotationsFromTheRight(IsForward : Boolean;
 var
     J : AlglibInteger;
     JP1 : AlglibInteger;
-    CTEMP : Double;
-    STEMP : Double;
-    TEMP : Double;
+    CTEMP : Extended;
+    STEMP : Extended;
+    TEMP : Extended;
     i_ : AlglibInteger;
 begin
     
@@ -378,14 +376,14 @@ The subroutine generates the elementary rotation, so that:
 
 CS**2 + SN**2 = 1
 *************************************************************************)
-procedure GenerateRotation(F : Double;
-     G : Double;
-     var CS : Double;
-     var SN : Double;
-     var R : Double);
+procedure GenerateRotation(F : Extended;
+     G : Extended;
+     var CS : Extended;
+     var SN : Extended;
+     var R : Extended);
 var
-    F1 : Double;
-    G1 : Double;
+    F1 : Extended;
+    G1 : Extended;
 begin
     if AP_FP_Eq(G,0) then
     begin

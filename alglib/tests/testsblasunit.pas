@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testsblasunit;
 interface
 uses Math, Sysutils, Ap, sblas;

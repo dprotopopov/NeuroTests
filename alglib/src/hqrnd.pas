@@ -1,5 +1,3 @@
-{.$MODESWITCH RESULT+}
-{.$GOTO ON}
 (*************************************************************************
 Copyright (c)
     2007, Sergey Bochkanov (ALGLIB project).
@@ -45,19 +43,21 @@ end;
 
 
 
-procedure HQRNDRandomize(var State : HQRNDState);inline;
+procedure HQRNDRandomize(var State : HQRNDState);
 procedure HQRNDSeed(S1 : AlglibInteger;
      S2 : AlglibInteger;
-     var State : HQRNDState);inline;
-function HQRNDUniformR(var State : HQRNDState):Extended;inline;
+     var State : HQRNDState);
+function HQRNDUniformR(var State : HQRNDState):Extended;
 function HQRNDUniformI(N : AlglibInteger;
-     var State : HQRNDState):AlglibInteger;inline;
-function HQRNDNormal(var State : HQRNDState):Extended;inline;
-procedure HQRNDUnit2(var State : HQRNDState; var X : Extended; var Y : Extended);inline;
+     var State : HQRNDState):AlglibInteger;
+function HQRNDNormal(var State : HQRNDState):Extended;
+procedure HQRNDUnit2(var State : HQRNDState; var X : Extended; var Y : Extended);
 procedure HQRNDNormal2(var State : HQRNDState;
      var X1 : Extended;
-     var X2 : Extended);inline;
-function HQRNDExponential(Lambda : Extended; var State : HQRNDState):Extended;inline;
+     var X2 : Extended);
+function HQRNDExponential(Lambda : Extended; var State : HQRNDState):Extended;
+
+implementation
 
 const
     HQRNDMax = 2147483563;
@@ -65,10 +65,7 @@ const
     HQRNDM2 = 2147483399;
     HQRNDMagic = 1634357784;
 
-function HQRNDIntegerBase(var State : HQRNDState):AlglibInteger;forward;inline;
-
-implementation
-
+function HQRNDIntegerBase(var State : HQRNDState):AlglibInteger;forward;
 
 
 (*************************************************************************

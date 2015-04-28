@@ -1,5 +1,3 @@
-{.$MODESWITCH RESULT+}
-{.$GOTO ON}
 (*************************************************************************
 Copyright (c) 2007, Sergey Bochkanov (ALGLIB project).
 
@@ -23,36 +21,36 @@ unit matgen;
 interface
 uses Math, Sysutils, Ap, reflections, creflections, hqrnd;
 
-procedure RMatrixRndOrthogonal(N : AlglibInteger; var A : TReal2DArray);inline;
-procedure RMatrixRndCond(N : AlglibInteger; C : Extended; var A : TReal2DArray);inline;
-procedure CMatrixRndOrthogonal(N : AlglibInteger; var A : TComplex2DArray);inline;
+procedure RMatrixRndOrthogonal(N : AlglibInteger; var A : TReal2DArray);
+procedure RMatrixRndCond(N : AlglibInteger; C : Extended; var A : TReal2DArray);
+procedure CMatrixRndOrthogonal(N : AlglibInteger; var A : TComplex2DArray);
 procedure CMatrixRndCond(N : AlglibInteger;
      C : Extended;
-     var A : TComplex2DArray);inline;
-procedure SMatrixRndCond(N : AlglibInteger; C : Extended; var A : TReal2DArray);inline;
+     var A : TComplex2DArray);
+procedure SMatrixRndCond(N : AlglibInteger; C : Extended; var A : TReal2DArray);
 procedure SPDMatrixRndCond(N : AlglibInteger;
      C : Extended;
-     var A : TReal2DArray);inline;
+     var A : TReal2DArray);
 procedure HMatrixRndCond(N : AlglibInteger;
      C : Extended;
-     var A : TComplex2DArray);inline;
+     var A : TComplex2DArray);
 procedure HPDMatrixRndCond(N : AlglibInteger;
      C : Extended;
-     var A : TComplex2DArray);inline;
+     var A : TComplex2DArray);
 procedure RMatrixRndOrthogonalFromTheRight(var A : TReal2DArray;
      M : AlglibInteger;
-     N : AlglibInteger);inline;
+     N : AlglibInteger);
 procedure RMatrixRndOrthogonalFromTheLeft(var A : TReal2DArray;
      M : AlglibInteger;
-     N : AlglibInteger);inline;
+     N : AlglibInteger);
 procedure CMatrixRndOrthogonalFromTheRight(var A : TComplex2DArray;
      M : AlglibInteger;
-     N : AlglibInteger);inline;
+     N : AlglibInteger);
 procedure CMatrixRndOrthogonalFromTheLeft(var A : TComplex2DArray;
      M : AlglibInteger;
-     N : AlglibInteger);inline;
-procedure SMatrixRndMultiply(var A : TReal2DArray; N : AlglibInteger);inline;
-procedure HMatrixRndMultiply(var A : TComplex2DArray; N : AlglibInteger);inline;
+     N : AlglibInteger);
+procedure SMatrixRndMultiply(var A : TReal2DArray; N : AlglibInteger);
+procedure HMatrixRndMultiply(var A : TComplex2DArray; N : AlglibInteger);
 
 implementation
 

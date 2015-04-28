@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Copyright (c) 2007-2010, Sergey Bochkanov (ALGLIB project).
 
@@ -31,7 +29,7 @@ IDWInterpolant = record
     N : AlglibInteger;
     NX : AlglibInteger;
     D : AlglibInteger;
-    R : Double;
+    R : Extended;
     NW : AlglibInteger;
     Tree : KDTree;
     ModelType : AlglibInteger;
@@ -41,13 +39,13 @@ IDWInterpolant = record
     RBuf : TReal1DArray;
     XYBuf : TReal2DArray;
     DebugSolverFailures : AlglibInteger;
-    DebugWorstRCond : Double;
-    DebugBestRCond : Double;
+    DebugWorstRCond : Extended;
+    DebugBestRCond : Extended;
 end;
 
 
 
-function IDWCalc(var Z : IDWInterpolant; const X : TReal1DArray):Double;
+function IDWCalc(var Z : IDWInterpolant; const X : TReal1DArray):Extended;
 procedure IDWBuildModifiedShepard(const XY : TReal2DArray;
      N : AlglibInteger;
      NX : AlglibInteger;
@@ -58,7 +56,7 @@ procedure IDWBuildModifiedShepard(const XY : TReal2DArray;
 procedure IDWBuildModifiedShepardR(const XY : TReal2DArray;
      N : AlglibInteger;
      NX : AlglibInteger;
-     R : Double;
+     R : Extended;
      var Z : IDWInterpolant);
 procedure IDWBuildNoisy(const XY : TReal2DArray;
      N : AlglibInteger;
@@ -71,12 +69,12 @@ procedure IDWBuildNoisy(const XY : TReal2DArray;
 implementation
 
 const
-    IDWQFactor = Double(1.5);
+    IDWQFactor = 1.5;
     IDWKMin = 5;
 
 function IDWCalcQ(var Z : IDWInterpolant;
      const X : TReal1DArray;
-     K : AlglibInteger):Double;forward;
+     K : AlglibInteger):Extended;forward;
 procedure IDWInit1(N : AlglibInteger;
      NX : AlglibInteger;
      D : AlglibInteger;
@@ -91,7 +89,7 @@ procedure IDWInternalSolver(var Y : TReal1DArray;
      M : AlglibInteger;
      var Info : AlglibInteger;
      var X : TReal1DArray;
-     var TaskRCond : Double);forward;
+     var TaskRCond : Extended);forward;
 
 
 (*************************************************************************
@@ -108,19 +106,19 @@ Result:
   -- ALGLIB --
      Copyright 02.03.2010 by Bochkanov Sergey
 *************************************************************************)
-function IDWCalc(var Z : IDWInterpolant; const X : TReal1DArray):Double;
+function IDWCalc(var Z : IDWInterpolant; const X : TReal1DArray):Extended;
 var
     NX : AlglibInteger;
     I : AlglibInteger;
     K : AlglibInteger;
-    R : Double;
-    S : Double;
-    W : Double;
-    V1 : Double;
-    V2 : Double;
-    D0 : Double;
-    DI : Double;
-    V : Double;
+    R : Extended;
+    S : Extended;
+    W : Extended;
+    V1 : Extended;
+    V2 : Extended;
+    D0 : Extended;
+    DI : Extended;
+    V : Extended;
 begin
     if Z.ModelType=0 then
     begin
@@ -276,13 +274,13 @@ var
     K : AlglibInteger;
     J2 : AlglibInteger;
     J3 : AlglibInteger;
-    V : Double;
-    R : Double;
-    S : Double;
-    D0 : Double;
-    DI : Double;
-    V1 : Double;
-    V2 : Double;
+    V : Extended;
+    R : Extended;
+    S : Extended;
+    D0 : Extended;
+    DI : Extended;
+    V1 : Extended;
+    V2 : Extended;
     NC : AlglibInteger;
     Offs : AlglibInteger;
     X : TReal1DArray;
@@ -295,7 +293,7 @@ var
     Temp : TReal1DArray;
     Tags : TInteger1DArray;
     Info : AlglibInteger;
-    TaskRCond : Double;
+    TaskRCond : Extended;
 begin
     
     //
@@ -367,14 +365,14 @@ begin
     begin
         SetLength(Y, NQ);
         SetLength(W, NQ);
-        SetLength(QSol, NX+Round(NX*(NX+1)*Double(0.5)));
+        SetLength(QSol, NX+Round(NX*(NX+1)*0.5));
         
         //
         // NX for linear members,
         // Round(NX*(NX+1)*0.5) for quadratic model,
         // 1 for temporary storage
         //
-        SetLength(FMatrix, NQ, NX+Round(NX*(NX+1)*Double(0.5))+1);
+        SetLength(FMatrix, NQ, NX+Round(NX*(NX+1)*0.5)+1);
     end;
     I:=0;
     while I<=N-1 do
@@ -559,7 +557,7 @@ begin
                     Y[J] := QXYBuf[J,NX]-XY[I,NX];
                     Inc(J);
                 end;
-                NC := NX+Round(NX*(NX+1)*Double(0.5));
+                NC := NX+Round(NX*(NX+1)*0.5);
             end;
             IDWInternalSolver(Y, W, FMatrix, Temp, K, NC, Info, QSol, TaskRCond);
             
@@ -632,7 +630,7 @@ NOTES:
 procedure IDWBuildModifiedShepardR(const XY : TReal2DArray;
      N : AlglibInteger;
      NX : AlglibInteger;
-     R : Double;
+     R : Extended;
      var Z : IDWInterpolant);
 var
     I : AlglibInteger;
@@ -753,10 +751,10 @@ var
     K : AlglibInteger;
     J2 : AlglibInteger;
     J3 : AlglibInteger;
-    V : Double;
+    V : Extended;
     NC : AlglibInteger;
     Offs : AlglibInteger;
-    TaskRCond : Double;
+    TaskRCond : Extended;
     X : TReal1DArray;
     QRBuf : TReal1DArray;
     QXYBuf : TReal2DArray;
@@ -834,7 +832,7 @@ begin
     begin
         SetLength(Y, NQ);
         SetLength(W, NQ);
-        SetLength(QSol, 1+NX+Round(NX*(NX+1)*Double(0.5)));
+        SetLength(QSol, 1+NX+Round(NX*(NX+1)*0.5));
         
         //
         // 1 for constant member,
@@ -842,7 +840,7 @@ begin
         // Round(NX*(NX+1)*0.5) for quadratic model,
         // 1 for temporary storage
         //
-        SetLength(FMatrix, NQ, 1+NX+Round(NX*(NX+1)*Double(0.5))+1);
+        SetLength(FMatrix, NQ, 1+NX+Round(NX*(NX+1)*0.5)+1);
     end;
     I:=0;
     while I<=N-1 do
@@ -873,7 +871,7 @@ begin
             J:=0;
             while J<=K-1 do
             begin
-                FMatrix[J,0] := Double(1.0);
+                FMatrix[J,0] := 1.0;
                 J2:=0;
                 while J2<=NX-1 do
                 begin
@@ -921,7 +919,7 @@ begin
                 W[J] := 1;
                 Inc(J);
             end;
-            NC := 1+NX+Round(NX*(NX+1)*Double(0.5));
+            NC := 1+NX+Round(NX*(NX+1)*0.5);
         end;
         IDWInternalSolver(Y, W, FMatrix, Temp, K, NC, Info, QSol, TaskRCond);
         
@@ -979,7 +977,7 @@ Internal subroutine: K-th nodal function calculation
 *************************************************************************)
 function IDWCalcQ(var Z : IDWInterpolant;
      const X : TReal1DArray;
-     K : AlglibInteger):Double;
+     K : AlglibInteger):Extended;
 var
     NX : AlglibInteger;
     I : AlglibInteger;
@@ -1044,7 +1042,7 @@ procedure IDWInit1(N : AlglibInteger;
      var Z : IDWInterpolant);
 begin
     Z.DebugSolverFailures := 0;
-    Z.DebugWorstRCond := Double(1.0);
+    Z.DebugWorstRCond := 1.0;
     Z.DebugBestRCond := 0;
     Z.N := N;
     Z.NX := NX;
@@ -1076,7 +1074,7 @@ begin
     end;
     if D=2 then
     begin
-        SetLength(Z.Q, N, NX+1+NX+Round(NX*(NX+1)*Double(0.5)));
+        SetLength(Z.Q, N, NX+1+NX+Round(NX*(NX+1)*0.5));
     end;
     SetLength(Z.TBuf, NW);
     SetLength(Z.RBuf, NW);
@@ -1108,12 +1106,12 @@ procedure IDWInternalSolver(var Y : TReal1DArray;
      M : AlglibInteger;
      var Info : AlglibInteger;
      var X : TReal1DArray;
-     var TaskRCond : Double);
+     var TaskRCond : Extended);
 var
     I : AlglibInteger;
     J : AlglibInteger;
-    V : Double;
-    Tau : Double;
+    V : Extended;
+    Tau : Extended;
     B : TReal1DArray;
     SRep : DenseSolverLSReport;
     i_ : AlglibInteger;
@@ -1219,7 +1217,7 @@ begin
                 J:=0;
                 while J<=I-1 do
                 begin
-                    FMatrix[I,J] := Double(0.0);
+                    FMatrix[I,J] := 0.0;
                     Inc(J);
                 end;
                 B[I] := FMatrix[I,M];

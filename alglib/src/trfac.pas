@@ -1,5 +1,3 @@
-{.$MODESWITCH RESULT+}
-{.$GOTO ON}
 (*************************************************************************
 Copyright (c) 1992-2007 The University of Tennessee. All rights reserved.
 
@@ -32,88 +30,89 @@ uses Math, Sysutils, Ap, reflections, creflections, hqrnd, matgen, ablasf, ablas
 procedure RMatrixLU(var A : TReal2DArray;
      M : AlglibInteger;
      N : AlglibInteger;
-     var Pivots : TInteger1DArray);inline;
+     var Pivots : TInteger1DArray);
 procedure CMatrixLU(var A : TComplex2DArray;
      M : AlglibInteger;
      N : AlglibInteger;
-     var Pivots : TInteger1DArray);inline;
+     var Pivots : TInteger1DArray);
 function HPDMatrixCholesky(var A : TComplex2DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Boolean;inline;
+     IsUpper : Boolean):Boolean;
 function SPDMatrixCholesky(var A : TReal2DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Boolean;inline;
+     IsUpper : Boolean):Boolean;
 procedure RMatrixLUP(var A : TReal2DArray;
      M : AlglibInteger;
      N : AlglibInteger;
-     var Pivots : TInteger1DArray);inline;
+     var Pivots : TInteger1DArray);
 procedure CMatrixLUP(var A : TComplex2DArray;
      M : AlglibInteger;
      N : AlglibInteger;
-     var Pivots : TInteger1DArray);inline;
+     var Pivots : TInteger1DArray);
 procedure RMatrixPLU(var A : TReal2DArray;
      M : AlglibInteger;
      N : AlglibInteger;
-     var Pivots : TInteger1DArray);inline;
+     var Pivots : TInteger1DArray);
 procedure CMatrixPLU(var A : TComplex2DArray;
      M : AlglibInteger;
      N : AlglibInteger;
-     var Pivots : TInteger1DArray);inline;
+     var Pivots : TInteger1DArray);
 
+implementation
 
 procedure CMatrixLUPRec(var A : TComplex2DArray;
      Offs : AlglibInteger;
      M : AlglibInteger;
      N : AlglibInteger;
      var Pivots : TInteger1DArray;
-     var Tmp : TComplex1DArray);forward;inline;
+     var Tmp : TComplex1DArray);forward;
 procedure RMatrixLUPRec(var A : TReal2DArray;
      Offs : AlglibInteger;
      M : AlglibInteger;
      N : AlglibInteger;
      var Pivots : TInteger1DArray;
-     var Tmp : TReal1DArray);forward;inline;
+     var Tmp : TReal1DArray);forward;
 procedure CMatrixPLURec(var A : TComplex2DArray;
      Offs : AlglibInteger;
      M : AlglibInteger;
      N : AlglibInteger;
      var Pivots : TInteger1DArray;
-     var Tmp : TComplex1DArray);forward;inline;
+     var Tmp : TComplex1DArray);forward;
 procedure RMatrixPLURec(var A : TReal2DArray;
      Offs : AlglibInteger;
      M : AlglibInteger;
      N : AlglibInteger;
      var Pivots : TInteger1DArray;
-     var Tmp : TReal1DArray);forward;inline;
+     var Tmp : TReal1DArray);forward;
 procedure CMatrixLUP2(var A : TComplex2DArray;
      Offs : AlglibInteger;
      M : AlglibInteger;
      N : AlglibInteger;
      var Pivots : TInteger1DArray;
-     var Tmp : TComplex1DArray);forward;inline;
+     var Tmp : TComplex1DArray);forward;
 procedure RMatrixLUP2(var A : TReal2DArray;
      Offs : AlglibInteger;
      M : AlglibInteger;
      N : AlglibInteger;
      var Pivots : TInteger1DArray;
-     var Tmp : TReal1DArray);forward;inline;
+     var Tmp : TReal1DArray);forward;
 procedure CMatrixPLU2(var A : TComplex2DArray;
      Offs : AlglibInteger;
      M : AlglibInteger;
      N : AlglibInteger;
      var Pivots : TInteger1DArray;
-     var Tmp : TComplex1DArray);forward;inline;
+     var Tmp : TComplex1DArray);forward;
 procedure RMatrixPLU2(var A : TReal2DArray;
      Offs : AlglibInteger;
      M : AlglibInteger;
      N : AlglibInteger;
      var Pivots : TInteger1DArray;
-     var Tmp : TReal1DArray);forward;inline;
+     var Tmp : TReal1DArray);forward;
 function HPDMatrixCholeskyRec(var A : TComplex2DArray;
      Offs : AlglibInteger;
      N : AlglibInteger;
      IsUpper : Boolean;
-     var Tmp : TComplex1DArray):Boolean;forward;inline;
+     var Tmp : TComplex1DArray):Boolean;forward;
 function SPDMatrixCholeskyRec(var A : TReal2DArray;
      Offs : AlglibInteger;
      N : AlglibInteger;
@@ -123,14 +122,12 @@ function HPDMatrixCholesky2(var AAA : TComplex2DArray;
      Offs : AlglibInteger;
      N : AlglibInteger;
      IsUpper : Boolean;
-     var Tmp : TComplex1DArray):Boolean;forward;inline;
+     var Tmp : TComplex1DArray):Boolean;forward;
 function SPDMatrixCholesky2(var AAA : TReal2DArray;
      Offs : AlglibInteger;
      N : AlglibInteger;
      IsUpper : Boolean;
      var Tmp : TReal1DArray):Boolean;forward;
-
-implementation
 
 
 (*************************************************************************
@@ -1753,6 +1750,9 @@ function SPDMatrixCholesky2(var AAA : TReal2DArray;
 var
     I : AlglibInteger;
     J : AlglibInteger;
+    K : AlglibInteger;
+    J1 : AlglibInteger;
+    J2 : AlglibInteger;
     AJJ : Extended;
     V : Extended;
     R : Extended;
@@ -1779,7 +1779,8 @@ begin
         //
         // Compute the Cholesky factorization A = U'*U.
         //
-        for J := 0 to N-1 do          
+        J:=0;
+        while J<=N-1 do
         begin
             
             //
@@ -1818,6 +1819,7 @@ begin
                 R := 1/AJJ;
                 APVMul(@AAA[Offs+J][0], Offs+J+1, Offs+N-1, R);
             end;
+            Inc(J);
         end;
     end
     else
@@ -1826,7 +1828,8 @@ begin
         //
         // Compute the Cholesky factorization A = L*L'.
         //
-        for J := 0 to N-1 do
+        J:=0;
+        while J<=N-1 do
         begin
             
             //
@@ -1852,19 +1855,24 @@ begin
                 begin
                     APVMove(@Tmp[0], 0, J-1, @AAA[Offs+J][0], Offs, Offs+J-1);
                     RMatrixMV(N-J-1, J, AAA, Offs+J+1, Offs, 0, Tmp, 0, Tmp, N);
-                    for I := 0 to N-J-2 do
+                    I:=0;
+                    while I<=N-J-2 do
                     begin
                         AAA[Offs+J+1+I,Offs+J] := (AAA[Offs+J+1+I,Offs+J]-Tmp[N+I])/AJJ;
+                        Inc(I);
                     end;
                 end
                 else
                 begin
-                    for I := 0 to N-J-2 do
+                    I:=0;
+                    while I<=N-J-2 do
                     begin
                         AAA[Offs+J+1+I,Offs+J] := AAA[Offs+J+1+I,Offs+J]/AJJ;
+                        Inc(I);
                     end;
                 end;
             end;
+            Inc(J);
         end;
     end;
 end;

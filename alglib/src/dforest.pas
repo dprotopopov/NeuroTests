@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Copyright (c) 2009, Sergey Bochkanov (ALGLIB project).
 
@@ -34,16 +32,16 @@ end;
 
 
 DFReport = record
-    RelClsError : Double;
-    AvgCE : Double;
-    RMSError : Double;
-    AvgError : Double;
-    AvgRelError : Double;
-    OOBRelClsError : Double;
-    OOBAvgCE : Double;
-    OOBRMSError : Double;
-    OOBAvgError : Double;
-    OOBAvgRelError : Double;
+    RelClsError : Extended;
+    AvgCE : Extended;
+    RMSError : Extended;
+    AvgError : Extended;
+    AvgRelError : Extended;
+    OOBRelClsError : Extended;
+    OOBAvgCE : Extended;
+    OOBRMSError : Extended;
+    OOBAvgError : Extended;
+    OOBAvgRelError : Extended;
 end;
 
 
@@ -66,7 +64,7 @@ procedure DFBuildRandomDecisionForest(const XY : TReal2DArray;
      NVars : AlglibInteger;
      NClasses : AlglibInteger;
      NTrees : AlglibInteger;
-     R : Double;
+     R : Extended;
      var Info : AlglibInteger;
      var DF : DecisionForest;
      var Rep : DFReport);
@@ -86,19 +84,19 @@ procedure DFProcess(const DF : DecisionForest;
      var Y : TReal1DArray);
 function DFRelClsError(const DF : DecisionForest;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):Extended;
 function DFAvgCE(const DF : DecisionForest;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):Extended;
 function DFRMSError(const DF : DecisionForest;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):Extended;
 function DFAvgError(const DF : DecisionForest;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):Extended;
 function DFAvgRelError(const DF : DecisionForest;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):Extended;
 procedure DFCopy(const DF1 : DecisionForest; var DF2 : DecisionForest);
 procedure DFSerialize(const DF : DecisionForest;
      var RA : TReal1DArray;
@@ -145,8 +143,8 @@ procedure DFWeakSplitI(var X : TReal1DArray;
      N : AlglibInteger;
      NClasses : AlglibInteger;
      var Info : AlglibInteger;
-     var Threshold : Double;
-     var E : Double);forward;
+     var Threshold : Extended;
+     var E : Extended);forward;
 procedure DFSplitC(var X : TReal1DArray;
      var C : TInteger1DArray;
      var CntBuf : TInteger1DArray;
@@ -154,15 +152,15 @@ procedure DFSplitC(var X : TReal1DArray;
      NC : AlglibInteger;
      Flags : AlglibInteger;
      var Info : AlglibInteger;
-     var Threshold : Double;
-     var E : Double);forward;
+     var Threshold : Extended;
+     var E : Extended);forward;
 procedure DFSplitR(var X : TReal1DArray;
      var Y : TReal1DArray;
      N : AlglibInteger;
      Flags : AlglibInteger;
      var Info : AlglibInteger;
-     var Threshold : Double;
-     var E : Double);forward;
+     var Threshold : Extended;
+     var E : Extended);forward;
 
 
 (*************************************************************************
@@ -203,7 +201,7 @@ procedure DFBuildRandomDecisionForest(const XY : TReal2DArray;
      NVars : AlglibInteger;
      NClasses : AlglibInteger;
      NTrees : AlglibInteger;
-     R : Double;
+     R : Extended;
      var Info : AlglibInteger;
      var DF : DecisionForest;
      var Rep : DFReport);
@@ -251,9 +249,9 @@ var
     Y : TReal1DArray;
     OOBCnt : AlglibInteger;
     OOBRelCnt : AlglibInteger;
-    V : Double;
-    VMin : Double;
-    VMax : Double;
+    V : Extended;
+    VMin : Extended;
+    VMax : Extended;
     BFlag : Boolean;
 begin
     
@@ -391,7 +389,7 @@ begin
                 // Prepare
                 //
                 Bufs.EVSBin[J] := True;
-                Bufs.EVSSplits[J] := Double(0.5)*(VMin+VMax);
+                Bufs.EVSSplits[J] := 0.5*(VMin+VMax);
                 if AP_FP_Less_Eq(Bufs.EVSSplits[J],VMin) then
                 begin
                     Bufs.EVSSplits[J] := VMax;
@@ -623,7 +621,7 @@ procedure DFProcess(const DF : DecisionForest;
 var
     Offs : AlglibInteger;
     I : AlglibInteger;
-    V : Double;
+    V : Extended;
 begin
     
     //
@@ -673,7 +671,7 @@ RESULT:
 *************************************************************************)
 function DFRelClsError(const DF : DecisionForest;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):Extended;
 begin
     Result := AP_Double(DFClsError(DF, XY, NPoints))/NPoints;
 end;
@@ -696,7 +694,7 @@ RESULT:
 *************************************************************************)
 function DFAvgCE(const DF : DecisionForest;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):Extended;
 var
     X : TReal1DArray;
     Y : TReal1DArray;
@@ -764,7 +762,7 @@ RESULT:
 *************************************************************************)
 function DFRMSError(const DF : DecisionForest;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):Extended;
 var
     X : TReal1DArray;
     Y : TReal1DArray;
@@ -844,7 +842,7 @@ RESULT:
 *************************************************************************)
 function DFAvgError(const DF : DecisionForest;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):Extended;
 var
     X : TReal1DArray;
     Y : TReal1DArray;
@@ -913,7 +911,7 @@ RESULT:
 *************************************************************************)
 function DFAvgRelError(const DF : DecisionForest;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):Extended;
 var
     X : TReal1DArray;
     Y : TReal1DArray;
@@ -1209,20 +1207,20 @@ var
     I1 : AlglibInteger;
     I2 : AlglibInteger;
     Info : AlglibInteger;
-    SL : Double;
-    SR : Double;
-    W : Double;
+    SL : Extended;
+    SR : Extended;
+    W : Extended;
     IdxBest : AlglibInteger;
-    EBest : Double;
-    TBest : Double;
+    EBest : Extended;
+    TBest : Extended;
     VarCur : AlglibInteger;
-    S : Double;
-    V : Double;
-    V1 : Double;
-    V2 : Double;
-    Threshold : Double;
+    S : Extended;
+    V : Extended;
+    V1 : Extended;
+    V2 : Extended;
+    Threshold : Extended;
     OldNP : AlglibInteger;
-    CurRMS : Double;
+    CurRMS : Extended;
     UseEVS : Boolean;
 begin
     Assert(NPoints>0);
@@ -1597,8 +1595,8 @@ procedure DFWeakSplitI(var X : TReal1DArray;
      N : AlglibInteger;
      NClasses : AlglibInteger;
      var Info : AlglibInteger;
-     var Threshold : Double;
-     var E : Double);
+     var Threshold : Extended;
+     var E : Extended);
 var
     I : AlglibInteger;
     NEq : AlglibInteger;
@@ -1631,7 +1629,7 @@ begin
         end
         else
         begin
-            Threshold := Double(0.5)*(X[N div 2-1]+X[N div 2]);
+            Threshold := 0.5*(X[N div 2-1]+X[N div 2]);
         end;
     end;
     NEq := 0;
@@ -1664,11 +1662,11 @@ begin
         begin
             if NLess<NGreater then
             begin
-                Threshold := Double(0.5)*(X[NLess+NEq-1]+X[NLess+NEq]);
+                Threshold := 0.5*(X[NLess+NEq-1]+X[NLess+NEq]);
             end
             else
             begin
-                Threshold := Double(0.5)*(X[NLess-1]+X[NLess]);
+                Threshold := 0.5*(X[NLess-1]+X[NLess]);
             end;
         end;
         Info := 1;
@@ -1687,8 +1685,8 @@ procedure DFSplitC(var X : TReal1DArray;
      NC : AlglibInteger;
      Flags : AlglibInteger;
      var Info : AlglibInteger;
-     var Threshold : Double;
-     var E : Double);
+     var Threshold : Extended;
+     var E : Extended);
 var
     I : AlglibInteger;
     NEq : AlglibInteger;
@@ -1698,17 +1696,17 @@ var
     QMin : AlglibInteger;
     QMax : AlglibInteger;
     QCnt : AlglibInteger;
-    CurSplit : Double;
+    CurSplit : Extended;
     NLeft : AlglibInteger;
-    V : Double;
-    CurE : Double;
-    W : Double;
-    SL : Double;
-    SR : Double;
+    V : Extended;
+    CurE : Extended;
+    W : Extended;
+    SL : Extended;
+    SR : Extended;
 begin
     TagSortFastI(X, C, N);
     E := MaxRealNumber;
-    Threshold := Double(0.5)*(X[0]+X[N-1]);
+    Threshold := 0.5*(X[0]+X[N-1]);
     Info := -3;
     if Flags div DFUseStrongSplits mod 2=0 then
     begin
@@ -1772,7 +1770,7 @@ begin
             //
             if NLess<NGreater then
             begin
-                CurSplit := Double(0.5)*(X[NLess+NEq-1]+X[NLess+NEq]);
+                CurSplit := 0.5*(X[NLess+NEq-1]+X[NLess+NEq]);
                 NLeft := NLess+NEq;
                 if AP_FP_Less_Eq(CurSplit,X[NLess+NEq-1]) then
                 begin
@@ -1781,7 +1779,7 @@ begin
             end
             else
             begin
-                CurSplit := Double(0.5)*(X[NLess-1]+X[NLess]);
+                CurSplit := 0.5*(X[NLess-1]+X[NLess]);
                 NLeft := NLess;
                 if AP_FP_Less_Eq(CurSplit,X[NLess-1]) then
                 begin
@@ -1842,8 +1840,8 @@ procedure DFSplitR(var X : TReal1DArray;
      N : AlglibInteger;
      Flags : AlglibInteger;
      var Info : AlglibInteger;
-     var Threshold : Double;
-     var E : Double);
+     var Threshold : Extended;
+     var E : Extended);
 var
     I : AlglibInteger;
     NEq : AlglibInteger;
@@ -1853,14 +1851,14 @@ var
     QMin : AlglibInteger;
     QMax : AlglibInteger;
     QCnt : AlglibInteger;
-    CurSplit : Double;
+    CurSplit : Extended;
     NLeft : AlglibInteger;
-    V : Double;
-    CurE : Double;
+    V : Extended;
+    CurE : Extended;
 begin
     TagSortFastR(X, Y, N);
     E := MaxRealNumber;
-    Threshold := Double(0.5)*(X[0]+X[N-1]);
+    Threshold := 0.5*(X[0]+X[N-1]);
     Info := -3;
     if Flags div DFUseStrongSplits mod 2=0 then
     begin
@@ -1924,7 +1922,7 @@ begin
             //
             if NLess<NGreater then
             begin
-                CurSplit := Double(0.5)*(X[NLess+NEq-1]+X[NLess+NEq]);
+                CurSplit := 0.5*(X[NLess+NEq-1]+X[NLess+NEq]);
                 NLeft := NLess+NEq;
                 if AP_FP_Less_Eq(CurSplit,X[NLess+NEq-1]) then
                 begin
@@ -1933,7 +1931,7 @@ begin
             end
             else
             begin
-                CurSplit := Double(0.5)*(X[NLess-1]+X[NLess]);
+                CurSplit := 0.5*(X[NLess-1]+X[NLess]);
                 NLeft := NLess;
                 if AP_FP_Less_Eq(CurSplit,X[NLess-1]) then
                 begin

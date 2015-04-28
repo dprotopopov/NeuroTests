@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Cephes Math Library Release 2.8:  June, 2000
 Copyright by Stephen L. Moshier
@@ -30,7 +28,7 @@ unit betaf;
 interface
 uses Math, Sysutils, Ap, gammafunc;
 
-function Beta(a : Double; b : Double):Double;
+function Beta(a : Extended; b : Extended):Extended;
 
 implementation
 
@@ -56,17 +54,17 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.0:  April, 1987
 Copyright 1984, 1987 by Stephen L. Moshier
 *************************************************************************)
-function Beta(a : Double; b : Double):Double;
+function Beta(a : Extended; b : Extended):Extended;
 var
-    y : Double;
-    sg : Double;
-    S : Double;
+    y : Extended;
+    sg : Extended;
+    S : Extended;
 begin
     sg := 1;
     Assert(AP_FP_Greater(a,0) or AP_FP_Neq(a,Floor(a)), 'Overflow in Beta');
     Assert(AP_FP_Greater(b,0) or AP_FP_Neq(b,Floor(b)), 'Overflow in Beta');
     y := a+b;
-    if AP_FP_Greater(absReal(y),Double(171.624376956302725)) then
+    if AP_FP_Greater(absReal(y),171.624376956302725) then
     begin
         y := LnGamma(y, S);
         sg := sg*S;

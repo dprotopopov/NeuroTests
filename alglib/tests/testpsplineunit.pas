@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testpsplineunit;
 interface
 uses Math, Sysutils, Ap, spline3, blas, reflections, creflections, hqrnd, matgen, ablasf, ablas, trfac, trlinsolve, safesolve, rcond, matinv, hblas, sblas, ortfac, rotations, bdsvd, svd, xblas, densesolver, linmin, minlbfgs, minlm, lsfit, apserv, spline1d, tsort, hsschur, evd, gammafunc, gq, gkq, autogk, pspline;
@@ -71,11 +69,11 @@ var
 begin
     WasErrors := False;
     PassCount := 20;
-    LStep := Double(0.005);
-    H := Double(0.00001);
+    LStep := 0.005;
+    H := 0.00001;
     MaxN := 10;
     Threshold := 10000*MachineEpsilon;
-    NonStrictThreshold := Double(0.00001);
+    NonStrictThreshold := 0.00001;
     P2Errors := False;
     P3Errors := False;
     
@@ -430,11 +428,11 @@ begin
         // return same answer.
         //
         V0 := RandomReal;
-        Spline1DBuildCubic(T, X, N, 0, Double(0.0), 0, Double(0.0), S);
+        Spline1DBuildCubic(T, X, N, 0, 0.0, 0, 0.0, S);
         Spline1DDiff(S, V0, VX2, VDX2, VD2X2);
-        Spline1DBuildCubic(T, Y, N, 0, Double(0.0), 0, Double(0.0), S);
+        Spline1DBuildCubic(T, Y, N, 0, 0.0, 0, 0.0, S);
         Spline1DDiff(S, V0, VY2, VDY2, VD2Y2);
-        Spline1DBuildCubic(T, Z, N, 0, Double(0.0), 0, Double(0.0), S);
+        Spline1DBuildCubic(T, Z, N, 0, 0.0, 0, 0.0, S);
         Spline1DDiff(S, V0, VZ2, VDZ2, VD2Z2);
         
         //

@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Copyright (c) 2009, Sergey Bochkanov (ALGLIB project).
 
@@ -172,7 +170,7 @@ var
     C1 : Complex;
     C2 : Complex;
     C3 : Complex;
-    T : Double;
+    T : Extended;
 begin
     Assert((N>0) and (M>0) and (N<=M), 'ConvC1DInv: incorrect N or M!');
     P := FTBaseFindSmooth(M);
@@ -352,7 +350,7 @@ var
     C1 : Complex;
     C2 : Complex;
     C3 : Complex;
-    T : Double;
+    T : Extended;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin
@@ -820,15 +818,15 @@ var
     J2 : AlglibInteger;
     BBuf : TComplex1DArray;
     V : Complex;
-    AX : Double;
-    AY : Double;
-    BX : Double;
-    BY : Double;
-    T : Double;
-    TX : Double;
-    TY : Double;
-    FlopCand : Double;
-    FlopBest : Double;
+    AX : Extended;
+    AY : Extended;
+    BX : Extended;
+    BY : Extended;
+    T : Extended;
+    TX : Extended;
+    TY : Extended;
+    FlopCand : Extended;
+    FlopBest : Extended;
     AlgBest : AlglibInteger;
     Plan : FTPlan;
     Buf : TReal1DArray;
@@ -1343,7 +1341,7 @@ procedure ConvR1DX(const A : TReal1DArray;
      Q : AlglibInteger;
      var R : TReal1DArray);
 var
-    V : Double;
+    V : Extended;
     I : AlglibInteger;
     J : AlglibInteger;
     P : AlglibInteger;
@@ -1352,14 +1350,14 @@ var
     I2 : AlglibInteger;
     J1 : AlglibInteger;
     J2 : AlglibInteger;
-    AX : Double;
-    AY : Double;
-    BX : Double;
-    BY : Double;
-    TX : Double;
-    TY : Double;
-    FlopCand : Double;
-    FlopBest : Double;
+    AX : Extended;
+    AY : Extended;
+    BX : Extended;
+    BY : Extended;
+    TX : Extended;
+    TY : Extended;
+    FlopCand : Extended;
+    FlopBest : Extended;
     AlgBest : AlglibInteger;
     Plan : FTPlan;
     Buf : TReal1DArray;
@@ -1393,7 +1391,7 @@ begin
         AlgBest := 0;
         if Alg=-1 then
         begin
-            FlopBest := Double(0.15)*M*N;
+            FlopBest := 0.15*M*N;
         end
         else
         begin

@@ -1,5 +1,3 @@
-{.$MODESWITCH RESULT+}
-{.$GOTO ON}
 (*************************************************************************
 Copyright (c) 2007-2008, Sergey Bochkanov (ALGLIB project).
 
@@ -21,7 +19,7 @@ http://www.fsf.org/licensing/licenses
 *************************************************************************)
 unit mlpbase;
 interface
-uses Math, Sysutils, Ap, System.Threading;
+uses Math, Sysutils, Ap;
 
 type
 MultiLayerPerceptron = record
@@ -185,6 +183,13 @@ procedure MLPInternalProcessVector(const StructInfo : TInteger1DArray;
      const X : TReal1DArray;
      var Y : TReal1DArray);
 
+implementation
+
+const
+    MLPVNum = 7;
+    NFieldWidth = 4;
+    ChunkSize = 32;
+
 procedure AddInputLayer(NCount : AlglibInteger;
      var LSizes : TInteger1DArray;
      var LTypes : TInteger1DArray;
@@ -193,6 +198,17 @@ procedure AddInputLayer(NCount : AlglibInteger;
      var LastProc : AlglibInteger);forward;
 procedure AddBiasedSummatorLayer(NCount : AlglibInteger;
      var LSizes : TInteger1DArray;
+     var LTypes : TInteger1DArray;
+     var LConnFirst : TInteger1DArray;
+     var LConnLast : TInteger1DArray;
+     var LastProc : AlglibInteger);forward;
+procedure AddActivationLayer(FuncType : AlglibInteger;
+     var LSizes : TInteger1DArray;
+     var LTypes : TInteger1DArray;
+     var LConnFirst : TInteger1DArray;
+     var LConnLast : TInteger1DArray;
+     var LastProc : AlglibInteger);forward;
+procedure AddZeroLayer(var LSizes : TInteger1DArray;
      var LTypes : TInteger1DArray;
      var LConnFirst : TInteger1DArray;
      var LConnLast : TInteger1DArray;
@@ -206,18 +222,18 @@ procedure MLPCreate(NIn : AlglibInteger;
      LayersCount : AlglibInteger;
      IsClsNet : Boolean;
      var Network : MultiLayerPerceptron);forward;
-procedure AddActivationLayer(FuncType : AlglibInteger;
-     var LSizes : TInteger1DArray;
-     var LTypes : TInteger1DArray;
-     var LConnFirst : TInteger1DArray;
-     var LConnLast : TInteger1DArray;
-     var LastProc : AlglibInteger);forward;
-procedure AddZeroLayer(var LSizes : TInteger1DArray;
-     var LTypes : TInteger1DArray;
-     var LConnFirst : TInteger1DArray;
-     var LConnLast : TInteger1DArray;
-     var LastProc : AlglibInteger);forward;
-function SafeCrossEntropy(T : Extended; Z : Extended):Extended;forward;
+procedure MLPActivationFunction(NET : Extended;
+     K : AlglibInteger;
+     var F : Extended;
+     var DF : Extended;
+     var D2F : Extended);forward;
+procedure MLPHessianBatchInternal(var Network : MultiLayerPerceptron;
+     const XY : TReal2DArray;
+     SSize : AlglibInteger;
+     NaturalErr : Boolean;
+     var E : Extended;
+     var Grad : TReal1DArray;
+     var H : TReal2DArray);forward;
 procedure MLPInternalCalculateGradient(var Network : MultiLayerPerceptron;
      const Neurons : TReal1DArray;
      const Weights : TReal1DArray;
@@ -231,25 +247,7 @@ procedure MLPChunkedGradient(var Network : MultiLayerPerceptron;
      var E : Extended;
      var Grad : TReal1DArray;
      NaturalErrorFunc : Boolean);forward;
-procedure MLPHessianBatchInternal(var Network : MultiLayerPerceptron;
-     const XY : TReal2DArray;
-     SSize : AlglibInteger;
-     NaturalErr : Boolean;
-     var E : Extended;
-     var Grad : TReal1DArray;
-     var H : TReal2DArray);forward;
-procedure MLPActivationFunction(NET : Extended;
-     K : AlglibInteger;
-     var F : Extended;
-     var DF : Extended;
-     var D2F : Extended);forward;
-
-implementation
-
-const
-    MLPVNum = 7;
-    NFieldWidth = 4;
-    ChunkSize = 32;
+function SafeCrossEntropy(T : Extended; Z : Extended):Extended;forward;
 
 
 (*************************************************************************
@@ -1165,19 +1163,14 @@ var
     NIn : AlglibInteger;
     NOut : AlglibInteger;
     WCount : AlglibInteger;
-    NetworkCopy : MultiLayerPerceptron;
 begin
     MLPProperties(Network, NIn, NOut, WCount);
-    //I:=0;
-    //while I<=WCount-1 do
-    NetworkCopy := Network;
-    TParallel.For(0, WCount-1, procedure (I: Integer)
-    //for I := 0 to WCount-1 do      
+    I:=0;
+    while I<=WCount-1 do
     begin
-        NetworkCopy.Weights[I] := RandomReal-0.5;
-        //Inc(I);
-    end);
-    Network := NetworkCopy;
+        Network.Weights[I] := RandomReal-0.5;
+        Inc(I);
+    end;
 end;
 
 
@@ -2005,9 +1998,11 @@ var
     WCount : AlglibInteger;
 begin
     MLPProperties(Network, NIn, NOut, WCount);
-    for I := 0 to WCount-1 do      
+    I:=0;
+    while I<=WCount-1 do
     begin
         Grad[I] := 0;
+        Inc(I);
     end;
     E := 0;
     I := 0;
@@ -2372,6 +2367,7 @@ var
     Offs : AlglibInteger;
     NProcessed : AlglibInteger;
     WAllocated : AlglibInteger;
+    LocalTemp : TInteger1DArray;
     LNFirst : TInteger1DArray;
     LNSyn : TInteger1DArray;
 begin
@@ -3334,9 +3330,11 @@ begin
     IDFDNET := NTotal;
     IDError := 2*NTotal;
     IZeros := 3*NTotal;
-    for J := 0 to CSize-1 do      
+    J:=0;
+    while J<=CSize-1 do
     begin
         Network.Chunks[IZeros,J] := 0;
+        Inc(J);
     end;
     
     //
@@ -3344,10 +3342,11 @@ begin
     // 1. Load inputs from XY to Chunks[0:NIn-1,0:CSize-1]
     // 2. Forward pass
     //
-    for I := 0 to NIn-1 do
+    I:=0;
+    while I<=NIn-1 do
     begin
         J:=0;
-        for J := 0 to CSize-1 do
+        while J<=CSize-1 do
         begin
             if AP_FP_Neq(Network.ColumnSigmas[I],0) then
             begin
@@ -3357,9 +3356,12 @@ begin
             begin
                 Network.Chunks[I,J] := XY[C1+J,I]-Network.ColumnMeans[I];
             end;
+            Inc(J);
         end;
+        Inc(I);
     end;
-    for I := 0 to NTotal-1 do
+    I:=0;
+    while I<=NTotal-1 do
     begin
         Offs := IStart+I*NFieldWidth;
         if Network.StructInfo[Offs+0]>0 then
@@ -3371,11 +3373,13 @@ begin
             //
             N1 := Network.StructInfo[Offs+2];
             APVMove(@Network.Chunks[I][0], 0, CSize-1, @Network.Chunks[N1][0], 0, CSize-1);
-            for J := 0 to CSize-1 do
+            J:=0;
+            while J<=CSize-1 do
             begin
                 MLPActivationFunction(Network.Chunks[I,J], Network.StructInfo[Offs+0], F, DF, D2F);
                 Network.Chunks[I,J] := F;
                 Network.Chunks[IDFDNET+I,J] := DF;
+                Inc(J);
             end;
         end;
         if Network.StructInfo[Offs+0]=0 then
@@ -3390,10 +3394,12 @@ begin
             W1 := Network.StructInfo[Offs+3];
             W2 := W1+Network.StructInfo[Offs+1]-1;
             APVMove(@Network.Chunks[I][0], 0, CSize-1, @Network.Chunks[IZeros][0], 0, CSize-1);
-            for J := N1 to N2 do
+            J:=N1;
+            while J<=N2 do
             begin
                 V := Network.Weights[W1+J-N1];
                 APVAdd(@Network.Chunks[I][0], 0, CSize-1, @Network.Chunks[J][0], 0, CSize-1, V);
+                Inc(J);
             end;
         end;
         if Network.StructInfo[Offs+0]<0 then
@@ -3413,9 +3419,11 @@ begin
                 //
                 // "-1" neuron
                 //
-                for K := 0 to CSize-1 do
+                K:=0;
+                while K<=CSize-1 do
                 begin
                     Network.Chunks[I,K] := -1;
+                    Inc(K);
                 end;
                 BFlag := True;
             end;
@@ -3425,22 +3433,27 @@ begin
                 //
                 // "0" neuron
                 //
-                for K := 0 to CSize-1 do
+                K:=0;
+                while K<=CSize-1 do
                 begin
                     Network.Chunks[I,K] := 0;
+                    Inc(K);
                 end;
                 BFlag := True;
             end;
             Assert(BFlag, 'MLPChunkedGradient: internal error - unknown neuron type!');
         end;
+        Inc(I);
     end;
     
     //
     // Post-processing, error, dError/dOut
     //
-    for I := 0 to NTotal-1 do
+    I:=0;
+    while I<=NTotal-1 do
     begin
         APVMove(@Network.Chunks[IDError+I][0], 0, CSize-1, @Network.Chunks[IZeros][0], 0, CSize-1);
+        Inc(I);
     end;
     Assert((Network.StructInfo[6]=0) or (Network.StructInfo[6]=1), 'MLPChunkedGradient: unknown normalization type!');
     if Network.StructInfo[6]=1 then
@@ -3454,7 +3467,8 @@ begin
         // 2. place sum(exp(..)) to NET
         // 3. calculate dError/dOut and place it to the second block of Chunks
         //
-        for K := 0 to CSize-1 do
+        K:=0;
+        while K<=CSize-1 do
         begin
             
             //
@@ -3542,6 +3556,7 @@ begin
                     Inc(I);
                 end;
             end;
+            Inc(K);
         end;
     end
     else

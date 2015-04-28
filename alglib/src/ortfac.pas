@@ -1,5 +1,3 @@
-{.$MODESWITCH RESULT+}
-{.$GOTO ON}
 (*************************************************************************
 Copyright (c) 2005-2010 Sergey Bochkanov.
 
@@ -250,6 +248,9 @@ var
     BlockSize : AlglibInteger;
     RowsCount : AlglibInteger;
     I : AlglibInteger;
+    J : AlglibInteger;
+    K : AlglibInteger;
+    V : Extended;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin
@@ -401,6 +402,9 @@ var
     BlockSize : AlglibInteger;
     ColumnsCount : AlglibInteger;
     I : AlglibInteger;
+    J : AlglibInteger;
+    K : AlglibInteger;
+    V : Extended;
 begin
     if (M<=0) or (N<=0) then
     begin
@@ -531,6 +535,9 @@ var
     BlockSize : AlglibInteger;
     RowsCount : AlglibInteger;
     I : AlglibInteger;
+    J : AlglibInteger;
+    K : AlglibInteger;
+    V : Complex;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin
@@ -672,6 +679,9 @@ var
     BlockSize : AlglibInteger;
     ColumnsCount : AlglibInteger;
     I : AlglibInteger;
+    J : AlglibInteger;
+    K : AlglibInteger;
+    V : Complex;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin
@@ -816,6 +826,8 @@ var
     RowsCount : AlglibInteger;
     I : AlglibInteger;
     J : AlglibInteger;
+    K : AlglibInteger;
+    V : Extended;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin
@@ -1016,6 +1028,8 @@ var
     ColumnsCount : AlglibInteger;
     I : AlglibInteger;
     J : AlglibInteger;
+    K : AlglibInteger;
+    V : Extended;
 begin
     Assert(QRows<=N, 'RMatrixLQUnpackQ: QRows>N!');
     if (M<=0) or (N<=0) or (QRows<=0) then
@@ -1210,6 +1224,8 @@ var
     RowsCount : AlglibInteger;
     I : AlglibInteger;
     J : AlglibInteger;
+    K : AlglibInteger;
+    V : Complex;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin
@@ -1424,6 +1440,8 @@ var
     ColumnsCount : AlglibInteger;
     I : AlglibInteger;
     J : AlglibInteger;
+    K : AlglibInteger;
+    V : Complex;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin
@@ -2524,6 +2542,8 @@ procedure RMatrixHessenbergUnpackH(const A : TReal2DArray;
 var
     I : AlglibInteger;
     J : AlglibInteger;
+    V : TReal1DArray;
+    WORK : TReal1DArray;
 begin
     if N=0 then
     begin

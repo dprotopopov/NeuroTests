@@ -1,5 +1,3 @@
-{.$MODESWITCH RESULT+}
-{.$GOTO ON}
 (*************************************************************************
 Copyright (c) 2009-2010, Sergey Bochkanov (ALGLIB project).
 
@@ -205,6 +203,8 @@ procedure RMatrixGEMM(M : AlglibInteger;
      IC : AlglibInteger;
      JC : AlglibInteger);
 
+implementation
+
 procedure ABLASInternalSplitLength(N : AlglibInteger;
      NB : AlglibInteger;
      var N1 : AlglibInteger;
@@ -309,9 +309,6 @@ procedure RMatrixGEMMK(M : AlglibInteger;
      var C : TReal2DArray;
      IC : AlglibInteger;
      JC : AlglibInteger);forward;
-implementation
-
-
 
 
 (*************************************************************************
@@ -3018,7 +3015,8 @@ begin
         //
         // C=alpha*A*A^H+beta*C
         //
-        for I := 0 to N-1 do
+        I:=0;
+        while I<=N-1 do
         begin
             if IsUpper then
             begin
@@ -3030,7 +3028,8 @@ begin
                 J1 := 0;
                 J2 := I;
             end;
-            for J := J1 to J2 do
+            J:=J1;
+            while J<=J2 do
             begin
                 if AP_FP_Neq(Alpha,0) and (K>0) then
                 begin
@@ -3048,7 +3047,9 @@ begin
                 begin
                     C[IC+I,JC+J] := Beta*C[IC+I,JC+J]+Alpha*V;
                 end;
+                Inc(J);
             end;
+            Inc(I);
         end;
         Exit;
     end

@@ -1,5 +1,3 @@
-{.$MODESWITCH RESULT+}
-{.$GOTO ON}
 (*************************************************************************
 Copyright (c) 1992-2007 The University of Tennessee. All rights reserved.
 
@@ -31,8 +29,8 @@ uses Math, Sysutils, Ap, reflections, creflections, hqrnd, matgen, ablasf, ablas
 
 type
 MatInvReport = record
-    R1 : Double;
-    RInf : Double;
+    R1 : Extended;
+    RInf : Extended;
 end;
 
 
@@ -170,7 +168,7 @@ var
     I : AlglibInteger;
     J : AlglibInteger;
     K : AlglibInteger;
-    V : Double;
+    V : Extended;
 begin
     Info := 1;
     
@@ -433,7 +431,13 @@ procedure SPDMatrixCholeskyInverse(var A : TReal2DArray;
 var
     I : AlglibInteger;
     J : AlglibInteger;
+    K : AlglibInteger;
+    V : Extended;
+    AJJ : Extended;
+    AII : Extended;
     Tmp : TReal1DArray;
+    Info2 : AlglibInteger;
+    Rep2 : MatInvReport;
 begin
     if N<1 then
     begin
@@ -569,7 +573,10 @@ procedure HPDMatrixCholeskyInverse(var A : TComplex2DArray;
 var
     I : AlglibInteger;
     J : AlglibInteger;
+    Info2 : AlglibInteger;
+    Rep2 : MatInvReport;
     Tmp : TComplex1DArray;
+    V : Complex;
 begin
     if N<1 then
     begin
@@ -858,8 +865,8 @@ var
     N2 : AlglibInteger;
     I : AlglibInteger;
     J : AlglibInteger;
-    V : Double;
-    AJJ : Double;
+    V : Extended;
+    AJJ : Extended;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin
@@ -1262,8 +1269,13 @@ procedure RMatrixLUInverseRec(var A : TReal2DArray;
      var Rep : MatInvReport);
 var
     I : AlglibInteger;
+    IWS : AlglibInteger;
     J : AlglibInteger;
-    V : Double;
+    JB : AlglibInteger;
+    JJ : AlglibInteger;
+    JP : AlglibInteger;
+    K : AlglibInteger;
+    V : Extended;
     N1 : AlglibInteger;
     N2 : AlglibInteger;
 begin
@@ -1394,7 +1406,12 @@ procedure CMatrixLUInverseRec(var A : TComplex2DArray;
      var Rep : MatInvReport);
 var
     I : AlglibInteger;
+    IWS : AlglibInteger;
     J : AlglibInteger;
+    JB : AlglibInteger;
+    JJ : AlglibInteger;
+    JP : AlglibInteger;
+    K : AlglibInteger;
     V : Complex;
     N1 : AlglibInteger;
     N2 : AlglibInteger;
@@ -1546,7 +1563,7 @@ procedure SPDMatrixCholeskyInverseRec(var A : TReal2DArray;
 var
     I : AlglibInteger;
     J : AlglibInteger;
-    V : Double;
+    V : Extended;
     N1 : AlglibInteger;
     N2 : AlglibInteger;
     Info2 : AlglibInteger;

@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testortfacunit;
 interface
 uses Math, Sysutils, Ap, hblas, reflections, creflections, sblas, ablasf, ablas, ortfac;
@@ -141,7 +139,7 @@ begin
             //
             N := 1+RandomInteger(MX);
             M := 1+RandomInteger(MX);
-            if AP_FP_Greater(RandomReal,Double(0.5)) then
+            if AP_FP_Greater(RandomReal,0.5) then
             begin
                 N := MX;
             end
@@ -186,8 +184,8 @@ begin
             TestCQRProblem(CA, M, N, Threshold, CQRErrors);
             TestCLQProblem(CA, M, N, Threshold, CLQErrors);
             TestRBDProblem(RA, M, N, Threshold, RBDErrors);
-            RMatrixFillSparseA(RA, M, N, Double(0.95));
-            CMatrixFillSparseA(CA, M, N, Double(0.95));
+            RMatrixFillSparseA(RA, M, N, 0.95);
+            CMatrixFillSparseA(CA, M, N, 0.95);
             TestRQRProblem(RA, M, N, Threshold, RQRErrors);
             TestRLQProblem(RA, M, N, Threshold, RLQErrors);
             TestCQRProblem(CA, M, N, Threshold, CQRErrors);
@@ -227,8 +225,8 @@ begin
                 Inc(I);
             end;
             TestRHessProblem(RA, MX, Threshold, RHessErrors);
-            RMatrixFillSparseA(RA, MX, MX, Double(0.95));
-            CMatrixFillSparseA(CA, MX, MX, Double(0.95));
+            RMatrixFillSparseA(RA, MX, MX, 0.95);
+            CMatrixFillSparseA(CA, MX, MX, 0.95);
             TestRHessProblem(RA, MX, Threshold, RHessErrors);
             
             //
@@ -274,8 +272,8 @@ begin
             end;
             TestRTDProblem(RA, MX, Threshold, RTDErrors);
             TestCTDProblem(CA, MX, Threshold, CTDErrors);
-            RMatrixFillSparseA(RA, MX, MX, Double(0.95));
-            CMatrixFillSparseA(CA, MX, MX, Double(0.95));
+            RMatrixFillSparseA(RA, MX, MX, 0.95);
+            CMatrixFillSparseA(CA, MX, MX, 0.95);
             I:=0;
             while I<=MX-1 do
             begin
@@ -748,7 +746,7 @@ begin
                 I:=1;
                 while I<=CRows do
                 begin
-                    WORK[I] := Double(0.0);
+                    WORK[I] := 0.0;
                     Inc(I);
                 end;
                 L:=AI1;

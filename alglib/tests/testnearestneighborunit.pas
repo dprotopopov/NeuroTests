@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testnearestneighborunit;
 interface
 uses Math, Sysutils, Ap, tsort, nearestneighbor;
@@ -373,7 +371,7 @@ begin
         //
         // Select K: 1..N
         //
-        if AP_FP_Greater(RandomReal,Double(0.5)) then
+        if AP_FP_Greater(RandomReal,0.5) then
         begin
             K := 1+RandomInteger(N);
         end
@@ -385,7 +383,7 @@ begin
         //
         // Select point (either one of the points, or random)
         //
-        if AP_FP_Greater(RandomReal,Double(0.5)) then
+        if AP_FP_Greater(RandomReal,0.5) then
         begin
             I := RandomInteger(N);
             APVMove(@PtX[0], 0, NX-1, @XY[I][0], 0, NX-1);
@@ -486,7 +484,7 @@ begin
         //
         // Select K: 1..N
         //
-        if AP_FP_Greater(RandomReal,Double(0.5)) then
+        if AP_FP_Greater(RandomReal,0.5) then
         begin
             K := 1+RandomInteger(N);
         end
@@ -498,12 +496,12 @@ begin
         //
         // Select Eps
         //
-        Eps := Double(0.5)+RandomReal;
+        Eps := 0.5+RandomReal;
         
         //
         // Select point (either one of the points, or random)
         //
-        if AP_FP_Greater(RandomReal,Double(0.5)) then
+        if AP_FP_Greater(RandomReal,0.5) then
         begin
             I := RandomInteger(N);
             APVMove(@PtX[0], 0, NX-1, @XY[I][0], 0, NX-1);
@@ -604,7 +602,7 @@ begin
         //
         // Select R
         //
-        if AP_FP_Greater(RandomReal,Double(0.3)) then
+        if AP_FP_Greater(RandomReal,0.3) then
         begin
             R := Max(RandomReal, MachineEpsilon);
         end
@@ -616,7 +614,7 @@ begin
         //
         // Select point (either one of the points, or random)
         //
-        if AP_FP_Greater(RandomReal,Double(0.5)) then
+        if AP_FP_Greater(RandomReal,0.5) then
         begin
             I := RandomInteger(N);
             APVMove(@PtX[0], 0, NX-1, @XY[I][0], 0, NX-1);

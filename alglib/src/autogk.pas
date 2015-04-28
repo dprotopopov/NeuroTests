@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Copyright (c) 2005-2009, Sergey Bochkanov (ALGLIB project).
 
@@ -43,20 +41,20 @@ end;
 
 
 AutoGKInternalState = record
-    A : Double;
-    B : Double;
-    Eps : Double;
-    XWidth : Double;
-    X : Double;
-    F : Double;
+    A : Extended;
+    B : Extended;
+    Eps : Extended;
+    XWidth : Extended;
+    X : Extended;
+    F : Extended;
     Info : AlglibInteger;
-    R : Double;
+    R : Extended;
     Heap : TReal2DArray;
     HeapSize : AlglibInteger;
     HeapWidth : AlglibInteger;
     HeapUsed : AlglibInteger;
-    SumErr : Double;
-    SumAbs : Double;
+    SumErr : Extended;
+    SumAbs : Extended;
     QN : TReal1DArray;
     WG : TReal1DArray;
     WK : TReal1DArray;
@@ -71,19 +69,19 @@ This structure stores internal state of the integration algorithm  between
 subsequent calls of the AutoGKIteration() subroutine.
 *************************************************************************)
 AutoGKState = record
-    A : Double;
-    B : Double;
-    Alpha : Double;
-    Beta : Double;
-    XWidth : Double;
-    X : Double;
-    XMinusA : Double;
-    BMinusX : Double;
-    F : Double;
+    A : Extended;
+    B : Extended;
+    Alpha : Extended;
+    Beta : Extended;
+    XWidth : Extended;
+    X : Extended;
+    XMinusA : Extended;
+    BMinusX : Extended;
+    F : Extended;
     WrapperMode : AlglibInteger;
     InternalState : AutoGKInternalState;
     RState : RCommState;
-    V : Double;
+    V : Extended;
     TerminationType : AlglibInteger;
     NFEV : AlglibInteger;
     NIntervals : AlglibInteger;
@@ -91,27 +89,27 @@ end;
 
 
 
-procedure AutoGKSmooth(A : Double; B : Double; var State : AutoGKState);
-procedure AutoGKSmoothW(A : Double;
-     B : Double;
-     XWidth : Double;
+procedure AutoGKSmooth(A : Extended; B : Extended; var State : AutoGKState);
+procedure AutoGKSmoothW(A : Extended;
+     B : Extended;
+     XWidth : Extended;
      var State : AutoGKState);
-procedure AutoGKSingular(A : Double;
-     B : Double;
-     Alpha : Double;
-     Beta : Double;
+procedure AutoGKSingular(A : Extended;
+     B : Extended;
+     Alpha : Extended;
+     Beta : Extended;
      var State : AutoGKState);
 function AutoGKIteration(var State : AutoGKState):Boolean;
 procedure AutoGKResults(const State : AutoGKState;
-     var V : Double;
+     var V : Extended;
      var Rep : AutoGKReport);
 
 implementation
 
-procedure AutoGKInternalPrepare(A : Double;
-     B : Double;
-     Eps : Double;
-     XWidth : Double;
+procedure AutoGKInternalPrepare(A : Extended;
+     B : Extended;
+     Eps : Extended;
+     XWidth : Extended;
      var State : AutoGKInternalState);forward;
 function AutoGKInternalIteration(var State : AutoGKInternalState):Boolean;forward;
 procedure MHeapPop(var Heap : TReal2DArray;
@@ -155,9 +153,9 @@ SEE ALSO
   -- ALGLIB --
      Copyright 06.05.2009 by Bochkanov Sergey
 *************************************************************************)
-procedure AutoGKSmooth(A : Double; B : Double; var State : AutoGKState);
+procedure AutoGKSmooth(A : Extended; B : Extended; var State : AutoGKState);
 begin
-    AutoGKSmoothW(A, B, Double(0.0), State);
+    AutoGKSmoothW(A, B, 0.0, State);
 end;
 
 
@@ -187,9 +185,9 @@ SEE ALSO
   -- ALGLIB --
      Copyright 06.05.2009 by Bochkanov Sergey
 *************************************************************************)
-procedure AutoGKSmoothW(A : Double;
-     B : Double;
-     XWidth : Double;
+procedure AutoGKSmoothW(A : Extended;
+     B : Extended;
+     XWidth : Extended;
      var State : AutoGKState);
 begin
     State.WrapperMode := 0;
@@ -236,10 +234,10 @@ SEE ALSO
   -- ALGLIB --
      Copyright 06.05.2009 by Bochkanov Sergey
 *************************************************************************)
-procedure AutoGKSingular(A : Double;
-     B : Double;
-     Alpha : Double;
-     Beta : Double;
+procedure AutoGKSingular(A : Extended;
+     B : Extended;
+     Alpha : Extended;
+     Beta : Extended;
      var State : AutoGKState);
 begin
     State.WrapperMode := 1;
@@ -247,7 +245,7 @@ begin
     State.B := B;
     State.Alpha := Alpha;
     State.Beta := Beta;
-    State.XWidth := Double(0.0);
+    State.XWidth := 0.0;
     SetLength(State.RState.RA, 10+1);
     State.RState.Stage := -1;
 end;
@@ -293,17 +291,17 @@ State.X
 *************************************************************************)
 function AutoGKIteration(var State : AutoGKState):Boolean;
 var
-    S : Double;
-    Tmp : Double;
-    Eps : Double;
-    A : Double;
-    B : Double;
-    X : Double;
-    T : Double;
-    Alpha : Double;
-    Beta : Double;
-    V1 : Double;
-    V2 : Double;
+    S : Extended;
+    Tmp : Extended;
+    Eps : Extended;
+    A : Extended;
+    B : Extended;
+    X : Extended;
+    T : Extended;
+    Alpha : Extended;
+    Beta : Extended;
+    V1 : Extended;
+    V2 : Extended;
 label
 lbl_5, lbl_0, lbl_6, lbl_3, lbl_9, lbl_1, lbl_10, lbl_11, lbl_2, lbl_12, lbl_7, lbl_rcomm;
 begin
@@ -472,7 +470,7 @@ lbl_3:
     //     integral(f(x)dx, a, (b+a)/2) =
     //     = 1/(1+alpha) * integral(t^(-alpha/(1+alpha))*f(a+t^(1/(1+alpha)))dt, 0, (0.5*(b-a))^(1+alpha))
     //
-    AutoGKInternalPrepare(0, Power(Double(0.5)*(B-A), 1+Alpha), Eps, State.XWidth, State.InternalState);
+    AutoGKInternalPrepare(0, Power(0.5*(B-A), 1+Alpha), Eps, State.XWidth, State.InternalState);
 lbl_9:
     if not AutoGKInternalIteration(State.InternalState) then
     begin
@@ -518,7 +516,7 @@ lbl_10:
     //     integral(f(x)dx, (b+a)/2, b) =
     //     = 1/(1+beta) * integral(t^(-beta/(1+beta))*f(b-t^(1/(1+beta)))dt, 0, (0.5*(b-a))^(1+beta))
     //
-    AutoGKInternalPrepare(0, Power(Double(0.5)*(B-A), 1+Beta), Eps, State.XWidth, State.InternalState);
+    AutoGKInternalPrepare(0, Power(0.5*(B-A), 1+Beta), Eps, State.XWidth, State.InternalState);
 lbl_11:
     if not AutoGKInternalIteration(State.InternalState) then
     begin
@@ -605,7 +603,7 @@ Output parameters:
      Copyright 14.11.2007 by Bochkanov Sergey
 *************************************************************************)
 procedure AutoGKResults(const State : AutoGKState;
-     var V : Double;
+     var V : Extended;
      var Rep : AutoGKReport);
 begin
     V := State.V;
@@ -623,10 +621,10 @@ eps=0   - automatic eps selection
 width<0 -   error
 width=0 -   no width requirements
 *************************************************************************)
-procedure AutoGKInternalPrepare(A : Double;
-     B : Double;
-     Eps : Double;
-     XWidth : Double;
+procedure AutoGKInternalPrepare(A : Extended;
+     B : Extended;
+     Eps : Extended;
+     XWidth : Extended;
      var State : AutoGKInternalState);
 begin
     
@@ -652,18 +650,18 @@ Internal AutoGK subroutine
 *************************************************************************)
 function AutoGKInternalIteration(var State : AutoGKInternalState):Boolean;
 var
-    C1 : Double;
-    C2 : Double;
+    C1 : Extended;
+    C2 : Extended;
     I : AlglibInteger;
     J : AlglibInteger;
-    IntG : Double;
-    IntK : Double;
-    IntA : Double;
-    V : Double;
-    TA : Double;
-    TB : Double;
+    IntG : Extended;
+    IntK : Extended;
+    IntA : Extended;
+    V : Extended;
+    TA : Extended;
+    TB : Extended;
     NS : AlglibInteger;
-    QEps : Double;
+    QEps : Extended;
     Info : AlglibInteger;
 label
 lbl_5, lbl_0, lbl_7, lbl_3, lbl_8, lbl_11, lbl_1, lbl_13, lbl_10, lbl_4, lbl_14, lbl_16, lbl_19, lbl_2, lbl_21, lbl_18, lbl_15, lbl_rcomm;
@@ -747,17 +745,17 @@ begin
     begin
         if I=0 then
         begin
-            State.WR[I] := Double(0.5)*AbsReal(State.QN[1]-State.QN[0]);
+            State.WR[I] := 0.5*AbsReal(State.QN[1]-State.QN[0]);
             Inc(I);
             Continue;
         end;
         if I=State.N-1 then
         begin
-            State.WR[State.N-1] := Double(0.5)*AbsReal(State.QN[State.N-1]-State.QN[State.N-2]);
+            State.WR[State.N-1] := 0.5*AbsReal(State.QN[State.N-1]-State.QN[State.N-2]);
             Inc(I);
             Continue;
         end;
-        State.WR[I] := Double(0.5)*AbsReal(State.QN[I-1]-State.QN[I+1]);
+        State.WR[I] := 0.5*AbsReal(State.QN[I-1]-State.QN[I+1]);
         Inc(I);
     end;
     
@@ -809,8 +807,8 @@ begin
     State.HeapSize := 1;
     State.HeapUsed := 1;
     SetLength(State.Heap, State.HeapSize, State.HeapWidth);
-    C1 := Double(0.5)*(State.B-State.A);
-    C2 := Double(0.5)*(State.B+State.A);
+    C1 := 0.5*(State.B-State.A);
+    C2 := 0.5*(State.B+State.A);
     IntG := 0;
     IntK := 0;
     IntA := 0;
@@ -847,9 +845,9 @@ lbl_0:
     I := I+1;
     goto lbl_5;
 lbl_7:
-    IntK := IntK*(State.B-State.A)*Double(0.5);
-    IntG := IntG*(State.B-State.A)*Double(0.5);
-    IntA := IntA*(State.B-State.A)*Double(0.5);
+    IntK := IntK*(State.B-State.A)*0.5;
+    IntG := IntG*(State.B-State.A)*0.5;
+    IntA := IntA*(State.B-State.A)*0.5;
     State.Heap[0,0] := AbsReal(IntG-IntK);
     State.Heap[0,1] := IntK;
     State.Heap[0,2] := IntA;
@@ -879,8 +877,8 @@ lbl_8:
     end;
     TA := State.A+J*(State.B-State.A)/NS;
     TB := State.A+(J+1)*(State.B-State.A)/NS;
-    C1 := Double(0.5)*(TB-TA);
-    C2 := Double(0.5)*(TB+TA);
+    C1 := 0.5*(TB-TA);
+    C2 := 0.5*(TB+TA);
     IntG := 0;
     IntK := 0;
     IntA := 0;
@@ -917,9 +915,9 @@ lbl_1:
     I := I+1;
     goto lbl_11;
 lbl_13:
-    IntK := IntK*(TB-TA)*Double(0.5);
-    IntG := IntG*(TB-TA)*Double(0.5);
-    IntA := IntA*(TB-TA)*Double(0.5);
+    IntK := IntK*(TB-TA)*0.5;
+    IntG := IntG*(TB-TA)*0.5;
+    IntA := IntA*(TB-TA)*0.5;
     State.Heap[J,0] := AbsReal(IntG-IntK);
     State.Heap[J,1] := IntK;
     State.Heap[J,2] := IntA;
@@ -979,8 +977,8 @@ lbl_14:
     TA := State.Heap[State.HeapUsed-1,3];
     TB := State.Heap[State.HeapUsed-1,4];
     State.Heap[State.HeapUsed-1,3] := TA;
-    State.Heap[State.HeapUsed-1,4] := Double(0.5)*(TA+TB);
-    State.Heap[State.HeapUsed,3] := Double(0.5)*(TA+TB);
+    State.Heap[State.HeapUsed-1,4] := 0.5*(TA+TB);
+    State.Heap[State.HeapUsed,3] := 0.5*(TA+TB);
     State.Heap[State.HeapUsed,4] := TB;
     J := State.HeapUsed-1;
 lbl_16:
@@ -988,8 +986,8 @@ lbl_16:
     begin
         goto lbl_18;
     end;
-    C1 := Double(0.5)*(State.Heap[J,4]-State.Heap[J,3]);
-    C2 := Double(0.5)*(State.Heap[J,4]+State.Heap[J,3]);
+    C1 := 0.5*(State.Heap[J,4]-State.Heap[J,3]);
+    C2 := 0.5*(State.Heap[J,4]+State.Heap[J,3]);
     IntG := 0;
     IntK := 0;
     IntA := 0;
@@ -1026,9 +1024,9 @@ lbl_2:
     I := I+1;
     goto lbl_19;
 lbl_21:
-    IntK := IntK*(State.Heap[J,4]-State.Heap[J,3])*Double(0.5);
-    IntG := IntG*(State.Heap[J,4]-State.Heap[J,3])*Double(0.5);
-    IntA := IntA*(State.Heap[J,4]-State.Heap[J,3])*Double(0.5);
+    IntK := IntK*(State.Heap[J,4]-State.Heap[J,3])*0.5;
+    IntG := IntG*(State.Heap[J,4]-State.Heap[J,3])*0.5;
+    IntA := IntA*(State.Heap[J,4]-State.Heap[J,3])*0.5;
     State.Heap[J,0] := AbsReal(IntG-IntK);
     State.Heap[J,1] := IntK;
     State.Heap[J,2] := IntA;
@@ -1072,7 +1070,7 @@ procedure MHeapPop(var Heap : TReal2DArray;
 var
     I : AlglibInteger;
     P : AlglibInteger;
-    T : Double;
+    T : Extended;
     MaxCP : AlglibInteger;
 begin
     if HeapSize=1 then
@@ -1124,7 +1122,7 @@ procedure MHeapPush(var Heap : TReal2DArray;
 var
     I : AlglibInteger;
     P : AlglibInteger;
-    T : Double;
+    T : Extended;
     Parent : AlglibInteger;
 begin
     if HeapSize=0 then

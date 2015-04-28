@@ -14,10 +14,10 @@ SYNTAX: check compiler unitname [options]
                 additional options to be passed to compiler
 
 COMPILERS SUPPORTED:
-         fpc    Free Pascal
+       dcc32    Delphi
 
 EXAMPLES:
-    check fpc all
-    check fpc all_silent "-O1"
+    check dcc32 all
+    check dcc32 all_silent "-$O+"
 
 See reference manual for more information

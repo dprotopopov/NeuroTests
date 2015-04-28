@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testlegendreunit;
 interface
 uses Math, Sysutils, Ap, legendre;
@@ -30,7 +28,7 @@ begin
     Err := 0;
     SumErr := 0;
     CErr := 0;
-    Threshold := Double(1.0E-9);
+    Threshold := 1.0E-9;
     WasErrors := False;
     
     //

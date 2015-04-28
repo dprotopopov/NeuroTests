@@ -1,4 +1,4 @@
-{$MODESWITCH RESULT+}
+
 program _demo;
 Array[0]
 var
@@ -15,8 +15,8 @@ begin
     MLPCreateC0(2, 3, Net);
     SetLength(X, 2);
     SetLength(Y, 3);
-    X[0] := RandomReal-Double(0.5);
-    X[1] := RandomReal-Double(0.5);
+    X[0] := RandomReal-0.5;
+    X[1] := RandomReal-0.5;
     MLPProcess(Net, X, Y);
     
     //

@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testevdunit;
 interface
 uses Math, Sysutils, Ap, hblas, reflections, creflections, sblas, ablasf, ablas, ortfac, blas, rotations, hsschur, evd;
@@ -138,9 +136,9 @@ var
     TDBIErrors : Boolean;
     WFailed : Boolean;
 begin
-    FailThreshold := Double(0.005);
+    FailThreshold := 0.005;
     Threshold := 100000*MachineEpsilon;
-    BIThreshold := Double(1.0E-6);
+    BIThreshold := 1.0E-6;
     NSErrors := False;
     SErrors := False;
     HErrors := False;
@@ -996,7 +994,7 @@ begin
     //
     if I1>0 then
     begin
-        A := Double(0.5)*(LambdaRef[I1]+LambdaRef[I1-1]);
+        A := 0.5*(LambdaRef[I1]+LambdaRef[I1-1]);
     end
     else
     begin
@@ -1004,7 +1002,7 @@ begin
     end;
     if I2<N-1 then
     begin
-        B := Double(0.5)*(LambdaRef[I2]+LambdaRef[I2+1]);
+        B := 0.5*(LambdaRef[I2]+LambdaRef[I2+1]);
     end
     else
     begin
@@ -1403,7 +1401,7 @@ begin
     //
     if I1>0 then
     begin
-        A := Double(0.5)*(LambdaRef[I1]+LambdaRef[I1-1]);
+        A := 0.5*(LambdaRef[I1]+LambdaRef[I1-1]);
     end
     else
     begin
@@ -1411,7 +1409,7 @@ begin
     end;
     if I2<N-1 then
     begin
-        B := Double(0.5)*(LambdaRef[I2]+LambdaRef[I2+1]);
+        B := 0.5*(LambdaRef[I2]+LambdaRef[I2+1]);
     end
     else
     begin
@@ -2019,7 +2017,7 @@ begin
     //
     if I1>0 then
     begin
-        A := Double(0.5)*(LambdaRef[I1]+LambdaRef[I1-1]);
+        A := 0.5*(LambdaRef[I1]+LambdaRef[I1-1]);
     end
     else
     begin
@@ -2027,7 +2025,7 @@ begin
     end;
     if I2<N-1 then
     begin
-        B := Double(0.5)*(LambdaRef[I2]+LambdaRef[I2+1]);
+        B := 0.5*(LambdaRef[I2]+LambdaRef[I2+1]);
     end
     else
     begin
@@ -2776,8 +2774,8 @@ begin
     TestHEVDProblem(CA, CAL, CAU, N, Threshold, HErrors, FailC, Runs);
     TestSEVDBIProblem(RA, RAL, RAU, N, True, BIThreshold, SBIErrors, FailC, Runs);
     TestHEVDBIProblem(CA, CAL, CAU, N, True, BIThreshold, HBIErrors, FailC, Runs);
-    RMatrixFillSparseA(RA, N, N, Double(0.995));
-    CMatrixFillSparseA(CA, N, N, Double(0.995));
+    RMatrixFillSparseA(RA, N, N, 0.995);
+    CMatrixFillSparseA(CA, N, N, 0.995);
     I:=0;
     while I<=N-1 do
     begin
@@ -2953,8 +2951,8 @@ begin
         Inc(I);
     end;
     TestNSEVDProblem(RA, N, Threshold, NSErrors, FailC, Runs);
-    RMatrixFillSparseA(RA, N, N, Double(0.995));
-    CMatrixFillSparseA(CA, N, N, Double(0.995));
+    RMatrixFillSparseA(RA, N, N, 0.995);
+    CMatrixFillSparseA(CA, N, N, 0.995);
     TestNSEVDProblem(RA, N, Threshold, NSErrors, FailC, Runs);
 end;
 

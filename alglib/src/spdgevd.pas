@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Copyright (c) 2005-2007, Sergey Bochkanov (ALGLIB project).
 
@@ -112,7 +110,7 @@ var
     J2INC : AlglibInteger;
     I : AlglibInteger;
     J : AlglibInteger;
-    V : Double;
+    V : Extended;
 begin
     A := DynamicArrayCopy(A);
     
@@ -143,7 +141,7 @@ begin
         J:=0;
         while J<=N-1 do
         begin
-            Z[0,J] := Double(0.0);
+            Z[0,J] := 0.0;
             Inc(J);
         end;
         I:=1;
@@ -259,7 +257,7 @@ var
     W3 : TReal1DArray;
     I : AlglibInteger;
     J : AlglibInteger;
-    V : Double;
+    V : Extended;
     Rep : MatInvReport;
     Info : AlglibInteger;
     i_ : AlglibInteger;
@@ -334,14 +332,14 @@ begin
             // Form w2 = A * l'(j) (here l'(j) is j-th column of L^(-T))
             //
             APVMove(@W1[0], 1, J, @T[J-1][0], 0, J-1);
-            SymmetricMatrixVectorMultiply(A, IsUpperA, 0, J-1, W1, Double(1.0), W2);
+            SymmetricMatrixVectorMultiply(A, IsUpperA, 0, J-1, W1, 1.0, W2);
             if IsUpperA then
             begin
-                MatrixVectorMultiply(A, 0, J-1, J, N-1, True, W1, 1, J, Double(1.0), W2, J+1, N, Double(0.0));
+                MatrixVectorMultiply(A, 0, J-1, J, N-1, True, W1, 1, J, 1.0, W2, J+1, N, 0.0);
             end
             else
             begin
-                MatrixVectorMultiply(A, J, N-1, 0, J-1, False, W1, 1, J, Double(1.0), W2, J+1, N, Double(0.0));
+                MatrixVectorMultiply(A, J, N-1, 0, J-1, False, W1, 1, J, 1.0, W2, J+1, N, 0.0);
             end;
             
             //
@@ -453,16 +451,16 @@ begin
             // Form w2 = A * u'(j) (here u'(j) is j-th column of U')
             //
             APVMove(@W1[0], 1, N-J+1, @T[J-1][0], J-1, N-1);
-            SymmetricMatrixVectorMultiply(A, IsUpperA, J-1, N-1, W1, Double(1.0), W3);
+            SymmetricMatrixVectorMultiply(A, IsUpperA, J-1, N-1, W1, 1.0, W3);
             APVMove(@W2[0], J, N, @W3[0], 1, N-J+1);
             APVMove(@W1[0], J, N, @T[J-1][0], J-1, N-1);
             if IsUpperA then
             begin
-                MatrixVectorMultiply(A, 0, J-2, J-1, N-1, False, W1, J, N, Double(1.0), W2, 1, J-1, Double(0.0));
+                MatrixVectorMultiply(A, 0, J-2, J-1, N-1, False, W1, J, N, 1.0, W2, 1, J-1, 0.0);
             end
             else
             begin
-                MatrixVectorMultiply(A, J-1, N-1, 0, J-2, True, W1, J, N, Double(1.0), W2, 1, J-1, Double(0.0));
+                MatrixVectorMultiply(A, J-1, N-1, 0, J-2, True, W1, J, N, 1.0, W2, 1, J-1, 0.0);
             end;
             
             //

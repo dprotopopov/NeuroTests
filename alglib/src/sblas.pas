@@ -1,5 +1,3 @@
-{.$MODESWITCH RESULT+}
-{.$GOTO ON}
 (*************************************************************************
 Copyright (c) 1992-2007 The University of Tennessee.  All rights reserved.
 
@@ -34,7 +32,7 @@ procedure SymmetricMatrixVectorMultiply(const A : TReal2DArray;
      I1 : AlglibInteger;
      I2 : AlglibInteger;
      const X : TReal1DArray;
-     Alpha : Double;
+     Alpha : Extended;
      var Y : TReal1DArray);
 procedure SymmetricRank2Update(var A : TReal2DArray;
      IsUpper : Boolean;
@@ -43,7 +41,7 @@ procedure SymmetricRank2Update(var A : TReal2DArray;
      const X : TReal1DArray;
      const Y : TReal1DArray;
      var T : TReal1DArray;
-     Alpha : Double);
+     Alpha : Extended);
 
 implementation
 
@@ -52,7 +50,7 @@ procedure SymmetricMatrixVectorMultiply(const A : TReal2DArray;
      I1 : AlglibInteger;
      I2 : AlglibInteger;
      const X : TReal1DArray;
-     Alpha : Double;
+     Alpha : Extended;
      var Y : TReal1DArray);
 var
     I : AlglibInteger;
@@ -63,7 +61,7 @@ var
     BX1 : AlglibInteger;
     BX2 : AlglibInteger;
     N : AlglibInteger;
-    V : Double;
+    V : Extended;
 begin
     N := I2-I1+1;
     if N<=0 then
@@ -158,12 +156,12 @@ procedure SymmetricRank2Update(var A : TReal2DArray;
      const X : TReal1DArray;
      const Y : TReal1DArray;
      var T : TReal1DArray;
-     Alpha : Double);
+     Alpha : Extended);
 var
     I : AlglibInteger;
     TP1 : AlglibInteger;
     TP2 : AlglibInteger;
-    V : Double;
+    V : Extended;
 begin
     if IsUpper then
     begin

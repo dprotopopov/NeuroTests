@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testminlmunit;
 interface
 uses Math, Sysutils, Ap, blas, reflections, creflections, hqrnd, matgen, ablasf, ablas, trfac, trlinsolve, safesolve, rcond, matinv, hblas, sblas, ortfac, rotations, bdsvd, svd, xblas, densesolver, linmin, minlbfgs, minlm;
@@ -128,7 +126,7 @@ begin
             SCError := SCError or  not RKindVsStateCheck(RKind, State);
         end;
         MinLMResults(State, X, Rep);
-        RefError := RefError or (Rep.TerminationType<=0) or AP_FP_Greater(AbsReal(X[0]-2),Double(0.001)) or AP_FP_Greater(AbsReal(X[1]),Double(0.001)) or AP_FP_Greater(AbsReal(X[2]-2),Double(0.001));
+        RefError := RefError or (Rep.TerminationType<=0) or AP_FP_Greater(AbsReal(X[0]-2),0.001) or AP_FP_Greater(AbsReal(X[1]),0.001) or AP_FP_Greater(AbsReal(X[2]-2),0.001);
         Inc(RKind);
     end;
     
@@ -173,7 +171,7 @@ begin
             SCError := SCError or  not RKindVsStateCheck(RKind, State);
         end;
         MinLMResults(State, X, Rep);
-        Lin1Error := (Rep.TerminationType<=0) or AP_FP_Greater(AbsReal(X[0]/Pi-Round(X[0]/Pi)),Double(0.001));
+        Lin1Error := (Rep.TerminationType<=0) or AP_FP_Greater(AbsReal(X[0]/Pi-Round(X[0]/Pi)),0.001);
         Inc(RKind);
     end;
     
@@ -307,7 +305,7 @@ begin
             I:=0;
             while I<=N-1 do
             begin
-                EqError := EqError or AP_FP_Greater(AbsReal(X[I]-XE[I]),Double(0.001));
+                EqError := EqError or AP_FP_Greater(AbsReal(X[I]-XE[I]),0.001);
                 Inc(I);
             end;
             Inc(RKind);
@@ -332,11 +330,11 @@ begin
             MaxIts := 0;
             if CKind=0 then
             begin
-                EpsF := Double(0.0001);
+                EpsF := 0.0001;
             end;
             if CKind=1 then
             begin
-                EpsX := Double(0.0001);
+                EpsX := 0.0001;
             end;
             if CKind=2 then
             begin
@@ -344,7 +342,7 @@ begin
             end;
             if CKind=3 then
             begin
-                EpsG := Double(0.0001);
+                EpsG := 0.0001;
             end;
             SetLength(X, 3);
             N := 3;
@@ -412,16 +410,16 @@ begin
             MinLMResults(State, X, Rep);
             if CKind=0 then
             begin
-                ConvError := ConvError or AP_FP_Greater(AbsReal(X[0]-Ln(2)),Double(0.05));
-                ConvError := ConvError or AP_FP_Greater(AbsReal(X[1]),Double(0.05));
-                ConvError := ConvError or AP_FP_Greater(AbsReal(X[2]-Ln(2)),Double(0.05));
+                ConvError := ConvError or AP_FP_Greater(AbsReal(X[0]-Ln(2)),0.05);
+                ConvError := ConvError or AP_FP_Greater(AbsReal(X[1]),0.05);
+                ConvError := ConvError or AP_FP_Greater(AbsReal(X[2]-Ln(2)),0.05);
                 ConvError := ConvError or (Rep.TerminationType<>1);
             end;
             if CKind=1 then
             begin
-                ConvError := ConvError or AP_FP_Greater(AbsReal(X[0]-Ln(2)),Double(0.05));
-                ConvError := ConvError or AP_FP_Greater(AbsReal(X[1]),Double(0.05));
-                ConvError := ConvError or AP_FP_Greater(AbsReal(X[2]-Ln(2)),Double(0.05));
+                ConvError := ConvError or AP_FP_Greater(AbsReal(X[0]-Ln(2)),0.05);
+                ConvError := ConvError or AP_FP_Greater(AbsReal(X[1]),0.05);
+                ConvError := ConvError or AP_FP_Greater(AbsReal(X[2]-Ln(2)),0.05);
                 ConvError := ConvError or (Rep.TerminationType<>2);
             end;
             if CKind=2 then
@@ -430,9 +428,9 @@ begin
             end;
             if CKind=3 then
             begin
-                ConvError := ConvError or AP_FP_Greater(AbsReal(X[0]-Ln(2)),Double(0.05));
-                ConvError := ConvError or AP_FP_Greater(AbsReal(X[1]),Double(0.05));
-                ConvError := ConvError or AP_FP_Greater(AbsReal(X[2]-Ln(2)),Double(0.05));
+                ConvError := ConvError or AP_FP_Greater(AbsReal(X[0]-Ln(2)),0.05);
+                ConvError := ConvError or AP_FP_Greater(AbsReal(X[1]),0.05);
+                ConvError := ConvError or AP_FP_Greater(AbsReal(X[2]-Ln(2)),0.05);
                 ConvError := ConvError or (Rep.TerminationType<>4);
             end;
             Inc(CKind);
@@ -549,9 +547,9 @@ begin
     N := 1;
     SetLength(X, N);
     X[0] := 100;
-    StpMax := Double(0.05)+Double(0.05)*RandomReal;
+    StpMax := 0.05+0.05*RandomReal;
     MinLMCreateFGH(N, X, State);
-    MinLMSetCond(State, Double(1.0E-9), 0, 0, 0);
+    MinLMSetCond(State, 1.0E-9, 0, 0, 0);
     MinLMSetStpMax(State, StpMax);
     MinLMSetXRep(State, True);
     XPrev := X[0];

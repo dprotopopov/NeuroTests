@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testspline2dunit;
 interface
 uses Math, Sysutils, Ap, spline3, blas, reflections, creflections, hqrnd, matgen, ablasf, ablas, trfac, trlinsolve, safesolve, rcond, matinv, hblas, sblas, ortfac, rotations, bdsvd, svd, xblas, densesolver, linmin, minlbfgs, minlm, lsfit, apserv, spline1d, spline2d;
@@ -108,8 +106,8 @@ var
 begin
     WasErrors := False;
     PassCount := 10;
-    H := Double(0.00001);
-    LStep := Double(0.001);
+    H := 0.00001;
+    LStep := 0.001;
     BLErrors := False;
     BCErrors := False;
     DSErrors := False;
@@ -152,7 +150,7 @@ begin
                 J:=0;
                 while J<=N-1 do
                 begin
-                    X[J] := Double(0.5)*(BX+AX)-Double(0.5)*(BX-AX)*Cos(PI*(2*J+1)/(2*n));
+                    X[J] := 0.5*(BX+AX)-0.5*(BX-AX)*Cos(PI*(2*J+1)/(2*n));
                     if J=0 then
                     begin
                         X[J] := AX;
@@ -164,7 +162,7 @@ begin
                     LX[2*J] := X[J];
                     if J>0 then
                     begin
-                        LX[2*J-1] := Double(0.5)*(X[J]+X[J-1]);
+                        LX[2*J-1] := 0.5*(X[J]+X[J-1]);
                     end;
                     Inc(J);
                 end;
@@ -183,7 +181,7 @@ begin
                 I:=0;
                 while I<=M-1 do
                 begin
-                    Y[I] := Double(0.5)*(BY+AY)-Double(0.5)*(BY-AY)*Cos(PI*(2*i+1)/(2*M));
+                    Y[I] := 0.5*(BY+AY)-0.5*(BY-AY)*Cos(PI*(2*i+1)/(2*M));
                     if I=0 then
                     begin
                         Y[I] := AY;
@@ -195,7 +193,7 @@ begin
                     LY[2*I] := Y[I];
                     if I>0 then
                     begin
-                        LY[2*I-1] := Double(0.5)*(Y[I]+Y[I-1]);
+                        LY[2*I-1] := 0.5*(Y[I]+Y[I-1]);
                     end;
                     Inc(I);
                 end;
@@ -217,7 +215,7 @@ begin
                     J:=0;
                     while J<=N-1 do
                     begin
-                        F[I,J] := Exp(Double(0.6)*X[J])-Exp(-Double(0.3)*Y[I]+Double(0.08)*X[J])+2*Cos(Pi*(X[J]+Double(1.2)*Y[I]))+Double(0.1)*Cos(20*X[J]+15*Y[I]);
+                        F[I,J] := Exp(0.6*X[J])-Exp(-0.3*Y[I]+0.08*X[J])+2*Cos(Pi*(X[J]+1.2*Y[I]))+0.1*Cos(20*X[J]+15*Y[I]);
                         Inc(J);
                     end;
                     Inc(I);
@@ -261,7 +259,7 @@ begin
                         F2 := Spline2DCalc(C, LX[2*J+2], LY[2*I]);
                         F3 := Spline2DCalc(C, LX[2*J+2], LY[2*I+2]);
                         F4 := Spline2DCalc(C, LX[2*J], LY[2*I+2]);
-                        Err := Max(Err, AbsReal(Double(0.25)*(F1+F2+F3+F4)-FM));
+                        Err := Max(Err, AbsReal(0.25*(F1+F2+F3+F4)-FM));
                         Inc(J);
                     end;
                     Inc(I);
@@ -269,7 +267,7 @@ begin
                 BLErrors := BLErrors or AP_FP_Greater(Err,10000*MachineEpsilon);
                 LConst(C, LX, LY, M, N, LStep, L1, L1X, L1Y, L1XY);
                 LConst(C, LX, LY, M, N, LStep/3, L2, L2X, L2Y, L2XY);
-                BLErrors := BLErrors or AP_FP_Greater(L2/L1,Double(1.2));
+                BLErrors := BLErrors or AP_FP_Greater(L2/L1,1.2);
                 Err := 0;
                 I:=0;
                 while I<=M-2 do
@@ -287,7 +285,7 @@ begin
                     end;
                     Inc(I);
                 end;
-                DSErrors := DSErrors or AP_FP_Greater(Err,Double(1.0E-3));
+                DSErrors := DSErrors or AP_FP_Greater(Err,1.0E-3);
                 UPErrors := UPErrors or  not TestUnpack(C, LX, LY);
                 LTErrors := LTErrors or  not TestLinTrans(C, AX, BX, AY, BY);
                 
@@ -313,10 +311,10 @@ begin
                 BCErrors := BCErrors or AP_FP_Greater(Err,10000*MachineEpsilon);
                 LConst(C, LX, LY, M, N, LStep, L1, L1X, L1Y, L1XY);
                 LConst(C, LX, LY, M, N, LStep/3, L2, L2X, L2Y, L2XY);
-                BCErrors := BCErrors or AP_FP_Greater(L2/L1,Double(1.2));
-                BCErrors := BCErrors or AP_FP_Greater(L2X/L1X,Double(1.2));
-                BCErrors := BCErrors or AP_FP_Greater(L2Y/L1Y,Double(1.2));
-                if AP_FP_Greater(L2XY,Double(0.01)) and AP_FP_Greater(L1XY,Double(0.01)) then
+                BCErrors := BCErrors or AP_FP_Greater(L2/L1,1.2);
+                BCErrors := BCErrors or AP_FP_Greater(L2X/L1X,1.2);
+                BCErrors := BCErrors or AP_FP_Greater(L2Y/L1Y,1.2);
+                if AP_FP_Greater(L2XY,0.01) and AP_FP_Greater(L1XY,0.01) then
                 begin
                     
                     //
@@ -325,7 +323,7 @@ begin
                     // small, the d2F/dXdY is nearly zero and Lipschitz
                     // constant ratio is ill-conditioned.
                     //
-                    BCErrors := BCErrors or AP_FP_Greater(L2XY/L1XY,Double(1.2));
+                    BCErrors := BCErrors or AP_FP_Greater(L2XY/L1XY,1.2);
                 end;
                 Err := 0;
                 I:=0;
@@ -344,14 +342,14 @@ begin
                     end;
                     Inc(I);
                 end;
-                DSErrors := DSErrors or AP_FP_Greater(Err,Double(1.0E-3));
+                DSErrors := DSErrors or AP_FP_Greater(Err,1.0E-3);
                 UPErrors := UPErrors or  not TestUnpack(C, LX, LY);
                 LTErrors := LTErrors or  not TestLinTrans(C, AX, BX, AY, BY);
                 
                 //
                 // Copy/Serialise test
                 //
-                if AP_FP_Greater(RandomReal,Double(0.5)) then
+                if AP_FP_Greater(RandomReal,0.5) then
                 begin
                     Spline2DBuildBicubic(X, Y, F, M, N, C);
                 end
@@ -471,7 +469,7 @@ begin
                 J:=0;
                 while J<=N-1 do
                 begin
-                    F[I,J] := Exp(Double(0.6)*X[J])-Exp(-Double(0.3)*Y[I]+Double(0.08)*X[J])+2*Cos(Pi*(X[J]+Double(1.2)*Y[I]))+Double(0.1)*Cos(20*X[J]+15*Y[I]);
+                    F[I,J] := Exp(0.6*X[J])-Exp(-0.3*Y[I]+0.08*X[J])+2*Cos(Pi*(X[J]+1.2*Y[I]))+0.1*Cos(20*X[J]+15*Y[I]);
                     Inc(J);
                 end;
                 Inc(I);
@@ -804,8 +802,8 @@ begin
             while Pass<=PassCount do
             begin
                 P := (N-1)*I+J;
-                TX := (Double(0.001)+Double(0.999)*RandomReal)*(Tbl[P,1]-Tbl[P,0]);
-                TY := (Double(0.001)+Double(0.999)*RandomReal)*(Tbl[P,3]-Tbl[P,2]);
+                TX := (0.001+0.999*RandomReal)*(Tbl[P,1]-Tbl[P,0]);
+                TY := (0.001+0.999*RandomReal)*(Tbl[P,3]-Tbl[P,2]);
                 
                 //
                 // Interpolation properties

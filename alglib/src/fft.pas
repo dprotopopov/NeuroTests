@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Copyright (c) 2009, Sergey Bochkanov (ALGLIB project).
 
@@ -261,8 +259,8 @@ begin
             V.X := -Sin(-2*Pi*I/N);
             V.Y := Cos(-2*Pi*I/N);
             F[I] := C_Sub(C_Add(Hn,HmnC),C_Mul(V,C_Sub(Hn,HmnC)));
-            F[I].X := Double(0.5)*F[I].X;
-            F[I].Y := Double(0.5)*F[I].Y;
+            F[I].X := 0.5*F[I].X;
+            F[I].Y := 0.5*F[I].Y;
             Inc(I);
         end;
         I:=N2+1;
@@ -389,8 +387,8 @@ procedure FFTR1DInternalEven(var A : TReal1DArray;
      var Buf : TReal1DArray;
      var Plan : FTPlan);
 var
-    X : Double;
-    Y : Double;
+    X : Extended;
+    Y : Extended;
     I : AlglibInteger;
     N2 : AlglibInteger;
     Idx : AlglibInteger;
@@ -434,8 +432,8 @@ begin
         V.X := -Sin(-2*Pi*I/N);
         V.Y := Cos(-2*Pi*I/N);
         V := C_Sub(C_Add(Hn,HmnC),C_Mul(V,C_Sub(Hn,HmnC)));
-        A[2*I+0] := Double(0.5)*V.X;
-        A[2*I+1] := Double(0.5)*V.Y;
+        A[2*I+0] := 0.5*V.X;
+        A[2*I+1] := 0.5*V.Y;
         Inc(I);
     end;
     A[1] := Buf[0]-Buf[1];
@@ -454,9 +452,9 @@ procedure FFTR1DInvInternalEven(var A : TReal1DArray;
      var Buf : TReal1DArray;
      var Plan : FTPlan);
 var
-    X : Double;
-    Y : Double;
-    T : Double;
+    X : Extended;
+    Y : Extended;
+    T : Extended;
     I : AlglibInteger;
     N2 : AlglibInteger;
 begin
@@ -470,8 +468,8 @@ begin
     //
     if N=2 then
     begin
-        X := Double(0.5)*(A[0]+A[1]);
-        Y := Double(0.5)*(A[0]-A[1]);
+        X := 0.5*(A[0]+A[1]);
+        Y := 0.5*(A[0]-A[1]);
         A[0] := X;
         A[1] := Y;
         Exit;

@@ -1,4 +1,4 @@
-{$MODESWITCH RESULT+}
+
 program _demo;
 Array[0]
 var
@@ -19,10 +19,10 @@ begin
     // If we try to use State.X instead of State.XMinusA,
     // we will end up dividing by zero! (in 64-bit precision)
     //
-    A := Double(1.0);
-    B := Double(5.0);
-    Alpha := -Double(0.9);
-    AutoGKSingular(A, B, Alpha, Double(0.0), State);
+    A := 1.0;
+    B := 5.0;
+    Alpha := -0.9;
+    AutoGKSingular(A, B, Alpha, 0.0, State);
     while AutoGKIteration(State) do
     begin
         State.F := Power(State.XMinusA, Alpha)*(1+State.X);

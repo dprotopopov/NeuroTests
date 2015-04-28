@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1995, 2000 by Stephen L. Moshier
@@ -32,13 +30,13 @@ uses Math, Sysutils, Ap, gammafunc, normaldistr, ibetaf, nearunityunit;
 
 function BinomialDistribution(k : AlglibInteger;
      n : AlglibInteger;
-     p : Double):Double;
+     p : Extended):Extended;
 function BinomialCDistribution(k : AlglibInteger;
      n : AlglibInteger;
-     p : Double):Double;
+     p : Extended):Extended;
 function InvBinomialDistribution(k : AlglibInteger;
      n : AlglibInteger;
-     y : Double):Double;
+     y : Extended):Extended;
 
 implementation
 
@@ -75,10 +73,10 @@ Copyright 1984, 1987, 1995, 2000 by Stephen L. Moshier
 *************************************************************************)
 function BinomialDistribution(k : AlglibInteger;
      n : AlglibInteger;
-     p : Double):Double;
+     p : Extended):Extended;
 var
-    dk : Double;
-    dn : Double;
+    dk : Extended;
+    dn : Extended;
 begin
     Assert(AP_FP_Greater_Eq(p,0) and AP_FP_Less_Eq(p,1), 'Domain error in BinomialDistribution');
     Assert((k>=-1) and (k<=n), 'Domain error in BinomialDistribution');
@@ -95,12 +93,12 @@ begin
     dn := n-k;
     if k=0 then
     begin
-        dk := power(Double(1.0)-p, dn);
+        dk := power(1.0-p, dn);
     end
     else
     begin
         dk := k+1;
-        dk := IncompleteBeta(dn, dk, Double(1.0)-p);
+        dk := IncompleteBeta(dn, dk, 1.0-p);
     end;
     Result := dk;
 end;
@@ -141,10 +139,10 @@ Copyright 1984, 1987, 1995, 2000 by Stephen L. Moshier
 *************************************************************************)
 function BinomialCDistribution(k : AlglibInteger;
      n : AlglibInteger;
-     p : Double):Double;
+     p : Extended):Extended;
 var
-    dk : Double;
-    dn : Double;
+    dk : Extended;
+    dn : Extended;
 begin
     Assert(AP_FP_Greater_Eq(p,0) and AP_FP_Less_Eq(p,1), 'Domain error in BinomialDistributionC');
     Assert((k>=-1) and (k<=n), 'Domain error in BinomialDistributionC');
@@ -161,13 +159,13 @@ begin
     dn := n-k;
     if k=0 then
     begin
-        if AP_FP_Less(p,Double(0.01)) then
+        if AP_FP_Less(p,0.01) then
         begin
             dk := -expm1(dn*log1p(-p));
         end
         else
         begin
-            dk := Double(1.0)-power(Double(1.0)-p, dn);
+            dk := 1.0-power(1.0-p, dn);
         end;
     end
     else
@@ -209,36 +207,36 @@ Copyright 1984, 1987, 1995, 2000 by Stephen L. Moshier
 *************************************************************************)
 function InvBinomialDistribution(k : AlglibInteger;
      n : AlglibInteger;
-     y : Double):Double;
+     y : Extended):Extended;
 var
-    dk : Double;
-    dn : Double;
-    p : Double;
+    dk : Extended;
+    dn : Extended;
+    p : Extended;
 begin
     Assert((k>=0) and (k<n), 'Domain error in InvBinomialDistribution');
     dn := n-k;
     if k=0 then
     begin
-        if AP_FP_Greater(y,Double(0.8)) then
+        if AP_FP_Greater(y,0.8) then
         begin
-            p := -expm1(log1p(y-Double(1.0))/dn);
+            p := -expm1(log1p(y-1.0)/dn);
         end
         else
         begin
-            p := Double(1.0)-power(y, Double(1.0)/dn);
+            p := 1.0-power(y, 1.0/dn);
         end;
     end
     else
     begin
         dk := k+1;
-        p := IncompleteBeta(dn, dk, Double(0.5));
-        if AP_FP_Greater(p,Double(0.5)) then
+        p := IncompleteBeta(dn, dk, 0.5);
+        if AP_FP_Greater(p,0.5) then
         begin
-            p := InvIncompleteBeta(dk, dn, Double(1.0)-y);
+            p := InvIncompleteBeta(dk, dn, 1.0-y);
         end
         else
         begin
-            p := Double(1.0)-InvIncompleteBeta(dn, dk, y);
+            p := 1.0-InvIncompleteBeta(dn, dk, y);
         end;
     end;
     Result := p;

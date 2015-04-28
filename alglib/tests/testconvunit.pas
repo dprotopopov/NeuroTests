@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testconvunit;
 interface
 uses Math, Sysutils, Ap, ftbase, fft, conv;

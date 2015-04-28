@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 >>> SOURCE LICENSE >>>
 This program is free software; you can redistribute it and/or modify
@@ -21,10 +19,10 @@ unit laguerre;
 interface
 uses Math, Sysutils, Ap;
 
-function LaguerreCalculate(const n : AlglibInteger; const x : Double):Double;
+function LaguerreCalculate(const n : AlglibInteger; const x : Extended):Extended;
 function LaguerreSum(const C : TReal1DArray;
      const n : AlglibInteger;
-     const x : Double):Double;
+     const x : Extended):Extended;
 procedure LaguerreCoefficients(const N : AlglibInteger; var C : TReal1DArray);
 
 implementation
@@ -39,11 +37,11 @@ Parameters:
 Result:
     the value of the Laguerre polynomial Ln at x
 *************************************************************************)
-function LaguerreCalculate(const n : AlglibInteger; const x : Double):Double;
+function LaguerreCalculate(const n : AlglibInteger; const x : Extended):Extended;
 var
-    a : Double;
-    b : Double;
-    i : Double;
+    a : Extended;
+    b : Extended;
+    i : Extended;
 begin
     Result := 1;
     a := 1;
@@ -77,10 +75,10 @@ Result:
 *************************************************************************)
 function LaguerreSum(const C : TReal1DArray;
      const n : AlglibInteger;
-     const x : Double):Double;
+     const x : Extended):Extended;
 var
-    b1 : Double;
-    b2 : Double;
+    b1 : Extended;
+    b2 : Extended;
     i : AlglibInteger;
 begin
     b1 := 0;

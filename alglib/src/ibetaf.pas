@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Cephes Math Library Release 2.8:  June, 2000
 Copyright by Stephen L. Moshier
@@ -30,25 +28,25 @@ unit ibetaf;
 interface
 uses Math, Sysutils, Ap, gammafunc, normaldistr;
 
-function IncompleteBeta(a : Double; b : Double; x : Double):Double;
-function InvIncompleteBeta(a : Double; b : Double; y : Double):Double;
+function IncompleteBeta(a : Extended; b : Extended; x : Extended):Extended;
+function InvIncompleteBeta(a : Extended; b : Extended; y : Extended):Extended;
 
 implementation
 
-function IncompleteBetaFE(a : Double;
-     b : Double;
-     x : Double;
-     big : Double;
-     biginv : Double):Double;forward;
-function IncompleteBetaFE2(a : Double;
-     b : Double;
-     x : Double;
-     big : Double;
-     biginv : Double):Double;forward;
-function IncompleteBetaPS(a : Double;
-     b : Double;
-     x : Double;
-     MAXGAM : Double):Double;forward;
+function IncompleteBetaFE(a : Extended;
+     b : Extended;
+     x : Extended;
+     big : Extended;
+     biginv : Extended):Extended;forward;
+function IncompleteBetaFE2(a : Extended;
+     b : Extended;
+     x : Extended;
+     big : Extended;
+     biginv : Extended):Extended;forward;
+function IncompleteBetaPS(a : Extended;
+     b : Extended;
+     x : Extended;
+     MAXGAM : Extended):Extended;forward;
 
 
 (*************************************************************************
@@ -92,23 +90,23 @@ were excluded from these statistics.
 Cephes Math Library, Release 2.8:  June, 2000
 Copyright 1984, 1995, 2000 by Stephen L. Moshier
 *************************************************************************)
-function IncompleteBeta(a : Double; b : Double; x : Double):Double;
+function IncompleteBeta(a : Extended; b : Extended; x : Extended):Extended;
 var
-    t : Double;
-    xc : Double;
-    w : Double;
-    y : Double;
+    t : Extended;
+    xc : Extended;
+    w : Extended;
+    y : Extended;
     flag : AlglibInteger;
-    sg : Double;
-    big : Double;
-    biginv : Double;
-    MAXGAM : Double;
-    MINLOG : Double;
-    MAXLOG : Double;
+    sg : Extended;
+    big : Extended;
+    biginv : Extended;
+    MAXGAM : Extended;
+    MINLOG : Extended;
+    MAXLOG : Extended;
 begin
-    big := Double(4.503599627370496e15);
-    biginv := Double(2.22044604925031308085e-16);
-    MAXGAM := Double(171.624376956302725);
+    big := 4.503599627370496e15;
+    biginv := 2.22044604925031308085e-16;
+    MAXGAM := 171.624376956302725;
     MINLOG := Ln(MinRealNumber);
     MAXLOG := Ln(MaxRealNumber);
     Assert(AP_FP_Greater(a,0) and AP_FP_Greater(b,0), 'Domain error in IncompleteBeta');
@@ -124,12 +122,12 @@ begin
         Exit;
     end;
     flag := 0;
-    if AP_FP_Less_Eq(b*x,Double(1.0)) and AP_FP_Less_Eq(x,Double(0.95)) then
+    if AP_FP_Less_Eq(b*x,1.0) and AP_FP_Less_Eq(x,0.95) then
     begin
         Result := IncompleteBetaPS(a, b, x, MAXGAM);
         Exit;
     end;
-    w := Double(1.0)-x;
+    w := 1.0-x;
     if AP_FP_Greater(x,a/(a+b)) then
     begin
         flag := 1;
@@ -143,21 +141,21 @@ begin
     begin
         xc := w;
     end;
-    if (flag=1) and AP_FP_Less_Eq(b*x,Double(1.0)) and AP_FP_Less_Eq(x,Double(0.95)) then
+    if (flag=1) and AP_FP_Less_Eq(b*x,1.0) and AP_FP_Less_Eq(x,0.95) then
     begin
         t := IncompleteBetaPS(a, b, x, MAXGAM);
         if AP_FP_Less_Eq(t,MachineEpsilon) then
         begin
-            Result := Double(1.0)-MachineEpsilon;
+            Result := 1.0-MachineEpsilon;
         end
         else
         begin
-            Result := Double(1.0)-t;
+            Result := 1.0-t;
         end;
         Exit;
     end;
-    y := x*(a+b-Double(2.0))-(a-Double(1.0));
-    if AP_FP_Less(y,Double(0.0)) then
+    y := x*(a+b-2.0)-(a-1.0);
+    if AP_FP_Less(y,0.0) then
     begin
         w := IncompleteBetaFE(a, b, x, big, biginv);
     end
@@ -178,11 +176,11 @@ begin
         begin
             if AP_FP_Less_Eq(t,MachineEpsilon) then
             begin
-                Result := Double(1.0)-MachineEpsilon;
+                Result := 1.0-MachineEpsilon;
             end
             else
             begin
-                Result := Double(1.0)-t;
+                Result := 1.0-t;
             end;
         end
         else
@@ -195,7 +193,7 @@ begin
     y := y+ln(w/a);
     if AP_FP_Less(y,MINLOG) then
     begin
-        t := Double(0.0);
+        t := 0.0;
     end
     else
     begin
@@ -205,11 +203,11 @@ begin
     begin
         if AP_FP_Less_Eq(t,MachineEpsilon) then
         begin
-            t := Double(1.0)-MachineEpsilon;
+            t := 1.0-MachineEpsilon;
         end
         else
         begin
-            t := Double(1.0)-t;
+            t := 1.0-t;
         end;
     end;
     Result := t;
@@ -244,28 +242,28 @@ With a = .5, b constrained to half-integer or integer values:
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1996, 2000 by Stephen L. Moshier
 *************************************************************************)
-function InvIncompleteBeta(a : Double; b : Double; y : Double):Double;
+function InvIncompleteBeta(a : Extended; b : Extended; y : Extended):Extended;
 var
-    aaa : Double;
-    bbb : Double;
-    y0 : Double;
-    d : Double;
-    yyy : Double;
-    x : Double;
-    x0 : Double;
-    x1 : Double;
-    lgm : Double;
-    yp : Double;
-    di : Double;
-    dithresh : Double;
-    yl : Double;
-    yh : Double;
-    xt : Double;
+    aaa : Extended;
+    bbb : Extended;
+    y0 : Extended;
+    d : Extended;
+    yyy : Extended;
+    x : Extended;
+    x0 : Extended;
+    x1 : Extended;
+    lgm : Extended;
+    yp : Extended;
+    di : Extended;
+    dithresh : Extended;
+    yl : Extended;
+    yh : Extended;
+    xt : Extended;
     i : AlglibInteger;
     rflg : AlglibInteger;
     dir : AlglibInteger;
     nflg : AlglibInteger;
-    s : Double;
+    s : Extended;
     MainLoopPos : AlglibInteger;
     ihalve : AlglibInteger;
     ihalvecycle : AlglibInteger;
@@ -281,15 +279,15 @@ begin
         Result := 0;
         Exit;
     end;
-    if AP_FP_Eq(y,Double(1.0)) then
+    if AP_FP_Eq(y,1.0) then
     begin
         Result := 1;
         Exit;
     end;
-    x0 := Double(0.0);
-    yl := Double(0.0);
-    x1 := Double(1.0);
-    yh := Double(1.0);
+    x0 := 0.0;
+    yl := 0.0;
+    x1 := 1.0;
+    yh := 1.0;
     nflg := 0;
     MainLoopPos := 0;
     ihalve := 1;
@@ -306,9 +304,9 @@ begin
         //
         if MainLoopPos=0 then
         begin
-            if AP_FP_Less_Eq(a,Double(1.0)) or AP_FP_Less_Eq(b,Double(1.0)) then
+            if AP_FP_Less_Eq(a,1.0) or AP_FP_Less_Eq(b,1.0) then
             begin
-                dithresh := Double(1.0e-6);
+                dithresh := 1.0e-6;
                 rflg := 0;
                 aaa := a;
                 bbb := b;
@@ -320,15 +318,15 @@ begin
             end
             else
             begin
-                dithresh := Double(1.0e-4);
+                dithresh := 1.0e-4;
             end;
             yp := -InvNormalDistribution(y);
-            if AP_FP_Greater(y,Double(0.5)) then
+            if AP_FP_Greater(y,0.5) then
             begin
                 rflg := 1;
                 aaa := b;
                 bbb := a;
-                y0 := Double(1.0)-y;
+                y0 := 1.0-y;
                 yp := -yp;
             end
             else
@@ -338,10 +336,10 @@ begin
                 bbb := b;
                 y0 := y;
             end;
-            lgm := (yp*yp-Double(3.0))/Double(6.0);
-            x := Double(2.0)/(Double(1.0)/(Double(2.0)*aaa-Double(1.0))+Double(1.0)/(Double(2.0)*bbb-Double(1.0)));
-            d := yp*sqrt(x+lgm)/x-(Double(1.0)/(Double(2.0)*bbb-Double(1.0))-Double(1.0)/(Double(2.0)*aaa-Double(1.0)))*(lgm+Double(5.0)/Double(6.0)-Double(2.0)/(Double(3.0)*x));
-            d := Double(2.0)*d;
+            lgm := (yp*yp-3.0)/6.0;
+            x := 2.0/(1.0/(2.0*aaa-1.0)+1.0/(2.0*bbb-1.0));
+            d := yp*sqrt(x+lgm)/x-(1.0/(2.0*bbb-1.0)-1.0/(2.0*aaa-1.0))*(lgm+5.0/6.0-2.0/(3.0*x));
+            d := 2.0*d;
             if AP_FP_Less(d,Ln(MinRealNumber)) then
             begin
                 x := 0;
@@ -350,7 +348,7 @@ begin
             x := aaa/(aaa+bbb*exp(d));
             yyy := IncompleteBeta(aaa, bbb, x);
             yp := (yyy-y0)/y0;
-            if AP_FP_Less(absReal(yp),Double(0.2)) then
+            if AP_FP_Less(absReal(yp),0.2) then
             begin
                 MainLoopPos := newt;
                 Continue;
@@ -365,7 +363,7 @@ begin
         if MainLoopPos=ihalve then
         begin
             dir := 0;
-            di := Double(0.5);
+            di := 0.5;
             i := 0;
             MainLoopPos := ihalvecycle;
             Continue;
@@ -381,15 +379,15 @@ begin
                 if i<>0 then
                 begin
                     x := x0+di*(x1-x0);
-                    if AP_FP_Eq(x,Double(1.0)) then
+                    if AP_FP_Eq(x,1.0) then
                     begin
-                        x := Double(1.0)-MachineEpsilon;
+                        x := 1.0-MachineEpsilon;
                     end;
-                    if AP_FP_Eq(x,Double(0.0)) then
+                    if AP_FP_Eq(x,0.0) then
                     begin
-                        di := Double(0.5);
+                        di := 0.5;
                         x := x0+di*(x1-x0);
-                        if AP_FP_Eq(x,Double(0.0)) then
+                        if AP_FP_Eq(x,0.0) then
                         begin
                             Break;
                         end;
@@ -415,19 +413,19 @@ begin
                     if dir<0 then
                     begin
                         dir := 0;
-                        di := Double(0.5);
+                        di := 0.5;
                     end
                     else
                     begin
                         if dir>3 then
                         begin
-                            di := Double(1.0)-(Double(1.0)-di)*(Double(1.0)-di);
+                            di := 1.0-(1.0-di)*(1.0-di);
                         end
                         else
                         begin
                             if dir>1 then
                             begin
-                                di := Double(0.5)*di+Double(0.5);
+                                di := 0.5*di+0.5;
                             end
                             else
                             begin
@@ -436,7 +434,7 @@ begin
                         end;
                     end;
                     dir := dir+1;
-                    if AP_FP_Greater(x0,Double(0.75)) then
+                    if AP_FP_Greater(x0,0.75) then
                     begin
                         if rflg=1 then
                         begin
@@ -450,14 +448,14 @@ begin
                             rflg := 1;
                             aaa := b;
                             bbb := a;
-                            y0 := Double(1.0)-y;
+                            y0 := 1.0-y;
                         end;
-                        x := Double(1.0)-x;
+                        x := 1.0-x;
                         yyy := IncompleteBeta(aaa, bbb, x);
-                        x0 := Double(0.0);
-                        yl := Double(0.0);
-                        x1 := Double(1.0);
-                        yh := Double(1.0);
+                        x0 := 0.0;
+                        yl := 0.0;
+                        x1 := 1.0;
+                        yh := 1.0;
                         MainLoopPos := ihalve;
                         Continue;
                     end;
@@ -467,14 +465,14 @@ begin
                     x1 := x;
                     if (rflg=1) and AP_FP_Less(x1,MachineEpsilon) then
                     begin
-                        x := Double(0.0);
+                        x := 0.0;
                         Break;
                     end;
                     yh := yyy;
                     if dir>0 then
                     begin
                         dir := 0;
-                        di := Double(0.5);
+                        di := 0.5;
                     end
                     else
                     begin
@@ -486,7 +484,7 @@ begin
                         begin
                             if dir<-1 then
                             begin
-                                di := Double(0.5)*di;
+                                di := 0.5*di;
                             end
                             else
                             begin
@@ -512,14 +510,14 @@ begin
         //
         if MainLoopPos=breakihalvecycle then
         begin
-            if AP_FP_Greater_Eq(x0,Double(1.0)) then
+            if AP_FP_Greater_Eq(x0,1.0) then
             begin
-                x := Double(1.0)-MachineEpsilon;
+                x := 1.0-MachineEpsilon;
                 Break;
             end;
-            if AP_FP_Less_Eq(x,Double(0.0)) then
+            if AP_FP_Less_Eq(x,0.0) then
             begin
-                x := Double(0.0);
+                x := 0.0;
                 Break;
             end;
             MainLoopPos := newt;
@@ -579,12 +577,12 @@ begin
                         end;
                     end;
                 end;
-                if AP_FP_Eq(x,Double(1.0)) or AP_FP_Eq(x,Double(0.0)) then
+                if AP_FP_Eq(x,1.0) or AP_FP_Eq(x,0.0) then
                 begin
                     MainLoopPos := breaknewtcycle;
                     Continue;
                 end;
-                d := (aaa-Double(1.0))*ln(x)+(bbb-Double(1.0))*ln(Double(1.0)-x)+lgm;
+                d := (aaa-1.0)*ln(x)+(bbb-1.0)*ln(1.0-x)+lgm;
                 if AP_FP_Less(d,Ln(MinRealNumber)) then
                 begin
                     Break;
@@ -600,8 +598,8 @@ begin
                 if AP_FP_Less_Eq(xt,x0) then
                 begin
                     yyy := (x-x0)/(x1-x0);
-                    xt := x0+Double(0.5)*yyy*(x-x0);
-                    if AP_FP_Less_Eq(xt,Double(0.0)) then
+                    xt := x0+0.5*yyy*(x-x0);
+                    if AP_FP_Less_Eq(xt,0.0) then
                     begin
                         MainLoopPos := breaknewtcycle;
                         Continue;
@@ -610,15 +608,15 @@ begin
                 if AP_FP_Greater_Eq(xt,x1) then
                 begin
                     yyy := (x1-x)/(x1-x0);
-                    xt := x1-Double(0.5)*yyy*(x1-x);
-                    if AP_FP_Greater_Eq(xt,Double(1.0)) then
+                    xt := x1-0.5*yyy*(x1-x);
+                    if AP_FP_Greater_Eq(xt,1.0) then
                     begin
                         MainLoopPos := breaknewtcycle;
                         Continue;
                     end;
                 end;
                 x := xt;
-                if AP_FP_Less(absReal(d/x),Double(128.0)*MachineEpsilon) then
+                if AP_FP_Less(absReal(d/x),128.0*MachineEpsilon) then
                 begin
                     Break;
                 end;
@@ -638,7 +636,7 @@ begin
         //
         if MainLoopPos=breaknewtcycle then
         begin
-            dithresh := Double(256.0)*MachineEpsilon;
+            dithresh := 256.0*MachineEpsilon;
             MainLoopPos := ihalve;
             Continue;
         end;
@@ -651,11 +649,11 @@ begin
     begin
         if AP_FP_Less_Eq(x,MachineEpsilon) then
         begin
-            x := Double(1.0)-MachineEpsilon;
+            x := 1.0-MachineEpsilon;
         end
         else
         begin
-            x := Double(1.0)-x;
+            x := 1.0-x;
         end;
     end;
     Result := x;
@@ -668,49 +666,49 @@ Continued fraction expansion #1 for incomplete beta integral
 Cephes Math Library, Release 2.8:  June, 2000
 Copyright 1984, 1995, 2000 by Stephen L. Moshier
 *************************************************************************)
-function IncompleteBetaFE(a : Double;
-     b : Double;
-     x : Double;
-     big : Double;
-     biginv : Double):Double;
+function IncompleteBetaFE(a : Extended;
+     b : Extended;
+     x : Extended;
+     big : Extended;
+     biginv : Extended):Extended;
 var
-    xk : Double;
-    pk : Double;
-    pkm1 : Double;
-    pkm2 : Double;
-    qk : Double;
-    qkm1 : Double;
-    qkm2 : Double;
-    k1 : Double;
-    k2 : Double;
-    k3 : Double;
-    k4 : Double;
-    k5 : Double;
-    k6 : Double;
-    k7 : Double;
-    k8 : Double;
-    r : Double;
-    t : Double;
-    ans : Double;
-    thresh : Double;
+    xk : Extended;
+    pk : Extended;
+    pkm1 : Extended;
+    pkm2 : Extended;
+    qk : Extended;
+    qkm1 : Extended;
+    qkm2 : Extended;
+    k1 : Extended;
+    k2 : Extended;
+    k3 : Extended;
+    k4 : Extended;
+    k5 : Extended;
+    k6 : Extended;
+    k7 : Extended;
+    k8 : Extended;
+    r : Extended;
+    t : Extended;
+    ans : Extended;
+    thresh : Extended;
     n : AlglibInteger;
 begin
     k1 := a;
     k2 := a+b;
     k3 := a;
-    k4 := a+Double(1.0);
-    k5 := Double(1.0);
-    k6 := b-Double(1.0);
+    k4 := a+1.0;
+    k5 := 1.0;
+    k6 := b-1.0;
     k7 := k4;
-    k8 := a+Double(2.0);
-    pkm2 := Double(0.0);
-    qkm2 := Double(1.0);
-    pkm1 := Double(1.0);
-    qkm1 := Double(1.0);
-    ans := Double(1.0);
-    r := Double(1.0);
+    k8 := a+2.0;
+    pkm2 := 0.0;
+    qkm2 := 1.0;
+    pkm1 := 1.0;
+    qkm1 := 1.0;
+    ans := 1.0;
+    r := 1.0;
     n := 0;
-    thresh := Double(3.0)*MachineEpsilon;
+    thresh := 3.0*MachineEpsilon;
     repeat
         xk := -x*k1*k2/(k3*k4);
         pk := pkm1+pkm2*xk;
@@ -737,20 +735,20 @@ begin
         end
         else
         begin
-            t := Double(1.0);
+            t := 1.0;
         end;
         if AP_FP_Less(t,thresh) then
         begin
             Break;
         end;
-        k1 := k1+Double(1.0);
-        k2 := k2+Double(1.0);
-        k3 := k3+Double(2.0);
-        k4 := k4+Double(2.0);
-        k5 := k5+Double(1.0);
-        k6 := k6-Double(1.0);
-        k7 := k7+Double(2.0);
-        k8 := k8+Double(2.0);
+        k1 := k1+1.0;
+        k2 := k2+1.0;
+        k3 := k3+2.0;
+        k4 := k4+2.0;
+        k5 := k5+1.0;
+        k6 := k6-1.0;
+        k7 := k7+2.0;
+        k8 := k8+2.0;
         if AP_FP_Greater(absReal(qk)+absReal(pk),big) then
         begin
             pkm2 := pkm2*biginv;
@@ -778,51 +776,51 @@ for incomplete beta integral
 Cephes Math Library, Release 2.8:  June, 2000
 Copyright 1984, 1995, 2000 by Stephen L. Moshier
 *************************************************************************)
-function IncompleteBetaFE2(a : Double;
-     b : Double;
-     x : Double;
-     big : Double;
-     biginv : Double):Double;
+function IncompleteBetaFE2(a : Extended;
+     b : Extended;
+     x : Extended;
+     big : Extended;
+     biginv : Extended):Extended;
 var
-    xk : Double;
-    pk : Double;
-    pkm1 : Double;
-    pkm2 : Double;
-    qk : Double;
-    qkm1 : Double;
-    qkm2 : Double;
-    k1 : Double;
-    k2 : Double;
-    k3 : Double;
-    k4 : Double;
-    k5 : Double;
-    k6 : Double;
-    k7 : Double;
-    k8 : Double;
-    r : Double;
-    t : Double;
-    ans : Double;
-    z : Double;
-    thresh : Double;
+    xk : Extended;
+    pk : Extended;
+    pkm1 : Extended;
+    pkm2 : Extended;
+    qk : Extended;
+    qkm1 : Extended;
+    qkm2 : Extended;
+    k1 : Extended;
+    k2 : Extended;
+    k3 : Extended;
+    k4 : Extended;
+    k5 : Extended;
+    k6 : Extended;
+    k7 : Extended;
+    k8 : Extended;
+    r : Extended;
+    t : Extended;
+    ans : Extended;
+    z : Extended;
+    thresh : Extended;
     n : AlglibInteger;
 begin
     k1 := a;
-    k2 := b-Double(1.0);
+    k2 := b-1.0;
     k3 := a;
-    k4 := a+Double(1.0);
-    k5 := Double(1.0);
+    k4 := a+1.0;
+    k5 := 1.0;
     k6 := a+b;
-    k7 := a+Double(1.0);
-    k8 := a+Double(2.0);
-    pkm2 := Double(0.0);
-    qkm2 := Double(1.0);
-    pkm1 := Double(1.0);
-    qkm1 := Double(1.0);
-    z := x/(Double(1.0)-x);
-    ans := Double(1.0);
-    r := Double(1.0);
+    k7 := a+1.0;
+    k8 := a+2.0;
+    pkm2 := 0.0;
+    qkm2 := 1.0;
+    pkm1 := 1.0;
+    qkm1 := 1.0;
+    z := x/(1.0-x);
+    ans := 1.0;
+    r := 1.0;
     n := 0;
-    thresh := Double(3.0)*MachineEpsilon;
+    thresh := 3.0*MachineEpsilon;
     repeat
         xk := -z*k1*k2/(k3*k4);
         pk := pkm1+pkm2*xk;
@@ -849,20 +847,20 @@ begin
         end
         else
         begin
-            t := Double(1.0);
+            t := 1.0;
         end;
         if AP_FP_Less(t,thresh) then
         begin
             Break;
         end;
-        k1 := k1+Double(1.0);
-        k2 := k2-Double(1.0);
-        k3 := k3+Double(2.0);
-        k4 := k4+Double(2.0);
-        k5 := k5+Double(1.0);
-        k6 := k6+Double(1.0);
-        k7 := k7+Double(2.0);
-        k8 := k8+Double(2.0);
+        k1 := k1+1.0;
+        k2 := k2-1.0;
+        k3 := k3+2.0;
+        k4 := k4+2.0;
+        k5 := k5+1.0;
+        k6 := k6+1.0;
+        k7 := k7+2.0;
+        k8 := k8+2.0;
         if AP_FP_Greater(absReal(qk)+absReal(pk),big) then
         begin
             pkm2 := pkm2*biginv;
@@ -890,28 +888,28 @@ Use when b*x is small and x not too close to 1.
 Cephes Math Library, Release 2.8:  June, 2000
 Copyright 1984, 1995, 2000 by Stephen L. Moshier
 *************************************************************************)
-function IncompleteBetaPS(a : Double;
-     b : Double;
-     x : Double;
-     MAXGAM : Double):Double;
+function IncompleteBetaPS(a : Extended;
+     b : Extended;
+     x : Extended;
+     MAXGAM : Extended):Extended;
 var
-    s : Double;
-    t : Double;
-    u : Double;
-    v : Double;
-    n : Double;
-    t1 : Double;
-    z : Double;
-    ai : Double;
-    sg : Double;
+    s : Extended;
+    t : Extended;
+    u : Extended;
+    v : Extended;
+    n : Extended;
+    t1 : Extended;
+    z : Extended;
+    ai : Extended;
+    sg : Extended;
 begin
-    ai := Double(1.0)/a;
-    u := (Double(1.0)-b)*x;
-    v := u/(a+Double(1.0));
+    ai := 1.0/a;
+    u := (1.0-b)*x;
+    v := u/(a+1.0);
     t1 := v;
     t := u;
-    n := Double(2.0);
-    s := Double(0.0);
+    n := 2.0;
+    s := 0.0;
     z := MACHinEePsilon*ai;
     while AP_FP_Greater(absReal(v),z) do
     begin
@@ -919,7 +917,7 @@ begin
         t := t*u;
         v := t/(a+n);
         s := s+v;
-        n := n+Double(1.0);
+        n := n+1.0;
     end;
     s := s+t1;
     s := s+ai;
@@ -934,7 +932,7 @@ begin
         t := lngamma(a+b, sg)-lngamma(a, sg)-lngamma(b, sg)+u+ln(s);
         if AP_FP_Less(t,Ln(MinRealNumber)) then
         begin
-            s := Double(0.0);
+            s := 0.0;
         end
         else
         begin

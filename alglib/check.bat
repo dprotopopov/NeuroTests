@@ -1229,9 +1229,9 @@ EXIT /B 0
 CHDIR _tmp
 IF EXIST * DEL /F /Q *
 CHDIR ..
-IF "%~1"=="fpc" GOTO lbl_207_fpc
+IF "%~1"=="dcc32" GOTO lbl_207_dcc32
 GOTO lbl_207___error
-:lbl_207_fpc
+:lbl_207_dcc32
 COPY src\*.pas _tmp > NUL 2> NUL
 IF NOT ERRORLEVEL 1 GOTO lbl_208
 echo Error copying ALGLIB source files.
@@ -2721,11 +2721,11 @@ GOTO lbl_209___end
 echo unknown unit
 EXIT /B 1
 :lbl_209___end
-IF "%~1"=="fpc" GOTO lbl_210_fpc
+IF "%~1"=="dcc32" GOTO lbl_210_dcc32
 GOTO lbl_210___error
-:lbl_210_fpc
+:lbl_210_dcc32
 CHDIR _tmp
-fpc -Cr -Sa %~3 _test.pas >> ../log.txt 2>&1
+dcc32 -$C+ -CC -$Q+ -$R+ -$X+ %~3 _test.pas >> ../log.txt 2>&1 2>&1
 IF NOT ERRORLEVEL 1 GOTO lbl_211
 echo Error while compiling (see ../log.txt for more info)
 CHDIR ..

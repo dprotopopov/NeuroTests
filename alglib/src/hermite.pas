@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 >>> SOURCE LICENSE >>>
 This program is free software; you can redistribute it and/or modify
@@ -21,10 +19,10 @@ unit hermite;
 interface
 uses Math, Sysutils, Ap;
 
-function HermiteCalculate(const N : AlglibInteger; const X : Double):Double;
+function HermiteCalculate(const N : AlglibInteger; const X : Extended):Extended;
 function HermiteSum(const C : TReal1DArray;
      const n : AlglibInteger;
-     const x : Double):Double;
+     const x : Extended):Extended;
 procedure HermiteCoefficients(const N : AlglibInteger; var C : TReal1DArray);
 
 implementation
@@ -39,11 +37,11 @@ Parameters:
 Result:
     the value of the Hermite polynomial Hn at x
 *************************************************************************)
-function HermiteCalculate(const N : AlglibInteger; const X : Double):Double;
+function HermiteCalculate(const N : AlglibInteger; const X : Extended):Extended;
 var
     I : AlglibInteger;
-    a : Double;
-    b : Double;
+    a : Extended;
+    b : Extended;
 begin
     
     //
@@ -95,10 +93,10 @@ Result:
 *************************************************************************)
 function HermiteSum(const C : TReal1DArray;
      const n : AlglibInteger;
-     const x : Double):Double;
+     const x : Extended):Extended;
 var
-    b1 : Double;
-    b2 : Double;
+    b1 : Extended;
+    b2 : Extended;
     i : AlglibInteger;
 begin
     b1 := 0;

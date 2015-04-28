@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Cephes Math Library Release 2.8:  June, 2000
 Copyright by Stephen L. Moshier
@@ -30,9 +28,9 @@ unit igammaf;
 interface
 uses Math, Sysutils, Ap, gammafunc, normaldistr;
 
-function IncompleteGamma(a : Double; x : Double):Double;
-function IncompleteGammaC(a : Double; x : Double):Double;
-function InvIncompleteGammaC(a : Double; y0 : Double):Double;
+function IncompleteGamma(a : Extended; x : Extended):Extended;
+function IncompleteGammaC(a : Extended; x : Extended):Extended;
+function InvIncompleteGammaC(a : Extended; y0 : Extended):Extended;
 
 implementation
 
@@ -65,16 +63,16 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1985, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-function IncompleteGamma(a : Double; x : Double):Double;
+function IncompleteGamma(a : Extended; x : Extended):Extended;
 var
-    IGammaEpsilon : Double;
-    ans : Double;
-    ax : Double;
-    c : Double;
-    r : Double;
-    Tmp : Double;
+    IGammaEpsilon : Extended;
+    ans : Extended;
+    ax : Extended;
+    c : Extended;
+    r : Extended;
+    Tmp : Extended;
 begin
-    IGammaEpsilon := Double(0.000000000000001);
+    IGammaEpsilon := 0.000000000000001;
     if AP_FP_Less_Eq(x,0) or AP_FP_Less_Eq(a,0) then
     begin
         Result := 0;
@@ -86,7 +84,7 @@ begin
         Exit;
     end;
     ax := a*Ln(x)-x-LnGamma(a, Tmp);
-    if AP_FP_Less(ax,-Double(709.78271289338399)) then
+    if AP_FP_Less(ax,-709.78271289338399) then
     begin
         Result := 0;
         Exit;
@@ -137,30 +135,30 @@ arithmetic   domain   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1985, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-function IncompleteGammaC(a : Double; x : Double):Double;
+function IncompleteGammaC(a : Extended; x : Extended):Extended;
 var
-    IGammaEpsilon : Double;
-    IGammaBigNumber : Double;
-    IGammaBigNumberInv : Double;
-    ans : Double;
-    ax : Double;
-    c : Double;
-    yc : Double;
-    r : Double;
-    t : Double;
-    y : Double;
-    z : Double;
-    pk : Double;
-    pkm1 : Double;
-    pkm2 : Double;
-    qk : Double;
-    qkm1 : Double;
-    qkm2 : Double;
-    Tmp : Double;
+    IGammaEpsilon : Extended;
+    IGammaBigNumber : Extended;
+    IGammaBigNumberInv : Extended;
+    ans : Extended;
+    ax : Extended;
+    c : Extended;
+    yc : Extended;
+    r : Extended;
+    t : Extended;
+    y : Extended;
+    z : Extended;
+    pk : Extended;
+    pkm1 : Extended;
+    pkm2 : Extended;
+    qk : Extended;
+    qkm1 : Extended;
+    qkm2 : Extended;
+    Tmp : Extended;
 begin
-    IGammaEpsilon := Double(0.000000000000001);
-    IGammaBigNumber := Double(4503599627370496.0);
-    IGammaBigNumberInv := Double(2.22044604925031308085)*Double(0.0000000000000001);
+    IGammaEpsilon := 0.000000000000001;
+    IGammaBigNumber := 4503599627370496.0;
+    IGammaBigNumberInv := 2.22044604925031308085*0.0000000000000001;
     if AP_FP_Less_Eq(x,0) or AP_FP_Less_Eq(a,0) then
     begin
         Result := 1;
@@ -172,7 +170,7 @@ begin
         Exit;
     end;
     ax := a*Ln(x)-x-LnGamma(a, Tmp);
-    if AP_FP_Less(ax,-Double(709.78271289338399)) then
+    if AP_FP_Less(ax,-709.78271289338399) then
     begin
         Result := 0;
         Exit;
@@ -255,25 +253,25 @@ arithmetic   domain   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1995, 2000 by Stephen L. Moshier
 *************************************************************************)
-function InvIncompleteGammaC(a : Double; y0 : Double):Double;
+function InvIncompleteGammaC(a : Extended; y0 : Extended):Extended;
 var
-    IGammaEpsilon : Double;
-    IInvGammaBigNumber : Double;
-    x0 : Double;
-    x1 : Double;
-    x : Double;
-    yl : Double;
-    yh : Double;
-    y : Double;
-    d : Double;
-    lgm : Double;
-    dithresh : Double;
+    IGammaEpsilon : Extended;
+    IInvGammaBigNumber : Extended;
+    x0 : Extended;
+    x1 : Extended;
+    x : Extended;
+    yl : Extended;
+    yh : Extended;
+    y : Extended;
+    d : Extended;
+    lgm : Extended;
+    dithresh : Extended;
     i : AlglibInteger;
     dir : AlglibInteger;
-    Tmp : Double;
+    Tmp : Extended;
 begin
-    IGammaEpsilon := Double(0.000000000000001);
-    IInvGammaBigNumber := Double(4503599627370496.0);
+    IGammaEpsilon := 0.000000000000001;
+    IInvGammaBigNumber := 4503599627370496.0;
     x0 := IInvGammaBigNumber;
     yl := 0;
     x1 := 0;
@@ -288,13 +286,13 @@ begin
     begin
         if AP_FP_Greater(x,x0) or AP_FP_Less(x,x1) then
         begin
-            d := Double(0.0625);
+            d := 0.0625;
             Break;
         end;
         y := IncompleteGammaC(a, x);
         if AP_FP_Less(y,yl) or AP_FP_Greater(y,yh) then
         begin
-            d := Double(0.0625);
+            d := 0.0625;
             Break;
         end;
         if AP_FP_Less(y,y0) then
@@ -308,9 +306,9 @@ begin
             yh := y;
         end;
         d := (a-1)*Ln(x)-x-lgm;
-        if AP_FP_Less(d,-Double(709.78271289338399)) then
+        if AP_FP_Less(d,-709.78271289338399) then
         begin
-            d := Double(0.0625);
+            d := 0.0625;
             Break;
         end;
         d := -Exp(d);
@@ -342,7 +340,7 @@ begin
             d := d+d;
         end;
     end;
-    d := Double(0.5);
+    d := 0.5;
     dir := 0;
     i := 0;
     while i<400 do
@@ -359,7 +357,7 @@ begin
         begin
             Break;
         end;
-        if AP_FP_Less_Eq(x,Double(0.0)) then
+        if AP_FP_Less_Eq(x,0.0) then
         begin
             Break;
         end;
@@ -370,13 +368,13 @@ begin
             if dir<0 then
             begin
                 dir := 0;
-                d := Double(0.5);
+                d := 0.5;
             end
             else
             begin
                 if dir>1 then
                 begin
-                    d := Double(0.5)*d+Double(0.5);
+                    d := 0.5*d+0.5;
                 end
                 else
                 begin
@@ -392,13 +390,13 @@ begin
             if dir>0 then
             begin
                 dir := 0;
-                d := Double(0.5);
+                d := 0.5;
             end
             else
             begin
                 if dir<-1 then
                 begin
-                    d := Double(0.5)*d;
+                    d := 0.5*d;
                 end
                 else
                 begin

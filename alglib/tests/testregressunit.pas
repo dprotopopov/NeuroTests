@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testregressunit;
 interface
 uses Math, Sysutils, Ap, descriptivestatistics, gammafunc, normaldistr, igammaf, hblas, reflections, creflections, sblas, ablasf, ablas, ortfac, blas, rotations, bdsvd, svd, linreg;
@@ -167,11 +165,11 @@ begin
     SetLength(QTbl, QCnt-1+1);
     SetLength(QVals, QCnt-1+1);
     SetLength(QSigma, QCnt-1+1);
-    QTbl[0] := Double(0.5);
-    QTbl[1] := Double(0.25);
-    QTbl[2] := Double(0.10);
-    QTbl[3] := Double(0.05);
-    QTbl[4] := Double(0.025);
+    QTbl[0] := 0.5;
+    QTbl[1] := 0.25;
+    QTbl[2] := 0.10;
+    QTbl[3] := 0.05;
+    QTbl[4] := 0.025;
     I:=0;
     while I<=QCnt-1 do
     begin
@@ -220,7 +218,7 @@ begin
             //
             EA := 2*RandomReal-1;
             EB := 2*RandomReal-1;
-            GenerateTask(EA, EB, -5*RandomReal, +5*RandomReal, AP_FP_Greater(RandomReal,Double(0.5)), 1, 1, N, XY, S);
+            GenerateTask(EA, EB, -5*RandomReal, +5*RandomReal, AP_FP_Greater(RandomReal,0.5), 1, 1, N, XY, S);
             LRLineS(XY, S, N, Info, A, B, VarA, VarB, CovAB, CorrAB, P);
             LRLine(XY, N, Info2, A2, B2);
             if (Info<>1) or (Info2<>1) then
@@ -240,7 +238,7 @@ begin
             //
             EA := 2*RandomReal-1;
             EB := 2*RandomReal-1;
-            GenerateTask(EA, EB, -5*RandomReal, +5*RandomReal, N>4, Double(0.0), Double(0.0), N, XY, S);
+            GenerateTask(EA, EB, -5*RandomReal, +5*RandomReal, N>4, 0.0, 0.0, N, XY, S);
             I:=0;
             while I<=N-1 do
             begin
@@ -254,7 +252,7 @@ begin
             end
             else
             begin
-                SLErrors := SLErrors or AP_FP_Greater(AbsReal(A-EA),Double(0.001)) or AP_FP_Greater(AbsReal(B-EB),Double(0.001));
+                SLErrors := SLErrors or AP_FP_Greater(AbsReal(A-EA),0.001) or AP_FP_Greater(AbsReal(B-EB),0.001);
             end;
             
             //
@@ -268,7 +266,7 @@ begin
             end;
             EA := 2*RandomReal-1;
             EB := 2*RandomReal-1;
-            GenerateTask(EA, EB, -5*RandomReal, +5*RandomReal, N>4, Double(1.0), Double(2.0), N, XY, S);
+            GenerateTask(EA, EB, -5*RandomReal, +5*RandomReal, N>4, 1.0, 2.0, N, XY, S);
             LRLineS(XY, S, N, Info, A, B, VarA, VarB, CovAB, CorrAB, P);
             if Info<>1 then
             begin
@@ -335,7 +333,7 @@ begin
             //
             if N>2 then
             begin
-                GenerateTask(EA, EB, -5*RandomReal, +5*RandomReal, False, Double(0.0), Double(0.0), N, XY, S);
+                GenerateTask(EA, EB, -5*RandomReal, +5*RandomReal, False, 0.0, 0.0, N, XY, S);
                 I:=0;
                 while I<=N-1 do
                 begin
@@ -349,18 +347,18 @@ begin
                     Inc(Pass);
                     Continue;
                 end;
-                SLErrors := SLErrors or AP_FP_Less(P,Double(0.999));
-                GenerateTask(0, 0, -5*RandomReal, +5*RandomReal, False, Double(1.0), Double(1.0), N, XY, S);
+                SLErrors := SLErrors or AP_FP_Less(P,0.999);
+                GenerateTask(0, 0, -5*RandomReal, +5*RandomReal, False, 1.0, 1.0, N, XY, S);
                 I:=0;
                 while I<=N-1 do
                 begin
                     if I mod 2=0 then
                     begin
-                        XY[I,1] := +Double(5.0);
+                        XY[I,1] := +5.0;
                     end
                     else
                     begin
-                        XY[I,1] := -Double(5.0);
+                        XY[I,1] := -5.0;
                     end;
                     Inc(I);
                 end;
@@ -375,7 +373,7 @@ begin
                     Inc(Pass);
                     Continue;
                 end;
-                SLErrors := SLErrors or AP_FP_Greater(P,Double(0.001));
+                SLErrors := SLErrors or AP_FP_Greater(P,0.001);
             end;
             Inc(Pass);
         end;
@@ -443,14 +441,14 @@ begin
     // Will S-less subroutine estimate covariance matrix good enough?
     //
     N := 1000+RandomInteger(3000);
-    Sigma := Double(0.1)+RandomReal*Double(1.9);
+    Sigma := 0.1+RandomReal*1.9;
     SetLength(XY, N-1+1, 1+1);
     SetLength(S, N-1+1);
     I:=0;
     while I<=N-1 do
     begin
-        XY[I,0] := Double(1.5)*RandomReal-Double(0.5);
-        XY[I,1] := Double(1.2)*XY[I,0]-Double(0.3)+GenerateNormal(0, Sigma);
+        XY[I,0] := 1.5*RandomReal-0.5;
+        XY[I,1] := 1.2*XY[I,0]-0.3+GenerateNormal(0, Sigma);
         S[I] := Sigma;
         Inc(I);
     end;
@@ -462,10 +460,10 @@ begin
     end
     else
     begin
-        GRCovErrors := GRCovErrors or AP_FP_Greater(AbsReal(Ln(AR.C[0,0]/VarB)),Ln(Double(1.2)));
-        GRCovErrors := GRCovErrors or AP_FP_Greater(AbsReal(Ln(AR.C[1,1]/VarA)),Ln(Double(1.2)));
-        GRCovErrors := GRCovErrors or AP_FP_Greater(AbsReal(Ln(AR.C[0,1]/CovAB)),Ln(Double(1.2)));
-        GRCovErrors := GRCovErrors or AP_FP_Greater(AbsReal(Ln(AR.C[1,0]/CovAB)),Ln(Double(1.2)));
+        GRCovErrors := GRCovErrors or AP_FP_Greater(AbsReal(Ln(AR.C[0,0]/VarB)),Ln(1.2));
+        GRCovErrors := GRCovErrors or AP_FP_Greater(AbsReal(Ln(AR.C[1,1]/VarA)),Ln(1.2));
+        GRCovErrors := GRCovErrors or AP_FP_Greater(AbsReal(Ln(AR.C[0,1]/CovAB)),Ln(1.2));
+        GRCovErrors := GRCovErrors or AP_FP_Greater(AbsReal(Ln(AR.C[1,0]/CovAB)),Ln(1.2));
     end;
     
     //
@@ -533,8 +531,8 @@ begin
                     SetLength(XY, N-1+1, M+1);
                     SetLength(XY0, N-1+1);
                     SetLength(S, N-1+1);
-                    HStep := Double(0.001);
-                    NoiseLevel := Double(0.2);
+                    HStep := 0.001;
+                    NoiseLevel := 0.2;
                     
                     //
                     // Prepare task
@@ -562,7 +560,7 @@ begin
                         I:=0;
                         while I<=N-1 do
                         begin
-                            XY0[I] := Sin(SinShift+Pi*Double(0.5)*(XY[I,0]+1));
+                            XY0[I] := Sin(SinShift+Pi*0.5*(XY[I,0]+1));
                             XY[I,M] := XY0[I]+NoiseLevel*GenerateNormal(0, 1);
                             Inc(I);
                         end;
@@ -574,12 +572,12 @@ begin
                         TA[0] := 1;
                         TA[1] := 2;
                         TA[2] := 3;
-                        TA[3] := Double(0.25);
-                        TA[4] := Double(0.5);
-                        TA[5] := Double(0.75);
-                        TA[6] := Double(0.06);
-                        TA[7] := Double(0.12);
-                        TA[8] := Double(0.18);
+                        TA[3] := 0.25;
+                        TA[4] := 0.5;
+                        TA[5] := 0.75;
+                        TA[6] := 0.06;
+                        TA[7] := 0.12;
+                        TA[8] := 0.18;
                         I:=0;
                         while I<=N-1 do
                         begin
@@ -605,12 +603,12 @@ begin
                         TA[0] := 1;
                         TA[1] := -2;
                         TA[2] := 3;
-                        TA[3] := Double(0.25);
-                        TA[4] := -Double(0.5);
-                        TA[5] := Double(0.75);
-                        TA[6] := -Double(0.06);
-                        TA[7] := Double(0.12);
-                        TA[8] := -Double(0.18);
+                        TA[3] := 0.25;
+                        TA[4] := -0.5;
+                        TA[5] := 0.75;
+                        TA[6] := -0.06;
+                        TA[7] := 0.12;
+                        TA[8] := -0.18;
                         I:=0;
                         while I<=N-1 do
                         begin
@@ -623,7 +621,7 @@ begin
                                 end
                                 else
                                 begin
-                                    XY[I,J] := 1+GenerateNormal(0, Double(0.05));
+                                    XY[I,J] := 1+GenerateNormal(0, 0.05);
                                 end;
                                 Inc(J);
                             end;
@@ -884,12 +882,12 @@ begin
                     RMSError := Sqrt(RMSError/N);
                     AvgError := AvgError/N;
                     AvgRelError := AvgRelError/N;
-                    GREstErrors := GREstErrors or AP_FP_Greater(AbsReal(Ln(AR.CVRMSError/CVRMSError)),Ln(1+Double(1.0E-5)));
-                    GREstErrors := GREstErrors or AP_FP_Greater(AbsReal(Ln(AR.CVAvgError/CVAvgError)),Ln(1+Double(1.0E-5)));
-                    GREstErrors := GREstErrors or AP_FP_Greater(AbsReal(Ln(AR.CVAvgRelError/CVAvgRelError)),Ln(1+Double(1.0E-5)));
-                    GREstErrors := GREstErrors or AP_FP_Greater(AbsReal(Ln(AR.RMSError/RMSError)),Ln(1+Double(1.0E-5)));
-                    GREstErrors := GREstErrors or AP_FP_Greater(AbsReal(Ln(AR.AvgError/AvgError)),Ln(1+Double(1.0E-5)));
-                    GREstErrors := GREstErrors or AP_FP_Greater(AbsReal(Ln(AR.AvgRelError/AvgRelError)),Ln(1+Double(1.0E-5)));
+                    GREstErrors := GREstErrors or AP_FP_Greater(AbsReal(Ln(AR.CVRMSError/CVRMSError)),Ln(1+1.0E-5));
+                    GREstErrors := GREstErrors or AP_FP_Greater(AbsReal(Ln(AR.CVAvgError/CVAvgError)),Ln(1+1.0E-5));
+                    GREstErrors := GREstErrors or AP_FP_Greater(AbsReal(Ln(AR.CVAvgRelError/CVAvgRelError)),Ln(1+1.0E-5));
+                    GREstErrors := GREstErrors or AP_FP_Greater(AbsReal(Ln(AR.RMSError/RMSError)),Ln(1+1.0E-5));
+                    GREstErrors := GREstErrors or AP_FP_Greater(AbsReal(Ln(AR.AvgError/AvgError)),Ln(1+1.0E-5));
+                    GREstErrors := GREstErrors or AP_FP_Greater(AbsReal(Ln(AR.AvgRelError/AvgRelError)),Ln(1+1.0E-5));
                     Inc(N);
                 end;
                 Inc(M);
@@ -907,9 +905,9 @@ begin
     begin
         N := 2;
         repeat
-            NoiseLevel := RandomReal+Double(0.1);
+            NoiseLevel := RandomReal+0.1;
             TaskLevel := 2*RandomReal-1;
-        until AP_FP_Greater(AbsReal(NoiseLevel-TaskLevel),Double(0.05));
+        until AP_FP_Greater(AbsReal(NoiseLevel-TaskLevel),0.05);
         SetLength(XY, 3*N-1+1, 1+1);
         I:=0;
         while I<=N-1 do

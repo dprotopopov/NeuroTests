@@ -18,11 +18,11 @@ LIST OF EXAMPLES:  example list unitname
 
 
 COMPILERS SUPPORTED:
-         fpc    Free Pascal
+       dcc32    Delphi
 
 EXAMPLES:
     example list
-    example fpc spline1d_cubic
-    example fpc spline1d_cubic "-O2"
+    example dcc32 spline1d_cubic
+    example dcc32 spline1d_cubic "-$O+"
 
 See reference manual for more information

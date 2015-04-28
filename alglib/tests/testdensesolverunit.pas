@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testdensesolverunit;
 interface
 uses Math, Sysutils, Ap, hblas, reflections, creflections, sblas, ablasf, ablas, ortfac, blas, rotations, bdsvd, svd, hqrnd, matgen, trfac, trlinsolve, safesolve, rcond, xblas, densesolver;
@@ -672,7 +670,7 @@ begin
                 Info := 0;
                 UnsetRep(Rep);
                 Unset2D(X);
-                RMatrixSolveM(A, N, B, M, AP_FP_Greater(RandomReal,Double(0.5)), Info, Rep, X);
+                RMatrixSolveM(A, N, B, M, AP_FP_Greater(RandomReal,0.5), Info, Rep, X);
                 RErrors := RErrors or  not RMatrixCheckSolutionM(XE, N, M, Threshold, Info, Rep, X);
                 Info := 0;
                 UnsetRep(Rep);
@@ -729,7 +727,7 @@ begin
                 begin
                     BV[i_] := B[i_,0];
                 end;
-                RMatrixSolveLS(A, N, N, BV, Double(0.0), Info, RepLS, XV);
+                RMatrixSolveLS(A, N, N, BV, 0.0, Info, RepLS, XV);
                 if Info<=0 then
                 begin
                     RErrors := True;
@@ -761,7 +759,7 @@ begin
                 SetLength(ATmp, 2*N, N);
                 CopyMatrix(A, 0, N-1, 0, N-1, ATmp, 0, N-1, 0, N-1);
                 CopyMatrix(A, 0, N-1, 0, N-1, ATmp, N, 2*N-1, 0, N-1);
-                RMatrixSolveLS(ATmp, 2*N, N, BV, Double(0.0), Info, RepLS, XV);
+                RMatrixSolveLS(ATmp, 2*N, N, BV, 0.0, Info, RepLS, XV);
                 if Info<=0 then
                 begin
                     RErrors := True;
@@ -798,7 +796,7 @@ begin
                     end;
                     Inc(I);
                 end;
-                RMatrixSolveLS(ATmp, N, 2*N, BV, Double(0.0), Info, RepLS, XV);
+                RMatrixSolveLS(ATmp, N, 2*N, BV, 0.0, Info, RepLS, XV);
                 if Info<=0 then
                 begin
                     RErrors := True;
@@ -997,7 +995,7 @@ begin
                     Info := 0;
                     UnsetRep(Rep);
                     Unset2D(X);
-                    RMatrixSolveM(A, N, B, M, AP_FP_Greater(RandomReal,Double(0.5)), Info, Rep, X);
+                    RMatrixSolveM(A, N, B, M, AP_FP_Greater(RandomReal,0.5), Info, Rep, X);
                     RErrors := RErrors or  not RMatrixCheckSingularM(N, M, Info, Rep, X);
                     
                     //
@@ -1165,7 +1163,7 @@ begin
         //
         // Test LS-solver on the same matrix
         //
-        RMatrixSolveLS(A, N, N, BV, Double(0.0), Info, RepLS, XV);
+        RMatrixSolveLS(A, N, N, BV, 0.0, Info, RepLS, XV);
         if Info<=0 then
         begin
             RfsErrors := True;
@@ -1250,7 +1248,7 @@ begin
                 // 3. generate right part b=A*xe
                 // 4. test different methods on original A
                 //
-                IsUpper := AP_FP_Greater(RandomReal,Double(0.5));
+                IsUpper := AP_FP_Greater(RandomReal,0.5);
                 SPDMatrixRndCond(N, 1000, A);
                 RMatrixMakeACopy(A, N, N, CHA);
                 if  not SPDMatrixCholesky(CHA, N, IsUpper) then
@@ -1646,7 +1644,7 @@ begin
                 Info := 0;
                 UnsetRep(Rep);
                 CUnset2D(X);
-                CMatrixSolveM(A, N, B, M, AP_FP_Greater(RandomReal,Double(0.5)), Info, Rep, X);
+                CMatrixSolveM(A, N, B, M, AP_FP_Greater(RandomReal,0.5), Info, Rep, X);
                 CErrors := CErrors or  not CMatrixCheckSolutionM(XE, N, M, Threshold, Info, Rep, X);
                 Info := 0;
                 UnsetRep(Rep);
@@ -1875,7 +1873,7 @@ begin
                     Info := 0;
                     UnsetRep(Rep);
                     CUnset2D(X);
-                    CMatrixSolveM(A, N, B, M, AP_FP_Greater(RandomReal,Double(0.5)), Info, Rep, X);
+                    CMatrixSolveM(A, N, B, M, AP_FP_Greater(RandomReal,0.5), Info, Rep, X);
                     CErrors := CErrors or  not CMatrixCheckSingularM(N, M, Info, Rep, X);
                     
                     //
@@ -2123,7 +2121,7 @@ begin
                 // 3. generate right part b=A*xe
                 // 4. test different methods on original A
                 //
-                IsUpper := AP_FP_Greater(RandomReal,Double(0.5));
+                IsUpper := AP_FP_Greater(RandomReal,0.5);
                 HPDMatrixRndCond(N, 1000, A);
                 CMatrixMakeACopy(A, N, N, CHA);
                 if  not HPDMatrixCholesky(CHA, N, IsUpper) then

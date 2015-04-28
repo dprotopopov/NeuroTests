@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testpcaunit;
 interface
 uses Math, Sysutils, Ap, hblas, reflections, creflections, sblas, ablasf, ablas, ortfac, blas, rotations, bdsvd, svd, descriptivestatistics, pca;
@@ -85,7 +83,7 @@ begin
             J:=0;
             while J<=M-1 do
             begin
-                Means[J] := Double(1.5)*RandomReal-Double(0.75);
+                Means[J] := 1.5*RandomReal-0.75;
                 Inc(J);
             end;
             I:=0;
@@ -193,7 +191,7 @@ begin
             K:=0;
             while K<=2*M-1 do
             begin
-                H := Double(0.001);
+                H := 0.001;
                 if K mod 2<>0 then
                 begin
                     H := -H;

@@ -8,8 +8,7 @@ uses
   mlpbase,
   mlptrain;
 
-procedure DoProcess(const X0, X1: Double; var Net: MultiLayerPerceptron;
-  X: TReal1DArray; var Y: TReal1DArray);
+procedure DoProcess(const X0, X1: Double; var Net: MultiLayerPerceptron; X: TReal1DArray; var Y: TReal1DArray);
 begin
   X[0] := X0; // RandomReal - 0.5;
   X[1] := X1; // RandomReal - 0.5;
@@ -42,7 +41,7 @@ var
 
   lNHid1: Integer;
   lNHid2: Integer;
-  
+
   lInfo: Integer;
   lReport: MLPReport;
 
@@ -52,18 +51,18 @@ begin
 
   lInCount := 2; // количество точек данных в одной выборке
   lOutCount := 1; // кличество точек - заведомо корректных результатов
-  lMaxIts := 400; // количество итераций обучения (внутреннее)
-  lMaxStep := 0.0002; // внутренний параметр обучения нейросети
-  lRestarts := 100; // внутренний параметр обучения нейросети
+  lMaxIts := 500; // количество итераций обучения (внутреннее)
+  lMaxStep := 0.001; // внутренний параметр обучения нейросети
+  lRestarts := 500; // внутренний параметр обучения нейросети
   lDecay := 0.001; // затухание.  внутренний параметр обучения нейросети
-  lPoints := 40; // количество обучающих выборок (в нашем лучае можно и поменьше)
+  lPoints := 400;//40; // количество обучающих выборок (в нашем лучае можно и поменьше)
 
   lNHid1 := lInCount; // количество узлов в 1-ом скрытом слое
   lNHid2 := lInCount; // количество узлов во 2-ом скрытом слое
 
   // здесь можно использовать любую из функций MLPCreate
   MLPCreate2(lInCount, lNHid1, lNHid2, lOutCount, lNetwork);
-  
+
   SetLength(lXY, lPoints, lInCount + lOutCount);
   SetLength(lX, lInCount);
   SetLength(lY, lOutCount);
@@ -79,8 +78,8 @@ begin
   end;
 
   // один из методов обучения. Можно использовать любой другой
-  MLPTrainLBFGS(lNetwork, lXY, lPoints, lDecay, lRestarts, lMaxStep, lMaxIts,
-    lInfo, lReport);
+  MLPTrainLBFGS(lNetwork, lXY, lPoints, lDecay, lRestarts, lMaxStep, lMaxIts, lInfo, lReport);
+  //MLPTrainLM(lNetwork, lXY, lPoints, lDecay, lRestarts, lInfo, lReport);
 
   for i := 0 to 20 do
   begin

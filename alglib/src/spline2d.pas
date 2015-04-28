@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Copyright (c) 2007, Sergey Bochkanov (ALGLIB project).
 
@@ -47,27 +45,27 @@ procedure Spline2DBuildBicubic(X : TReal1DArray;
      N : AlglibInteger;
      var C : Spline2DInterpolant);
 function Spline2DCalc(const C : Spline2DInterpolant;
-     X : Double;
-     Y : Double):Double;
+     X : Extended;
+     Y : Extended):Extended;
 procedure Spline2DDiff(const C : Spline2DInterpolant;
-     X : Double;
-     Y : Double;
-     var F : Double;
-     var FX : Double;
-     var FY : Double;
-     var FXY : Double);
+     X : Extended;
+     Y : Extended;
+     var F : Extended;
+     var FX : Extended;
+     var FY : Extended;
+     var FXY : Extended);
 procedure Spline2DUnpack(const C : Spline2DInterpolant;
      var M : AlglibInteger;
      var N : AlglibInteger;
      var Tbl : TReal2DArray);
 procedure Spline2DLinTransXY(var C : Spline2DInterpolant;
-     AX : Double;
-     BX : Double;
-     AY : Double;
-     BY : Double);
+     AX : Extended;
+     BX : Extended;
+     AY : Extended;
+     BY : Extended);
 procedure Spline2DLinTransF(var C : Spline2DInterpolant;
-     A : Double;
-     B : Double);
+     A : Extended;
+     B : Extended);
 procedure Spline2DCopy(const C : Spline2DInterpolant;
      var CC : Spline2DInterpolant);
 procedure Spline2DSerialize(const C : Spline2DInterpolant;
@@ -130,7 +128,7 @@ var
     K : AlglibInteger;
     TblSize : AlglibInteger;
     Shift : AlglibInteger;
-    T : Double;
+    T : Extended;
     DX : TReal2DArray;
     DY : TReal2DArray;
     DXY : TReal2DArray;
@@ -281,7 +279,7 @@ var
     K : AlglibInteger;
     TblSize : AlglibInteger;
     Shift : AlglibInteger;
-    T : Double;
+    T : Extended;
     DX : TReal2DArray;
     DY : TReal2DArray;
     DXY : TReal2DArray;
@@ -431,13 +429,13 @@ Result:
      Copyright 05.07.2007 by Bochkanov Sergey
 *************************************************************************)
 function Spline2DCalc(const C : Spline2DInterpolant;
-     X : Double;
-     Y : Double):Double;
+     X : Extended;
+     Y : Extended):Extended;
 var
-    V : Double;
-    VX : Double;
-    VY : Double;
-    VXY : Double;
+    V : Extended;
+    VX : Extended;
+    VY : Extended;
+    VXY : Extended;
 begin
     Spline2DDiff(C, X, Y, V, VX, VY, VXY);
     Result := V;
@@ -462,19 +460,19 @@ Output parameters:
      Copyright 05.07.2007 by Bochkanov Sergey
 *************************************************************************)
 procedure Spline2DDiff(const C : Spline2DInterpolant;
-     X : Double;
-     Y : Double;
-     var F : Double;
-     var FX : Double;
-     var FY : Double;
-     var FXY : Double);
+     X : Extended;
+     Y : Extended;
+     var F : Extended;
+     var FX : Extended;
+     var FY : Extended;
+     var FXY : Extended);
 var
     N : AlglibInteger;
     M : AlglibInteger;
-    T : Double;
-    DT : Double;
-    U : Double;
-    DU : Double;
+    T : Extended;
+    DT : Extended;
+    U : Extended;
+    DU : Extended;
     IX : AlglibInteger;
     IY : AlglibInteger;
     L : AlglibInteger;
@@ -489,19 +487,19 @@ var
     SFX : AlglibInteger;
     SFY : AlglibInteger;
     SFXY : AlglibInteger;
-    Y1 : Double;
-    Y2 : Double;
-    Y3 : Double;
-    Y4 : Double;
-    V : Double;
-    T0 : Double;
-    T1 : Double;
-    T2 : Double;
-    T3 : Double;
-    U0 : Double;
-    U1 : Double;
-    U2 : Double;
-    U3 : Double;
+    Y1 : Extended;
+    Y2 : Extended;
+    Y3 : Extended;
+    Y4 : Extended;
+    V : Extended;
+    T0 : Extended;
+    T1 : Extended;
+    T2 : Extended;
+    T3 : Extended;
+    U0 : Extended;
+    U1 : Extended;
+    U2 : Extended;
+    U3 : Extended;
 begin
     Assert((Round(C.C[1])=-1) or (Round(C.C[1])=-3), 'Spline2DDiff: incorrect C!');
     N := Round(C.C[2]);
@@ -525,7 +523,7 @@ begin
         end;
     end;
     T := (X-C.C[L])/(C.C[L+1]-C.C[L]);
-    DT := Double(1.0)/(C.C[L+1]-C.C[L]);
+    DT := 1.0/(C.C[L+1]-C.C[L]);
     IX := L-4;
     
     //
@@ -546,7 +544,7 @@ begin
         end;
     end;
     U := (Y-C.C[L])/(C.C[L+1]-C.C[L]);
-    DU := Double(1.0)/(C.C[L+1]-C.C[L]);
+    DU := 1.0/(C.C[L+1]-C.C[L]);
     IY := L-(4+N);
     
     //
@@ -725,12 +723,12 @@ var
     SFX : AlglibInteger;
     SFY : AlglibInteger;
     SFXY : AlglibInteger;
-    Y1 : Double;
-    Y2 : Double;
-    Y3 : Double;
-    Y4 : Double;
-    DT : Double;
-    DU : Double;
+    Y1 : Extended;
+    Y2 : Extended;
+    Y3 : Extended;
+    Y4 : Extended;
+    DT : Extended;
+    DU : Extended;
 begin
     Assert((Round(C.C[1])=-3) or (Round(C.C[1])=-1), 'SplineUnpack2D: incorrect C!');
     N := Round(C.C[2]);
@@ -842,16 +840,16 @@ Result:
      Copyright 30.06.2007 by Bochkanov Sergey
 *************************************************************************)
 procedure Spline2DLinTransXY(var C : Spline2DInterpolant;
-     AX : Double;
-     BX : Double;
-     AY : Double;
-     BY : Double);
+     AX : Extended;
+     BX : Extended;
+     AY : Extended;
+     BY : Extended);
 var
     I : AlglibInteger;
     J : AlglibInteger;
     N : AlglibInteger;
     M : AlglibInteger;
-    V : Double;
+    V : Extended;
     X : TReal1DArray;
     Y : TReal1DArray;
     F : TReal2DArray;
@@ -983,8 +981,8 @@ Output parameters:
      Copyright 30.06.2007 by Bochkanov Sergey
 *************************************************************************)
 procedure Spline2DLinTransF(var C : Spline2DInterpolant;
-     A : Double;
-     B : Double);
+     A : Extended;
+     B : Extended);
 var
     I : AlglibInteger;
     J : AlglibInteger;
@@ -1186,7 +1184,7 @@ begin
         //
         // Interpolate and place result into temporary matrix
         //
-        Spline1DBuildCubic(X, Y, OldWidth, 0, Double(0.0), 0, Double(0.0), C);
+        Spline1DBuildCubic(X, Y, OldWidth, 0, 0.0, 0, 0.0, C);
         J:=0;
         while J<=NewWidth-1 do
         begin
@@ -1217,7 +1215,7 @@ begin
         //
         // Interpolate and place result into B
         //
-        Spline1DBuildCubic(X, Y, OldHeight, 0, Double(0.0), 0, Double(0.0), C);
+        Spline1DBuildCubic(X, Y, OldHeight, 0, 0.0, 0, 0.0, C);
         I:=0;
         while I<=NewHeight-1 do
         begin
@@ -1259,8 +1257,8 @@ var
     J : AlglibInteger;
     L : AlglibInteger;
     C : AlglibInteger;
-    T : Double;
-    U : Double;
+    T : Extended;
+    U : Extended;
 begin
     SetLength(B, NewHeight-1+1, NewWidth-1+1);
     I:=0;
@@ -1307,9 +1305,9 @@ var
     XT : TReal1DArray;
     FT : TReal1DArray;
     C : TReal1DArray;
-    S : Double;
-    DS : Double;
-    D2S : Double;
+    S : Extended;
+    DS : Extended;
+    D2S : Extended;
 begin
     SetLength(DX, M-1+1, N-1+1);
     SetLength(DY, M-1+1, N-1+1);
@@ -1330,7 +1328,7 @@ begin
             FT[J] := A[I,J];
             Inc(J);
         end;
-        BuildCubicSpline(XT, FT, N, 0, Double(0.0), 0, Double(0.0), C);
+        BuildCubicSpline(XT, FT, N, 0, 0.0, 0, 0.0, C);
         J:=0;
         while J<=N-1 do
         begin
@@ -1356,7 +1354,7 @@ begin
             FT[I] := A[I,J];
             Inc(I);
         end;
-        BuildCubicSpline(XT, FT, M, 0, Double(0.0), 0, Double(0.0), C);
+        BuildCubicSpline(XT, FT, M, 0, 0.0, 0, 0.0, C);
         I:=0;
         while I<=M-1 do
         begin
@@ -1382,7 +1380,7 @@ begin
             FT[J] := DY[I,J];
             Inc(J);
         end;
-        BuildCubicSpline(XT, FT, N, 0, Double(0.0), 0, Double(0.0), C);
+        BuildCubicSpline(XT, FT, N, 0, 0.0, 0, 0.0, C);
         J:=0;
         while J<=N-1 do
         begin

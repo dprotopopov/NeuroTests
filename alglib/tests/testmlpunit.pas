@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testmlpunit;
 interface
 uses Math, Sysutils, Ap, mlpbase, reflections, creflections, hqrnd, matgen, ablasf, ablas, trfac, trlinsolve, safesolve, rcond, matinv, linmin, minlbfgs, hblas, sblas, ortfac, blas, rotations, bdsvd, svd, xblas, densesolver, mlptrain;
@@ -158,8 +156,8 @@ begin
     XY[3,1] := +1;
     XY[3,2] := -1;
     MLPCreate1(2, 2, 1, Network);
-    MLPTrainLM(Network, XY, 4, Double(0.001), 10, Info, Rep);
-    TrnErrors := TrnErrors or AP_FP_Greater(MLPRMSError(Network, XY, 4),Double(0.1));
+    MLPTrainLM(Network, XY, 4, 0.001, 10, Info, Rep);
+    TrnErrors := TrnErrors or AP_FP_Greater(MLPRMSError(Network, XY, 4),0.1);
     
     //
     // Test CV on random noisy problem
@@ -174,7 +172,7 @@ begin
         Inc(I);
     end;
     MLPCreateC0(1, 4, Network);
-    MLPKFoldCVLM(Network, XY, NCount, Double(0.001), 5, 10, Info, Rep, CVRep);
+    MLPKFoldCVLM(Network, XY, NCount, 0.001, 5, 10, Info, Rep, CVRep);
     
     //
     // Final report
@@ -380,7 +378,7 @@ var
     N2 : AlglibInteger;
     WCount : AlglibInteger;
 begin
-    CreateNetwork(Network, NKind, Double(0.0), Double(0.0), NIn, NHid1, NHid2, NOut);
+    CreateNetwork(Network, NKind, 0.0, 0.0, NIn, NHid1, NHid2, NOut);
     MLPProperties(Network, N1, N2, WCount);
     Err := Err or (N1<>NIn) or (N2<>NOut) or (WCount<=0);
 end;
@@ -432,7 +430,7 @@ begin
     if NKind=3 then
     begin
         A1 := 1000*RandomReal-500;
-        A2 := A1+(2*RandomInteger(2)-1)*(Double(0.1)+Double(0.9)*RandomReal);
+        A2 := A1+(2*RandomInteger(2)-1)*(0.1+0.9*RandomReal);
     end;
     CreateNetwork(Network, NKind, A1, A2, NIn, NHid1, NHid2, NOut);
     MLPProperties(Network, N1, N2, WCount);
@@ -797,12 +795,12 @@ begin
     if NKind=3 then
     begin
         A1 := 1000*RandomReal-500;
-        A2 := A1+(2*RandomInteger(2)-1)*(Double(0.1)+Double(0.9)*RandomReal);
+        A2 := A1+(2*RandomInteger(2)-1)*(0.1+0.9*RandomReal);
     end;
     CreateNetwork(Network, NKind, A1, A2, NIn, NHid1, NHid2, NOut);
     MLPProperties(Network, N1, N2, WCount);
-    H := Double(0.0001);
-    ETol := Double(0.01);
+    H := 0.0001;
+    ETol := 0.01;
     
     //
     // Initialize
@@ -889,7 +887,7 @@ begin
             V4 := V4/2;
             Network.Weights[I] := WPrev;
             Grad1[I] := (V1-8*V2+8*V3-V4)/(12*H);
-            if AP_FP_Greater(AbsReal(Grad1[I]),Double(1.0E-3)) then
+            if AP_FP_Greater(AbsReal(Grad1[I]),1.0E-3) then
             begin
                 Err := Err or AP_FP_Greater(AbsReal((Grad2[I]-Grad1[I])/Grad1[I]),ETol);
             end
@@ -942,7 +940,7 @@ begin
             I:=0;
             while I<=NOut-1 do
             begin
-                V := V+Double(0.5)*AP_Sqr(Y2[I]-Y[I]);
+                V := V+0.5*AP_Sqr(Y2[I]-Y[I]);
                 Inc(I);
             end;
         end
@@ -982,7 +980,7 @@ begin
                 J:=0;
                 while J<=NOut-1 do
                 begin
-                    V := V+Double(0.5)*(AP_Sqr(Y2[J]-Y[J])-AP_Sqr(Y1[J]-Y[J]))/(2*H);
+                    V := V+0.5*(AP_Sqr(Y2[J]-Y[J])-AP_Sqr(Y1[J]-Y[J]))/(2*H);
                     Inc(J);
                 end;
             end
@@ -1015,7 +1013,7 @@ begin
                 V := V/(2*H);
             end;
             Grad1[I] := V;
-            if AP_FP_Greater(AbsReal(Grad1[I]),Double(1.0E-3)) then
+            if AP_FP_Greater(AbsReal(Grad1[I]),1.0E-3) then
             begin
                 Err := Err or AP_FP_Greater(AbsReal((Grad2[I]-Grad1[I])/Grad1[I]),ETol);
             end
@@ -1075,7 +1073,7 @@ begin
             Inc(I);
         end;
         MLPGradBatch(Network, XY, SSize, E2, Grad2);
-        Err := Err or AP_FP_Greater(AbsReal(E1-E2)/E1,Double(0.01));
+        Err := Err or AP_FP_Greater(AbsReal(E1-E2)/E1,0.01);
         I:=0;
         while I<=WCount-1 do
         begin
@@ -1222,12 +1220,12 @@ begin
     if NKind=3 then
     begin
         A1 := 1000*RandomReal-500;
-        A2 := A1+(2*RandomInteger(2)-1)*(Double(0.1)+Double(0.9)*RandomReal);
+        A2 := A1+(2*RandomInteger(2)-1)*(0.1+0.9*RandomReal);
     end;
     CreateNetwork(Network, NKind, A1, A2, NIn, NHid1, NHid2, NOut);
     MLPProperties(Network, N1, N2, WCount);
-    H := Double(0.0001);
-    ETol := Double(0.05);
+    H := 0.0001;
+    ETol := 0.05;
     
     //
     // Initialize
@@ -1398,7 +1396,7 @@ begin
             I:=0;
             while I<=WCount-1 do
             begin
-                if AP_FP_Greater(AbsReal(Grad1[I]),Double(1.0E-2)) then
+                if AP_FP_Greater(AbsReal(Grad1[I]),1.0E-2) then
                 begin
                     Err := Err or AP_FP_Greater(AbsReal((Grad2[I]-Grad1[I])/Grad1[I]),ETol);
                 end
@@ -1414,7 +1412,7 @@ begin
                 J:=0;
                 while J<=WCount-1 do
                 begin
-                    if AP_FP_Greater(AbsReal(H1[I,J]),Double(5.0E-2)) then
+                    if AP_FP_Greater(AbsReal(H1[I,J]),5.0E-2) then
                     begin
                         Err := Err or AP_FP_Greater(AbsReal((H1[I,J]-H2[I,J])/H1[I,J]),ETol);
                     end

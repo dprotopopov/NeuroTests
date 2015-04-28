@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Copyright (c) 2007, Sergey Bochkanov (ALGLIB project).
 
@@ -25,24 +23,24 @@ uses Math, Sysutils, Ap, gammafunc, normaldistr, ibetaf, studenttdistr;
 
 procedure StudentTTest1(const X : TReal1DArray;
      N : AlglibInteger;
-     Mean : Double;
-     var BothTails : Double;
-     var LeftTail : Double;
-     var RightTail : Double);
+     Mean : Extended;
+     var BothTails : Extended;
+     var LeftTail : Extended;
+     var RightTail : Extended);
 procedure StudentTTest2(const X : TReal1DArray;
      N : AlglibInteger;
      const Y : TReal1DArray;
      M : AlglibInteger;
-     var BothTails : Double;
-     var LeftTail : Double;
-     var RightTail : Double);
+     var BothTails : Extended;
+     var LeftTail : Extended;
+     var RightTail : Extended);
 procedure UnequalVarianceTTest(const X : TReal1DArray;
      N : AlglibInteger;
      const Y : TReal1DArray;
      M : AlglibInteger;
-     var BothTails : Double;
-     var LeftTail : Double;
-     var RightTail : Double);
+     var BothTails : Extended;
+     var LeftTail : Extended;
+     var RightTail : Extended);
 
 implementation
 
@@ -83,25 +81,25 @@ Output parameters:
 *************************************************************************)
 procedure StudentTTest1(const X : TReal1DArray;
      N : AlglibInteger;
-     Mean : Double;
-     var BothTails : Double;
-     var LeftTail : Double;
-     var RightTail : Double);
+     Mean : Extended;
+     var BothTails : Extended;
+     var LeftTail : Extended;
+     var RightTail : Extended);
 var
     I : AlglibInteger;
-    XMean : Double;
-    XVariance : Double;
-    XStdDev : Double;
-    V1 : Double;
-    V2 : Double;
-    Stat : Double;
-    S : Double;
+    XMean : Extended;
+    XVariance : Extended;
+    XStdDev : Extended;
+    V1 : Extended;
+    V2 : Extended;
+    Stat : Extended;
+    S : Extended;
 begin
     if N<=1 then
     begin
-        BothTails := Double(1.0);
-        LeftTail := Double(1.0);
-        RightTail := Double(1.0);
+        BothTails := 1.0;
+        LeftTail := 1.0;
+        RightTail := 1.0;
         Exit;
     end;
     
@@ -148,9 +146,9 @@ begin
     end;
     if AP_FP_Eq(XStdDev,0) then
     begin
-        BothTails := Double(1.0);
-        LeftTail := Double(1.0);
-        RightTail := Double(1.0);
+        BothTails := 1.0;
+        LeftTail := 1.0;
+        RightTail := 1.0;
         Exit;
     end;
     
@@ -205,22 +203,22 @@ procedure StudentTTest2(const X : TReal1DArray;
      N : AlglibInteger;
      const Y : TReal1DArray;
      M : AlglibInteger;
-     var BothTails : Double;
-     var LeftTail : Double;
-     var RightTail : Double);
+     var BothTails : Extended;
+     var LeftTail : Extended;
+     var RightTail : Extended);
 var
     I : AlglibInteger;
-    XMean : Double;
-    YMean : Double;
-    Stat : Double;
-    S : Double;
-    P : Double;
+    XMean : Extended;
+    YMean : Extended;
+    Stat : Extended;
+    S : Extended;
+    P : Extended;
 begin
     if (N<=1) or (M<=1) then
     begin
-        BothTails := Double(1.0);
-        LeftTail := Double(1.0);
-        RightTail := Double(1.0);
+        BothTails := 1.0;
+        LeftTail := 1.0;
+        RightTail := 1.0;
         Exit;
     end;
     
@@ -263,9 +261,9 @@ begin
     S := Sqrt(S*(AP_Double(1)/N+AP_Double(1)/M)/(N+M-2));
     if AP_FP_Eq(S,0) then
     begin
-        BothTails := Double(1.0);
-        LeftTail := Double(1.0);
-        RightTail := Double(1.0);
+        BothTails := 1.0;
+        LeftTail := 1.0;
+        RightTail := 1.0;
         Exit;
     end;
     
@@ -320,25 +318,25 @@ procedure UnequalVarianceTTest(const X : TReal1DArray;
      N : AlglibInteger;
      const Y : TReal1DArray;
      M : AlglibInteger;
-     var BothTails : Double;
-     var LeftTail : Double;
-     var RightTail : Double);
+     var BothTails : Extended;
+     var LeftTail : Extended;
+     var RightTail : Extended);
 var
     I : AlglibInteger;
-    XMean : Double;
-    YMean : Double;
-    XVar : Double;
-    YVar : Double;
-    DF : Double;
-    P : Double;
-    Stat : Double;
-    C : Double;
+    XMean : Extended;
+    YMean : Extended;
+    XVar : Extended;
+    YVar : Extended;
+    DF : Extended;
+    P : Extended;
+    Stat : Extended;
+    C : Extended;
 begin
     if (N<=1) or (M<=1) then
     begin
-        BothTails := Double(1.0);
-        LeftTail := Double(1.0);
-        RightTail := Double(1.0);
+        BothTails := 1.0;
+        LeftTail := 1.0;
+        RightTail := 1.0;
         Exit;
     end;
     
@@ -383,9 +381,9 @@ begin
     YVar := YVar/(M-1);
     if AP_FP_Eq(XVar,0) or AP_FP_Eq(YVar,0) then
     begin
-        BothTails := Double(1.0);
-        LeftTail := Double(1.0);
-        RightTail := Double(1.0);
+        BothTails := 1.0;
+        LeftTail := 1.0;
+        RightTail := 1.0;
         Exit;
     end;
     
@@ -397,11 +395,11 @@ begin
     DF := (N-1)*(M-1)/((M-1)*AP_Sqr(C)+(N-1)*(1-AP_Sqr(C)));
     if AP_FP_Greater(Stat,0) then
     begin
-        P := 1-Double(0.5)*IncompleteBeta(DF/2, Double(0.5), DF/(DF+AP_Sqr(Stat)));
+        P := 1-0.5*IncompleteBeta(DF/2, 0.5, DF/(DF+AP_Sqr(Stat)));
     end
     else
     begin
-        P := Double(0.5)*IncompleteBeta(DF/2, Double(0.5), DF/(DF+AP_Sqr(Stat)));
+        P := 0.5*IncompleteBeta(DF/2, 0.5, DF/(DF+AP_Sqr(Stat)));
     end;
     BothTails := 2*Min(P, 1-P);
     LeftTail := P;

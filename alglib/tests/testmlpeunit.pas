@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testmlpeunit;
 interface
 uses Math, Sysutils, Ap, mlpbase, reflections, creflections, hqrnd, matgen, ablasf, ablas, trfac, trlinsolve, safesolve, rcond, matinv, linmin, minlbfgs, hblas, sblas, ortfac, blas, rotations, bdsvd, svd, xblas, densesolver, mlptrain, tsort, descriptivestatistics, bdss, mlpe;
@@ -191,11 +189,11 @@ begin
                 E := MLPERMSError(Ensemble, XY, NPoints);
                 if AlgType=0 then
                 begin
-                    MLPEBaggingLM(Ensemble, XY, NPoints, Double(0.001), 1, Info, Rep, OOBRep);
+                    MLPEBaggingLM(Ensemble, XY, NPoints, 0.001, 1, Info, Rep, OOBRep);
                 end
                 else
                 begin
-                    MLPEBaggingLBFGS(Ensemble, XY, NPoints, Double(0.001), 1, Double(0.01), 0, Info, Rep, OOBRep);
+                    MLPEBaggingLBFGS(Ensemble, XY, NPoints, 0.001, 1, 0.01, 0, Info, Rep, OOBRep);
                 end;
                 if Info<0 then
                 begin
@@ -215,7 +213,7 @@ begin
         end;
         Inc(Pass);
     end;
-    TrnErrors := TrnErrors or AP_FP_Greater(NAll-NLess,Double(0.3)*NAll);
+    TrnErrors := TrnErrors or AP_FP_Greater(NAll-NLess,0.3*NAll);
     
     //
     // Final report
@@ -404,7 +402,7 @@ var
     N1 : AlglibInteger;
     N2 : AlglibInteger;
 begin
-    CreateEnsemble(Ensemble, NKind, -Double(1.0), Double(1.0), NIn, NHid1, NHid2, NOut, EC);
+    CreateEnsemble(Ensemble, NKind, -1.0, 1.0, NIn, NHid1, NHid2, NOut, EC);
     MLPEProperties(Ensemble, N1, N2);
     Err := Err or (N1<>NIn) or (N2<>NOut);
 end;
@@ -453,7 +451,7 @@ begin
     if NKind=3 then
     begin
         A1 := 1000*RandomReal-500;
-        A2 := A1+(2*RandomInteger(2)-1)*(Double(0.1)+Double(0.9)*RandomReal);
+        A2 := A1+(2*RandomInteger(2)-1)*(0.1+0.9*RandomReal);
     end;
     
     //

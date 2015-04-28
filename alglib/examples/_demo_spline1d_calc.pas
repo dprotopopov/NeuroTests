@@ -1,4 +1,4 @@
-{$MODESWITCH RESULT+}
+
 program _demo;
 Array[0]
 var
@@ -35,7 +35,7 @@ begin
         Y[I] := Sin(X[I]);
         Inc(I);
     end;
-    Spline1DBuildCubic(X, Y, N, 2, Double(0.0), 2, Double(0.0), S);
+    Spline1DBuildCubic(X, Y, N, 2, 0.0, 2, 0.0, S);
     
     //
     // Output results

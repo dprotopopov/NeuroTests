@@ -1,5 +1,3 @@
-{.$MODESWITCH RESULT+}
-{.$GOTO ON}
 (*************************************************************************
 Copyright (c) 2007-2008, Sergey Bochkanov (ALGLIB project).
 
@@ -85,7 +83,7 @@ procedure MLPKFoldCVLBFGS(const Network : MultiLayerPerceptron;
      FoldsCount : AlglibInteger;
      var Info : AlglibInteger;
      var Rep : MLPReport;
-     var CVRep : MLPCVReport);inline;
+     var CVRep : MLPCVReport);
 procedure MLPKFoldCVLM(const Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      NPoints : AlglibInteger;
@@ -94,8 +92,12 @@ procedure MLPKFoldCVLM(const Network : MultiLayerPerceptron;
      FoldsCount : AlglibInteger;
      var Info : AlglibInteger;
      var Rep : MLPReport;
-     var CVRep : MLPCVReport);inline;
+     var CVRep : MLPCVReport);
 
+implementation
+
+const
+    MinDecay = 0.001;
 
 procedure MLPKFoldCVGeneral(const N : MultiLayerPerceptron;
      const XY : TReal2DArray;
@@ -114,12 +116,7 @@ procedure MLPKFoldSplit(const XY : TReal2DArray;
      NClasses : AlglibInteger;
      FoldsCount : AlglibInteger;
      StratifiedSplits : Boolean;
-     var Folds : TInteger1DArray);forward;inline;
-
-implementation
-
-const
-    MinDecay = 0.001;
+     var Folds : TInteger1DArray);forward;
 
 
 (*************************************************************************

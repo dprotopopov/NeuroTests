@@ -1,5 +1,3 @@
-{.$MODESWITCH RESULT+}
-{.$GOTO ON}
 (*************************************************************************
 Copyright (c) 1992-2007 The University of Tennessee.  All rights reserved.
 
@@ -31,7 +29,7 @@ uses Math, Sysutils, Ap;
 
 procedure ComplexGenerateReflection(var X : TComplex1DArray;
      N : AlglibInteger;
-     var Tau : Complex);inline;
+     var Tau : Complex);
 procedure ComplexApplyReflectionFromTheLeft(var C : TComplex2DArray;
      Tau : Complex;
      const V : TComplex1DArray;
@@ -39,7 +37,7 @@ procedure ComplexApplyReflectionFromTheLeft(var C : TComplex2DArray;
      M2 : AlglibInteger;
      N1 : AlglibInteger;
      N2 : AlglibInteger;
-     var WORK : TComplex1DArray);inline;
+     var WORK : TComplex1DArray);
 procedure ComplexApplyReflectionFromTheRight(var C : TComplex2DArray;
      Tau : Complex;
      var V : TComplex1DArray;
@@ -47,7 +45,7 @@ procedure ComplexApplyReflectionFromTheRight(var C : TComplex2DArray;
      M2 : AlglibInteger;
      N1 : AlglibInteger;
      N2 : AlglibInteger;
-     var WORK : TComplex1DArray);inline;
+     var WORK : TComplex1DArray);
 
 implementation
 

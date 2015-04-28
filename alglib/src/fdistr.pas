@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1995, 2000 by Stephen L. Moshier
@@ -32,13 +30,13 @@ uses Math, Sysutils, Ap, gammafunc, normaldistr, ibetaf;
 
 function FDistribution(a : AlglibInteger;
      b : AlglibInteger;
-     x : Double):Double;
+     x : Extended):Extended;
 function FCDistribution(a : AlglibInteger;
      b : AlglibInteger;
-     x : Double):Double;
+     x : Extended):Extended;
 function InvFDistribution(a : AlglibInteger;
      b : AlglibInteger;
-     y : Double):Double;
+     y : Extended):Extended;
 
 implementation
 
@@ -76,14 +74,14 @@ Copyright 1984, 1987, 1995, 2000 by Stephen L. Moshier
 *************************************************************************)
 function FDistribution(a : AlglibInteger;
      b : AlglibInteger;
-     x : Double):Double;
+     x : Extended):Extended;
 var
-    w : Double;
+    w : Extended;
 begin
     Assert((a>=1) and (b>=1) and AP_FP_Greater_Eq(x,0), 'Domain error in FDistribution');
     w := a*x;
     w := w/(b+w);
-    Result := IncompleteBeta(Double(0.5)*a, Double(0.5)*b, w);
+    Result := IncompleteBeta(0.5*a, 0.5*b, w);
 end;
 
 
@@ -125,13 +123,13 @@ Copyright 1984, 1987, 1995, 2000 by Stephen L. Moshier
 *************************************************************************)
 function FCDistribution(a : AlglibInteger;
      b : AlglibInteger;
-     x : Double):Double;
+     x : Extended):Extended;
 var
-    w : Double;
+    w : Extended;
 begin
     Assert((a>=1) and (b>=1) and AP_FP_Greater_Eq(x,0), 'Domain error in FCDistribution');
     w := b/(b+a*x);
-    Result := IncompleteBeta(Double(0.5)*b, Double(0.5)*a, w);
+    Result := IncompleteBeta(0.5*b, 0.5*a, w);
 end;
 
 
@@ -172,30 +170,30 @@ Copyright 1984, 1987, 1995, 2000 by Stephen L. Moshier
 *************************************************************************)
 function InvFDistribution(a : AlglibInteger;
      b : AlglibInteger;
-     y : Double):Double;
+     y : Extended):Extended;
 var
-    w : Double;
+    w : Extended;
 begin
     Assert((a>=1) and (b>=1) and AP_FP_Greater(y,0) and AP_FP_Less_Eq(y,1), 'Domain error in InvFDistribution');
     
     //
     // Compute probability for x = 0.5
     //
-    w := IncompleteBeta(Double(0.5)*b, Double(0.5)*a, Double(0.5));
+    w := IncompleteBeta(0.5*b, 0.5*a, 0.5);
     
     //
     // If that is greater than y, then the solution w < .5
     // Otherwise, solve at 1-y to remove cancellation in (b - b*w)
     //
-    if AP_FP_Greater(w,y) or AP_FP_Less(y,Double(0.001)) then
+    if AP_FP_Greater(w,y) or AP_FP_Less(y,0.001) then
     begin
-        w := InvIncompleteBeta(Double(0.5)*b, Double(0.5)*a, y);
+        w := InvIncompleteBeta(0.5*b, 0.5*a, y);
         Result := (b-b*w)/(a*w);
     end
     else
     begin
-        w := InvIncompleteBeta(Double(0.5)*a, Double(0.5)*b, Double(1.0)-y);
-        Result := b*w/(a*(Double(1.0)-w));
+        w := InvIncompleteBeta(0.5*a, 0.5*b, 1.0-y);
+        Result := b*w/(a*(1.0-w));
     end;
 end;
 

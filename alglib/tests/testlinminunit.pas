@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testlinminunit;
 interface
 uses Math, Sysutils, Ap, linmin;

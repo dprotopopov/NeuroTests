@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testodesolverunit;
 interface
 uses Math, Sysutils, Ap, odesolver;
@@ -60,8 +58,8 @@ begin
             //
             // prepare
             //
-            H := Double(1.0E-2);
-            Eps := Double(1.0E-5);
+            H := 1.0E-2;
+            Eps := 1.0E-5;
             if Pass mod 2=0 then
             begin
                 Eps := -Eps;
@@ -84,7 +82,7 @@ begin
             end;
             V := 2*Pi/(XG[M-1]-XG[0]);
             APVMul(@XG[0], 0, M-1, V);
-            if AP_FP_Greater(RandomReal,Double(0.5)) then
+            if AP_FP_Greater(RandomReal,0.5) then
             begin
                 APVMul(@XG[0], 0, M-1, -1);
             end;
@@ -156,8 +154,8 @@ begin
     Pass:=0;
     while Pass<=PassCount-1 do
     begin
-        H := Double(1.0E-4);
-        Eps := Double(1.0E-4);
+        H := 1.0E-4;
+        Eps := 1.0E-4;
         if Pass mod 2=0 then
         begin
             Eps := -Eps;

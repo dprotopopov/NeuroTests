@@ -9,6 +9,9 @@
         <Projects Include="test01\_demo_mlp_process_cls.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="test03\Demo03_visual.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -35,14 +38,23 @@
     <Target Name="_demo_mlp_process_cls:Make">
         <MSBuild Projects="test01\_demo_mlp_process_cls.dproj" Targets="Make"/>
     </Target>
+    <Target Name="Demo03_visual">
+        <MSBuild Projects="test03\Demo03_visual.dproj"/>
+    </Target>
+    <Target Name="Demo03_visual:Clean">
+        <MSBuild Projects="test03\Demo03_visual.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Demo03_visual:Make">
+        <MSBuild Projects="test03\Demo03_visual.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="classification;_demo_mlp_process_cls"/>
+        <CallTarget Targets="classification;_demo_mlp_process_cls;Demo03_visual"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="classification:Clean;_demo_mlp_process_cls:Clean"/>
+        <CallTarget Targets="classification:Clean;_demo_mlp_process_cls:Clean;Demo03_visual:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="classification:Make;_demo_mlp_process_cls:Make"/>
+        <CallTarget Targets="classification:Make;_demo_mlp_process_cls:Make;Demo03_visual:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testchebyshevunit;
 interface
 uses Math, Sysutils, Ap, chebyshev;
@@ -36,61 +34,61 @@ begin
     SumErr := 0;
     CErr := 0;
     FErr := 0;
-    Threshold := Double(1.0E-9);
+    Threshold := 1.0E-9;
     WasErrors := False;
     
     //
     // Testing Chebyshev polynomials of the first kind
     //
-    Err := Max(Err, AbsReal(ChebyshevCalculate(1, 0, Double(0.00))-1));
-    Err := Max(Err, AbsReal(ChebyshevCalculate(1, 0, Double(0.33))-1));
-    Err := Max(Err, AbsReal(ChebyshevCalculate(1, 0, -Double(0.42))-1));
-    X := Double(0.2);
-    Err := Max(Err, AbsReal(ChebyshevCalculate(1, 1, X)-Double(0.2)));
-    X := Double(0.4);
-    Err := Max(Err, AbsReal(ChebyshevCalculate(1, 1, X)-Double(0.4)));
-    X := Double(0.6);
-    Err := Max(Err, AbsReal(ChebyshevCalculate(1, 1, X)-Double(0.6)));
-    X := Double(0.8);
-    Err := Max(Err, AbsReal(ChebyshevCalculate(1, 1, X)-Double(0.8)));
-    X := Double(1.0);
-    Err := Max(Err, AbsReal(ChebyshevCalculate(1, 1, X)-Double(1.0)));
-    X := Double(0.2);
-    Err := Max(Err, AbsReal(ChebyshevCalculate(1, 2, X)+Double(0.92)));
-    X := Double(0.4);
-    Err := Max(Err, AbsReal(ChebyshevCalculate(1, 2, X)+Double(0.68)));
-    X := Double(0.6);
-    Err := Max(Err, AbsReal(ChebyshevCalculate(1, 2, X)+Double(0.28)));
-    X := Double(0.8);
-    Err := Max(Err, AbsReal(ChebyshevCalculate(1, 2, X)-Double(0.28)));
-    X := Double(1.0);
-    Err := Max(Err, AbsReal(ChebyshevCalculate(1, 2, X)-Double(1.00)));
+    Err := Max(Err, AbsReal(ChebyshevCalculate(1, 0, 0.00)-1));
+    Err := Max(Err, AbsReal(ChebyshevCalculate(1, 0, 0.33)-1));
+    Err := Max(Err, AbsReal(ChebyshevCalculate(1, 0, -0.42)-1));
+    X := 0.2;
+    Err := Max(Err, AbsReal(ChebyshevCalculate(1, 1, X)-0.2));
+    X := 0.4;
+    Err := Max(Err, AbsReal(ChebyshevCalculate(1, 1, X)-0.4));
+    X := 0.6;
+    Err := Max(Err, AbsReal(ChebyshevCalculate(1, 1, X)-0.6));
+    X := 0.8;
+    Err := Max(Err, AbsReal(ChebyshevCalculate(1, 1, X)-0.8));
+    X := 1.0;
+    Err := Max(Err, AbsReal(ChebyshevCalculate(1, 1, X)-1.0));
+    X := 0.2;
+    Err := Max(Err, AbsReal(ChebyshevCalculate(1, 2, X)+0.92));
+    X := 0.4;
+    Err := Max(Err, AbsReal(ChebyshevCalculate(1, 2, X)+0.68));
+    X := 0.6;
+    Err := Max(Err, AbsReal(ChebyshevCalculate(1, 2, X)+0.28));
+    X := 0.8;
+    Err := Max(Err, AbsReal(ChebyshevCalculate(1, 2, X)-0.28));
+    X := 1.0;
+    Err := Max(Err, AbsReal(ChebyshevCalculate(1, 2, X)-1.00));
     N := 10;
-    Err := Max(Err, AbsReal(ChebyshevCalculate(1, N, Double(0.2))-Double(0.4284556288)));
+    Err := Max(Err, AbsReal(ChebyshevCalculate(1, N, 0.2)-0.4284556288));
     N := 11;
-    Err := Max(Err, AbsReal(ChebyshevCalculate(1, N, Double(0.2))+Double(0.7996160205)));
+    Err := Max(Err, AbsReal(ChebyshevCalculate(1, N, 0.2)+0.7996160205));
     N := 12;
-    Err := Max(Err, AbsReal(ChebyshevCalculate(1, N, Double(0.2))+Double(0.7483020370)));
+    Err := Max(Err, AbsReal(ChebyshevCalculate(1, N, 0.2)+0.7483020370));
     
     //
     // Testing Chebyshev polynomials of the second kind
     //
     N := 0;
-    Err := Max(Err, AbsReal(ChebyshevCalculate(2, N, Double(0.2))-Double(1.0000000000)));
+    Err := Max(Err, AbsReal(ChebyshevCalculate(2, N, 0.2)-1.0000000000));
     N := 1;
-    Err := Max(Err, AbsReal(ChebyshevCalculate(2, N, Double(0.2))-Double(0.4000000000)));
+    Err := Max(Err, AbsReal(ChebyshevCalculate(2, N, 0.2)-0.4000000000));
     N := 2;
-    Err := Max(Err, AbsReal(ChebyshevCalculate(2, N, Double(0.2))+Double(0.8400000000)));
+    Err := Max(Err, AbsReal(ChebyshevCalculate(2, N, 0.2)+0.8400000000));
     N := 3;
-    Err := Max(Err, AbsReal(ChebyshevCalculate(2, N, Double(0.2))+Double(0.7360000000)));
+    Err := Max(Err, AbsReal(ChebyshevCalculate(2, N, 0.2)+0.7360000000));
     N := 4;
-    Err := Max(Err, AbsReal(ChebyshevCalculate(2, N, Double(0.2))-Double(0.5456000000)));
+    Err := Max(Err, AbsReal(ChebyshevCalculate(2, N, 0.2)-0.5456000000));
     N := 10;
-    Err := Max(Err, AbsReal(ChebyshevCalculate(2, N, Double(0.2))-Double(0.6128946176)));
+    Err := Max(Err, AbsReal(ChebyshevCalculate(2, N, 0.2)-0.6128946176));
     N := 11;
-    Err := Max(Err, AbsReal(ChebyshevCalculate(2, N, Double(0.2))+Double(0.6770370970)));
+    Err := Max(Err, AbsReal(ChebyshevCalculate(2, N, 0.2)+0.6770370970));
     N := 12;
-    Err := Max(Err, AbsReal(ChebyshevCalculate(2, N, Double(0.2))+Double(0.8837094564)));
+    Err := Max(Err, AbsReal(ChebyshevCalculate(2, N, 0.2)+0.8837094564));
     
     //
     // Testing Clenshaw summation

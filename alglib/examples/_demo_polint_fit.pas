@@ -1,4 +1,4 @@
-{$MODESWITCH RESULT+}
+
 program _demo;
 Array[0]
 var
@@ -38,7 +38,7 @@ begin
     begin
         X[I] := A+(B-A)*I/(N-1);
         Y[I] := Exp(2*X[I]);
-        W[I] := Double(1.0);
+        W[I] := 1.0;
         Inc(I);
     end;
     
@@ -49,7 +49,7 @@ begin
     // c) without constraints
     //
     PolynomialFit(X, Y, N, M, Info, P, Rep);
-    BarycentricDiff1(P, Double(0.0), V, DV);
+    BarycentricDiff1(P, 0.0, V, DV);
     Write(Format('Unconstrained        %7.4f %7.4f %7.4f %7.4f'#13#10'',[
         Rep.RMSError,
         Rep.MaxError,
@@ -69,7 +69,7 @@ begin
     YC[0] := 1;
     DC[0] := 0;
     PolynomialFitWC(X, Y, W, N, XC, YC, DC, 1, M, Info, P, Rep);
-    BarycentricDiff1(P, Double(0.0), V, DV);
+    BarycentricDiff1(P, 0.0, V, DV);
     Write(Format('Constrained, p(0)=1  %7.4f %7.4f %7.4f %7.4f'#13#10'',[
         Rep.RMSError,
         Rep.MaxError,
@@ -89,7 +89,7 @@ begin
     YC[0] := 2;
     DC[0] := 1;
     PolynomialFitWC(X, Y, W, N, XC, YC, DC, 1, M, Info, P, Rep);
-    BarycentricDiff1(P, Double(0.0), V, DV);
+    BarycentricDiff1(P, 0.0, V, DV);
     Write(Format('Constrained, dp(0)=2 %7.4f %7.4f %7.4f %7.4f'#13#10'',[
         Rep.RMSError,
         Rep.MaxError,
@@ -112,7 +112,7 @@ begin
     YC[1] := 2;
     DC[1] := 1;
     PolynomialFitWC(X, Y, W, N, XC, YC, DC, 2, M, Info, P, Rep);
-    BarycentricDiff1(P, Double(0.0), V, DV);
+    BarycentricDiff1(P, 0.0, V, DV);
     Write(Format('Constrained, both    %7.4f %7.4f %7.4f %7.4f'#13#10'',[
         Rep.RMSError,
         Rep.MaxError,

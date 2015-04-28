@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testsstunit;
 interface
 uses Math, Sysutils, Ap, trlinsolve;
@@ -114,11 +112,11 @@ begin
                                     J:=I;
                                     while J<=N-1 do
                                     begin
-                                        AEffective[I,J] := Double(0.9)*(2*RandomReal-1);
+                                        AEffective[I,J] := 0.9*(2*RandomReal-1);
                                         AParam[I,J] := AEffective[I,J];
                                         Inc(J);
                                     end;
-                                    AEffective[I,I] := (2*RandomInteger(2)-1)*(Double(0.8)+RandomReal);
+                                    AEffective[I,I] := (2*RandomInteger(2)-1)*(0.8+RandomReal);
                                     AParam[I,I] := AEffective[I,I];
                                     Inc(I);
                                 end;
@@ -131,11 +129,11 @@ begin
                                     J:=0;
                                     while J<=I do
                                     begin
-                                        AEffective[I,J] := Double(0.9)*(2*RandomReal-1);
+                                        AEffective[I,J] := 0.9*(2*RandomReal-1);
                                         AParam[I,J] := AEffective[I,J];
                                         Inc(J);
                                     end;
-                                    AEffective[I,I] := (2*RandomInteger(2)-1)*(Double(0.8)+RandomReal);
+                                    AEffective[I,I] := (2*RandomInteger(2)-1)*(0.8+RandomReal);
                                     AParam[I,I] := AEffective[I,I];
                                     Inc(I);
                                 end;

@@ -1,4 +1,4 @@
-{$MODESWITCH RESULT+}
+
 program _demo;
 Array[0]
 var
@@ -21,9 +21,9 @@ begin
     M := 1;
     SetLength(S, 2);
     S[0] := 10;
-    S[1] := RandomReal-Double(0.5);
+    S[1] := RandomReal-0.5;
     MinLBFGSCreate(N, M, S, State);
-    MinLBFGSSetCond(State, Double(0.0), Double(0.0), Double(0.0001), 0);
+    MinLBFGSSetCond(State, 0.0, 0.0, 0.0001, 0);
     MinLBFGSSetXRep(State, True);
     Write(Format(''#13#10''#13#10'F = exp(x-1) + exp(1-x) + (y-x)^2'#13#10'',[]));
     Write(Format('OPTIMIZATION STARTED'#13#10'',[]));

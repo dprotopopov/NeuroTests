@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testgkq;
 interface
 uses Math, Sysutils, Ap, tsort, hblas, reflections, creflections, sblas, ablasf, ablas, ortfac, blas, rotations, hsschur, evd, gammafunc, gq, gkq;
@@ -251,43 +249,43 @@ begin
     Result := 0;
     if K=0 then
     begin
-        Result := -Double(0.9);
+        Result := -0.9;
     end;
     if K=1 then
     begin
-        Result := -Double(0.5);
+        Result := -0.5;
     end;
     if K=2 then
     begin
-        Result := -Double(0.1);
+        Result := -0.1;
     end;
     if K=3 then
     begin
-        Result := Double(0.0);
+        Result := 0.0;
     end;
     if K=4 then
     begin
-        Result := +Double(0.1);
+        Result := +0.1;
     end;
     if K=5 then
     begin
-        Result := +Double(0.5);
+        Result := +0.5;
     end;
     if K=6 then
     begin
-        Result := +Double(0.9);
+        Result := +0.9;
     end;
     if K=7 then
     begin
-        Result := +Double(1.0);
+        Result := +1.0;
     end;
     if K=8 then
     begin
-        Result := +Double(1.5);
+        Result := +1.5;
     end;
     if K=9 then
     begin
-        Result := +Double(2.0);
+        Result := +2.0;
     end;
 end;
 

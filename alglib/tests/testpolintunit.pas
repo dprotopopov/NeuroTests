@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testpolintunit;
 interface
 uses Math, Sysutils, Ap, tsort, ratinterpolation, blas, reflections, creflections, hqrnd, matgen, ablasf, ablas, trfac, trlinsolve, safesolve, rcond, matinv, hblas, sblas, ortfac, rotations, bdsvd, svd, xblas, densesolver, linmin, minlbfgs, minlm, lsfit, ratint, apserv, polint;
@@ -71,7 +69,7 @@ begin
     FitErrors := False;
     MaxN := 5;
     PassCount := 20;
-    Threshold := Double(1.0E8)*MachineEpsilon;
+    Threshold := 1.0E8*MachineEpsilon;
     
     //
     // Test equidistant interpolation
@@ -92,8 +90,8 @@ begin
             repeat
                 A := 2*RandomReal-1;
                 B := 2*RandomReal-1;
-            until AP_FP_Greater(AbsReal(A-B),Double(0.2));
-            T := A+(Double(1.2)*RandomReal-Double(0.1))*(B-A);
+            until AP_FP_Greater(AbsReal(A-B),0.2);
+            T := A+(1.2*RandomReal-0.1)*(B-A);
             TaskGenInt1DEquidist(A, B, N, X, Y);
             
             //
@@ -138,8 +136,8 @@ begin
             repeat
                 A := 2*RandomReal-1;
                 B := 2*RandomReal-1;
-            until AP_FP_Greater(AbsReal(A-B),Double(0.2));
-            T := A+(Double(1.2)*RandomReal-Double(0.1))*(B-A);
+            until AP_FP_Greater(AbsReal(A-B),0.2);
+            T := A+(1.2*RandomReal-0.1)*(B-A);
             TaskGenInt1DCheb1(A, B, N, X, Y);
             
             //
@@ -184,8 +182,8 @@ begin
             repeat
                 A := 2*RandomReal-1;
                 B := 2*RandomReal-1;
-            until AP_FP_Greater(AbsReal(A-B),Double(0.2));
-            T := A+(Double(1.2)*RandomReal-Double(0.1))*(B-A);
+            until AP_FP_Greater(AbsReal(A-B),0.2);
+            T := A+(1.2*RandomReal-0.1)*(B-A);
             TaskGenInt1DCheb2(A, B, N, X, Y);
             
             //
@@ -218,8 +216,8 @@ begin
     N:=1;
     while N<=20 do
     begin
-        A := -Double(0.1)*MaxRealNumber;
-        B := +Double(0.1)*MaxRealNumber;
+        A := -0.1*MaxRealNumber;
+        B := +0.1*MaxRealNumber;
         TaskGenInt1DEquidist(A, B, N, X, Y);
         PolynomialBuild(X, Y, N, P);
         I:=0;
@@ -334,7 +332,7 @@ begin
                         end
                         else
                         begin
-                            BarycentricDiff1(P1, Double(0.0), V0, V1);
+                            BarycentricDiff1(P1, 0.0, V0, V1);
                             FitErrors := FitErrors or AP_FP_Greater(AbsReal(V0-YC[0]),Threshold);
                             if K=2 then
                             begin
@@ -504,7 +502,7 @@ begin
         end
         else
         begin
-            RefAvgRel := Double(0.25)*(AbsReal(V2)/AbsReal(V-V2)+AbsReal(V1)/AbsReal(V-V1)+AbsReal(V1)/AbsReal(V+V1)+AbsReal(V2)/AbsReal(V+V2));
+            RefAvgRel := 0.25*(AbsReal(V2)/AbsReal(V-V2)+AbsReal(V1)/AbsReal(V-V1)+AbsReal(V1)/AbsReal(V+V1)+AbsReal(V2)/AbsReal(V+V2));
         end;
         RefMax := Max(V1, V2);
         

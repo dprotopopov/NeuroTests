@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testhblasunit;
 interface
 uses Math, Sysutils, Ap, hblas;

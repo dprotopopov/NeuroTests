@@ -1,4 +1,4 @@
-{$MODESWITCH RESULT+}
+
 program _demo;
 Array[0]
 var
@@ -27,8 +27,8 @@ begin
     SetLength(X, 2);
     X[0] := 0;
     X[1] := 1;
-    Eps := Double(1.0E-4);
-    H := Double(0.01);
+    Eps := 1.0E-4;
+    H := 0.01;
     ODESolverRKCK(Y, 1, X, 2, Eps, H, State);
     while ODESolverIteration(State) do
     begin

@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Cephes Math Library Release 2.8:  June, 2000
 Copyright by Stephen L. Moshier
@@ -30,7 +28,7 @@ unit psif;
 interface
 uses Math, Sysutils, Ap;
 
-function Psi(X : Double):Double;
+function Psi(X : Extended):Extended;
 
 implementation
 
@@ -73,22 +71,22 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1992, 2000 by Stephen L. Moshier
 *************************************************************************)
-function Psi(X : Double):Double;
+function Psi(X : Extended):Extended;
 var
-    p : Double;
-    q : Double;
-    nz : Double;
-    s : Double;
-    w : Double;
-    y : Double;
-    z : Double;
-    polv : Double;
+    p : Extended;
+    q : Extended;
+    nz : Extended;
+    s : Extended;
+    w : Extended;
+    y : Extended;
+    z : Extended;
+    polv : Extended;
     i : AlglibInteger;
     n : AlglibInteger;
     negative : AlglibInteger;
 begin
     negative := 0;
-    nz := Double(0.0);
+    nz := 0.0;
     if AP_FP_Less_Eq(x,0) then
     begin
         negative := 1;
@@ -101,60 +99,60 @@ begin
             Exit;
         end;
         nz := q-p;
-        if AP_FP_Neq(nz,Double(0.5)) then
+        if AP_FP_Neq(nz,0.5) then
         begin
-            if AP_FP_Greater(nz,Double(0.5)) then
+            if AP_FP_Greater(nz,0.5) then
             begin
-                p := p+Double(1.0);
+                p := p+1.0;
                 nz := q-p;
             end;
             nz := PI/tan(PI*nz);
         end
         else
         begin
-            nz := Double(0.0);
+            nz := 0.0;
         end;
-        x := Double(1.0)-x;
+        x := 1.0-x;
     end;
-    if AP_FP_Less_Eq(x,Double(10.0)) and AP_FP_Eq(x,floor(x)) then
+    if AP_FP_Less_Eq(x,10.0) and AP_FP_Eq(x,floor(x)) then
     begin
-        y := Double(0.0);
+        y := 0.0;
         n := Floor(x);
         i:=1;
         while i<=n-1 do
         begin
             w := i;
-            y := y+Double(1.0)/w;
+            y := y+1.0/w;
             Inc(i);
         end;
-        y := y-Double(0.57721566490153286061);
+        y := y-0.57721566490153286061;
     end
     else
     begin
         s := x;
-        w := Double(0.0);
-        while AP_FP_Less(s,Double(10.0)) do
+        w := 0.0;
+        while AP_FP_Less(s,10.0) do
         begin
-            w := w+Double(1.0)/s;
-            s := s+Double(1.0);
+            w := w+1.0/s;
+            s := s+1.0;
         end;
-        if AP_FP_Less(s,Double(1.0E17)) then
+        if AP_FP_Less(s,1.0E17) then
         begin
-            z := Double(1.0)/(s*s);
-            polv := Double(8.33333333333333333333E-2);
-            polv := polv*z-Double(2.10927960927960927961E-2);
-            polv := polv*z+Double(7.57575757575757575758E-3);
-            polv := polv*z-Double(4.16666666666666666667E-3);
-            polv := polv*z+Double(3.96825396825396825397E-3);
-            polv := polv*z-Double(8.33333333333333333333E-3);
-            polv := polv*z+Double(8.33333333333333333333E-2);
+            z := 1.0/(s*s);
+            polv := 8.33333333333333333333E-2;
+            polv := polv*z-2.10927960927960927961E-2;
+            polv := polv*z+7.57575757575757575758E-3;
+            polv := polv*z-4.16666666666666666667E-3;
+            polv := polv*z+3.96825396825396825397E-3;
+            polv := polv*z-8.33333333333333333333E-3;
+            polv := polv*z+8.33333333333333333333E-2;
             y := z*polv;
         end
         else
         begin
-            y := Double(0.0);
+            y := 0.0;
         end;
-        y := ln(s)-Double(0.5)/s-y-w;
+        y := ln(s)-0.5/s-y-w;
     end;
     if negative<>0 then
     begin

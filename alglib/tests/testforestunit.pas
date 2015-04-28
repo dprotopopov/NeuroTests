@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testforestunit;
 interface
 uses Math, Sysutils, Ap, tsort, descriptivestatistics, bdss, dforest;
@@ -166,7 +164,7 @@ begin
         NTrees := 1+RandomInteger(4);
         NFeatures := 1+RandomInteger(NVars);
         Flags := 0;
-        if AP_FP_Greater(RandomReal,Double(0.5)) then
+        if AP_FP_Greater(RandomReal,0.5) then
         begin
             Flags := Flags+2;
         end;
@@ -556,14 +554,14 @@ begin
         //
         // Test
         //
-        DFBuildInternal(XY, NPoints, 1, 2, NTrees, Round(Double(0.05)*NPoints), 1, 0, Info, DF, Rep);
+        DFBuildInternal(XY, NPoints, 1, 2, NTrees, Round(0.05*NPoints), 1, 0, Info, DF, Rep);
         if Info<=0 then
         begin
             Err := True;
             Exit;
         end;
-        X[0] := Double(0.0);
-        while AP_FP_Less_Eq(X[0],Double(3.0)) do
+        X[0] := 0.0;
+        while AP_FP_Less_Eq(X[0],3.0) do
         begin
             DFProcess(DF, X, Y);
             
@@ -593,17 +591,17 @@ begin
             //
             if AP_FP_Less(X[0],1) then
             begin
-                Err := Err or AP_FP_Less(Y[0],Double(0.8));
+                Err := Err or AP_FP_Less(Y[0],0.8);
             end;
             if AP_FP_Greater_Eq(X[0],1) and AP_FP_Less_Eq(X[0],2) then
             begin
-                Err := Err or AP_FP_Greater(AbsReal(Y[1]-(X[0]-1)),Double(0.5));
+                Err := Err or AP_FP_Greater(AbsReal(Y[1]-(X[0]-1)),0.5);
             end;
             if AP_FP_Greater(X[0],2) then
             begin
-                Err := Err or AP_FP_Less(Y[1],Double(0.8));
+                Err := Err or AP_FP_Less(Y[1],0.8);
             end;
-            X[0] := X[0]+Double(0.01);
+            X[0] := X[0]+0.01;
         end;
         Inc(Pass);
     end;
@@ -659,7 +657,7 @@ begin
         begin
             XY[I,0] := 2*RandomReal-1;
             XY[I,1] := 2*RandomReal-1;
-            if AP_FP_Less_Eq(AP_Sqr(XY[I,0])+AP_Sqr(XY[I,1]),Double(0.25)) then
+            if AP_FP_Less_Eq(AP_Sqr(XY[I,0])+AP_Sqr(XY[I,1]),0.25) then
             begin
                 XY[I,2] := 0;
             end
@@ -673,7 +671,7 @@ begin
         //
         // Test
         //
-        DFBuildInternal(XY, NPoints, 2, 2, NTrees, Round(Double(0.1)*NPoints), 1, 0, Info, DF, Rep);
+        DFBuildInternal(XY, NPoints, 2, 2, NTrees, Round(0.1*NPoints), 1, 0, Info, DF, Rep);
         if Info<=0 then
         begin
             Err := True;
@@ -714,13 +712,13 @@ begin
                 // test for good correlation with results
                 //
                 R := Sqrt(AP_Sqr(X[0])+AP_Sqr(X[1]));
-                if AP_FP_Less(R,Double(0.5)*Double(0.5)) then
+                if AP_FP_Less(R,0.5*0.5) then
                 begin
-                    Err := Err or AP_FP_Less(Y[0],Double(0.6));
+                    Err := Err or AP_FP_Less(Y[0],0.6);
                 end;
-                if AP_FP_Greater(R,Double(0.5)*Double(1.5)) then
+                if AP_FP_Greater(R,0.5*1.5) then
                 begin
-                    Err := Err or AP_FP_Less(Y[1],Double(0.6));
+                    Err := Err or AP_FP_Less(Y[1],0.6);
                 end;
                 Inc(J);
             end;
@@ -775,7 +773,7 @@ begin
         //
         NPoints := 5000;
         NTrees := 100;
-        NS := Round(Double(0.1)*NPoints);
+        NS := Round(0.1*NPoints);
         StrongC := 1;
         
         //
@@ -813,11 +811,11 @@ begin
         AvgErr := 0;
         AvgErr2 := 0;
         Cnt := 0;
-        I:=Round(-Double(0.7)*TestGridSize/2);
-        while I<=Round(Double(0.7)*TestGridSize/2) do
+        I:=Round(-0.7*TestGridSize/2);
+        while I<=Round(0.7*TestGridSize/2) do
         begin
-            J:=Round(-Double(0.7)*TestGridSize/2);
-            while J<=Round(Double(0.7)*TestGridSize/2) do
+            J:=Round(-0.7*TestGridSize/2);
+            while J<=Round(0.7*TestGridSize/2) do
             begin
                 X[0] := AP_Double(I)/(TestGridSize div 2);
                 X[1] := AP_Double(J)/(TestGridSize div 2);
@@ -835,10 +833,10 @@ begin
         end;
         AvgErr := AvgErr/Cnt;
         AvgErr2 := AvgErr2/Cnt;
-        Err := Err or AP_FP_Greater(MaxErr,Double(0.2));
-        Err := Err or AP_FP_Greater(MaxErr2,Double(0.2));
-        Err := Err or AP_FP_Greater(AvgErr,Double(0.1));
-        Err := Err or AP_FP_Greater(AvgErr2,Double(0.1));
+        Err := Err or AP_FP_Greater(MaxErr,0.2);
+        Err := Err or AP_FP_Greater(MaxErr2,0.2);
+        Err := Err or AP_FP_Greater(AvgErr,0.1);
+        Err := Err or AP_FP_Greater(AvgErr2,0.1);
         Inc(Pass);
     end;
 end;

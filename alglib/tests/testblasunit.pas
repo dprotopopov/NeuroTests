@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testblasunit;
 interface
 uses Math, Sysutils, Ap, blas;
@@ -97,7 +95,7 @@ begin
     E1 := 0;
     E2 := 0;
     E3 := 0;
-    Scl2 := Double(0.5)*MaxRealNumber;
+    Scl2 := 0.5*MaxRealNumber;
     Scl3 := 2*MinRealNumber;
     Pass:=1;
     while Pass<=PassCount do
@@ -146,11 +144,11 @@ begin
     // Testing VectorAbsMax, Column/Row AbsMax
     //
     SetLength(X1, 5+1);
-    X1[1] := Double(2.0);
-    X1[2] := Double(0.2);
-    X1[3] := -Double(1.3);
-    X1[4] := Double(0.7);
-    X1[5] := -Double(3.0);
+    X1[1] := 2.0;
+    X1[2] := 0.2;
+    X1[3] := -1.3;
+    X1[4] := 0.7;
+    X1[5] := -3.0;
     AMaxErrors := (VectorIdxAbsMax(X1, 1, 5)<>5) or (VectorIdxAbsMax(X1, 1, 4)<>1) or (VectorIdxAbsMax(X1, 2, 4)<>3);
     N := 30;
     SetLength(X1, N+1);
@@ -227,16 +225,16 @@ begin
     X1[3] := 1;
     X2[1] := -1;
     X2[2] := -1;
-    MatrixVectorMultiply(A, 2, 3, 3, 5, False, X1, 1, 3, Double(1.0), X2, 1, 2, Double(1.0));
-    MatrixVectorMultiply(A, 2, 3, 3, 5, True, X2, 1, 2, Double(1.0), X1, 1, 3, Double(1.0));
+    MatrixVectorMultiply(A, 2, 3, 3, 5, False, X1, 1, 3, 1.0, X2, 1, 2, 1.0);
+    MatrixVectorMultiply(A, 2, 3, 3, 5, True, X2, 1, 2, 1.0, X1, 1, 3, 1.0);
     E1 := AbsReal(X1[1]+5)+AbsReal(X1[2]-8)+AbsReal(X1[3]+1)+AbsReal(X2[1]+2)+AbsReal(X2[2]+2);
     X1[1] := 1;
     X1[2] := 2;
     X1[3] := 1;
     X2[1] := -1;
     X2[2] := -1;
-    MatrixVectorMultiply(A, 2, 3, 3, 5, False, X1, 1, 3, Double(1.0), X2, 1, 2, Double(0.0));
-    MatrixVectorMultiply(A, 2, 3, 3, 5, True, X2, 1, 2, Double(1.0), X1, 1, 3, Double(0.0));
+    MatrixVectorMultiply(A, 2, 3, 3, 5, False, X1, 1, 3, 1.0, X2, 1, 2, 0.0);
+    MatrixVectorMultiply(A, 2, 3, 3, 5, True, X2, 1, 2, 1.0, X1, 1, 3, 0.0);
     E2 := AbsReal(X1[1]+3)+AbsReal(X1[2]-3)+AbsReal(X1[3]+1)+AbsReal(X2[1]+1)+AbsReal(X2[2]+1);
     MVErrors := AP_FP_Greater_Eq(E1+E2,Threshold);
     
@@ -365,7 +363,7 @@ begin
             J:=1;
             while J<=2*N do
             begin
-                C1[I,J] := Double(2.1)*I+Double(3.1)*J;
+                C1[I,J] := 2.1*I+3.1*J;
                 C2[I,J] := C1[I,J];
                 Inc(J);
             end;
@@ -380,8 +378,8 @@ begin
         J2 := 1+RandomInteger(N);
         I3 := 1+RandomInteger(N);
         J3 := 1+RandomInteger(N);
-        Trans1 := AP_FP_Greater(RandomReal,Double(0.5));
-        Trans2 := AP_FP_Greater(RandomReal,Double(0.5));
+        Trans1 := AP_FP_Greater(RandomReal,0.5);
+        Trans2 := AP_FP_Greater(RandomReal,0.5);
         if Trans1 then
         begin
             Col1 := L;

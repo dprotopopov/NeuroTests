@@ -1,4 +1,4 @@
-{$MODESWITCH RESULT+}
+
 program _demo;
 Array[0]
 var
@@ -40,7 +40,7 @@ begin
     begin
         X[I] := A+(B-A)*I/(N-1);
         Y[I] := Exp(2*X[I]);
-        W[I] := Double(1.0);
+        W[I] := 1.0;
         Inc(I);
     end;
     
@@ -51,7 +51,7 @@ begin
     // c) without constraints
     //
     BarycentricFitFloaterHormann(X, Y, N, M, Info, R, Rep);
-    BarycentricDiff1(R, Double(0.0), V, DV);
+    BarycentricDiff1(R, 0.0, V, DV);
     Write(Format('Unconstrained FH        %7.4f %7.4f %7.4f %7.4f      %0d'#13#10'',[
         Rep.RMSError,
         Rep.MaxError,
@@ -72,7 +72,7 @@ begin
     YC[0] := 1;
     DC[0] := 0;
     BarycentricFitFloaterHormannWC(X, Y, W, N, XC, YC, DC, 1, M, Info, R, Rep);
-    BarycentricDiff1(R, Double(0.0), V, DV);
+    BarycentricDiff1(R, 0.0, V, DV);
     Write(Format('Constrained FH, p(0)=1  %7.4f %7.4f %7.4f %7.4f      %0d'#13#10'',[
         Rep.RMSError,
         Rep.MaxError,
@@ -93,7 +93,7 @@ begin
     YC[0] := 2;
     DC[0] := 1;
     BarycentricFitFloaterHormannWC(X, Y, W, N, XC, YC, DC, 1, M, Info, R, Rep);
-    BarycentricDiff1(R, Double(0.0), V, DV);
+    BarycentricDiff1(R, 0.0, V, DV);
     Write(Format('Constrained FH, dp(0)=2 %7.4f %7.4f %7.4f %7.4f      %0d'#13#10'',[
         Rep.RMSError,
         Rep.MaxError,
@@ -117,7 +117,7 @@ begin
     YC[1] := 2;
     DC[1] := 1;
     BarycentricFitFloaterHormannWC(X, Y, W, N, XC, YC, DC, 2, M, Info, R, Rep);
-    BarycentricDiff1(R, Double(0.0), V, DV);
+    BarycentricDiff1(R, 0.0, V, DV);
     Write(Format('Constrained FH, both    %7.4f %7.4f %7.4f %7.4f      %0d'#13#10'',[
         Rep.RMSError,
         Rep.MaxError,

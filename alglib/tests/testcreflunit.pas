@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testcreflunit;
 interface
 uses Math, Sysutils, Ap, creflections;
@@ -279,7 +277,7 @@ begin
     I:=1;
     while I<=10 do
     begin
-        V[I] := C_Complex(MaxRealNumber*Double(0.01)*(2*RandomReal-1));
+        V[I] := C_Complex(MaxRealNumber*0.01*(2*RandomReal-1));
         Inc(I);
     end;
     ComplexGenerateReflection(V, 10, Tau);

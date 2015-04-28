@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testspdgevdunit;
 interface
 uses Math, Sysutils, Ap, reflections, creflections, hqrnd, matgen, ablasf, ablas, trfac, sblas, blas, trlinsolve, safesolve, rcond, matinv, hblas, ortfac, rotations, hsschur, evd, spdgevd;
@@ -104,7 +102,7 @@ begin
                             L[J,I] := L[I,J];
                             Inc(J);
                         end;
-                        L[I,I] := Double(1.5)+RandomReal;
+                        L[I,I] := 1.5+RandomReal;
                         Inc(I);
                     end;
                     I:=0;

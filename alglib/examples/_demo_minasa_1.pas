@@ -1,4 +1,4 @@
-{$MODESWITCH RESULT+}
+
 program _demo;
 Array[0]
 var
@@ -31,7 +31,7 @@ begin
         Inc(I);
     end;
     MinASACreate(N, S, BndL, BndU, State);
-    MinASASetCond(State, Double(0.0), Double(0.0), Double(0.00001), 0);
+    MinASASetCond(State, 0.0, 0.0, 0.00001, 0);
     MinASASetXRep(State, True);
     Write(Format(''#13#10''#13#10'F = x+2y+3z subject to 0<=x<=1, 0<=y<=1, 0<=z<=1'#13#10'',[]));
     Write(Format('OPTIMIZATION STARTED'#13#10'',[]));

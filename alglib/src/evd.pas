@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Copyright (c) 2005-2007, Sergey Bochkanov (ALGLIB project).
 
@@ -33,8 +31,8 @@ function SMatrixEVDR(A : TReal2DArray;
      N : AlglibInteger;
      ZNeeded : AlglibInteger;
      IsUpper : Boolean;
-     B1 : Double;
-     B2 : Double;
+     B1 : Extended;
+     B2 : Extended;
      var M : AlglibInteger;
      var W : TReal1DArray;
      var Z : TReal2DArray):Boolean;
@@ -56,8 +54,8 @@ function HMatrixEVDR(A : TComplex2DArray;
      N : AlglibInteger;
      ZNeeded : AlglibInteger;
      IsUpper : Boolean;
-     B1 : Double;
-     B2 : Double;
+     B1 : Extended;
+     B2 : Extended;
      var M : AlglibInteger;
      var W : TReal1DArray;
      var Z : TComplex2DArray):Boolean;
@@ -78,8 +76,8 @@ function SMatrixTDEVDR(var D : TReal1DArray;
      const E : TReal1DArray;
      N : AlglibInteger;
      ZNeeded : AlglibInteger;
-     A : Double;
-     B : Double;
+     A : Extended;
+     B : Extended;
      var M : AlglibInteger;
      var Z : TReal2DArray):Boolean;
 function SMatrixTDEVDI(var D : TReal1DArray;
@@ -101,11 +99,11 @@ function InternalBisectionEigenValues(D : TReal1DArray;
      N : AlglibInteger;
      IRANGE : AlglibInteger;
      IORDER : AlglibInteger;
-     VL : Double;
-     VU : Double;
+     VL : Extended;
+     VU : Extended;
      IL : AlglibInteger;
      IU : AlglibInteger;
-     ABSTOL : Double;
+     ABSTOL : Extended;
      var W : TReal1DArray;
      var M : AlglibInteger;
      var NSPLIT : AlglibInteger;
@@ -130,26 +128,26 @@ function TridiagonalEVD(var D : TReal1DArray;
      N : AlglibInteger;
      ZNeeded : AlglibInteger;
      var Z : TReal2DArray):Boolean;forward;
-procedure TdEVDE2(const A : Double;
-     const B : Double;
-     const C : Double;
-     var RT1 : Double;
-     var RT2 : Double);forward;
-procedure TdEVDEV2(const A : Double;
-     const B : Double;
-     const C : Double;
-     var RT1 : Double;
-     var RT2 : Double;
-     var CS1 : Double;
-     var SN1 : Double);forward;
-function TdEVDPythag(A : Double; B : Double):Double;forward;
-function TdEVDExtSign(a : Double; b : Double):Double;forward;
+procedure TdEVDE2(const A : Extended;
+     const B : Extended;
+     const C : Extended;
+     var RT1 : Extended;
+     var RT2 : Extended);forward;
+procedure TdEVDEV2(const A : Extended;
+     const B : Extended;
+     const C : Extended;
+     var RT1 : Extended;
+     var RT2 : Extended;
+     var CS1 : Extended;
+     var SN1 : Extended);forward;
+function TdEVDPythag(A : Extended; B : Extended):Extended;forward;
+function TdEVDExtSign(a : Extended; b : Extended):Extended;forward;
 procedure TDINInternalDLAGTF(const N : AlglibInteger;
      var A : TReal1DArray;
-     const LAMBDA : Double;
+     const LAMBDA : Extended;
      var B : TReal1DArray;
      var C : TReal1DArray;
-     const TOL : Double;
+     const TOL : Extended;
      var D : TReal1DArray;
      var IIN : TInteger1DArray;
      var INFO : AlglibInteger);forward;
@@ -160,16 +158,16 @@ procedure TDINInternalDLAGTS(const N : AlglibInteger;
      const D : TReal1DArray;
      const IIN : TInteger1DArray;
      var Y : TReal1DArray;
-     var TOL : Double;
+     var TOL : Extended;
      var INFO : AlglibInteger);forward;
 procedure InternalDLAEBZ(const IJOB : AlglibInteger;
      const NITMAX : AlglibInteger;
      const N : AlglibInteger;
      const MMAX : AlglibInteger;
      const MINP : AlglibInteger;
-     const ABSTOL : Double;
-     const RELTOL : Double;
-     const PIVMIN : Double;
+     const ABSTOL : Extended;
+     const RELTOL : Extended;
+     const PIVMIN : Extended;
      const D : TReal1DArray;
      const E : TReal1DArray;
      const E2 : TReal1DArray;
@@ -193,29 +191,29 @@ procedure InternalTREVC(const T : TReal2DArray;
 procedure InternalHSEVDLALN2(const LTRANS : Boolean;
      const NA : AlglibInteger;
      const NW : AlglibInteger;
-     const SMIN : Double;
-     const CA : Double;
+     const SMIN : Extended;
+     const CA : Extended;
      const A : TReal2DArray;
-     const D1 : Double;
-     const D2 : Double;
+     const D1 : Extended;
+     const D2 : Extended;
      const B : TReal2DArray;
-     const WR : Double;
-     const WI : Double;
+     const WR : Extended;
+     const WI : Extended;
      var RSWAP4 : TBoolean1DArray;
      var ZSWAP4 : TBoolean1DArray;
      var IPIVOT44 : TInteger2DArray;
      var CIV4 : TReal1DArray;
      var CRV4 : TReal1DArray;
      var X : TReal2DArray;
-     var SCL : Double;
-     var XNORM : Double;
+     var SCL : Extended;
+     var XNORM : Extended;
      var INFO : AlglibInteger);forward;
-procedure InternalHSEVDLADIV(const A : Double;
-     const B : Double;
-     const C : Double;
-     const D : Double;
-     var P : Double;
-     var Q : Double);forward;
+procedure InternalHSEVDLADIV(const A : Extended;
+     const B : Extended;
+     const C : Extended;
+     const D : Extended;
+     var P : Extended;
+     var Q : Extended);forward;
 function NonSymmetricEVD(A : TReal2DArray;
      N : AlglibInteger;
      VNeeded : AlglibInteger;
@@ -334,8 +332,8 @@ function SMatrixEVDR(A : TReal2DArray;
      N : AlglibInteger;
      ZNeeded : AlglibInteger;
      IsUpper : Boolean;
-     B1 : Double;
-     B2 : Double;
+     B1 : Extended;
+     B2 : Extended;
      var M : AlglibInteger;
      var W : TReal1DArray;
      var Z : TReal2DArray):Boolean;
@@ -465,7 +463,7 @@ var
     Q : TComplex2DArray;
     I : AlglibInteger;
     K : AlglibInteger;
-    V : Double;
+    V : Extended;
 begin
     A := DynamicArrayCopy(A);
     Assert((ZNeeded=0) or (ZNeeded=1), 'HermitianEVD: incorrect ZNeeded');
@@ -597,8 +595,8 @@ function HMatrixEVDR(A : TComplex2DArray;
      N : AlglibInteger;
      ZNeeded : AlglibInteger;
      IsUpper : Boolean;
-     B1 : Double;
-     B2 : Double;
+     B1 : Extended;
+     B2 : Extended;
      var M : AlglibInteger;
      var W : TReal1DArray;
      var Z : TComplex2DArray):Boolean;
@@ -610,7 +608,7 @@ var
     WORK : TReal1DArray;
     I : AlglibInteger;
     K : AlglibInteger;
-    V : Double;
+    V : Extended;
 begin
     A := DynamicArrayCopy(A);
     Assert((ZNeeded=0) or (ZNeeded=1), 'HermitianEigenValuesAndVectorsInInterval: incorrect ZNeeded');
@@ -752,7 +750,7 @@ var
     WORK : TReal1DArray;
     I : AlglibInteger;
     K : AlglibInteger;
-    V : Double;
+    V : Extended;
     M : AlglibInteger;
 begin
     A := DynamicArrayCopy(A);
@@ -1024,8 +1022,8 @@ function SMatrixTDEVDR(var D : TReal1DArray;
      const E : TReal1DArray;
      N : AlglibInteger;
      ZNeeded : AlglibInteger;
-     A : Double;
-     B : Double;
+     A : Extended;
+     B : Extended;
      var M : AlglibInteger;
      var Z : TReal2DArray):Boolean;
 var
@@ -1043,7 +1041,7 @@ var
     W : TReal1DArray;
     Z2 : TReal2DArray;
     Z3 : TReal2DArray;
-    V : Double;
+    V : Extended;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin
@@ -1351,7 +1349,7 @@ var
     E1 : TReal1DArray;
     Z2 : TReal2DArray;
     Z3 : TReal2DArray;
-    V : Double;
+    V : Extended;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin
@@ -1713,11 +1711,11 @@ function InternalBisectionEigenValues(D : TReal1DArray;
      N : AlglibInteger;
      IRANGE : AlglibInteger;
      IORDER : AlglibInteger;
-     VL : Double;
-     VU : Double;
+     VL : Extended;
+     VU : Extended;
      IL : AlglibInteger;
      IU : AlglibInteger;
-     ABSTOL : Double;
+     ABSTOL : Extended;
      var W : TReal1DArray;
      var M : AlglibInteger;
      var NSPLIT : AlglibInteger;
@@ -1725,8 +1723,8 @@ function InternalBisectionEigenValues(D : TReal1DArray;
      var ISPLIT : TInteger1DArray;
      var ErrorCode : AlglibInteger):Boolean;
 var
-    FUDGE : Double;
-    RELFAC : Double;
+    FUDGE : Extended;
+    RELFAC : Extended;
     NCNVRG : Boolean;
     TOOFEW : Boolean;
     IB : AlglibInteger;
@@ -1750,24 +1748,24 @@ var
     JE : AlglibInteger;
     NWL : AlglibInteger;
     NWU : AlglibInteger;
-    ATOLI : Double;
-    BNORM : Double;
-    GL : Double;
-    GU : Double;
-    PIVMIN : Double;
-    RTOLI : Double;
-    SAFEMN : Double;
-    TMP1 : Double;
-    TMP2 : Double;
-    TNORM : Double;
-    ULP : Double;
-    WKILL : Double;
-    WL : Double;
-    WLU : Double;
-    WU : Double;
-    WUL : Double;
-    ScaleFactor : Double;
-    T : Double;
+    ATOLI : Extended;
+    BNORM : Extended;
+    GL : Extended;
+    GU : Extended;
+    PIVMIN : Extended;
+    RTOLI : Extended;
+    SAFEMN : Extended;
+    TMP1 : Extended;
+    TMP2 : Extended;
+    TNORM : Extended;
+    ULP : Extended;
+    WKILL : Extended;
+    WL : Extended;
+    WLU : Extended;
+    WU : Extended;
+    WUL : Extended;
+    ScaleFactor : Extended;
+    T : Extended;
     IDUMMA : TInteger1DArray;
     WORK : TReal1DArray;
     IWORK : TInteger1DArray;
@@ -2295,7 +2293,7 @@ begin
             J:=1;
             while J<=IOUT do
             begin
-                TMP1 := Double(0.5)*(WORK[J+N]+WORK[J+IIN+N]);
+                TMP1 := 0.5*(WORK[J+N]+WORK[J+IIN+N]);
                 
                 //
                 // Flag non-convergence.
@@ -2512,19 +2510,19 @@ var
     JMAX : AlglibInteger;
     NBLK : AlglibInteger;
     NRMCHK : AlglibInteger;
-    DTPCRT : Double;
-    EPS : Double;
-    EPS1 : Double;
-    NRM : Double;
-    ONENRM : Double;
-    ORTOL : Double;
-    PERTOL : Double;
-    SCL : Double;
-    SEP : Double;
-    TOL : Double;
-    XJ : Double;
-    XJM : Double;
-    ZTR : Double;
+    DTPCRT : Extended;
+    EPS : Extended;
+    EPS1 : Extended;
+    NRM : Extended;
+    ONENRM : Extended;
+    ORTOL : Extended;
+    PERTOL : Extended;
+    SCL : Extended;
+    SEP : Extended;
+    TOL : Extended;
+    XJ : Extended;
+    XJM : Extended;
+    ZTR : Extended;
     WORK1 : TReal1DArray;
     WORK2 : TReal1DArray;
     WORK3 : TReal1DArray;
@@ -2535,7 +2533,7 @@ var
     TI : AlglibInteger;
     I1 : AlglibInteger;
     I2 : AlglibInteger;
-    V : Double;
+    V : Extended;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin
@@ -2657,8 +2655,8 @@ begin
                 ONENRM := Max(ONENRM, ABSReal(D[I])+ABSReal(E[I-1])+ABSReal(E[I]));
                 Inc(I);
             end;
-            ORTOL := Double(0.001)*ONENRM;
-            DTPCRT := SQRT(Double(0.1)/BLKSIZ);
+            ORTOL := 0.001*ONENRM;
+            DTPCRT := SQRT(0.1/BLKSIZ);
         end;
         
         //
@@ -2889,24 +2887,24 @@ var
     NM1 : AlglibInteger;
     NMAXIT : AlglibInteger;
     TmpInt : AlglibInteger;
-    ANORM : Double;
-    B : Double;
-    C : Double;
-    EPS : Double;
-    EPS2 : Double;
-    F : Double;
-    G : Double;
-    P : Double;
-    R : Double;
-    RT1 : Double;
-    RT2 : Double;
-    S : Double;
-    SAFMAX : Double;
-    SAFMIN : Double;
-    SSFMAX : Double;
-    SSFMIN : Double;
-    TST : Double;
-    Tmp : Double;
+    ANORM : Extended;
+    B : Extended;
+    C : Extended;
+    EPS : Extended;
+    EPS2 : Extended;
+    F : Extended;
+    G : Extended;
+    P : Extended;
+    R : Extended;
+    RT1 : Extended;
+    RT2 : Extended;
+    S : Extended;
+    SAFMAX : Extended;
+    SAFMIN : Extended;
+    SSFMAX : Extended;
+    SSFMIN : Extended;
+    TST : Extended;
+    Tmp : Extended;
     WORK1 : TReal1DArray;
     WORK2 : TReal1DArray;
     WORKC : TReal1DArray;
@@ -3650,20 +3648,20 @@ is the eigenvalue of smaller absolute value.
      Courant Institute, Argonne National Lab, and Rice University
      October 31, 1992
 *************************************************************************)
-procedure TdEVDE2(const A : Double;
-     const B : Double;
-     const C : Double;
-     var RT1 : Double;
-     var RT2 : Double);
+procedure TdEVDE2(const A : Extended;
+     const B : Extended;
+     const C : Extended;
+     var RT1 : Extended;
+     var RT2 : Extended);
 var
-    AB : Double;
-    ACMN : Double;
-    ACMX : Double;
-    ADF : Double;
-    DF : Double;
-    RT : Double;
-    SM : Double;
-    TB : Double;
+    AB : Extended;
+    ACMN : Extended;
+    ACMX : Extended;
+    ADF : Extended;
+    DF : Extended;
+    RT : Extended;
+    SM : Extended;
+    TB : Extended;
 begin
     SM := A+C;
     DF := A-C;
@@ -3701,7 +3699,7 @@ begin
     end;
     if AP_FP_Less(SM,0) then
     begin
-        RT1 := Double(0.5)*(SM-RT);
+        RT1 := 0.5*(SM-RT);
         
         //
         // Order of execution important.
@@ -3714,7 +3712,7 @@ begin
     begin
         if AP_FP_Greater(SM,0) then
         begin
-            RT1 := Double(0.5)*(SM+RT);
+            RT1 := 0.5*(SM+RT);
             
             //
             // Order of execution important.
@@ -3729,8 +3727,8 @@ begin
             //
             // Includes case RT1 = RT2 = 0
             //
-            RT1 := Double(0.5)*RT;
-            RT2 := -Double(0.5)*RT;
+            RT1 := 0.5*RT;
+            RT2 := -0.5*RT;
         end;
     end;
 end;
@@ -3755,28 +3753,28 @@ eigenvector for RT1, giving the decomposition
      Courant Institute, Argonne National Lab, and Rice University
      October 31, 1992
 *************************************************************************)
-procedure TdEVDEV2(const A : Double;
-     const B : Double;
-     const C : Double;
-     var RT1 : Double;
-     var RT2 : Double;
-     var CS1 : Double;
-     var SN1 : Double);
+procedure TdEVDEV2(const A : Extended;
+     const B : Extended;
+     const C : Extended;
+     var RT1 : Extended;
+     var RT2 : Extended;
+     var CS1 : Extended;
+     var SN1 : Extended);
 var
     SGN1 : AlglibInteger;
     SGN2 : AlglibInteger;
-    AB : Double;
-    ACMN : Double;
-    ACMX : Double;
-    ACS : Double;
-    ADF : Double;
-    CS : Double;
-    CT : Double;
-    DF : Double;
-    RT : Double;
-    SM : Double;
-    TB : Double;
-    TN : Double;
+    AB : Extended;
+    ACMN : Extended;
+    ACMX : Extended;
+    ACS : Extended;
+    ADF : Extended;
+    CS : Extended;
+    CT : Extended;
+    DF : Extended;
+    RT : Extended;
+    SM : Extended;
+    TB : Extended;
+    TN : Extended;
 begin
     
     //
@@ -3818,7 +3816,7 @@ begin
     end;
     if AP_FP_Less(SM,0) then
     begin
-        RT1 := Double(0.5)*(SM-RT);
+        RT1 := 0.5*(SM-RT);
         SGN1 := -1;
         
         //
@@ -3832,7 +3830,7 @@ begin
     begin
         if AP_FP_Greater(SM,0) then
         begin
-            RT1 := Double(0.5)*(SM+RT);
+            RT1 := 0.5*(SM+RT);
             SGN1 := 1;
             
             //
@@ -3848,8 +3846,8 @@ begin
             //
             // Includes case RT1 = RT2 = 0
             //
-            RT1 := Double(0.5)*RT;
-            RT2 := -Double(0.5)*RT;
+            RT1 := 0.5*RT;
+            RT2 := -0.5*RT;
             SGN1 := 1;
         end;
     end;
@@ -3900,7 +3898,7 @@ end;
 (*************************************************************************
 Internal routine
 *************************************************************************)
-function TdEVDPythag(A : Double; B : Double):Double;
+function TdEVDPythag(A : Extended; B : Extended):Extended;
 begin
     if AP_FP_Less(AbsReal(A),AbsReal(B)) then
     begin
@@ -3916,7 +3914,7 @@ end;
 (*************************************************************************
 Internal routine
 *************************************************************************)
-function TdEVDExtSign(a : Double; b : Double):Double;
+function TdEVDExtSign(a : Extended; b : Extended):Extended;
 begin
     if AP_FP_Greater_Eq(b,0) then
     begin
@@ -3931,23 +3929,23 @@ end;
 
 procedure TDINInternalDLAGTF(const N : AlglibInteger;
      var A : TReal1DArray;
-     const LAMBDA : Double;
+     const LAMBDA : Extended;
      var B : TReal1DArray;
      var C : TReal1DArray;
-     const TOL : Double;
+     const TOL : Extended;
      var D : TReal1DArray;
      var IIN : TInteger1DArray;
      var INFO : AlglibInteger);
 var
     K : AlglibInteger;
-    EPS : Double;
-    MULT : Double;
-    PIV1 : Double;
-    PIV2 : Double;
-    SCALE1 : Double;
-    SCALE2 : Double;
-    TEMP : Double;
-    TL : Double;
+    EPS : Extended;
+    MULT : Extended;
+    PIV1 : Extended;
+    PIV2 : Extended;
+    SCALE1 : Extended;
+    SCALE2 : Extended;
+    TEMP : Extended;
+    TL : Extended;
 begin
     INFO := 0;
     if N<0 then
@@ -4049,17 +4047,17 @@ procedure TDINInternalDLAGTS(const N : AlglibInteger;
      const D : TReal1DArray;
      const IIN : TInteger1DArray;
      var Y : TReal1DArray;
-     var TOL : Double;
+     var TOL : Extended;
      var INFO : AlglibInteger);
 var
     K : AlglibInteger;
-    ABSAK : Double;
-    AK : Double;
-    BIGNUM : Double;
-    EPS : Double;
-    PERT : Double;
-    SFMIN : Double;
-    TEMP : Double;
+    ABSAK : Extended;
+    AK : Extended;
+    BIGNUM : Extended;
+    EPS : Extended;
+    PERT : Extended;
+    SFMIN : Extended;
+    TEMP : Extended;
 begin
     INFO := 0;
     if N<0 then
@@ -4174,9 +4172,9 @@ procedure InternalDLAEBZ(const IJOB : AlglibInteger;
      const N : AlglibInteger;
      const MMAX : AlglibInteger;
      const MINP : AlglibInteger;
-     const ABSTOL : Double;
-     const RELTOL : Double;
-     const PIVMIN : Double;
+     const ABSTOL : Extended;
+     const RELTOL : Extended;
+     const PIVMIN : Extended;
      const D : TReal1DArray;
      const E : TReal1DArray;
      const E2 : TReal1DArray;
@@ -4199,8 +4197,8 @@ var
     KFNEW : AlglibInteger;
     KL : AlglibInteger;
     KLNEW : AlglibInteger;
-    TMP1 : Double;
-    TMP2 : Double;
+    TMP1 : Extended;
+    TMP2 : Extended;
 begin
     INFO := 0;
     if (IJOB<1) or (IJOB>3) then
@@ -4280,7 +4278,7 @@ begin
         JI:=1;
         while JI<=MINP do
         begin
-            C[JI] := Double(0.5)*(AB[JI,1]+AB[JI,2]);
+            C[JI] := 0.5*(AB[JI,1]+AB[JI,2]);
             Inc(JI);
         end;
     end;
@@ -4471,7 +4469,7 @@ begin
         JI:=KF;
         while JI<=KL do
         begin
-            C[JI] := Double(0.5)*(AB[JI,1]+AB[JI,2]);
+            C[JI] := 0.5*(AB[JI,1]+AB[JI,2]);
             Inc(JI);
         end;
         
@@ -4530,22 +4528,22 @@ var
     K : AlglibInteger;
     KI : AlglibInteger;
     N2 : AlglibInteger;
-    BETA : Double;
-    BIGNUM : Double;
-    EMAX : Double;
-    OVFL : Double;
-    REC : Double;
-    REMAX : Double;
-    SCL : Double;
-    SMIN : Double;
-    SMLNUM : Double;
-    ULP : Double;
-    UNFL : Double;
-    VCRIT : Double;
-    VMAX : Double;
-    WI : Double;
-    WR : Double;
-    XNORM : Double;
+    BETA : Extended;
+    BIGNUM : Extended;
+    EMAX : Extended;
+    OVFL : Extended;
+    REC : Extended;
+    REMAX : Extended;
+    SCL : Extended;
+    SMIN : Extended;
+    SMLNUM : Extended;
+    ULP : Extended;
+    UNFL : Extended;
+    VCRIT : Extended;
+    VMAX : Extended;
+    WI : Extended;
+    WR : Extended;
+    XNORM : Extended;
     X : TReal2DArray;
     WORK : TReal1DArray;
     TEMP : TReal1DArray;
@@ -4560,7 +4558,7 @@ var
     K2 : AlglibInteger;
     K3 : AlglibInteger;
     K4 : AlglibInteger;
-    VT : Double;
+    VT : Extended;
     RSWAP4 : TBoolean1DArray;
     ZSWAP4 : TBoolean1DArray;
     IPIVOT44 : TInteger2DArray;
@@ -4824,7 +4822,7 @@ begin
                             //
                             TEMP11[1,1] := T[J,J];
                             TEMP11B[1,1] := WORK[J+N];
-                            InternalHSEVDLALN2(False, 1, 1, SMIN, 1, TEMP11, Double(1.0), Double(1.0), TEMP11B, WR, Double(0.0), RSWAP4, ZSWAP4, IPIVOT44, CIV4, CRV4, X, SCL, XNORM, IERR);
+                            InternalHSEVDLALN2(False, 1, 1, SMIN, 1, TEMP11, 1.0, 1.0, TEMP11B, WR, 0.0, RSWAP4, ZSWAP4, IPIVOT44, CIV4, CRV4, X, SCL, XNORM, IERR);
                             
                             //
                             // Scale X(1,1) to avoid overflow when updating
@@ -4875,7 +4873,7 @@ begin
                             TEMP22[2,2] := T[J,J];
                             TEMP21B[1,1] := WORK[J-1+N];
                             TEMP21B[2,1] := WORK[J+N];
-                            InternalHSEVDLALN2(False, 2, 1, SMIN, Double(1.0), TEMP22, Double(1.0), Double(1.0), TEMP21B, WR, 0, RSWAP4, ZSWAP4, IPIVOT44, CIV4, CRV4, X, SCL, XNORM, IERR);
+                            InternalHSEVDLALN2(False, 2, 1, SMIN, 1.0, TEMP22, 1.0, 1.0, TEMP21B, WR, 0, RSWAP4, ZSWAP4, IPIVOT44, CIV4, CRV4, X, SCL, XNORM, IERR);
                             
                             //
                             // Scale X(1,1) and X(2,1) to avoid overflow when
@@ -4960,7 +4958,7 @@ begin
                             begin
                                 TEMP[i_] := VR[i_,KI];
                             end;
-                            MatrixVectorMultiply(VR, 1, N, 1, KI-1, False, WORK, 1+N, KI-1+N, Double(1.0), TEMP, 1, N, WORK[KI+N]);
+                            MatrixVectorMultiply(VR, 1, N, 1, KI-1, False, WORK, 1+N, KI-1+N, 1.0, TEMP, 1, N, WORK[KI+N]);
                             for i_ := 1 to N do
                             begin
                                 VR[i_,KI] := TEMP[i_];
@@ -5041,7 +5039,7 @@ begin
                             TEMP11[1,1] := T[J,J];
                             TEMP12B[1,1] := WORK[J+N];
                             TEMP12B[1,2] := WORK[J+N+N];
-                            InternalHSEVDLALN2(False, 1, 2, SMIN, Double(1.0), TEMP11, Double(1.0), Double(1.0), TEMP12B, WR, WI, RSWAP4, ZSWAP4, IPIVOT44, CIV4, CRV4, X, SCL, XNORM, IERR);
+                            InternalHSEVDLALN2(False, 1, 2, SMIN, 1.0, TEMP11, 1.0, 1.0, TEMP12B, WR, WI, RSWAP4, ZSWAP4, IPIVOT44, CIV4, CRV4, X, SCL, XNORM, IERR);
                             
                             //
                             // Scale X(1,1) and X(1,2) to avoid overflow when
@@ -5110,7 +5108,7 @@ begin
                             TEMP22B[1,2] := WORK[J-1+N+N];
                             TEMP22B[2,1] := WORK[J+N];
                             TEMP22B[2,2] := WORK[J+N+N];
-                            InternalHSEVDLALN2(False, 2, 2, SMIN, Double(1.0), TEMP22, Double(1.0), Double(1.0), TEMP22B, WR, WI, RSWAP4, ZSWAP4, IPIVOT44, CIV4, CRV4, X, SCL, XNORM, IERR);
+                            InternalHSEVDLALN2(False, 2, 2, SMIN, 1.0, TEMP22, 1.0, 1.0, TEMP22B, WR, WI, RSWAP4, ZSWAP4, IPIVOT44, CIV4, CRV4, X, SCL, XNORM, IERR);
                             
                             //
                             // Scale X to avoid overflow when updating
@@ -5221,7 +5219,7 @@ begin
                             begin
                                 TEMP[i_] := VR[i_,KI-1];
                             end;
-                            MatrixVectorMultiply(VR, 1, N, 1, KI-2, False, WORK, 1+N, KI-2+N, Double(1.0), TEMP, 1, N, WORK[KI-1+N]);
+                            MatrixVectorMultiply(VR, 1, N, 1, KI-2, False, WORK, 1+N, KI-2+N, 1.0, TEMP, 1, N, WORK[KI-1+N]);
                             for i_ := 1 to N do
                             begin
                                 VR[i_,KI-1] := TEMP[i_];
@@ -5230,7 +5228,7 @@ begin
                             begin
                                 TEMP[i_] := VR[i_,KI];
                             end;
-                            MatrixVectorMultiply(VR, 1, N, 1, KI-2, False, WORK, 1+N2, KI-2+N2, Double(1.0), TEMP, 1, N, WORK[KI+N2]);
+                            MatrixVectorMultiply(VR, 1, N, 1, KI-2, False, WORK, 1+N2, KI-2+N2, 1.0, TEMP, 1, N, WORK[KI+N2]);
                             for i_ := 1 to N do
                             begin
                                 VR[i_,KI] := TEMP[i_];
@@ -5403,7 +5401,7 @@ begin
                             //
                             TEMP11[1,1] := T[J,J];
                             TEMP11B[1,1] := WORK[J+N];
-                            InternalHSEVDLALN2(False, 1, 1, SMIN, Double(1.0), TEMP11, Double(1.0), Double(1.0), TEMP11B, WR, 0, RSWAP4, ZSWAP4, IPIVOT44, CIV4, CRV4, X, SCL, XNORM, IERR);
+                            InternalHSEVDLALN2(False, 1, 1, SMIN, 1.0, TEMP11, 1.0, 1.0, TEMP11B, WR, 0, RSWAP4, ZSWAP4, IPIVOT44, CIV4, CRV4, X, SCL, XNORM, IERR);
                             
                             //
                             // Scale if necessary
@@ -5459,7 +5457,7 @@ begin
                             TEMP22[2,2] := T[J+1,J+1];
                             TEMP21B[1,1] := WORK[J+N];
                             TEMP21B[2,1] := WORK[J+1+N];
-                            InternalHSEVDLALN2(True, 2, 1, SMIN, Double(1.0), TEMP22, Double(1.0), Double(1.0), TEMP21B, WR, 0, RSWAP4, ZSWAP4, IPIVOT44, CIV4, CRV4, X, SCL, XNORM, IERR);
+                            InternalHSEVDLALN2(True, 2, 1, SMIN, 1.0, TEMP22, 1.0, 1.0, TEMP21B, WR, 0, RSWAP4, ZSWAP4, IPIVOT44, CIV4, CRV4, X, SCL, XNORM, IERR);
                             
                             //
                             // Scale if necessary
@@ -5507,7 +5505,7 @@ begin
                             begin
                                 TEMP[i_] := VL[i_,KI];
                             end;
-                            MatrixVectorMultiply(VL, 1, N, KI+1, N, False, WORK, KI+1+N, N+N, Double(1.0), TEMP, 1, N, WORK[KI+N]);
+                            MatrixVectorMultiply(VL, 1, N, KI+1, N, False, WORK, KI+1+N, N+N, 1.0, TEMP, 1, N, WORK[KI+N]);
                             for i_ := 1 to N do
                             begin
                                 VL[i_,KI] := TEMP[i_];
@@ -5619,7 +5617,7 @@ begin
                             TEMP11[1,1] := T[J,J];
                             TEMP12B[1,1] := WORK[J+N];
                             TEMP12B[1,2] := WORK[J+N+N];
-                            InternalHSEVDLALN2(False, 1, 2, SMIN, Double(1.0), TEMP11, Double(1.0), Double(1.0), TEMP12B, WR, -WI, RSWAP4, ZSWAP4, IPIVOT44, CIV4, CRV4, X, SCL, XNORM, IERR);
+                            InternalHSEVDLALN2(False, 1, 2, SMIN, 1.0, TEMP11, 1.0, 1.0, TEMP12B, WR, -WI, RSWAP4, ZSWAP4, IPIVOT44, CIV4, CRV4, X, SCL, XNORM, IERR);
                             
                             //
                             // Scale if necessary
@@ -5694,7 +5692,7 @@ begin
                             TEMP22B[1,2] := WORK[J+N+N];
                             TEMP22B[2,1] := WORK[J+1+N];
                             TEMP22B[2,2] := WORK[J+1+N+N];
-                            InternalHSEVDLALN2(True, 2, 2, SMIN, Double(1.0), TEMP22, Double(1.0), Double(1.0), TEMP22B, WR, -WI, RSWAP4, ZSWAP4, IPIVOT44, CIV4, CRV4, X, SCL, XNORM, IERR);
+                            InternalHSEVDLALN2(True, 2, 2, SMIN, 1.0, TEMP22, 1.0, 1.0, TEMP22B, WR, -WI, RSWAP4, ZSWAP4, IPIVOT44, CIV4, CRV4, X, SCL, XNORM, IERR);
                             
                             //
                             // Scale if necessary
@@ -5764,7 +5762,7 @@ begin
                             begin
                                 TEMP[i_] := VL[i_,KI];
                             end;
-                            MatrixVectorMultiply(VL, 1, N, KI+2, N, False, WORK, KI+2+N, N+N, Double(1.0), TEMP, 1, N, WORK[KI+N]);
+                            MatrixVectorMultiply(VL, 1, N, KI+2, N, False, WORK, KI+2+N, N+N, 1.0, TEMP, 1, N, WORK[KI+N]);
                             for i_ := 1 to N do
                             begin
                                 VL[i_,KI] := TEMP[i_];
@@ -5773,7 +5771,7 @@ begin
                             begin
                                 TEMP[i_] := VL[i_,KI+1];
                             end;
-                            MatrixVectorMultiply(VL, 1, N, KI+2, N, False, WORK, KI+2+N2, N+N2, Double(1.0), TEMP, 1, N, WORK[KI+1+N2]);
+                            MatrixVectorMultiply(VL, 1, N, KI+2, N, False, WORK, KI+2+N2, N+N2, 1.0, TEMP, 1, N, WORK[KI+1+N2]);
                             for i_ := 1 to N do
                             begin
                                 VL[i_,KI+1] := TEMP[i_];
@@ -5870,63 +5868,63 @@ by a reasonable factor.  (See BIGNUM.)
 procedure InternalHSEVDLALN2(const LTRANS : Boolean;
      const NA : AlglibInteger;
      const NW : AlglibInteger;
-     const SMIN : Double;
-     const CA : Double;
+     const SMIN : Extended;
+     const CA : Extended;
      const A : TReal2DArray;
-     const D1 : Double;
-     const D2 : Double;
+     const D1 : Extended;
+     const D2 : Extended;
      const B : TReal2DArray;
-     const WR : Double;
-     const WI : Double;
+     const WR : Extended;
+     const WI : Extended;
      var RSWAP4 : TBoolean1DArray;
      var ZSWAP4 : TBoolean1DArray;
      var IPIVOT44 : TInteger2DArray;
      var CIV4 : TReal1DArray;
      var CRV4 : TReal1DArray;
      var X : TReal2DArray;
-     var SCL : Double;
-     var XNORM : Double;
+     var SCL : Extended;
+     var XNORM : Extended;
      var INFO : AlglibInteger);
 var
     ICMAX : AlglibInteger;
     J : AlglibInteger;
-    BBND : Double;
-    BI1 : Double;
-    BI2 : Double;
-    BIGNUM : Double;
-    BNORM : Double;
-    BR1 : Double;
-    BR2 : Double;
-    CI21 : Double;
-    CI22 : Double;
-    CMAX : Double;
-    CNORM : Double;
-    CR21 : Double;
-    CR22 : Double;
-    CSI : Double;
-    CSR : Double;
-    LI21 : Double;
-    LR21 : Double;
-    SMINI : Double;
-    SMLNUM : Double;
-    TEMP : Double;
-    U22ABS : Double;
-    UI11 : Double;
-    UI11R : Double;
-    UI12 : Double;
-    UI12S : Double;
-    UI22 : Double;
-    UR11 : Double;
-    UR11R : Double;
-    UR12 : Double;
-    UR12S : Double;
-    UR22 : Double;
-    XI1 : Double;
-    XI2 : Double;
-    XR1 : Double;
-    XR2 : Double;
-    TMP1 : Double;
-    TMP2 : Double;
+    BBND : Extended;
+    BI1 : Extended;
+    BI2 : Extended;
+    BIGNUM : Extended;
+    BNORM : Extended;
+    BR1 : Extended;
+    BR2 : Extended;
+    CI21 : Extended;
+    CI22 : Extended;
+    CMAX : Extended;
+    CNORM : Extended;
+    CR21 : Extended;
+    CR22 : Extended;
+    CSI : Extended;
+    CSR : Extended;
+    LI21 : Extended;
+    LR21 : Extended;
+    SMINI : Extended;
+    SMLNUM : Extended;
+    TEMP : Extended;
+    U22ABS : Extended;
+    UI11 : Extended;
+    UI11R : Extended;
+    UI12 : Extended;
+    UI12S : Extended;
+    UI22 : Extended;
+    UR11 : Extended;
+    UR11R : Extended;
+    UR12 : Extended;
+    UR12S : Extended;
+    UR22 : Extended;
+    XI1 : Extended;
+    XI2 : Extended;
+    XR1 : Extended;
+    XR2 : Extended;
+    TMP1 : Extended;
+    TMP2 : Extended;
 begin
     ZSWAP4[1] := False;
     ZSWAP4[2] := False;
@@ -6376,15 +6374,15 @@ in D. Knuth, The art of Computer Programming, Vol.2, p.195
      Courant Institute, Argonne National Lab, and Rice University
      October 31, 1992
 *************************************************************************)
-procedure InternalHSEVDLADIV(const A : Double;
-     const B : Double;
-     const C : Double;
-     const D : Double;
-     var P : Double;
-     var Q : Double);
+procedure InternalHSEVDLADIV(const A : Extended;
+     const B : Extended;
+     const C : Extended;
+     const D : Extended;
+     var P : Extended;
+     var Q : Extended);
 var
-    E : Double;
-    F : Double;
+    E : Extended;
+    F : Extended;
 begin
     if AP_FP_Less(AbsReal(D),AbsReal(C)) then
     begin
@@ -6475,7 +6473,7 @@ var
     I : AlglibInteger;
     IP1 : AlglibInteger;
     NMI : AlglibInteger;
-    V : Double;
+    V : Extended;
     T : TReal1DArray;
     WORK : TReal1DArray;
     i_ : AlglibInteger;

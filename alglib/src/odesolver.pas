@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Copyright 2009 by Sergey Bochkanov (ALGLIB project).
 
@@ -27,15 +25,15 @@ type
 ODESolverState = record
     N : AlglibInteger;
     M : AlglibInteger;
-    XScale : Double;
-    H : Double;
-    Eps : Double;
+    XScale : Extended;
+    H : Extended;
+    Eps : Extended;
     FracEps : Boolean;
     YC : TReal1DArray;
     EScale : TReal1DArray;
     XG : TReal1DArray;
     SolverType : AlglibInteger;
-    X : Double;
+    X : Extended;
     Y : TReal1DArray;
     DY : TReal1DArray;
     YTbl : TReal2DArray;
@@ -63,8 +61,8 @@ procedure ODESolverRKCK(const Y : TReal1DArray;
      N : AlglibInteger;
      const X : TReal1DArray;
      M : AlglibInteger;
-     Eps : Double;
-     H : Double;
+     Eps : Extended;
+     H : Extended;
      var State : ODESolverState);
 function ODESolverIteration(var State : ODESolverState):Boolean;
 procedure ODESolverResults(const State : ODESolverState;
@@ -76,16 +74,16 @@ procedure ODESolverResults(const State : ODESolverState;
 implementation
 
 const
-    ODESolverMaxGrow = Double(3.0);
-    ODESolverMaxShrink = Double(10.0);
+    ODESolverMaxGrow = 3.0;
+    ODESolverMaxShrink = 10.0;
 
 procedure ODESolverInit(SolverType : AlglibInteger;
      const Y : TReal1DArray;
      N : AlglibInteger;
      const X : TReal1DArray;
      M : AlglibInteger;
-     Eps : Double;
-     H : Double;
+     Eps : Extended;
+     H : Extended;
      var State : ODESolverState);forward;
 
 
@@ -140,8 +138,8 @@ procedure ODESolverRKCK(const Y : TReal1DArray;
      N : AlglibInteger;
      const X : TReal1DArray;
      M : AlglibInteger;
-     Eps : Double;
-     H : Double;
+     Eps : Extended;
+     H : Extended;
      var State : ODESolverState);
 begin
     ODESolverInit(0, Y, N, X, M, Eps, H, State);
@@ -175,13 +173,13 @@ var
     I : AlglibInteger;
     J : AlglibInteger;
     K : AlglibInteger;
-    XC : Double;
-    V : Double;
-    H : Double;
-    H2 : Double;
+    XC : Extended;
+    V : Extended;
+    H : Extended;
+    H2 : Extended;
     GridPoint : Boolean;
-    Err : Double;
-    MaxGrowPow : Double;
+    Err : Extended;
+    MaxGrowPow : Extended;
     KLimit : AlglibInteger;
 label
 lbl_3, lbl_6, lbl_8, lbl_0, lbl_10, lbl_7, lbl_5, lbl_1, lbl_rcomm;
@@ -463,7 +461,7 @@ lbl_10:
     end
     else
     begin
-        H2 := H*Power(State.Eps/Err, Double(0.2));
+        H2 := H*Power(State.Eps/Err, 0.2);
     end;
     if AP_FP_Less(H2,H/ODESolverMaxShrink) then
     begin
@@ -560,7 +558,7 @@ procedure ODESolverResults(const State : ODESolverState;
      var YTbl : TReal2DArray;
      var Rep : ODESolverReport);
 var
-    V : Double;
+    V : Extended;
     I : AlglibInteger;
 begin
     Rep.TerminationType := State.RepTerminationType;
@@ -594,12 +592,12 @@ procedure ODESolverInit(SolverType : AlglibInteger;
      N : AlglibInteger;
      const X : TReal1DArray;
      M : AlglibInteger;
-     Eps : Double;
-     H : Double;
+     Eps : Extended;
+     H : Extended;
      var State : ODESolverState);
 var
     I : AlglibInteger;
-    V : Double;
+    V : Extended;
 begin
     
     //
@@ -669,7 +667,7 @@ begin
             V := Min(V, AbsReal(X[I]-X[I-1]));
             Inc(I);
         end;
-        H := Double(0.001)*V;
+        H := 0.001*V;
     end;
     
     //

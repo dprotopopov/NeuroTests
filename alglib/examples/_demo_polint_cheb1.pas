@@ -1,4 +1,4 @@
-{$MODESWITCH RESULT+}
+
 program _demo;
 Array[0]
 var
@@ -29,7 +29,7 @@ begin
     I:=0;
     while I<=N-1 do
     begin
-        Y[I] := Sin(Double(0.5)*Pi*(Double(1.0)+Cos(Pi*(2*I+1)/(2*N))));
+        Y[I] := Sin(0.5*Pi*(1.0+Cos(Pi*(2*I+1)/(2*N))));
         Inc(I);
     end;
     PolynomialBuildCheb1(0, Pi, Y, N, P);

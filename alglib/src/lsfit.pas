@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Copyright (c) 2006-2009, Sergey Bochkanov (ALGLIB project).
 
@@ -33,11 +31,11 @@ Least squares fitting report:
     MaxError        maximum error
 *************************************************************************)
 LSFitReport = record
-    TaskRCond : Double;
-    RMSError : Double;
-    AvgError : Double;
-    AvgRelError : Double;
-    MaxError : Double;
+    TaskRCond : Extended;
+    RMSError : Extended;
+    AvgError : Extended;
+    AvgRelError : Extended;
+    MaxError : Extended;
 end;
 
 
@@ -45,10 +43,10 @@ LSFitState = record
     N : AlglibInteger;
     M : AlglibInteger;
     K : AlglibInteger;
-    EpsF : Double;
-    EpsX : Double;
+    EpsF : Extended;
+    EpsX : Extended;
     MaxIts : AlglibInteger;
-    StpMax : Double;
+    StpMax : Extended;
     TaskX : TReal2DArray;
     TaskY : TReal1DArray;
     W : TReal1DArray;
@@ -60,14 +58,14 @@ LSFitState = record
     PointIndex : AlglibInteger;
     X : TReal1DArray;
     C : TReal1DArray;
-    F : Double;
+    F : Extended;
     G : TReal1DArray;
     H : TReal2DArray;
     RepTerminationType : AlglibInteger;
-    RepRMSError : Double;
-    RepAvgError : Double;
-    RepAvgRelError : Double;
-    RepMaxError : Double;
+    RepRMSError : Extended;
+    RepAvgError : Extended;
+    RepAvgRelError : Extended;
+    RepMaxError : Extended;
     OptState : MinLMState;
     OptRep : MinLMReport;
     RState : RCommState;
@@ -142,10 +140,10 @@ procedure LSFitNonlinearFGH(const X : TReal2DArray;
      K : AlglibInteger;
      var State : LSFitState);
 procedure LSFitNonlinearSetCond(var State : LSFitState;
-     EpsF : Double;
-     EpsX : Double;
+     EpsF : Extended;
+     EpsX : Extended;
      MaxIts : AlglibInteger);
-procedure LSFitNonlinearSetStpMax(var State : LSFitState; StpMax : Double);
+procedure LSFitNonlinearSetStpMax(var State : LSFitState; StpMax : Extended);
 function LSFitNonlinearIteration(var State : LSFitState):Boolean;
 procedure LSFitNonlinearResults(const State : LSFitState;
      var Info : AlglibInteger;
@@ -158,10 +156,10 @@ procedure LSFitScaleXY(var X : TReal1DArray;
      var YC : TReal1DArray;
      const DC : TInteger1DArray;
      K : AlglibInteger;
-     var XA : Double;
-     var XB : Double;
-     var SA : Double;
-     var SB : Double;
+     var XA : Extended;
+     var XB : Extended;
+     var SA : Extended;
+     var SB : Extended;
      var XOriginal : TReal1DArray;
      var YOriginal : TReal1DArray);
 
@@ -303,7 +301,7 @@ var
     F2 : TReal2DArray;
     Tmp : TReal1DArray;
     C0 : TReal1DArray;
-    V : Double;
+    V : Extended;
 begin
     Y := DynamicArrayCopy(Y);
     CMatrix := DynamicArrayCopy(CMatrix);
@@ -348,7 +346,7 @@ begin
             J:=I+1;
             while J<=M-1 do
             begin
-                CMatrix[I,J] := Double(0.0);
+                CMatrix[I,J] := 0.0;
                 Inc(J);
             end;
             Inc(I);
@@ -393,8 +391,8 @@ begin
         //
         SetLength(Tmp, Max(N, M)+1);
         SetLength(F2, N, M-K);
-        MatrixVectorMultiply(FMatrix, 0, N-1, 0, M-1, False, C0, 0, M-1, -Double(1.0), Y, 0, N-1, Double(1.0));
-        MatrixMatrixMultiply(FMatrix, 0, N-1, 0, M-1, False, Q, K, M-1, 0, M-1, True, Double(1.0), F2, 0, N-1, 0, M-K-1, Double(0.0), Tmp);
+        MatrixVectorMultiply(FMatrix, 0, N-1, 0, M-1, False, C0, 0, M-1, -1.0, Y, 0, N-1, 1.0);
+        MatrixMatrixMultiply(FMatrix, 0, N-1, 0, M-1, False, Q, K, M-1, 0, M-1, True, 1.0, F2, 0, N-1, 0, M-K-1, 0.0, Tmp);
         LSFitLinearInternal(Y, W, F2, N, M-K, Info, Tmp, Rep);
         Rep.TaskRCond := -1;
         if Info<=0 then
@@ -407,7 +405,7 @@ begin
         //
         SetLength(C, M);
         APVMove(@C[0], 0, M-1, @C0[0], 0, M-1);
-        MatrixVectorMultiply(Q, K, M-1, 0, M-1, True, Tmp, 0, M-K-1, Double(1.0), C, 0, M-1, Double(1.0));
+        MatrixVectorMultiply(Q, K, M-1, 0, M-1, True, Tmp, 0, M-K-1, 1.0, C, 0, M-1, 1.0);
     end;
 end;
 
@@ -550,8 +548,8 @@ begin
     State.N := N;
     State.M := M;
     State.K := K;
-    LSFitNonLinearSetCond(State, Double(0.0), Double(0.0), 0);
-    LSFitNonLinearSetStpMax(State, Double(0.0));
+    LSFitNonLinearSetCond(State, 0.0, 0.0, 0);
+    LSFitNonLinearSetStpMax(State, 0.0);
     State.CheapFG := CheapFG;
     State.HaveHess := False;
     if (N>=1) and (M>=1) and (K>=1) then
@@ -597,8 +595,8 @@ begin
     State.N := N;
     State.M := M;
     State.K := K;
-    LSFitNonLinearSetCond(State, Double(0.0), Double(0.0), 0);
-    LSFitNonLinearSetStpMax(State, Double(0.0));
+    LSFitNonLinearSetCond(State, 0.0, 0.0, 0);
+    LSFitNonLinearSetStpMax(State, 0.0);
     State.CheapFG := CheapFG;
     State.HaveHess := False;
     if (N>=1) and (M>=1) and (K>=1) then
@@ -659,8 +657,8 @@ begin
     State.N := N;
     State.M := M;
     State.K := K;
-    LSFitNonLinearSetCond(State, Double(0.0), Double(0.0), 0);
-    LSFitNonLinearSetStpMax(State, Double(0.0));
+    LSFitNonLinearSetCond(State, 0.0, 0.0, 0);
+    LSFitNonLinearSetStpMax(State, 0.0);
     State.CheapFG := True;
     State.HaveHess := True;
     if (N>=1) and (M>=1) and (K>=1) then
@@ -706,8 +704,8 @@ begin
     State.N := N;
     State.M := M;
     State.K := K;
-    LSFitNonLinearSetCond(State, Double(0.0), Double(0.0), 0);
-    LSFitNonLinearSetStpMax(State, Double(0.0));
+    LSFitNonLinearSetCond(State, 0.0, 0.0, 0);
+    LSFitNonLinearSetStpMax(State, 0.0);
     State.CheapFG := True;
     State.HaveHess := True;
     if (N>=1) and (M>=1) and (K>=1) then
@@ -756,8 +754,8 @@ stopping criterion selection (according to the scheme used by MINLM unit).
      Copyright 17.08.2009 by Bochkanov Sergey
 *************************************************************************)
 procedure LSFitNonlinearSetCond(var State : LSFitState;
-     EpsF : Double;
-     EpsX : Double;
+     EpsF : Extended;
+     EpsX : Extended;
      MaxIts : AlglibInteger);
 begin
     Assert(AP_FP_Greater_Eq(EpsF,0), 'LSFitNonlinearSetCond: negative EpsF!');
@@ -792,7 +790,7 @@ with limits on step size.
   -- ALGLIB --
      Copyright 02.04.2010 by Bochkanov Sergey
 *************************************************************************)
-procedure LSFitNonlinearSetStpMax(var State : LSFitState; StpMax : Double);
+procedure LSFitNonlinearSetStpMax(var State : LSFitState; StpMax : Extended);
 begin
     Assert(AP_FP_Greater_Eq(StpMax,0), 'LSFitNonlinearSetStpMax: StpMax<0!');
     State.StpMax := StpMax;
@@ -839,8 +837,8 @@ var
     K : AlglibInteger;
     I : AlglibInteger;
     J : AlglibInteger;
-    V : Double;
-    RelCnt : Double;
+    V : Extended;
+    RelCnt : Extended;
 label
 lbl_5, lbl_9, lbl_0, lbl_11, lbl_7, lbl_14, lbl_1, lbl_16, lbl_12, lbl_19, lbl_2, lbl_21, lbl_17, lbl_24, lbl_3, lbl_26, lbl_22, lbl_6, lbl_29, lbl_4, lbl_31, lbl_27, lbl_rcomm;
 begin
@@ -951,7 +949,7 @@ begin
             MinLMCreateFJ(K, N, State.C, State.OptState);
         end;
     end;
-    MinLMSetCond(State.OptState, Double(0.0), State.EpsF, State.EpsX, State.MaxIts);
+    MinLMSetCond(State.OptState, 0.0, State.EpsF, State.EpsX, State.MaxIts);
     MinLMSetStpMax(State.OptState, State.StpMax);
     
     //
@@ -1237,15 +1235,15 @@ procedure LSFitScaleXY(var X : TReal1DArray;
      var YC : TReal1DArray;
      const DC : TInteger1DArray;
      K : AlglibInteger;
-     var XA : Double;
-     var XB : Double;
-     var SA : Double;
-     var SB : Double;
+     var XA : Extended;
+     var XB : Extended;
+     var SA : Extended;
+     var SB : Extended;
      var XOriginal : TReal1DArray;
      var YOriginal : TReal1DArray);
 var
-    XMin : Double;
-    XMax : Double;
+    XMin : Extended;
+    XMax : Extended;
     I : AlglibInteger;
 begin
     Assert(N>=1, 'LSFitScaleXY: incorrect N');
@@ -1280,7 +1278,7 @@ begin
         end
         else
         begin
-            XMin := Double(0.5)*XMin;
+            XMin := 0.5*XMin;
         end;
     end;
     
@@ -1297,15 +1295,15 @@ begin
     I:=0;
     while I<=N-1 do
     begin
-        X[I] := 2*(X[I]-Double(0.5)*(XA+XB))/(XB-XA);
+        X[I] := 2*(X[I]-0.5*(XA+XB))/(XB-XA);
         Inc(I);
     end;
     I:=0;
     while I<=K-1 do
     begin
         Assert(DC[I]>=0, 'LSFitScaleXY: internal error!');
-        XC[I] := 2*(XC[I]-Double(0.5)*(XA+XB))/(XB-XA);
-        YC[I] := YC[I]*Power(Double(0.5)*(XB-XA), DC[I]);
+        XC[I] := 2*(XC[I]-0.5*(XA+XB))/(XB-XA);
+        YC[I] := YC[I]*Power(0.5*(XB-XA), DC[I]);
         Inc(I);
     end;
     
@@ -1377,7 +1375,7 @@ procedure LSFitLinearInternal(const Y : TReal1DArray;
      var C : TReal1DArray;
      var Rep : LSFitReport);
 var
-    Threshold : Double;
+    Threshold : Extended;
     FT : TReal2DArray;
     Q : TReal2DArray;
     L : TReal2DArray;
@@ -1387,7 +1385,7 @@ var
     Tau : TReal1DArray;
     I : AlglibInteger;
     J : AlglibInteger;
-    V : Double;
+    V : Extended;
     SV : TReal1DArray;
     U : TReal2DArray;
     VT : TReal2DArray;

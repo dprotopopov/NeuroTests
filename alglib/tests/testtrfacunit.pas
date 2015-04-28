@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testtrfacunit;
 interface
 uses Math, Sysutils, Ap, reflections, creflections, hqrnd, matgen, ablasf, ablas, trfac;
@@ -73,7 +71,7 @@ begin
         //
         N := 1+RandomInteger(MX);
         M := 1+RandomInteger(MX);
-        if AP_FP_Greater(RandomReal,Double(0.5)) then
+        if AP_FP_Greater(RandomReal,0.5) then
         begin
             N := MX;
         end
@@ -450,10 +448,10 @@ begin
         I:=0;
         while I<=J-1 do
         begin
-            CL[I,J] := C_Complex(Double(0.0));
+            CL[I,J] := C_Complex(0.0);
             Inc(I);
         end;
-        CL[J,J] := C_Complex(Double(1.0));
+        CL[J,J] := C_Complex(1.0);
         I:=J+1;
         while I<=M-1 do
         begin
@@ -469,7 +467,7 @@ begin
         J:=0;
         while J<=I-1 do
         begin
-            CU[I,J] := C_Complex(Double(0.0));
+            CU[I,J] := C_Complex(0.0);
             Inc(J);
         end;
         J:=I;
@@ -561,7 +559,7 @@ begin
         I:=0;
         while I<=J-1 do
         begin
-            CL[I,J] := C_Complex(Double(0.0));
+            CL[I,J] := C_Complex(0.0);
             Inc(I);
         end;
         I:=J;
@@ -579,10 +577,10 @@ begin
         J:=0;
         while J<=I-1 do
         begin
-            CU[I,J] := C_Complex(Double(0.0));
+            CU[I,J] := C_Complex(0.0);
             Inc(J);
         end;
-        CU[I,I] := C_Complex(Double(1.0));
+        CU[I,I] := C_Complex(1.0);
         J:=I+1;
         while J<=N-1 do
         begin
@@ -692,10 +690,10 @@ begin
         I:=0;
         while I<=J-1 do
         begin
-            CL[I,J] := Double(0.0);
+            CL[I,J] := 0.0;
             Inc(I);
         end;
-        CL[J,J] := Double(1.0);
+        CL[J,J] := 1.0;
         I:=J+1;
         while I<=M-1 do
         begin
@@ -711,7 +709,7 @@ begin
         J:=0;
         while J<=I-1 do
         begin
-            CU[I,J] := Double(0.0);
+            CU[I,J] := 0.0;
             Inc(J);
         end;
         J:=I;
@@ -791,7 +789,7 @@ begin
         I:=0;
         while I<=J-1 do
         begin
-            CL[I,J] := Double(0.0);
+            CL[I,J] := 0.0;
             Inc(I);
         end;
         I:=J;
@@ -809,10 +807,10 @@ begin
         J:=0;
         while J<=I-1 do
         begin
-            CU[I,J] := Double(0.0);
+            CU[I,J] := 0.0;
             Inc(J);
         end;
-        CU[I,I] := Double(1.0);
+        CU[I,I] := 1.0;
         J:=I+1;
         while J<=N-1 do
         begin

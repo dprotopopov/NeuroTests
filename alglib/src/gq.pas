@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Copyright (c) 2005-2007, Sergey Bochkanov (ALGLIB project).
 
@@ -25,24 +23,24 @@ uses Math, Sysutils, Ap, hblas, reflections, creflections, sblas, ablasf, ablas,
 
 procedure GQGenerateRec(const Alpha : TReal1DArray;
      const Beta : TReal1DArray;
-     Mu0 : Double;
+     Mu0 : Extended;
      N : AlglibInteger;
      var Info : AlglibInteger;
      var X : TReal1DArray;
      var W : TReal1DArray);
 procedure GQGenerateGaussLobattoRec(Alpha : TReal1DArray;
      Beta : TReal1DArray;
-     Mu0 : Double;
-     A : Double;
-     B : Double;
+     Mu0 : Extended;
+     A : Extended;
+     B : Extended;
      N : AlglibInteger;
      var Info : AlglibInteger;
      var X : TReal1DArray;
      var W : TReal1DArray);
 procedure GQGenerateGaussRadauRec(Alpha : TReal1DArray;
      Beta : TReal1DArray;
-     Mu0 : Double;
-     A : Double;
+     Mu0 : Extended;
+     A : Extended;
      N : AlglibInteger;
      var Info : AlglibInteger;
      var X : TReal1DArray;
@@ -52,13 +50,13 @@ procedure GQGenerateGaussLegendre(N : AlglibInteger;
      var X : TReal1DArray;
      var W : TReal1DArray);
 procedure GQGenerateGaussJacobi(N : AlglibInteger;
-     Alpha : Double;
-     Beta : Double;
+     Alpha : Extended;
+     Beta : Extended;
      var Info : AlglibInteger;
      var X : TReal1DArray;
      var W : TReal1DArray);
 procedure GQGenerateGaussLaguerre(N : AlglibInteger;
-     Alpha : Double;
+     Alpha : Extended;
      var Info : AlglibInteger;
      var X : TReal1DArray;
      var W : TReal1DArray);
@@ -107,7 +105,7 @@ OUTPUT PARAMETERS:
 *************************************************************************)
 procedure GQGenerateRec(const Alpha : TReal1DArray;
      const Beta : TReal1DArray;
-     Mu0 : Double;
+     Mu0 : Extended;
      N : AlglibInteger;
      var Info : AlglibInteger;
      var X : TReal1DArray;
@@ -209,9 +207,9 @@ OUTPUT PARAMETERS:
 *************************************************************************)
 procedure GQGenerateGaussLobattoRec(Alpha : TReal1DArray;
      Beta : TReal1DArray;
-     Mu0 : Double;
-     A : Double;
-     B : Double;
+     Mu0 : Extended;
+     A : Extended;
+     B : Extended;
      N : AlglibInteger;
      var Info : AlglibInteger;
      var X : TReal1DArray;
@@ -221,19 +219,19 @@ var
     D : TReal1DArray;
     E : TReal1DArray;
     Z : TReal2DArray;
-    PIM1A : Double;
-    PIA : Double;
-    PIM1B : Double;
-    PIB : Double;
-    T : Double;
-    A11 : Double;
-    A12 : Double;
-    A21 : Double;
-    A22 : Double;
-    B1 : Double;
-    B2 : Double;
-    Alph : Double;
-    Bet : Double;
+    PIM1A : Extended;
+    PIA : Extended;
+    PIM1B : Extended;
+    PIB : Extended;
+    T : Extended;
+    A11 : Extended;
+    A12 : Extended;
+    A21 : Extended;
+    A22 : Extended;
+    B1 : Extended;
+    B2 : Extended;
+    Alph : Extended;
+    Bet : Extended;
 begin
     Alpha := DynamicArrayCopy(Alpha);
     Beta := DynamicArrayCopy(Beta);
@@ -392,8 +390,8 @@ OUTPUT PARAMETERS:
 *************************************************************************)
 procedure GQGenerateGaussRadauRec(Alpha : TReal1DArray;
      Beta : TReal1DArray;
-     Mu0 : Double;
-     A : Double;
+     Mu0 : Extended;
+     A : Extended;
      N : AlglibInteger;
      var Info : AlglibInteger;
      var X : TReal1DArray;
@@ -403,9 +401,9 @@ var
     D : TReal1DArray;
     E : TReal1DArray;
     Z : TReal2DArray;
-    PolIM1 : Double;
-    PolI : Double;
-    T : Double;
+    PolIM1 : Extended;
+    PolI : Extended;
+    T : Extended;
 begin
     Alpha := DynamicArrayCopy(Alpha);
     Beta := DynamicArrayCopy(Beta);
@@ -580,20 +578,20 @@ OUTPUT PARAMETERS:
      Copyright 12.05.2009 by Bochkanov Sergey
 *************************************************************************)
 procedure GQGenerateGaussJacobi(N : AlglibInteger;
-     Alpha : Double;
-     Beta : Double;
+     Alpha : Extended;
+     Beta : Extended;
      var Info : AlglibInteger;
      var X : TReal1DArray;
      var W : TReal1DArray);
 var
     A : TReal1DArray;
     B : TReal1DArray;
-    Alpha2 : Double;
-    Beta2 : Double;
-    APB : Double;
-    T : Double;
+    Alpha2 : Extended;
+    Beta2 : Extended;
+    APB : Extended;
+    T : Extended;
     I : AlglibInteger;
-    S : Double;
+    S : Extended;
 begin
     if (N<1) or AP_FP_Less_Eq(Alpha,-1) or AP_FP_Less_Eq(Beta,-1) then
     begin
@@ -620,8 +618,8 @@ begin
         I:=2;
         while I<=N-1 do
         begin
-            A[I] := Double(0.25)*(Beta2-Alpha2)/(I*I*(1+Double(0.5)*APB/I)*(1+Double(0.5)*(APB+2)/I));
-            B[I] := Double(0.25)*(1+Alpha/I)*(1+Beta/I)*(1+APB/I)/((1+Double(0.5)*(APB+1)/I)*(1+Double(0.5)*(APB-1)/I)*AP_Sqr(1+Double(0.5)*APB/I));
+            A[I] := 0.25*(Beta2-Alpha2)/(I*I*(1+0.5*APB/I)*(1+0.5*(APB+2)/I));
+            B[I] := 0.25*(1+Alpha/I)*(1+Beta/I)*(1+APB/I)/((1+0.5*(APB+1)/I)*(1+0.5*(APB-1)/I)*AP_Sqr(1+0.5*APB/I));
             Inc(I);
         end;
     end;
@@ -676,16 +674,16 @@ OUTPUT PARAMETERS:
      Copyright 12.05.2009 by Bochkanov Sergey
 *************************************************************************)
 procedure GQGenerateGaussLaguerre(N : AlglibInteger;
-     Alpha : Double;
+     Alpha : Extended;
      var Info : AlglibInteger;
      var X : TReal1DArray;
      var W : TReal1DArray);
 var
     A : TReal1DArray;
     B : TReal1DArray;
-    T : Double;
+    T : Extended;
     I : AlglibInteger;
-    S : Double;
+    S : Extended;
 begin
     if (N<1) or AP_FP_Less_Eq(Alpha,-1) then
     begin
@@ -787,7 +785,7 @@ begin
         I:=1;
         while I<=N-1 do
         begin
-            B[I] := Double(0.5)*I;
+            B[I] := 0.5*I;
             Inc(I);
         end;
     end;

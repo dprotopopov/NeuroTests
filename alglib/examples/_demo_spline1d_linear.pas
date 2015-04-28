@@ -1,4 +1,4 @@
-{$MODESWITCH RESULT+}
+
 program _demo;
 Array[0]
 var
@@ -39,7 +39,7 @@ begin
     //
     T := 0;
     MaxErr := 0;
-    while AP_FP_Less(T,Double(0.999999)*Pi) do
+    while AP_FP_Less(T,0.999999*Pi) do
     begin
         Err := AbsReal(Spline1DCalc(S, T)-Sin(T));
         MaxErr := Max(Err, MaxErr);
@@ -48,7 +48,7 @@ begin
             Sin(T),
             Spline1DCalc(S, T),
             Err]));
-        T := Min(Pi, T+Double(0.25));
+        T := Min(Pi, T+0.25);
     end;
     Err := AbsReal(Spline1DCalc(S, Pi)-Sin(Pi));
     MaxErr := Max(Err, MaxErr);

@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testhqrndunit;
 interface
 uses Math, Sysutils, Ap, hqrnd;
@@ -175,7 +173,7 @@ begin
     CalculateMV(X, SampleSize, Mean, MeanS, StdDev, StdDevS);
     if AP_FP_Neq(MeanS,0) then
     begin
-        URSigmaErr := Max(URSigmaErr, AbsReal((Mean-Double(0.5))/MeanS));
+        URSigmaErr := Max(URSigmaErr, AbsReal((Mean-0.5)/MeanS));
     end
     else
     begin
@@ -216,7 +214,7 @@ begin
         CalculateMV(X, SampleSize, Mean, MeanS, StdDev, StdDevS);
         if AP_FP_Neq(MeanS,0) then
         begin
-            UISigmaErr := Max(UISigmaErr, AbsReal((Mean-Double(0.5)*(N-1))/MeanS));
+            UISigmaErr := Max(UISigmaErr, AbsReal((Mean-0.5*(N-1))/MeanS));
         end
         else
         begin
@@ -243,7 +241,7 @@ begin
     HQRNDRandomize(State);
     UIErrors := False;
     UISigmaErr := 0;
-    N := Round(Double(2.0)/Double(3.0)*Double(2147483563.0));
+    N := Round(2.0/3.0*2147483563.0);
     I:=0;
     while I<=SampleSize-1 do
     begin
@@ -259,7 +257,7 @@ begin
     CalculateMV(X, SampleSize, Mean, MeanS, StdDev, StdDevS);
     if AP_FP_Neq(MeanS,0) then
     begin
-        UISigmaErr := Max(UISigmaErr, AbsReal((Mean-Double(0.5)*(N-1))/MeanS));
+        UISigmaErr := Max(UISigmaErr, AbsReal((Mean-0.5*(N-1))/MeanS));
     end
     else
     begin
@@ -335,7 +333,7 @@ begin
     CalculateMV(X, SampleSize, Mean, MeanS, StdDev, StdDevS);
     if AP_FP_Neq(MeanS,0) then
     begin
-        ExpSigmaErr := Max(ExpSigmaErr, AbsReal((Mean-Double(1.0)/Lambda)/MeanS));
+        ExpSigmaErr := Max(ExpSigmaErr, AbsReal((Mean-1.0/Lambda)/MeanS));
     end
     else
     begin
@@ -343,7 +341,7 @@ begin
     end;
     if AP_FP_Neq(StdDevS,0) then
     begin
-        ExpSigmaErr := Max(ExpSigmaErr, AbsReal((StdDev-Double(1.0)/Lambda)/StdDevS));
+        ExpSigmaErr := Max(ExpSigmaErr, AbsReal((StdDev-1.0/Lambda)/StdDevS));
     end
     else
     begin

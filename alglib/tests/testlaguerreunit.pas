@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testlaguerreunit;
 interface
 uses Math, Sysutils, Ap, laguerre;
@@ -29,38 +27,38 @@ begin
     Err := 0;
     SumErr := 0;
     CErr := 0;
-    Threshold := Double(1.0E-9);
+    Threshold := 1.0E-9;
     WasErrors := False;
     
     //
     // Testing Laguerre polynomials
     //
     N := 0;
-    Err := Max(Err, AbsReal(LaguerreCalculate(N, Double(0.5))-Double(1.0000000000)));
+    Err := Max(Err, AbsReal(LaguerreCalculate(N, 0.5)-1.0000000000));
     N := 1;
-    Err := Max(Err, AbsReal(LaguerreCalculate(N, Double(0.5))-Double(0.5000000000)));
+    Err := Max(Err, AbsReal(LaguerreCalculate(N, 0.5)-0.5000000000));
     N := 2;
-    Err := Max(Err, AbsReal(LaguerreCalculate(N, Double(0.5))-Double(0.1250000000)));
+    Err := Max(Err, AbsReal(LaguerreCalculate(N, 0.5)-0.1250000000));
     N := 3;
-    Err := Max(Err, AbsReal(LaguerreCalculate(N, Double(0.5))+Double(0.1458333333)));
+    Err := Max(Err, AbsReal(LaguerreCalculate(N, 0.5)+0.1458333333));
     N := 4;
-    Err := Max(Err, AbsReal(LaguerreCalculate(N, Double(0.5))+Double(0.3307291667)));
+    Err := Max(Err, AbsReal(LaguerreCalculate(N, 0.5)+0.3307291667));
     N := 5;
-    Err := Max(Err, AbsReal(LaguerreCalculate(N, Double(0.5))+Double(0.4455729167)));
+    Err := Max(Err, AbsReal(LaguerreCalculate(N, 0.5)+0.4455729167));
     N := 6;
-    Err := Max(Err, AbsReal(LaguerreCalculate(N, Double(0.5))+Double(0.5041449653)));
+    Err := Max(Err, AbsReal(LaguerreCalculate(N, 0.5)+0.5041449653));
     N := 7;
-    Err := Max(Err, AbsReal(LaguerreCalculate(N, Double(0.5))+Double(0.5183392237)));
+    Err := Max(Err, AbsReal(LaguerreCalculate(N, 0.5)+0.5183392237));
     N := 8;
-    Err := Max(Err, AbsReal(LaguerreCalculate(N, Double(0.5))+Double(0.4983629984)));
+    Err := Max(Err, AbsReal(LaguerreCalculate(N, 0.5)+0.4983629984));
     N := 9;
-    Err := Max(Err, AbsReal(LaguerreCalculate(N, Double(0.5))+Double(0.4529195204)));
+    Err := Max(Err, AbsReal(LaguerreCalculate(N, 0.5)+0.4529195204));
     N := 10;
-    Err := Max(Err, AbsReal(LaguerreCalculate(N, Double(0.5))+Double(0.3893744141)));
+    Err := Max(Err, AbsReal(LaguerreCalculate(N, 0.5)+0.3893744141));
     N := 11;
-    Err := Max(Err, AbsReal(LaguerreCalculate(N, Double(0.5))+Double(0.3139072988)));
+    Err := Max(Err, AbsReal(LaguerreCalculate(N, 0.5)+0.3139072988));
     N := 12;
-    Err := Max(Err, AbsReal(LaguerreCalculate(N, Double(0.5))+Double(0.2316496389)));
+    Err := Max(Err, AbsReal(LaguerreCalculate(N, 0.5)+0.2316496389));
     
     //
     // Testing Clenshaw summation

@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testbdsvdunit;
 interface
 uses Math, Sysutils, Ap, rotations, bdsvd;
@@ -72,7 +70,7 @@ begin
     WasErrors := False;
     MaxN := 15;
     Threshold := 5*100*MachineEpsilon;
-    FailThreshold := Double(1.0E-2);
+    FailThreshold := 1.0E-2;
     SetLength(D, MaxN-1+1);
     SetLength(E, MaxN-2+1);
     
@@ -80,15 +78,15 @@ begin
     // special case: fail matrix
     //
     N := 5;
-    d[0] := -Double(8.27448347422711894000e-01);
-    d[1] := -Double(8.16705832087160854600e-01);
-    d[2] := -Double(2.53974358904729382800e-17);
-    d[3] := -Double(1.24626684881972815700e+00);
-    d[4] := -Double(4.64744131545637651000e-01);
-    e[0] := -Double(3.25785088656270038800e-01);
-    e[1] := -Double(1.03732413708914436580e-01);
-    e[2] := -Double(9.57365642262031357700e-02);
-    e[3] := -Double(2.71564153973817390400e-01);
+    d[0] := -8.27448347422711894000e-01;
+    d[1] := -8.16705832087160854600e-01;
+    d[2] := -2.53974358904729382800e-17;
+    d[3] := -1.24626684881972815700e+00;
+    d[4] := -4.64744131545637651000e-01;
+    e[0] := -3.25785088656270038800e-01;
+    e[1] := -1.03732413708914436580e-01;
+    e[2] := -9.57365642262031357700e-02;
+    e[3] := -2.71564153973817390400e-01;
     FailCase := RMatrixBDSVD(D, E, N, True, False, MEmpty, 0, MEmpty, 0, MEmpty, 0);
     
     //
@@ -96,19 +94,19 @@ begin
     // unfixed LAPACK routine should fail on this problem
     //
     N := 7;
-    d[0] := -Double(6.96462904751731892700e-01);
-    d[1] := Double(0.00000000000000000000e+00);
-    d[2] := -Double(5.73827770385971991400e-01);
-    d[3] := -Double(6.62562624399371191700e-01);
-    d[4] := Double(5.82737148001782223600e-01);
-    d[5] := Double(3.84825263580925003300e-01);
-    d[6] := Double(9.84087420830525472200e-01);
-    e[0] := -Double(7.30307931760612871800e-02);
-    e[1] := -Double(2.30079042939542843800e-01);
-    e[2] := -Double(6.87824621739351216300e-01);
-    e[3] := -Double(1.77306437707837570600e-02);
-    e[4] := Double(1.78285126526551632000e-15);
-    e[5] := -Double(4.89434737751289969400e-02);
+    d[0] := -6.96462904751731892700e-01;
+    d[1] := 0.00000000000000000000e+00;
+    d[2] := -5.73827770385971991400e-01;
+    d[3] := -6.62562624399371191700e-01;
+    d[4] := 5.82737148001782223600e-01;
+    d[5] := 3.84825263580925003300e-01;
+    d[6] := 9.84087420830525472200e-01;
+    e[0] := -7.30307931760612871800e-02;
+    e[1] := -2.30079042939542843800e-01;
+    e[2] := -6.87824621739351216300e-01;
+    e[3] := -1.77306437707837570600e-02;
+    e[4] := 1.78285126526551632000e-15;
+    e[5] := -4.89434737751289969400e-02;
     RMatrixBDSVD(D, E, N, True, False, MEmpty, 0, MEmpty, 0, MEmpty, 0);
     
     //
@@ -169,13 +167,13 @@ begin
         Pass:=1;
         while Pass<=10 do
         begin
-            FillSparseDE(D, E, N, Double(0.5));
+            FillSparseDE(D, E, N, 0.5);
             TestBDSVDProblem(D, E, N, MatErr, OrtErr, WSorted, WFailed);
-            FillSparseDE(D, E, N, Double(0.8));
+            FillSparseDE(D, E, N, 0.8);
             TestBDSVDProblem(D, E, N, MatErr, OrtErr, WSorted, WFailed);
-            FillSparseDE(D, E, N, Double(0.9));
+            FillSparseDE(D, E, N, 0.9);
             TestBDSVDProblem(D, E, N, MatErr, OrtErr, WSorted, WFailed);
-            FillSparseDE(D, E, N, Double(0.95));
+            FillSparseDE(D, E, N, 0.95);
             TestBDSVDProblem(D, E, N, MatErr, OrtErr, WSorted, WFailed);
             Inc(Pass);
         end;

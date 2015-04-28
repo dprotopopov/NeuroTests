@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testgq;
 interface
 uses Math, Sysutils, Ap, hblas, reflections, creflections, sblas, ablasf, ablas, ortfac, blas, rotations, hsschur, evd, gammafunc, gq;
@@ -57,8 +55,8 @@ begin
     RecErrors := False;
     SpecErrors := False;
     WasErrors := False;
-    ErrTol := Double(1.0E-12);
-    NonStrictErrTol := Double(1.0E-6);
+    ErrTol := 1.0E-12;
+    NonStrictErrTol := 1.0E-6;
     StrictErrTol := 1000*MachineEpsilon;
     
     //
@@ -73,7 +71,7 @@ begin
     Alpha[0] := 0;
     Alpha[1] := 0;
     Beta[1] := AP_Double(1)/(4*1*1-1);
-    GQGenerateRec(Alpha, Beta, Double(2.0), 2, Info, X, W);
+    GQGenerateRec(Alpha, Beta, 2.0, 2, Info, X, W);
     if Info>0 then
     begin
         Err := Max(Err, AbsReal(X[0]+Sqrt(3)/3));
@@ -101,7 +99,7 @@ begin
         Beta[I] := AP_Sqr(I)/(4*AP_Sqr(I)-1);
         Inc(I);
     end;
-    GQGenerateRec(Alpha, Beta, Double(2.0), 5, Info, X, W);
+    GQGenerateRec(Alpha, Beta, 2.0, 5, Info, X, W);
     if Info>0 then
     begin
         Err := Max(Err, AbsReal(X[0]+Sqrt(245+14*Sqrt(70))/21));
@@ -154,7 +152,7 @@ begin
             I:=0;
             while I<=N-1 do
             begin
-                Err := Max(Err, AbsReal(X[I]-Cos(Pi*(N-I-Double(0.5))/N)));
+                Err := Max(Err, AbsReal(X[I]-Cos(Pi*(N-I-0.5)/N)));
                 Err := Max(Err, AbsReal(W[I]-Pi/N));
                 Inc(I);
             end;
@@ -186,7 +184,7 @@ begin
     Alpha[1] := 0;
     Beta[0] := 0;
     Beta[1] := AP_Double(1*1)/(4*1*1-1);
-    GQGenerateGaussLobattoRec(Alpha, Beta, Double(2.0), -1, +1, 3, Info, X, W);
+    GQGenerateGaussLobattoRec(Alpha, Beta, 2.0, -1, +1, 3, Info, X, W);
     if Info>0 then
     begin
         Err := Max(Err, AbsReal(X[0]+1));
@@ -214,7 +212,7 @@ begin
     Beta[0] := 0;
     Beta[1] := AP_Double(1*1)/(4*1*1-1);
     Beta[2] := AP_Double(2*2)/(4*2*2-1);
-    GQGenerateGaussLobattoRec(Alpha, Beta, Double(2.0), -1, +1, 4, Info, X, W);
+    GQGenerateGaussLobattoRec(Alpha, Beta, 2.0, -1, +1, 4, Info, X, W);
     if Info>0 then
     begin
         Err := Max(Err, AbsReal(X[0]+1));
@@ -248,7 +246,7 @@ begin
     Beta[2] := AP_Double(2*2)/(4*2*2-1);
     Beta[3] := AP_Double(3*3)/(4*3*3-1);
     Beta[4] := AP_Double(4*4)/(4*4*4-1);
-    GQGenerateGaussLobattoRec(Alpha, Beta, Double(2.0), -1, +1, 6, Info, X, W);
+    GQGenerateGaussLobattoRec(Alpha, Beta, 2.0, -1, +1, 6, Info, X, W);
     if Info>0 then
     begin
         Err := Max(Err, AbsReal(X[0]+1));
@@ -288,13 +286,13 @@ begin
     Alpha[0] := 0;
     Beta[0] := 0;
     Beta[1] := AP_Double(1*1)/(4*1*1-1);
-    GQGenerateGaussRadauRec(Alpha, Beta, Double(2.0), -1, 2, Info, X, W);
+    GQGenerateGaussRadauRec(Alpha, Beta, 2.0, -1, 2, Info, X, W);
     if Info>0 then
     begin
         Err := Max(Err, AbsReal(X[0]+1));
         Err := Max(Err, AbsReal(X[1]-AP_Double(1)/3));
-        Err := Max(Err, AbsReal(W[0]-Double(0.5)));
-        Err := Max(Err, AbsReal(W[1]-Double(1.5)));
+        Err := Max(Err, AbsReal(W[0]-0.5));
+        Err := Max(Err, AbsReal(W[1]-1.5));
         I:=0;
         while I<=0 do
         begin
@@ -316,7 +314,7 @@ begin
         Beta[I] := AP_Sqr(I)/(4*AP_Sqr(I)-1);
         Inc(I);
     end;
-    GQGenerateGaussRadauRec(Alpha, Beta, Double(2.0), -1, 3, Info, X, W);
+    GQGenerateGaussRadauRec(Alpha, Beta, 2.0, -1, 3, Info, X, W);
     if Info>0 then
     begin
         Err := Max(Err, AbsReal(X[0]+1));
@@ -346,7 +344,7 @@ begin
         Beta[I] := AP_Sqr(I)/(4*AP_Sqr(I)-1);
         Inc(I);
     end;
-    GQGenerateGaussRadauRec(Alpha, Beta, Double(2.0), +1, 3, Info, X, W);
+    GQGenerateGaussRadauRec(Alpha, Beta, 2.0, +1, 3, Info, X, W);
     if Info>0 then
     begin
         Err := Max(Err, AbsReal(X[2]-1));
@@ -439,13 +437,13 @@ begin
         // function with analytically known nodes/weights)
         //
         Err := 0;
-        GQGenerateGaussJacobi(N, -Double(0.5), -Double(0.5), Info, X, W);
+        GQGenerateGaussJacobi(N, -0.5, -0.5, Info, X, W);
         if Info>0 then
         begin
             I:=0;
             while I<=N-1 do
             begin
-                Err := Max(Err, AbsReal(X[I]+Cos(Pi*(I+Double(0.5))/N)));
+                Err := Max(Err, AbsReal(X[I]+Cos(Pi*(I+0.5)/N)));
                 Err := Max(Err, AbsReal(W[I]-Pi/N));
                 Inc(I);
             end;
@@ -576,31 +574,31 @@ var
 begin
     SetLength(x, n-1+1);
     SetLength(w, n-1+1);
-    pipm4 := Power(Pi, -Double(0.25));
+    pipm4 := Power(Pi, -0.25);
     i:=0;
     while i<=(n+1) div 2-1 do
     begin
         if i=0 then
         begin
-            r := Sqrt(2*n+1)-Double(1.85575)*Power(2*n+1, -AP_Double(1)/6);
+            r := Sqrt(2*n+1)-1.85575*Power(2*n+1, -AP_Double(1)/6);
         end
         else
         begin
             if i=1 then
             begin
-                r := r-Double(1.14)*Power(n, Double(0.426))/r;
+                r := r-1.14*Power(n, 0.426)/r;
             end
             else
             begin
                 if i=2 then
                 begin
-                    r := Double(1.86)*r-Double(0.86)*x[0];
+                    r := 1.86*r-0.86*x[0];
                 end
                 else
                 begin
                     if i=3 then
                     begin
-                        r := Double(1.91)*r-Double(0.91)*x[1];
+                        r := 1.91*r-0.91*x[1];
                     end
                     else
                     begin
@@ -670,43 +668,43 @@ begin
     Result := 0;
     if K=0 then
     begin
-        Result := -Double(0.9);
+        Result := -0.9;
     end;
     if K=1 then
     begin
-        Result := -Double(0.5);
+        Result := -0.5;
     end;
     if K=2 then
     begin
-        Result := -Double(0.1);
+        Result := -0.1;
     end;
     if K=3 then
     begin
-        Result := Double(0.0);
+        Result := 0.0;
     end;
     if K=4 then
     begin
-        Result := +Double(0.1);
+        Result := +0.1;
     end;
     if K=5 then
     begin
-        Result := +Double(0.5);
+        Result := +0.5;
     end;
     if K=6 then
     begin
-        Result := +Double(0.9);
+        Result := +0.9;
     end;
     if K=7 then
     begin
-        Result := +Double(1.0);
+        Result := +1.0;
     end;
     if K=8 then
     begin
-        Result := +Double(1.5);
+        Result := +1.5;
     end;
     if K=9 then
     begin
-        Result := +Double(2.0);
+        Result := +2.0;
     end;
 end;
 
@@ -817,26 +815,26 @@ begin
         begin
             an := alpha/n;
             bn := beta/n;
-            t1 := (1+alpha)*(Double(2.78)/(4+n*n)+Double(0.768)*an/n);
-            t2 := 1+Double(1.48)*an+Double(0.96)*bn+Double(0.452)*an*an+Double(0.83)*an*bn;
+            t1 := (1+alpha)*(2.78/(4+n*n)+0.768*an/n);
+            t2 := 1+1.48*an+0.96*bn+0.452*an*an+0.83*an*bn;
             r := (t2-t1)/t2;
         end
         else
         begin
             if i=1 then
             begin
-                t1 := (Double(4.1)+alpha)/((1+alpha)*(1+Double(0.156)*alpha));
-                t2 := 1+Double(0.06)*(n-8)*(1+Double(0.12)*alpha)/n;
-                t3 := 1+Double(0.012)*beta*(1+Double(0.25)*AbsReal(alpha))/n;
+                t1 := (4.1+alpha)/((1+alpha)*(1+0.156*alpha));
+                t2 := 1+0.06*(n-8)*(1+0.12*alpha)/n;
+                t3 := 1+0.012*beta*(1+0.25*AbsReal(alpha))/n;
                 r := r-t1*t2*t3*(1-r);
             end
             else
             begin
                 if i=2 then
                 begin
-                    t1 := (Double(1.67)+Double(0.28)*alpha)/(1+Double(0.37)*alpha);
-                    t2 := 1+Double(0.22)*(n-8)/n;
-                    t3 := 1+8*beta/((Double(6.28)+beta)*n*n);
+                    t1 := (1.67+0.28*alpha)/(1+0.37*alpha);
+                    t2 := 1+0.22*(n-8)/n;
+                    t3 := 1+8*beta/((6.28+beta)*n*n);
                     r := r-t1*t2*t3*(x[0]-r);
                 end
                 else
@@ -849,18 +847,18 @@ begin
                     begin
                         if i=n-2 then
                         begin
-                            t1 := (1+Double(0.235)*beta)/(Double(0.766)+Double(0.119)*beta);
-                            t2 := 1/(1+Double(0.639)*(n-4)/(1+Double(0.71)*(n-4)));
-                            t3 := 1/(1+20*alpha/((Double(7.5)+alpha)*n*n));
+                            t1 := (1+0.235*beta)/(0.766+0.119*beta);
+                            t2 := 1/(1+0.639*(n-4)/(1+0.71*(n-4)));
+                            t3 := 1/(1+20*alpha/((7.5+alpha)*n*n));
                             r := r+t1*t2*t3*(r-x[i-2]);
                         end
                         else
                         begin
                             if i=n-1 then
                             begin
-                                t1 := (1+Double(0.37)*beta)/(Double(1.67)+Double(0.28)*beta);
-                                t2 := 1/(1+Double(0.22)*(n-8)/n);
-                                t3 := 1/(1+8*alpha/((Double(6.28)+alpha)*n*n));
+                                t1 := (1+0.37*beta)/(1.67+0.28*beta);
+                                t2 := 1/(1+0.22*(n-8)/n);
+                                t3 := 1/(1+8*alpha/((6.28+alpha)*n*n));
                                 r := r+t1*t2*t3*(r-x[i-2]);
                             end;
                         end;
@@ -871,7 +869,7 @@ begin
         alfbet := alpha+beta;
         repeat
             temp := 2+alfbet;
-            p1 := (alpha-beta+temp*r)*Double(0.5);
+            p1 := (alpha-beta+temp*r)*0.5;
             p2 := 1;
             j:=2;
             while j<=n do
@@ -941,17 +939,17 @@ begin
     begin
         if i=0 then
         begin
-            r := (1+Alpha)*(3+Double(0.92)*Alpha)/(1+Double(2.4)*n+Double(1.8)*Alpha);
+            r := (1+Alpha)*(3+0.92*Alpha)/(1+2.4*n+1.8*Alpha);
         end
         else
         begin
             if i=1 then
             begin
-                r := r+(15+Double(6.25)*Alpha)/(1+Double(0.9)*Alpha+Double(2.5)*n);
+                r := r+(15+6.25*Alpha)/(1+0.9*Alpha+2.5*n);
             end
             else
             begin
-                r := r+((1+Double(2.55)*(i-1))/(Double(1.9)*(i-1))+Double(1.26)*(i-1)*Alpha/(1+Double(3.5)*(i-1)))/(1+Double(0.3)*Alpha)*(r-x[i-2]);
+                r := r+((1+2.55*(i-1))/(1.9*(i-1))+1.26*(i-1)*Alpha/(1+3.5*(i-1)))/(1+0.3*Alpha)*(r-x[i-2]);
             end;
         end;
         repeat

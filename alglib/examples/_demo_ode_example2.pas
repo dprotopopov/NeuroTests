@@ -1,4 +1,4 @@
-{$MODESWITCH RESULT+}
+
 program _demo;
 Array[0]
 var
@@ -35,8 +35,8 @@ begin
     X[2] := Pi*2/4;
     X[3] := Pi*3/4;
     X[4] := Pi*4/4;
-    Eps := Double(1.0E-8);
-    H := Double(0.01);
+    Eps := 1.0E-8;
+    H := 0.01;
     ODESolverRKCK(Y, 2, X, 5, Eps, H, State);
     while ODESolverIteration(State) do
     begin

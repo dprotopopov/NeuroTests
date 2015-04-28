@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testschurunit;
 interface
 uses Math, Sysutils, Ap, hblas, reflections, creflections, sblas, ablasf, ablas, ortfac, blas, rotations, hsschur, schur;
@@ -121,13 +119,13 @@ begin
                 Inc(N);
                 Continue;
             end;
-            FillSparseA(A, N, Double(0.8));
+            FillSparseA(A, N, 0.8);
             TestSchurProblem(A, N, MatErr, OrtErr, ErrStruct, WFailed);
-            FillSparseA(A, N, Double(0.9));
+            FillSparseA(A, N, 0.9);
             TestSchurProblem(A, N, MatErr, OrtErr, ErrStruct, WFailed);
-            FillSparseA(A, N, Double(0.95));
+            FillSparseA(A, N, 0.95);
             TestSchurProblem(A, N, MatErr, OrtErr, ErrStruct, WFailed);
-            FillSparseA(A, N, Double(0.997));
+            FillSparseA(A, N, 0.997);
             TestSchurProblem(A, N, MatErr, OrtErr, ErrStruct, WFailed);
             Inc(N);
         end;

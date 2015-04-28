@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
@@ -30,12 +28,12 @@ unit jacobianelliptic;
 interface
 uses Math, Sysutils, Ap;
 
-procedure JacobianEllipticFunctions(u : Double;
-     m : Double;
-     var sn : Double;
-     var cn : Double;
-     var dn : Double;
-     var ph : Double);
+procedure JacobianEllipticFunctions(u : Extended;
+     m : Extended;
+     var sn : Extended;
+     var cn : Extended;
+     var dn : Extended;
+     var ph : Extended);
 
 implementation
 
@@ -79,18 +77,18 @@ Accuracy deteriorates when u is large.
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-procedure JacobianEllipticFunctions(u : Double;
-     m : Double;
-     var sn : Double;
-     var cn : Double;
-     var dn : Double;
-     var ph : Double);
+procedure JacobianEllipticFunctions(u : Extended;
+     m : Extended;
+     var sn : Extended;
+     var cn : Extended;
+     var dn : Extended;
+     var ph : Extended);
 var
-    ai : Double;
-    b : Double;
-    phi : Double;
-    t : Double;
-    twon : Double;
+    ai : Extended;
+    b : Extended;
+    phi : Extended;
+    t : Extended;
+    twon : Extended;
     a : TReal1DArray;
     c : TReal1DArray;
     i : AlglibInteger;
@@ -98,35 +96,35 @@ begin
     Assert(AP_FP_Greater_Eq(m,0) and AP_FP_Less_Eq(m,1), 'Domain error in JacobianEllipticFunctions: m<0 or m>1');
     SetLength(a, 8+1);
     SetLength(c, 8+1);
-    if AP_FP_Less(m,Double(1.0e-9)) then
+    if AP_FP_Less(m,1.0e-9) then
     begin
         t := sin(u);
         b := cos(u);
-        ai := Double(0.25)*m*(u-t*b);
+        ai := 0.25*m*(u-t*b);
         sn := t-ai*b;
         cn := b+ai*t;
         ph := u-ai;
-        dn := Double(1.0)-Double(0.5)*m*t*t;
+        dn := 1.0-0.5*m*t*t;
         Exit;
     end;
-    if AP_FP_Greater_Eq(m,Double(0.9999999999)) then
+    if AP_FP_Greater_Eq(m,0.9999999999) then
     begin
-        ai := Double(0.25)*(Double(1.0)-m);
+        ai := 0.25*(1.0-m);
         b := cosh(u);
         t := tanh(u);
-        phi := Double(1.0)/b;
+        phi := 1.0/b;
         twon := b*sinh(u);
         sn := t+ai*(twon-u)/(b*b);
-        ph := Double(2.0)*arctan(exp(u))-Double(1.57079632679489661923)+ai*(twon-u)/b;
+        ph := 2.0*arctan(exp(u))-1.57079632679489661923+ai*(twon-u)/b;
         ai := ai*t*phi;
         cn := phi-ai*(twon-u);
         dn := phi+ai*(twon+u);
         Exit;
     end;
-    a[0] := Double(1.0);
-    b := sqrt(Double(1.0)-m);
+    a[0] := 1.0;
+    b := sqrt(1.0-m);
     c[0] := sqrt(m);
-    twon := Double(1.0);
+    twon := 1.0;
     i := 0;
     while AP_FP_Greater(AbsReal(c[i]/a[i]),MachineEpsilon) do
     begin
@@ -137,17 +135,17 @@ begin
         end;
         ai := a[i];
         i := i+1;
-        c[i] := Double(0.5)*(ai-b);
+        c[i] := 0.5*(ai-b);
         t := sqrt(ai*b);
-        a[i] := Double(0.5)*(ai+b);
+        a[i] := 0.5*(ai+b);
         b := t;
-        twon := twon*Double(2.0);
+        twon := twon*2.0;
     end;
     phi := twon*a[i]*u;
     repeat
         t := c[i]*sin(phi)/a[i];
         b := phi;
-        phi := (arcsin(t)+phi)/Double(2.0);
+        phi := (arcsin(t)+phi)/2.0;
         i := i-1;
     until i=0;
     sn := sin(phi);

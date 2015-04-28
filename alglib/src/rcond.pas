@@ -1,5 +1,3 @@
-{.$MODESWITCH RESULT+}
-{.$GOTO ON}
 (*************************************************************************
 Copyright (c) 1992-2007 The University of Tennessee.  All rights reserved.
 
@@ -29,45 +27,45 @@ unit rcond;
 interface
 uses Math, Sysutils, Ap, reflections, creflections, hqrnd, matgen, ablasf, ablas, trfac, trlinsolve, safesolve;
 
-function RMatrixRCond1(A : TReal2DArray; N : AlglibInteger):Double;
-function RMatrixRCondInf(A : TReal2DArray; N : AlglibInteger):Double;
+function RMatrixRCond1(A : TReal2DArray; N : AlglibInteger):Extended;
+function RMatrixRCondInf(A : TReal2DArray; N : AlglibInteger):Extended;
 function SPDMatrixRCond(A : TReal2DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Double;
+     IsUpper : Boolean):Extended;
 function RMatrixTRRCond1(const A : TReal2DArray;
      N : AlglibInteger;
      IsUpper : Boolean;
-     IsUnit : Boolean):Double;
+     IsUnit : Boolean):Extended;
 function RMatrixTRRCondInf(const A : TReal2DArray;
      N : AlglibInteger;
      IsUpper : Boolean;
-     IsUnit : Boolean):Double;
+     IsUnit : Boolean):Extended;
 function HPDMatrixRCond(A : TComplex2DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Double;
-function CMatrixRCond1(A : TComplex2DArray; N : AlglibInteger):Double;
-function CMatrixRCondInf(A : TComplex2DArray; N : AlglibInteger):Double;
-function RMatrixLURCond1(const LUA : TReal2DArray; N : AlglibInteger):Double;
-function RMatrixLURCondInf(const LUA : TReal2DArray; N : AlglibInteger):Double;
+     IsUpper : Boolean):Extended;
+function CMatrixRCond1(A : TComplex2DArray; N : AlglibInteger):Extended;
+function CMatrixRCondInf(A : TComplex2DArray; N : AlglibInteger):Extended;
+function RMatrixLURCond1(const LUA : TReal2DArray; N : AlglibInteger):Extended;
+function RMatrixLURCondInf(const LUA : TReal2DArray; N : AlglibInteger):Extended;
 function SPDMatrixCholeskyRCond(const A : TReal2DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Double;
+     IsUpper : Boolean):Extended;
 function HPDMatrixCholeskyRCond(const A : TComplex2DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Double;
+     IsUpper : Boolean):Extended;
 function CMatrixLURCond1(const LUA : TComplex2DArray;
-     N : AlglibInteger):Double;
+     N : AlglibInteger):Extended;
 function CMatrixLURCondInf(const LUA : TComplex2DArray;
-     N : AlglibInteger):Double;
+     N : AlglibInteger):Extended;
 function CMatrixTRRCond1(const A : TComplex2DArray;
      N : AlglibInteger;
      IsUpper : Boolean;
-     IsUnit : Boolean):Double;
+     IsUnit : Boolean):Extended;
 function CMatrixTRRCondInf(const A : TComplex2DArray;
      N : AlglibInteger;
      IsUpper : Boolean;
-     IsUnit : Boolean):Double;
-function RCondThreshold():Double;
+     IsUnit : Boolean):Extended;
+function RCondThreshold():Extended;
 
 implementation
 
@@ -76,54 +74,54 @@ procedure RMatrixRCondTRInternal(const A : TReal2DArray;
      IsUpper : Boolean;
      IsUnit : Boolean;
      OneNorm : Boolean;
-     ANORM : Double;
-     var RC : Double);forward;
+     ANORM : Extended;
+     var RC : Extended);forward;
 procedure CMatrixRCondTRInternal(const A : TComplex2DArray;
      const N : AlglibInteger;
      IsUpper : Boolean;
      IsUnit : Boolean;
      OneNorm : Boolean;
-     ANORM : Double;
-     var RC : Double);forward;
+     ANORM : Extended;
+     var RC : Extended);forward;
 procedure SPDMatrixRCondCholeskyInternal(const CHA : TReal2DArray;
      N : AlglibInteger;
      IsUpper : Boolean;
      IsNormProvided : Boolean;
-     ANORM : Double;
-     var RC : Double);forward;
+     ANORM : Extended;
+     var RC : Extended);forward;
 procedure HPDMatrixRCondCholeskyInternal(const CHA : TComplex2DArray;
      N : AlglibInteger;
      IsUpper : Boolean;
      IsNormProvided : Boolean;
-     ANORM : Double;
-     var RC : Double);forward;
+     ANORM : Extended;
+     var RC : Extended);forward;
 procedure RMatrixRCondLUInternal(const LUA : TReal2DArray;
      N : AlglibInteger;
      OneNorm : Boolean;
      IsANormProvided : Boolean;
-     ANORM : Double;
-     var RC : Double);forward;
+     ANORM : Extended;
+     var RC : Extended);forward;
 procedure CMatrixRCondLUInternal(const LUA : TComplex2DArray;
      const N : AlglibInteger;
      OneNorm : Boolean;
      IsANormProvided : Boolean;
-     ANORM : Double;
-     var RC : Double);forward;
+     ANORM : Extended;
+     var RC : Extended);forward;
 procedure RMatrixEstimateNorm(N : AlglibInteger;
      var V : TReal1DArray;
      var X : TReal1DArray;
      var ISGN : TInteger1DArray;
-     var EST : Double;
+     var EST : Extended;
      var KASE : AlglibInteger);forward;
 procedure CMatrixEstimateNorm(const N : AlglibInteger;
      var V : TComplex1DArray;
      var X : TComplex1DArray;
-     var EST : Double;
+     var EST : Extended;
      var KASE : AlglibInteger;
      var ISAVE : TInteger1DArray;
      var RSAVE : TReal1DArray);forward;
 function InternalComplexRCondSCSUM1(const X : TComplex1DArray;
-     N : AlglibInteger):Double;forward;
+     N : AlglibInteger):Extended;forward;
 function InternalComplexRCondICMAX1(const X : TComplex1DArray;
      N : AlglibInteger):AlglibInteger;forward;
 procedure InternalComplexRCondSaveAll(var ISAVE : TInteger1DArray;
@@ -133,10 +131,10 @@ procedure InternalComplexRCondSaveAll(var ISAVE : TInteger1DArray;
      var J : AlglibInteger;
      var JLAST : AlglibInteger;
      var JUMP : AlglibInteger;
-     var ABSXI : Double;
-     var ALTSGN : Double;
-     var ESTOLD : Double;
-     var TEMP : Double);forward;
+     var ABSXI : Extended;
+     var ALTSGN : Extended;
+     var ESTOLD : Extended;
+     var TEMP : Extended);forward;
 procedure InternalComplexRCondLoadAll(var ISAVE : TInteger1DArray;
      var RSAVE : TReal1DArray;
      var I : AlglibInteger;
@@ -144,10 +142,10 @@ procedure InternalComplexRCondLoadAll(var ISAVE : TInteger1DArray;
      var J : AlglibInteger;
      var JLAST : AlglibInteger;
      var JUMP : AlglibInteger;
-     var ABSXI : Double;
-     var ALTSGN : Double;
-     var ESTOLD : Double;
-     var TEMP : Double);forward;
+     var ABSXI : Extended;
+     var ALTSGN : Extended;
+     var ESTOLD : Extended;
+     var TEMP : Extended);forward;
 
 
 (*************************************************************************
@@ -167,12 +165,12 @@ NOTE:
     if k(A) is very large, then matrix is  assumed  degenerate,  k(A)=INF,
     0.0 is returned in such cases.
 *************************************************************************)
-function RMatrixRCond1(A : TReal2DArray; N : AlglibInteger):Double;
+function RMatrixRCond1(A : TReal2DArray; N : AlglibInteger):Extended;
 var
     I : AlglibInteger;
     J : AlglibInteger;
-    V : Double;
-    Nrm : Double;
+    V : Extended;
+    Nrm : Extended;
     Pivots : TInteger1DArray;
     T : TReal1DArray;
 begin
@@ -226,12 +224,12 @@ NOTE:
     if k(A) is very large, then matrix is  assumed  degenerate,  k(A)=INF,
     0.0 is returned in such cases.
 *************************************************************************)
-function RMatrixRCondInf(A : TReal2DArray; N : AlglibInteger):Double;
+function RMatrixRCondInf(A : TReal2DArray; N : AlglibInteger):Extended;
 var
     I : AlglibInteger;
     J : AlglibInteger;
-    V : Double;
-    Nrm : Double;
+    V : Extended;
+    Nrm : Extended;
     Pivots : TInteger1DArray;
 begin
     A := DynamicArrayCopy(A);
@@ -285,14 +283,14 @@ NOTE:
 *************************************************************************)
 function SPDMatrixRCond(A : TReal2DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Double;
+     IsUpper : Boolean):Extended;
 var
     I : AlglibInteger;
     J : AlglibInteger;
     J1 : AlglibInteger;
     J2 : AlglibInteger;
-    V : Double;
-    Nrm : Double;
+    V : Extended;
+    Nrm : Extended;
     T : TReal1DArray;
 begin
     A := DynamicArrayCopy(A);
@@ -373,12 +371,13 @@ NOTE:
 function RMatrixTRRCond1(const A : TReal2DArray;
      N : AlglibInteger;
      IsUpper : Boolean;
-     IsUnit : Boolean):Double;
+     IsUnit : Boolean):Extended;
 var
     I : AlglibInteger;
     J : AlglibInteger;
-    V : Double;
-    Nrm : Double;
+    V : Extended;
+    Nrm : Extended;
+    Pivots : TInteger1DArray;
     T : TReal1DArray;
     J1 : AlglibInteger;
     J2 : AlglibInteger;
@@ -454,12 +453,13 @@ NOTE:
 function RMatrixTRRCondInf(const A : TReal2DArray;
      N : AlglibInteger;
      IsUpper : Boolean;
-     IsUnit : Boolean):Double;
+     IsUnit : Boolean):Extended;
 var
     I : AlglibInteger;
     J : AlglibInteger;
-    V : Double;
-    Nrm : Double;
+    V : Extended;
+    Nrm : Extended;
+    Pivots : TInteger1DArray;
     J1 : AlglibInteger;
     J2 : AlglibInteger;
 begin
@@ -530,14 +530,14 @@ NOTE:
 *************************************************************************)
 function HPDMatrixRCond(A : TComplex2DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Double;
+     IsUpper : Boolean):Extended;
 var
     I : AlglibInteger;
     J : AlglibInteger;
     J1 : AlglibInteger;
     J2 : AlglibInteger;
-    V : Double;
-    Nrm : Double;
+    V : Extended;
+    Nrm : Extended;
     T : TReal1DArray;
 begin
     A := DynamicArrayCopy(A);
@@ -613,12 +613,12 @@ NOTE:
     if k(A) is very large, then matrix is  assumed  degenerate,  k(A)=INF,
     0.0 is returned in such cases.
 *************************************************************************)
-function CMatrixRCond1(A : TComplex2DArray; N : AlglibInteger):Double;
+function CMatrixRCond1(A : TComplex2DArray; N : AlglibInteger):Extended;
 var
     I : AlglibInteger;
     J : AlglibInteger;
-    V : Double;
-    Nrm : Double;
+    V : Extended;
+    Nrm : Extended;
     Pivots : TInteger1DArray;
     T : TReal1DArray;
 begin
@@ -672,12 +672,12 @@ NOTE:
     if k(A) is very large, then matrix is  assumed  degenerate,  k(A)=INF,
     0.0 is returned in such cases.
 *************************************************************************)
-function CMatrixRCondInf(A : TComplex2DArray; N : AlglibInteger):Double;
+function CMatrixRCondInf(A : TComplex2DArray; N : AlglibInteger):Extended;
 var
     I : AlglibInteger;
     J : AlglibInteger;
-    V : Double;
-    Nrm : Double;
+    V : Extended;
+    Nrm : Extended;
     Pivots : TInteger1DArray;
 begin
     A := DynamicArrayCopy(A);
@@ -720,9 +720,9 @@ NOTE:
     if k(A) is very large, then matrix is  assumed  degenerate,  k(A)=INF,
     0.0 is returned in such cases.
 *************************************************************************)
-function RMatrixLURCond1(const LUA : TReal2DArray; N : AlglibInteger):Double;
+function RMatrixLURCond1(const LUA : TReal2DArray; N : AlglibInteger):Extended;
 var
-    V : Double;
+    V : Extended;
 begin
     RMatrixRCondLUInternal(LUA, N, True, False, 0, V);
     Result := V;
@@ -748,9 +748,9 @@ NOTE:
     if k(A) is very large, then matrix is  assumed  degenerate,  k(A)=INF,
     0.0 is returned in such cases.
 *************************************************************************)
-function RMatrixLURCondInf(const LUA : TReal2DArray; N : AlglibInteger):Double;
+function RMatrixLURCondInf(const LUA : TReal2DArray; N : AlglibInteger):Extended;
 var
-    V : Double;
+    V : Extended;
 begin
     RMatrixRCondLUInternal(LUA, N, False, False, 0, V);
     Result := V;
@@ -782,9 +782,9 @@ NOTE:
 *************************************************************************)
 function SPDMatrixCholeskyRCond(const A : TReal2DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Double;
+     IsUpper : Boolean):Extended;
 var
-    V : Double;
+    V : Extended;
 begin
     SPDMatrixRCondCholeskyInternal(A, N, IsUpper, False, 0, V);
     Result := V;
@@ -816,9 +816,9 @@ NOTE:
 *************************************************************************)
 function HPDMatrixCholeskyRCond(const A : TComplex2DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Double;
+     IsUpper : Boolean):Extended;
 var
-    V : Double;
+    V : Extended;
 begin
     HPDMatrixRCondCholeskyInternal(A, N, IsUpper, False, 0, V);
     Result := V;
@@ -844,9 +844,9 @@ NOTE:
     0.0 is returned in such cases.
 *************************************************************************)
 function CMatrixLURCond1(const LUA : TComplex2DArray;
-     N : AlglibInteger):Double;
+     N : AlglibInteger):Extended;
 var
-    V : Double;
+    V : Extended;
 begin
     Assert(N>=1, 'CMatrixLURCond1: N<1!');
     CMatrixRCondLUInternal(LUA, N, True, False, 0.0, V);
@@ -874,9 +874,9 @@ NOTE:
     0.0 is returned in such cases.
 *************************************************************************)
 function CMatrixLURCondInf(const LUA : TComplex2DArray;
-     N : AlglibInteger):Double;
+     N : AlglibInteger):Extended;
 var
-    V : Double;
+    V : Extended;
 begin
     Assert(N>=1, 'CMatrixLURCondInf: N<1!');
     CMatrixRCondLUInternal(LUA, N, False, False, 0.0, V);
@@ -906,12 +906,13 @@ NOTE:
 function CMatrixTRRCond1(const A : TComplex2DArray;
      N : AlglibInteger;
      IsUpper : Boolean;
-     IsUnit : Boolean):Double;
+     IsUnit : Boolean):Extended;
 var
     I : AlglibInteger;
     J : AlglibInteger;
-    V : Double;
-    Nrm : Double;
+    V : Extended;
+    Nrm : Extended;
+    Pivots : TInteger1DArray;
     T : TReal1DArray;
     J1 : AlglibInteger;
     J2 : AlglibInteger;
@@ -987,12 +988,13 @@ NOTE:
 function CMatrixTRRCondInf(const A : TComplex2DArray;
      N : AlglibInteger;
      IsUpper : Boolean;
-     IsUnit : Boolean):Double;
+     IsUnit : Boolean):Extended;
 var
     I : AlglibInteger;
     J : AlglibInteger;
-    V : Double;
-    Nrm : Double;
+    V : Extended;
+    Nrm : Extended;
+    Pivots : TInteger1DArray;
     J1 : AlglibInteger;
     J2 : AlglibInteger;
 begin
@@ -1041,7 +1043,7 @@ are considered singular.
 Threshold must be far enough from underflow, at least Sqr(Threshold)  must
 be greater than underflow.
 *************************************************************************)
-function RCondThreshold():Double;
+function RCondThreshold():Extended;
 begin
     Result := Sqrt(Sqrt(MinRealNumber));
 end;
@@ -1060,22 +1062,23 @@ procedure RMatrixRCondTRInternal(const A : TReal2DArray;
      IsUpper : Boolean;
      IsUnit : Boolean;
      OneNorm : Boolean;
-     ANORM : Double;
-     var RC : Double);
+     ANORM : Extended;
+     var RC : Extended);
 var
     EX : TReal1DArray;
     EV : TReal1DArray;
     IWORK : TInteger1DArray;
     Tmp : TReal1DArray;
+    V : Extended;
     I : AlglibInteger;
     J : AlglibInteger;
     KASE : AlglibInteger;
     KASE1 : AlglibInteger;
     J1 : AlglibInteger;
     J2 : AlglibInteger;
-    AINVNM : Double;
-    MaxGrowth : Double;
-    S : Double;
+    AINVNM : Extended;
+    MaxGrowth : Extended;
+    S : Extended;
     MUpper : Boolean;
     MTrans : Boolean;
     Munit : Boolean;
@@ -1250,23 +1253,25 @@ procedure CMatrixRCondTRInternal(const A : TComplex2DArray;
      IsUpper : Boolean;
      IsUnit : Boolean;
      OneNorm : Boolean;
-     ANORM : Double;
-     var RC : Double);
+     ANORM : Extended;
+     var RC : Extended);
 var
     EX : TComplex1DArray;
     CWORK2 : TComplex1DArray;
+    CWORK3 : TComplex1DArray;
     CWORK4 : TComplex1DArray;
     ISAVE : TInteger1DArray;
     RSAVE : TReal1DArray;
     KASE : AlglibInteger;
     KASE1 : AlglibInteger;
-    AINVNM : Double;
+    AINVNM : Extended;
+    V : Complex;
     I : AlglibInteger;
     J : AlglibInteger;
     J1 : AlglibInteger;
     J2 : AlglibInteger;
-    S : Double;
-    MaxGrowth : Double;
+    S : Extended;
+    MaxGrowth : Extended;
 begin
     
     //
@@ -1436,20 +1441,20 @@ procedure SPDMatrixRCondCholeskyInternal(const CHA : TReal2DArray;
      N : AlglibInteger;
      IsUpper : Boolean;
      IsNormProvided : Boolean;
-     ANORM : Double;
-     var RC : Double);
+     ANORM : Extended;
+     var RC : Extended);
 var
     I : AlglibInteger;
     J : AlglibInteger;
     KASE : AlglibInteger;
-    AINVNM : Double;
+    AINVNM : Extended;
     EX : TReal1DArray;
     EV : TReal1DArray;
     Tmp : TReal1DArray;
     IWORK : TInteger1DArray;
-    SA : Double;
-    V : Double;
-    MaxGrowth : Double;
+    SA : Extended;
+    V : Extended;
+    MaxGrowth : Extended;
 begin
     Assert(N>=1);
     SetLength(Tmp, N);
@@ -1686,8 +1691,8 @@ procedure HPDMatrixRCondCholeskyInternal(const CHA : TComplex2DArray;
      N : AlglibInteger;
      IsUpper : Boolean;
      IsNormProvided : Boolean;
-     ANORM : Double;
-     var RC : Double);
+     ANORM : Extended;
+     var RC : Extended);
 var
     ISAVE : TInteger1DArray;
     RSAVE : TReal1DArray;
@@ -1695,12 +1700,12 @@ var
     EV : TComplex1DArray;
     Tmp : TComplex1DArray;
     KASE : AlglibInteger;
-    AINVNM : Double;
+    AINVNM : Extended;
     V : Complex;
     I : AlglibInteger;
     J : AlglibInteger;
-    SA : Double;
-    MaxGrowth : Double;
+    SA : Extended;
+    MaxGrowth : Extended;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin
@@ -1977,22 +1982,22 @@ procedure RMatrixRCondLUInternal(const LUA : TReal2DArray;
      N : AlglibInteger;
      OneNorm : Boolean;
      IsANormProvided : Boolean;
-     ANORM : Double;
-     var RC : Double);
+     ANORM : Extended;
+     var RC : Extended);
 var
     EX : TReal1DArray;
     EV : TReal1DArray;
     IWORK : TInteger1DArray;
     Tmp : TReal1DArray;
-    V : Double;
+    V : Extended;
     I : AlglibInteger;
     J : AlglibInteger;
     KASE : AlglibInteger;
     KASE1 : AlglibInteger;
-    AINVNM : Double;
-    MaxGrowth : Double;
-    SU : Double;
-    SL : Double;
+    AINVNM : Extended;
+    MaxGrowth : Extended;
+    SU : Extended;
+    SL : Extended;
     MUpper : Boolean;
     MTrans : Boolean;
     Munit : Boolean;
@@ -2264,23 +2269,24 @@ procedure CMatrixRCondLUInternal(const LUA : TComplex2DArray;
      const N : AlglibInteger;
      OneNorm : Boolean;
      IsANormProvided : Boolean;
-     ANORM : Double;
-     var RC : Double);
+     ANORM : Extended;
+     var RC : Extended);
 var
     EX : TComplex1DArray;
     CWORK2 : TComplex1DArray;
+    CWORK3 : TComplex1DArray;
     CWORK4 : TComplex1DArray;
     ISAVE : TInteger1DArray;
     RSAVE : TReal1DArray;
     KASE : AlglibInteger;
     KASE1 : AlglibInteger;
-    AINVNM : Double;
+    AINVNM : Extended;
     V : Complex;
     I : AlglibInteger;
     J : AlglibInteger;
-    SU : Double;
-    SL : Double;
-    MaxGrowth : Double;
+    SU : Extended;
+    SL : Extended;
+    MaxGrowth : Extended;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin
@@ -2565,12 +2571,12 @@ procedure RMatrixEstimateNorm(N : AlglibInteger;
      var V : TReal1DArray;
      var X : TReal1DArray;
      var ISGN : TInteger1DArray;
-     var EST : Double;
+     var EST : Extended;
      var KASE : AlglibInteger);
 var
     ITMAX : AlglibInteger;
     I : AlglibInteger;
-    T : Double;
+    T : Extended;
     Flg : Boolean;
     PosITER : AlglibInteger;
     PosJ : AlglibInteger;
@@ -2817,7 +2823,7 @@ end;
 procedure CMatrixEstimateNorm(const N : AlglibInteger;
      var V : TComplex1DArray;
      var X : TComplex1DArray;
-     var EST : Double;
+     var EST : Extended;
      var KASE : AlglibInteger;
      var ISAVE : TInteger1DArray;
      var RSAVE : TReal1DArray);
@@ -2828,11 +2834,11 @@ var
     J : AlglibInteger;
     JLAST : AlglibInteger;
     JUMP : AlglibInteger;
-    ABSXI : Double;
-    ALTSGN : Double;
-    ESTOLD : Double;
-    SAFMIN : Double;
-    TEMP : Double;
+    ABSXI : Extended;
+    ALTSGN : Extended;
+    ESTOLD : Extended;
+    SAFMIN : Extended;
+    TEMP : Extended;
     i_ : AlglibInteger;
 begin
     
@@ -3043,7 +3049,7 @@ end;
 
 
 function InternalComplexRCondSCSUM1(const X : TComplex1DArray;
-     N : AlglibInteger):Double;
+     N : AlglibInteger):Extended;
 var
     I : AlglibInteger;
 begin
@@ -3061,7 +3067,7 @@ function InternalComplexRCondICMAX1(const X : TComplex1DArray;
      N : AlglibInteger):AlglibInteger;
 var
     I : AlglibInteger;
-    M : Double;
+    M : Extended;
 begin
     Result := 1;
     M := AbsComplex(X[1]);
@@ -3085,10 +3091,10 @@ procedure InternalComplexRCondSaveAll(var ISAVE : TInteger1DArray;
      var J : AlglibInteger;
      var JLAST : AlglibInteger;
      var JUMP : AlglibInteger;
-     var ABSXI : Double;
-     var ALTSGN : Double;
-     var ESTOLD : Double;
-     var TEMP : Double);
+     var ABSXI : Extended;
+     var ALTSGN : Extended;
+     var ESTOLD : Extended;
+     var TEMP : Extended);
 begin
     ISAVE[0] := I;
     ISAVE[1] := ITER;
@@ -3109,10 +3115,10 @@ procedure InternalComplexRCondLoadAll(var ISAVE : TInteger1DArray;
      var J : AlglibInteger;
      var JLAST : AlglibInteger;
      var JUMP : AlglibInteger;
-     var ABSXI : Double;
-     var ALTSGN : Double;
-     var ESTOLD : Double;
-     var TEMP : Double);
+     var ABSXI : Extended;
+     var ALTSGN : Extended;
+     var ESTOLD : Extended;
+     var TEMP : Extended);
 begin
     I := ISAVE[0];
     ITER := ISAVE[1];

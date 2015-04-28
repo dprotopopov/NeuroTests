@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testidwunit;
 interface
 uses Math, Sysutils, Ap, tsort, nearestneighbor, reflections, hblas, creflections, sblas, ablasf, ablas, ortfac, blas, rotations, bdsvd, svd, hqrnd, matgen, trfac, trlinsolve, safesolve, rcond, xblas, densesolver, idwint;
@@ -263,7 +261,7 @@ var
     X : TReal1DArray;
 begin
     Threshold := 1000*MachineEpsilon;
-    LipschitzStep := Double(0.001);
+    LipschitzStep := 0.001;
     SetLength(X, NX);
     
     //
@@ -323,7 +321,7 @@ begin
         L2 := Max(L2, AbsReal(V2-V1)/(LipschitzStep/3));
         T := T+LipschitzStep/3;
     end;
-    IDWErrors := IDWErrors or AP_FP_Greater(L2,Double(2.0)*L1);
+    IDWErrors := IDWErrors or AP_FP_Greater(L2,2.0*L1);
 end;
 
 
@@ -354,7 +352,7 @@ var
     X : TReal1DArray;
 begin
     Threshold := 1000*MachineEpsilon;
-    LipschitzStep := Double(0.001);
+    LipschitzStep := 0.001;
     SetLength(X, NX);
     
     //
@@ -414,7 +412,7 @@ begin
         L2 := Max(L2, AbsReal(V2-V1)/(LipschitzStep/3));
         T := T+LipschitzStep/3;
     end;
-    IDWErrors := IDWErrors or AP_FP_Greater(L2,Double(2.0)*L1);
+    IDWErrors := IDWErrors or AP_FP_Greater(L2,2.0*L1);
 end;
 
 
@@ -455,7 +453,7 @@ var
     V1 : Double;
     V2 : Double;
 begin
-    Threshold := Double(1.0E6)*MachineEpsilon;
+    Threshold := 1.0E6*MachineEpsilon;
     NQ := 2*(NX*NX+NX+1);
     NW := 10;
     Assert(NQ<=N, 'TestDegree: internal error');
@@ -484,7 +482,7 @@ begin
         end;
         repeat
             C2[I,I] := 2*RandomReal-1;
-        until AP_FP_Greater(AbsReal(C2[I,I]),Double(0.3));
+        until AP_FP_Greater(AbsReal(C2[I,I]),0.3);
         Inc(I);
     end;
     
@@ -603,7 +601,7 @@ var
 begin
     NQ := 20;
     NW := 40;
-    NoiseLevel := Double(0.2);
+    NoiseLevel := 0.2;
     NTrn := 256;
     NTst := 1024;
     D:=1;

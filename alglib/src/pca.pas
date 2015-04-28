@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Copyright (c) 2008, Sergey Bochkanov (ALGLIB project).
 
@@ -75,10 +73,10 @@ var
     T : TReal1DArray;
     I : AlglibInteger;
     J : AlglibInteger;
-    Mean : Double;
-    Variance : Double;
-    Skewness : Double;
-    Kurtosis : Double;
+    Mean : Extended;
+    Variance : Extended;
+    Skewness : Extended;
+    Kurtosis : Extended;
     i_ : AlglibInteger;
 begin
     

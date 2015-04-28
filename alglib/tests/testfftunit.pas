@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testfftunit;
 interface
 uses Math, Sysutils, Ap, ftbase, fft;

@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Copyright (c) 2009, Sergey Bochkanov (ALGLIB project).
 
@@ -23,33 +21,33 @@ unit apserv;
 interface
 uses Math, Sysutils, Ap;
 
-procedure TaskGenInt1D(A : Double;
-     B : Double;
+procedure TaskGenInt1D(A : Extended;
+     B : Extended;
      N : AlglibInteger;
      var X : TReal1DArray;
      var Y : TReal1DArray);
-procedure TaskGenInt1DEquidist(A : Double;
-     B : Double;
+procedure TaskGenInt1DEquidist(A : Extended;
+     B : Extended;
      N : AlglibInteger;
      var X : TReal1DArray;
      var Y : TReal1DArray);
-procedure TaskGenInt1DCheb1(A : Double;
-     B : Double;
+procedure TaskGenInt1DCheb1(A : Extended;
+     B : Extended;
      N : AlglibInteger;
      var X : TReal1DArray;
      var Y : TReal1DArray);
-procedure TaskGenInt1DCheb2(A : Double;
-     B : Double;
+procedure TaskGenInt1DCheb2(A : Extended;
+     B : Extended;
      N : AlglibInteger;
      var X : TReal1DArray;
      var Y : TReal1DArray);
 function APSERVAreDistinct(X : TReal1DArray; N : AlglibInteger):Boolean;
-function SafePythag2(X : Double; Y : Double):Double;
-function SafePythag3(X : Double; Y : Double; Z : Double):Double;
-procedure APPeriodicMap(var X : Double;
-     A : Double;
-     B : Double;
-     var K : Double);
+function SafePythag2(X : Extended; Y : Extended):Extended;
+function SafePythag3(X : Extended; Y : Extended; Z : Extended):Extended;
+procedure APPeriodicMap(var X : Extended;
+     A : Extended;
+     B : Extended;
+     var K : Extended);
 
 implementation
 
@@ -62,14 +60,14 @@ If N=1 then suborutine generates only one point at the middle of [A,B]
   -- ALGLIB --
      Copyright 02.12.2009 by Bochkanov Sergey
 *************************************************************************)
-procedure TaskGenInt1D(A : Double;
-     B : Double;
+procedure TaskGenInt1D(A : Extended;
+     B : Extended;
      N : AlglibInteger;
      var X : TReal1DArray;
      var Y : TReal1DArray);
 var
     I : AlglibInteger;
-    H : Double;
+    H : Extended;
 begin
     Assert(N>=1, 'TaskGenInterpolationEqdist1D: N<1!');
     SetLength(X, N);
@@ -84,7 +82,7 @@ begin
         begin
             if I<>N-1 then
             begin
-                X[I] := A+(I+Double(0.2)*(2*RandomReal-1))*H;
+                X[I] := A+(I+0.2*(2*RandomReal-1))*H;
             end
             else
             begin
@@ -96,7 +94,7 @@ begin
     end
     else
     begin
-        X[0] := Double(0.5)*(A+B);
+        X[0] := 0.5*(A+B);
         Y[0] := 2*RandomReal-1;
     end;
 end;
@@ -111,14 +109,14 @@ If N=1 then suborutine generates only one point at the middle of [A,B]
   -- ALGLIB --
      Copyright 02.12.2009 by Bochkanov Sergey
 *************************************************************************)
-procedure TaskGenInt1DEquidist(A : Double;
-     B : Double;
+procedure TaskGenInt1DEquidist(A : Extended;
+     B : Extended;
      N : AlglibInteger;
      var X : TReal1DArray;
      var Y : TReal1DArray);
 var
     I : AlglibInteger;
-    H : Double;
+    H : Extended;
 begin
     Assert(N>=1, 'TaskGenInterpolationEqdist1D: N<1!');
     SetLength(X, N);
@@ -138,7 +136,7 @@ begin
     end
     else
     begin
-        X[0] := Double(0.5)*(A+B);
+        X[0] := 0.5*(A+B);
         Y[0] := 2*RandomReal-1;
     end;
 end;
@@ -153,8 +151,8 @@ If N=1 then suborutine generates only one point at the middle of [A,B]
   -- ALGLIB --
      Copyright 02.12.2009 by Bochkanov Sergey
 *************************************************************************)
-procedure TaskGenInt1DCheb1(A : Double;
-     B : Double;
+procedure TaskGenInt1DCheb1(A : Extended;
+     B : Extended;
      N : AlglibInteger;
      var X : TReal1DArray;
      var Y : TReal1DArray);
@@ -169,7 +167,7 @@ begin
         I:=0;
         while I<=N-1 do
         begin
-            X[I] := Double(0.5)*(B+A)+Double(0.5)*(B-A)*Cos(Pi*(2*i+1)/(2*N));
+            X[I] := 0.5*(B+A)+0.5*(B-A)*Cos(Pi*(2*i+1)/(2*N));
             if I=0 then
             begin
                 Y[I] := 2*RandomReal-1;
@@ -183,7 +181,7 @@ begin
     end
     else
     begin
-        X[0] := Double(0.5)*(A+B);
+        X[0] := 0.5*(A+B);
         Y[0] := 2*RandomReal-1;
     end;
 end;
@@ -198,8 +196,8 @@ If N=1 then suborutine generates only one point at the middle of [A,B]
   -- ALGLIB --
      Copyright 02.12.2009 by Bochkanov Sergey
 *************************************************************************)
-procedure TaskGenInt1DCheb2(A : Double;
-     B : Double;
+procedure TaskGenInt1DCheb2(A : Extended;
+     B : Extended;
      N : AlglibInteger;
      var X : TReal1DArray;
      var Y : TReal1DArray);
@@ -214,7 +212,7 @@ begin
         I:=0;
         while I<=N-1 do
         begin
-            X[I] := Double(0.5)*(B+A)+Double(0.5)*(B-A)*Cos(Pi*i/(n-1));
+            X[I] := 0.5*(B+A)+0.5*(B-A)*Cos(Pi*i/(n-1));
             if I=0 then
             begin
                 Y[I] := 2*RandomReal-1;
@@ -228,7 +226,7 @@ begin
     end
     else
     begin
-        X[0] := Double(0.5)*(A+B);
+        X[0] := 0.5*(A+B);
         Y[0] := 2*RandomReal-1;
     end;
 end;
@@ -253,8 +251,8 @@ NOTE:
 function APSERVAreDistinct(X : TReal1DArray; N : AlglibInteger):Boolean;
 var
     IsSorted : Boolean;
-    A : Double;
-    B : Double;
+    A : Extended;
+    B : Extended;
     I : AlglibInteger;
 begin
     X := DynamicArrayCopy(X);
@@ -305,12 +303,12 @@ Safe sqrt(x^2+y^2)
   -- ALGLIB --
      Copyright by Bochkanov Sergey
 *************************************************************************)
-function SafePythag2(X : Double; Y : Double):Double;
+function SafePythag2(X : Extended; Y : Extended):Extended;
 var
-    W : Double;
-    XABS : Double;
-    YABS : Double;
-    Z : Double;
+    W : Extended;
+    XABS : Extended;
+    YABS : Extended;
+    Z : Extended;
 begin
     XABS := AbsReal(X);
     YABS := AbsReal(Y);
@@ -333,9 +331,9 @@ Safe sqrt(x^2+y^2)
   -- ALGLIB --
      Copyright by Bochkanov Sergey
 *************************************************************************)
-function SafePythag3(X : Double; Y : Double; Z : Double):Double;
+function SafePythag3(X : Extended; Y : Extended; Z : Extended):Extended;
 var
-    W : Double;
+    W : Extended;
 begin
     W := Max(AbsReal(X), Max(AbsReal(Y), AbsReal(Z)));
     if AP_FP_Eq(W,0) then
@@ -364,10 +362,10 @@ NOTES:
   -- ALGLIB --
      Copyright by Bochkanov Sergey
 *************************************************************************)
-procedure APPeriodicMap(var X : Double;
-     A : Double;
-     B : Double;
-     var K : Double);
+procedure APPeriodicMap(var X : Extended;
+     A : Extended;
+     B : Extended;
+     var K : Extended);
 begin
     Assert(AP_FP_Less(A,B), 'APPeriodicMap: internal error!');
     K := Floor((X-A)/(B-A));

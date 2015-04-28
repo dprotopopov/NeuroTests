@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Copyright (c) 2007, Sergey Bochkanov (ALGLIB project).
 
@@ -27,15 +25,15 @@ procedure FTest(const X : TReal1DArray;
      N : AlglibInteger;
      const Y : TReal1DArray;
      M : AlglibInteger;
-     var BothTails : Double;
-     var LeftTail : Double;
-     var RightTail : Double);
+     var BothTails : Extended;
+     var LeftTail : Extended;
+     var RightTail : Extended);
 procedure OneSampleVarianceTest(const X : TReal1DArray;
      N : AlglibInteger;
-     Variance : Double;
-     var BothTails : Double;
-     var LeftTail : Double;
-     var RightTail : Double);
+     Variance : Extended;
+     var BothTails : Extended;
+     var LeftTail : Extended;
+     var RightTail : Extended);
 
 implementation
 
@@ -79,24 +77,24 @@ procedure FTest(const X : TReal1DArray;
      N : AlglibInteger;
      const Y : TReal1DArray;
      M : AlglibInteger;
-     var BothTails : Double;
-     var LeftTail : Double;
-     var RightTail : Double);
+     var BothTails : Extended;
+     var LeftTail : Extended;
+     var RightTail : Extended);
 var
     I : AlglibInteger;
-    XMean : Double;
-    YMean : Double;
-    XVar : Double;
-    YVar : Double;
+    XMean : Extended;
+    YMean : Extended;
+    XVar : Extended;
+    YVar : Extended;
     DF1 : AlglibInteger;
     DF2 : AlglibInteger;
-    Stat : Double;
+    Stat : Extended;
 begin
     if (N<=2) or (M<=2) then
     begin
-        BothTails := Double(1.0);
-        LeftTail := Double(1.0);
-        RightTail := Double(1.0);
+        BothTails := 1.0;
+        LeftTail := 1.0;
+        RightTail := 1.0;
         Exit;
     end;
     
@@ -141,9 +139,9 @@ begin
     YVar := YVar/(M-1);
     if AP_FP_Eq(XVar,0) or AP_FP_Eq(YVar,0) then
     begin
-        BothTails := Double(1.0);
-        LeftTail := Double(1.0);
-        RightTail := Double(1.0);
+        BothTails := 1.0;
+        LeftTail := 1.0;
+        RightTail := 1.0;
         Exit;
     end;
     
@@ -195,22 +193,22 @@ Output parameters:
 *************************************************************************)
 procedure OneSampleVarianceTest(const X : TReal1DArray;
      N : AlglibInteger;
-     Variance : Double;
-     var BothTails : Double;
-     var LeftTail : Double;
-     var RightTail : Double);
+     Variance : Extended;
+     var BothTails : Extended;
+     var LeftTail : Extended;
+     var RightTail : Extended);
 var
     I : AlglibInteger;
-    XMean : Double;
-    XVar : Double;
-    S : Double;
-    Stat : Double;
+    XMean : Extended;
+    XVar : Extended;
+    S : Extended;
+    Stat : Extended;
 begin
     if N<=1 then
     begin
-        BothTails := Double(1.0);
-        LeftTail := Double(1.0);
-        RightTail := Double(1.0);
+        BothTails := 1.0;
+        LeftTail := 1.0;
+        RightTail := 1.0;
         Exit;
     end;
     
@@ -239,9 +237,9 @@ begin
     XVar := XVar/(N-1);
     if AP_FP_Eq(XVar,0) then
     begin
-        BothTails := Double(1.0);
-        LeftTail := Double(1.0);
-        RightTail := Double(1.0);
+        BothTails := 1.0;
+        LeftTail := 1.0;
+        RightTail := 1.0;
         Exit;
     end;
     

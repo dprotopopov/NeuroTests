@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Copyright (c) 2007, Sergey Bochkanov (ALGLIB project).
 
@@ -25,20 +23,20 @@ uses Math, Sysutils, Ap;
 
 procedure CalculateMoments(const X : TReal1DArray;
      N : AlglibInteger;
-     var Mean : Double;
-     var Variance : Double;
-     var Skewness : Double;
-     var Kurtosis : Double);
+     var Mean : Extended;
+     var Variance : Extended;
+     var Skewness : Extended;
+     var Kurtosis : Extended);
 procedure CalculateADev(const X : TReal1DArray;
      N : AlglibInteger;
-     var ADev : Double);
+     var ADev : Extended);
 procedure CalculateMedian(X : TReal1DArray;
      N : AlglibInteger;
-     var Median : Double);
+     var Median : Extended);
 procedure CalculatePercentile(X : TReal1DArray;
      N : AlglibInteger;
-     P : Double;
-     var V : Double);
+     P : Extended;
+     var V : Extended);
 
 implementation
 
@@ -64,16 +62,16 @@ Output parameters:
 *************************************************************************)
 procedure CalculateMoments(const X : TReal1DArray;
      N : AlglibInteger;
-     var Mean : Double;
-     var Variance : Double;
-     var Skewness : Double;
-     var Kurtosis : Double);
+     var Mean : Extended;
+     var Variance : Extended;
+     var Skewness : Extended;
+     var Kurtosis : Extended);
 var
     I : AlglibInteger;
-    V : Double;
-    V1 : Double;
-    V2 : Double;
-    StdDev : Double;
+    V : Extended;
+    V1 : Extended;
+    V2 : Extended;
+    StdDev : Extended;
 begin
     Mean := 0;
     Variance := 0;
@@ -159,10 +157,10 @@ Output parameters:
 *************************************************************************)
 procedure CalculateADev(const X : TReal1DArray;
      N : AlglibInteger;
-     var ADev : Double);
+     var ADev : Extended);
 var
     I : AlglibInteger;
-    Mean : Double;
+    Mean : Extended;
 begin
     Mean := 0;
     ADev := 0;
@@ -210,7 +208,7 @@ Output parameters:
 *************************************************************************)
 procedure CalculateMedian(X : TReal1DArray;
      N : AlglibInteger;
-     var Median : Double);
+     var Median : Extended);
 var
     i : AlglibInteger;
     ir : AlglibInteger;
@@ -218,8 +216,8 @@ var
     l : AlglibInteger;
     midp : AlglibInteger;
     K : AlglibInteger;
-    a : Double;
-    tval : Double;
+    a : Extended;
+    tval : Extended;
 begin
     X := DynamicArrayCopy(X);
     
@@ -238,7 +236,7 @@ begin
     end;
     if N=2 then
     begin
-        Median := Double(0.5)*(X[0]+X[1]);
+        Median := 0.5*(X[0]+X[1]);
         Exit;
     end;
     
@@ -339,7 +337,7 @@ begin
         end;
         Inc(i);
     end;
-    Median := Double(0.5)*(x[k]+a);
+    Median := 0.5*(x[k]+a);
 end;
 
 
@@ -359,11 +357,11 @@ Output parameters:
 *************************************************************************)
 procedure CalculatePercentile(X : TReal1DArray;
      N : AlglibInteger;
-     P : Double;
-     var V : Double);
+     P : Extended;
+     var V : Extended);
 var
     I1 : AlglibInteger;
-    T : Double;
+    T : Extended;
 begin
     X := DynamicArrayCopy(X);
     Assert(N>1, 'CalculatePercentile: N<=1!');
@@ -391,7 +389,7 @@ var
     I : AlglibInteger;
     K : AlglibInteger;
     T : AlglibInteger;
-    Tmp : Double;
+    Tmp : Extended;
 begin
     if N=1 then
     begin

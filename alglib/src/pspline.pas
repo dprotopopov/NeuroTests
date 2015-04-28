@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Copyright (c) 2006-2010, Sergey Bochkanov (ALGLIB project).
 
@@ -83,62 +81,62 @@ procedure PSpline3ParameterValues(const P : PSpline3Interpolant;
      var N : AlglibInteger;
      var T : TReal1DArray);
 procedure PSpline2Calc(const P : PSpline2Interpolant;
-     T : Double;
-     var X : Double;
-     var Y : Double);
+     T : Extended;
+     var X : Extended;
+     var Y : Extended);
 procedure PSpline3Calc(const P : PSpline3Interpolant;
-     T : Double;
-     var X : Double;
-     var Y : Double;
-     var Z : Double);
+     T : Extended;
+     var X : Extended;
+     var Y : Extended;
+     var Z : Extended);
 procedure PSpline2Tangent(const P : PSpline2Interpolant;
-     T : Double;
-     var X : Double;
-     var Y : Double);
+     T : Extended;
+     var X : Extended;
+     var Y : Extended);
 procedure PSpline3Tangent(const P : PSpline3Interpolant;
-     T : Double;
-     var X : Double;
-     var Y : Double;
-     var Z : Double);
+     T : Extended;
+     var X : Extended;
+     var Y : Extended;
+     var Z : Extended);
 procedure PSpline2Diff(const P : PSpline2Interpolant;
-     T : Double;
-     var X : Double;
-     var DX : Double;
-     var Y : Double;
-     var DY : Double);
+     T : Extended;
+     var X : Extended;
+     var DX : Extended;
+     var Y : Extended;
+     var DY : Extended);
 procedure PSpline3Diff(const P : PSpline3Interpolant;
-     T : Double;
-     var X : Double;
-     var DX : Double;
-     var Y : Double;
-     var DY : Double;
-     var Z : Double;
-     var DZ : Double);
+     T : Extended;
+     var X : Extended;
+     var DX : Extended;
+     var Y : Extended;
+     var DY : Extended;
+     var Z : Extended;
+     var DZ : Extended);
 procedure PSpline2Diff2(const P : PSpline2Interpolant;
-     T : Double;
-     var X : Double;
-     var DX : Double;
-     var D2X : Double;
-     var Y : Double;
-     var DY : Double;
-     var D2Y : Double);
+     T : Extended;
+     var X : Extended;
+     var DX : Extended;
+     var D2X : Extended;
+     var Y : Extended;
+     var DY : Extended;
+     var D2Y : Extended);
 procedure PSpline3Diff2(const P : PSpline3Interpolant;
-     T : Double;
-     var X : Double;
-     var DX : Double;
-     var D2X : Double;
-     var Y : Double;
-     var DY : Double;
-     var D2Y : Double;
-     var Z : Double;
-     var DZ : Double;
-     var D2Z : Double);
+     T : Extended;
+     var X : Extended;
+     var DX : Extended;
+     var D2X : Extended;
+     var Y : Extended;
+     var DY : Extended;
+     var D2Y : Extended;
+     var Z : Extended;
+     var DZ : Extended;
+     var D2Z : Extended);
 function PSpline2ArcLength(const P : PSpline2Interpolant;
-     A : Double;
-     B : Double):Double;
+     A : Extended;
+     B : Extended):Extended;
 function PSpline3ArcLength(const P : PSpline3Interpolant;
-     A : Double;
-     B : Double):Double;
+     A : Extended;
+     B : Extended):Extended;
 
 implementation
 
@@ -191,7 +189,7 @@ procedure PSpline2Build(XY : TReal2DArray;
      var P : PSpline2Interpolant);
 var
     Tmp : TReal1DArray;
-    V : Double;
+    V : Extended;
     I : AlglibInteger;
     i_ : AlglibInteger;
 begin
@@ -242,12 +240,12 @@ begin
         begin
             Tmp[i_] := XY[i_,0];
         end;
-        Spline1DBuildCatmullRom(P.P, Tmp, N, 0, Double(0.0), P.X);
+        Spline1DBuildCatmullRom(P.P, Tmp, N, 0, 0.0, P.X);
         for i_ := 0 to N-1 do
         begin
             Tmp[i_] := XY[i_,1];
         end;
-        Spline1DBuildCatmullRom(P.P, Tmp, N, 0, Double(0.0), P.Y);
+        Spline1DBuildCatmullRom(P.P, Tmp, N, 0, 0.0, P.Y);
     end;
     if ST=2 then
     begin
@@ -255,12 +253,12 @@ begin
         begin
             Tmp[i_] := XY[i_,0];
         end;
-        Spline1DBuildCubic(P.P, Tmp, N, 0, Double(0.0), 0, Double(0.0), P.X);
+        Spline1DBuildCubic(P.P, Tmp, N, 0, 0.0, 0, 0.0, P.X);
         for i_ := 0 to N-1 do
         begin
             Tmp[i_] := XY[i_,1];
         end;
-        Spline1DBuildCubic(P.P, Tmp, N, 0, Double(0.0), 0, Double(0.0), P.Y);
+        Spline1DBuildCubic(P.P, Tmp, N, 0, 0.0, 0, 0.0, P.Y);
     end;
 end;
 
@@ -282,7 +280,7 @@ procedure PSpline3Build(XY : TReal2DArray;
      var P : PSpline3Interpolant);
 var
     Tmp : TReal1DArray;
-    V : Double;
+    V : Extended;
     I : AlglibInteger;
     i_ : AlglibInteger;
 begin
@@ -338,17 +336,17 @@ begin
         begin
             Tmp[i_] := XY[i_,0];
         end;
-        Spline1DBuildCatmullRom(P.P, Tmp, N, 0, Double(0.0), P.X);
+        Spline1DBuildCatmullRom(P.P, Tmp, N, 0, 0.0, P.X);
         for i_ := 0 to N-1 do
         begin
             Tmp[i_] := XY[i_,1];
         end;
-        Spline1DBuildCatmullRom(P.P, Tmp, N, 0, Double(0.0), P.Y);
+        Spline1DBuildCatmullRom(P.P, Tmp, N, 0, 0.0, P.Y);
         for i_ := 0 to N-1 do
         begin
             Tmp[i_] := XY[i_,2];
         end;
-        Spline1DBuildCatmullRom(P.P, Tmp, N, 0, Double(0.0), P.Z);
+        Spline1DBuildCatmullRom(P.P, Tmp, N, 0, 0.0, P.Z);
     end;
     if ST=2 then
     begin
@@ -356,17 +354,17 @@ begin
         begin
             Tmp[i_] := XY[i_,0];
         end;
-        Spline1DBuildCubic(P.P, Tmp, N, 0, Double(0.0), 0, Double(0.0), P.X);
+        Spline1DBuildCubic(P.P, Tmp, N, 0, 0.0, 0, 0.0, P.X);
         for i_ := 0 to N-1 do
         begin
             Tmp[i_] := XY[i_,1];
         end;
-        Spline1DBuildCubic(P.P, Tmp, N, 0, Double(0.0), 0, Double(0.0), P.Y);
+        Spline1DBuildCubic(P.P, Tmp, N, 0, 0.0, 0, 0.0, P.Y);
         for i_ := 0 to N-1 do
         begin
             Tmp[i_] := XY[i_,2];
         end;
-        Spline1DBuildCubic(P.P, Tmp, N, 0, Double(0.0), 0, Double(0.0), P.Z);
+        Spline1DBuildCubic(P.P, Tmp, N, 0, 0.0, 0, 0.0, P.Z);
     end;
 end;
 
@@ -413,7 +411,7 @@ procedure PSpline2BuildPeriodic(XY : TReal2DArray;
 var
     XYP : TReal2DArray;
     Tmp : TReal1DArray;
-    V : Double;
+    V : Extended;
     I : AlglibInteger;
     i_ : AlglibInteger;
 begin
@@ -454,12 +452,12 @@ begin
         begin
             Tmp[i_] := XYP[i_,0];
         end;
-        Spline1DBuildCatmullRom(P.P, Tmp, N+1, -1, Double(0.0), P.X);
+        Spline1DBuildCatmullRom(P.P, Tmp, N+1, -1, 0.0, P.X);
         for i_ := 0 to N do
         begin
             Tmp[i_] := XYP[i_,1];
         end;
-        Spline1DBuildCatmullRom(P.P, Tmp, N+1, -1, Double(0.0), P.Y);
+        Spline1DBuildCatmullRom(P.P, Tmp, N+1, -1, 0.0, P.Y);
     end;
     if ST=2 then
     begin
@@ -467,12 +465,12 @@ begin
         begin
             Tmp[i_] := XYP[i_,0];
         end;
-        Spline1DBuildCubic(P.P, Tmp, N+1, -1, Double(0.0), -1, Double(0.0), P.X);
+        Spline1DBuildCubic(P.P, Tmp, N+1, -1, 0.0, -1, 0.0, P.X);
         for i_ := 0 to N do
         begin
             Tmp[i_] := XYP[i_,1];
         end;
-        Spline1DBuildCubic(P.P, Tmp, N+1, -1, Double(0.0), -1, Double(0.0), P.Y);
+        Spline1DBuildCubic(P.P, Tmp, N+1, -1, 0.0, -1, 0.0, P.Y);
     end;
 end;
 
@@ -496,7 +494,7 @@ procedure PSpline3BuildPeriodic(XY : TReal2DArray;
 var
     XYP : TReal2DArray;
     Tmp : TReal1DArray;
-    V : Double;
+    V : Extended;
     I : AlglibInteger;
     i_ : AlglibInteger;
 begin
@@ -541,17 +539,17 @@ begin
         begin
             Tmp[i_] := XYP[i_,0];
         end;
-        Spline1DBuildCatmullRom(P.P, Tmp, N+1, -1, Double(0.0), P.X);
+        Spline1DBuildCatmullRom(P.P, Tmp, N+1, -1, 0.0, P.X);
         for i_ := 0 to N do
         begin
             Tmp[i_] := XYP[i_,1];
         end;
-        Spline1DBuildCatmullRom(P.P, Tmp, N+1, -1, Double(0.0), P.Y);
+        Spline1DBuildCatmullRom(P.P, Tmp, N+1, -1, 0.0, P.Y);
         for i_ := 0 to N do
         begin
             Tmp[i_] := XYP[i_,2];
         end;
-        Spline1DBuildCatmullRom(P.P, Tmp, N+1, -1, Double(0.0), P.Z);
+        Spline1DBuildCatmullRom(P.P, Tmp, N+1, -1, 0.0, P.Z);
     end;
     if ST=2 then
     begin
@@ -559,17 +557,17 @@ begin
         begin
             Tmp[i_] := XYP[i_,0];
         end;
-        Spline1DBuildCubic(P.P, Tmp, N+1, -1, Double(0.0), -1, Double(0.0), P.X);
+        Spline1DBuildCubic(P.P, Tmp, N+1, -1, 0.0, -1, 0.0, P.X);
         for i_ := 0 to N do
         begin
             Tmp[i_] := XYP[i_,1];
         end;
-        Spline1DBuildCubic(P.P, Tmp, N+1, -1, Double(0.0), -1, Double(0.0), P.Y);
+        Spline1DBuildCubic(P.P, Tmp, N+1, -1, 0.0, -1, 0.0, P.Y);
         for i_ := 0 to N do
         begin
             Tmp[i_] := XYP[i_,2];
         end;
-        Spline1DBuildCubic(P.P, Tmp, N+1, -1, Double(0.0), -1, Double(0.0), P.Z);
+        Spline1DBuildCubic(P.P, Tmp, N+1, -1, 0.0, -1, 0.0, P.Z);
     end;
 end;
 
@@ -661,9 +659,9 @@ OUTPUT PARAMETERS:
      Copyright 28.05.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure PSpline2Calc(const P : PSpline2Interpolant;
-     T : Double;
-     var X : Double;
-     var Y : Double);
+     T : Extended;
+     var X : Extended;
+     var Y : Extended);
 begin
     if P.Periodic then
     begin
@@ -697,10 +695,10 @@ OUTPUT PARAMETERS:
      Copyright 28.05.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure PSpline3Calc(const P : PSpline3Interpolant;
-     T : Double;
-     var X : Double;
-     var Y : Double;
-     var Z : Double);
+     T : Extended;
+     var X : Extended;
+     var Y : Extended;
+     var Z : Extended);
 begin
     if P.Periodic then
     begin
@@ -736,13 +734,13 @@ NOTE:
      Copyright 28.05.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure PSpline2Tangent(const P : PSpline2Interpolant;
-     T : Double;
-     var X : Double;
-     var Y : Double);
+     T : Extended;
+     var X : Extended;
+     var Y : Extended);
 var
-    V : Double;
-    V0 : Double;
-    V1 : Double;
+    V : Extended;
+    V0 : Extended;
+    V1 : Extended;
 begin
     if P.Periodic then
     begin
@@ -788,15 +786,15 @@ NOTE:
      Copyright 28.05.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure PSpline3Tangent(const P : PSpline3Interpolant;
-     T : Double;
-     var X : Double;
-     var Y : Double;
-     var Z : Double);
+     T : Extended;
+     var X : Extended;
+     var Y : Extended;
+     var Z : Extended);
 var
-    V : Double;
-    V0 : Double;
-    V1 : Double;
-    V2 : Double;
+    V : Extended;
+    V0 : Extended;
+    V1 : Extended;
+    V2 : Extended;
 begin
     if P.Periodic then
     begin
@@ -836,13 +834,13 @@ OUTPUT PARAMETERS:
      Copyright 28.05.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure PSpline2Diff(const P : PSpline2Interpolant;
-     T : Double;
-     var X : Double;
-     var DX : Double;
-     var Y : Double;
-     var DY : Double);
+     T : Extended;
+     var X : Extended;
+     var DX : Extended;
+     var Y : Extended;
+     var DY : Extended);
 var
-    D2S : Double;
+    D2S : Extended;
 begin
     if P.Periodic then
     begin
@@ -878,15 +876,15 @@ OUTPUT PARAMETERS:
      Copyright 28.05.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure PSpline3Diff(const P : PSpline3Interpolant;
-     T : Double;
-     var X : Double;
-     var DX : Double;
-     var Y : Double;
-     var DY : Double;
-     var Z : Double;
-     var DZ : Double);
+     T : Extended;
+     var X : Extended;
+     var DX : Extended;
+     var Y : Extended;
+     var DY : Extended;
+     var Z : Extended;
+     var DZ : Extended);
 var
-    D2S : Double;
+    D2S : Extended;
 begin
     if P.Periodic then
     begin
@@ -923,13 +921,13 @@ OUTPUT PARAMETERS:
      Copyright 28.05.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure PSpline2Diff2(const P : PSpline2Interpolant;
-     T : Double;
-     var X : Double;
-     var DX : Double;
-     var D2X : Double;
-     var Y : Double;
-     var DY : Double;
-     var D2Y : Double);
+     T : Extended;
+     var X : Extended;
+     var DX : Extended;
+     var D2X : Extended;
+     var Y : Extended;
+     var DY : Extended;
+     var D2Y : Extended);
 begin
     if P.Periodic then
     begin
@@ -968,16 +966,16 @@ OUTPUT PARAMETERS:
      Copyright 28.05.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure PSpline3Diff2(const P : PSpline3Interpolant;
-     T : Double;
-     var X : Double;
-     var DX : Double;
-     var D2X : Double;
-     var Y : Double;
-     var DY : Double;
-     var D2Y : Double;
-     var Z : Double;
-     var DZ : Double;
-     var D2Z : Double);
+     T : Extended;
+     var X : Extended;
+     var DX : Extended;
+     var D2X : Extended;
+     var Y : Extended;
+     var DY : Extended;
+     var D2Y : Extended;
+     var Z : Extended;
+     var DZ : Extended;
+     var D2Z : Extended);
 begin
     if P.Periodic then
     begin
@@ -1007,17 +1005,17 @@ RESULT:
      Copyright 30.05.2010 by Bochkanov Sergey
 *************************************************************************)
 function PSpline2ArcLength(const P : PSpline2Interpolant;
-     A : Double;
-     B : Double):Double;
+     A : Extended;
+     B : Extended):Extended;
 var
     State : AutoGKState;
     Rep : AutoGKReport;
-    SX : Double;
-    DSX : Double;
-    D2SX : Double;
-    SY : Double;
-    DSY : Double;
-    D2SY : Double;
+    SX : Extended;
+    DSX : Extended;
+    D2SX : Extended;
+    SY : Extended;
+    DSY : Extended;
+    D2SY : Extended;
 begin
     AutoGKSmooth(A, B, State);
     while AutoGKIteration(State) do
@@ -1049,20 +1047,20 @@ RESULT:
      Copyright 30.05.2010 by Bochkanov Sergey
 *************************************************************************)
 function PSpline3ArcLength(const P : PSpline3Interpolant;
-     A : Double;
-     B : Double):Double;
+     A : Extended;
+     B : Extended):Extended;
 var
     State : AutoGKState;
     Rep : AutoGKReport;
-    SX : Double;
-    DSX : Double;
-    D2SX : Double;
-    SY : Double;
-    DSY : Double;
-    D2SY : Double;
-    SZ : Double;
-    DSZ : Double;
-    D2SZ : Double;
+    SX : Extended;
+    DSX : Extended;
+    D2SX : Extended;
+    SY : Extended;
+    DSY : Extended;
+    D2SY : Extended;
+    SZ : Extended;
+    DSZ : Extended;
+    D2SZ : Extended;
 begin
     AutoGKSmooth(A, B, State);
     while AutoGKIteration(State) do
@@ -1085,7 +1083,7 @@ procedure PSpline2Par(const XY : TReal2DArray;
      PT : AlglibInteger;
      var P : TReal1DArray);
 var
-    V : Double;
+    V : Extended;
     I : AlglibInteger;
 begin
     Assert((PT>=0) and (PT<=2), 'PSpline2Par: internal error!');
@@ -1138,7 +1136,7 @@ procedure PSpline3Par(const XY : TReal2DArray;
      PT : AlglibInteger;
      var P : TReal1DArray);
 var
-    V : Double;
+    V : Extended;
     I : AlglibInteger;
 begin
     Assert((PT>=0) and (PT<=2), 'PSpline3Par: internal error!');

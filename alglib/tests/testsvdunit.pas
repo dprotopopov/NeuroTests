@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testsvdunit;
 interface
 uses Math, Sysutils, Ap, hblas, reflections, creflections, sblas, ablasf, ablas, ortfac, blas, rotations, bdsvd, svd;
@@ -70,7 +68,7 @@ begin
     WasErrors := False;
     MaxMN := 30;
     Threshold := 5*100*MachineEpsilon;
-    FailThreshold := Double(5.0E-3);
+    FailThreshold := 5.0E-3;
     SetLength(A, MaxMN-1+1, MaxMN-1+1);
     
     //
@@ -192,11 +190,11 @@ begin
                 Pass:=1;
                 while Pass<=2 do
                 begin
-                    FillSparseA(A, M, N, Double(0.8));
+                    FillSparseA(A, M, N, 0.8);
                     TestSVDProblem(A, M, N, MatErr, OrtErr, OtherErr, WSorted, WFailed);
-                    FillSparseA(A, M, N, Double(0.9));
+                    FillSparseA(A, M, N, 0.9);
                     TestSVDProblem(A, M, N, MatErr, OrtErr, OtherErr, WSorted, WFailed);
-                    FillSparseA(A, M, N, Double(0.95));
+                    FillSparseA(A, M, N, 0.95);
                     TestSVDProblem(A, M, N, MatErr, OrtErr, OtherErr, WSorted, WFailed);
                     Inc(Pass);
                 end;

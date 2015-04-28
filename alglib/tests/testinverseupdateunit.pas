@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testinverseupdateunit;
 interface
 uses Math, Sysutils, Ap, inverseupdate;
@@ -65,7 +63,7 @@ begin
     WasErrors := False;
     MaxN := 10;
     PassCount := 100;
-    Threshold := Double(1.0E-6);
+    Threshold := 1.0E-6;
     
     //
     // process
@@ -95,7 +93,7 @@ begin
             //
             UpdRow := RandomInteger(N);
             UpdCol := RandomInteger(N);
-            Val := Double(0.1)*(2*RandomReal-1);
+            Val := 0.1*(2*RandomReal-1);
             I:=0;
             while I<=N-1 do
             begin
@@ -142,7 +140,7 @@ begin
                 begin
                     U[I] := 0;
                 end;
-                V[I] := Double(0.1)*(2*RandomReal-1);
+                V[I] := 0.1*(2*RandomReal-1);
                 Inc(I);
             end;
             MakeACopy(A, N, N, B1);
@@ -170,7 +168,7 @@ begin
                 begin
                     V[I] := 0;
                 end;
-                U[I] := Double(0.1)*(2*RandomReal-1);
+                U[I] := 0.1*(2*RandomReal-1);
                 Inc(I);
             end;
             MakeACopy(A, N, N, B1);
@@ -189,8 +187,8 @@ begin
             I:=0;
             while I<=N-1 do
             begin
-                V[I] := Double(0.1)*(2*RandomReal-1);
-                U[I] := Double(0.1)*(2*RandomReal-1);
+                V[I] := 0.1*(2*RandomReal-1);
+                U[I] := 0.1*(2*RandomReal-1);
                 Inc(I);
             end;
             MakeACopy(A, N, N, B1);

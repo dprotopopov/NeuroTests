@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1995, 2000 by Stephen L. Moshier
@@ -30,9 +28,9 @@ unit poissondistr;
 interface
 uses Math, Sysutils, Ap, gammafunc, normaldistr, igammaf;
 
-function PoissonDistribution(k : AlglibInteger; m : Double):Double;
-function PoissonCDistribution(k : AlglibInteger; m : Double):Double;
-function InvPoissonDistribution(k : AlglibInteger; y : Double):Double;
+function PoissonDistribution(k : AlglibInteger; m : Extended):Extended;
+function PoissonCDistribution(k : AlglibInteger; m : Extended):Extended;
+function InvPoissonDistribution(k : AlglibInteger; y : Extended):Extended;
 
 implementation
 
@@ -61,7 +59,7 @@ See incomplete gamma function
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1995, 2000 by Stephen L. Moshier
 *************************************************************************)
-function PoissonDistribution(k : AlglibInteger; m : Double):Double;
+function PoissonDistribution(k : AlglibInteger; m : Extended):Extended;
 begin
     Assert((k>=0) and AP_FP_Greater(m,0), 'Domain error in PoissonDistribution');
     Result := IncompleteGammaC(k+1, m);
@@ -94,7 +92,7 @@ See incomplete gamma function
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1995, 2000 by Stephen L. Moshier
 *************************************************************************)
-function PoissonCDistribution(k : AlglibInteger; m : Double):Double;
+function PoissonCDistribution(k : AlglibInteger; m : Extended):Extended;
 begin
     Assert((k>=0) and AP_FP_Greater(m,0), 'Domain error in PoissonDistributionC');
     Result := IncompleteGamma(k+1, m);
@@ -120,7 +118,7 @@ See inverse incomplete gamma function
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1995, 2000 by Stephen L. Moshier
 *************************************************************************)
-function InvPoissonDistribution(k : AlglibInteger; y : Double):Double;
+function InvPoissonDistribution(k : AlglibInteger; y : Extended):Extended;
 begin
     Assert((k>=0) and AP_FP_Greater_Eq(y,0) and AP_FP_Less(y,1), 'Domain error in InvPoissonDistribution');
     Result := InvIncompleteGammaC(k+1, y);

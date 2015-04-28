@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1995, 2000 by Stephen L. Moshier
@@ -30,11 +28,11 @@ unit elliptic;
 interface
 uses Math, Sysutils, Ap;
 
-function EllipticIntegralK(m : Double):Double;
-function EllipticIntegralKHighPrecision(m1 : Double):Double;
-function IncompleteEllipticIntegralK(phi : Double; m : Double):Double;
-function EllipticIntegralE(m : Double):Double;
-function IncompleteEllipticIntegralE(phi : Double; m : Double):Double;
+function EllipticIntegralK(m : Extended):Extended;
+function EllipticIntegralKHighPrecision(m1 : Extended):Extended;
+function IncompleteEllipticIntegralK(phi : Extended; m : Extended):Extended;
+function EllipticIntegralE(m : Extended):Extended;
+function IncompleteEllipticIntegralE(phi : Extended; m : Extended):Extended;
 
 implementation
 
@@ -68,9 +66,9 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library, Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-function EllipticIntegralK(m : Double):Double;
+function EllipticIntegralK(m : Extended):Extended;
 begin
-    Result := EllipticIntegralKHighPrecision(Double(1.0)-m);
+    Result := EllipticIntegralKHighPrecision(1.0-m);
 end;
 
 
@@ -109,39 +107,39 @@ arithmetic   domain     # trials      peak         rms
 
 Алгоритм взят из библиотеки Cephes
 *************************************************************************)
-function EllipticIntegralKHighPrecision(m1 : Double):Double;
+function EllipticIntegralKHighPrecision(m1 : Extended):Extended;
 var
-    P : Double;
-    Q : Double;
+    P : Extended;
+    Q : Extended;
 begin
     if AP_FP_Less_Eq(m1,MachineEpsilon) then
     begin
-        Result := Double(1.3862943611198906188E0)-Double(0.5)*Ln(m1);
+        Result := 1.3862943611198906188E0-0.5*Ln(m1);
     end
     else
     begin
-        P := Double(1.37982864606273237150E-4);
-        P := P*m1+Double(2.28025724005875567385E-3);
-        P := P*m1+Double(7.97404013220415179367E-3);
-        P := P*m1+Double(9.85821379021226008714E-3);
-        P := P*m1+Double(6.87489687449949877925E-3);
-        P := P*m1+Double(6.18901033637687613229E-3);
-        P := P*m1+Double(8.79078273952743772254E-3);
-        P := P*m1+Double(1.49380448916805252718E-2);
-        P := P*m1+Double(3.08851465246711995998E-2);
-        P := P*m1+Double(9.65735902811690126535E-2);
-        P := P*m1+Double(1.38629436111989062502E0);
-        Q := Double(2.94078955048598507511E-5);
-        Q := Q*m1+Double(9.14184723865917226571E-4);
-        Q := Q*m1+Double(5.94058303753167793257E-3);
-        Q := Q*m1+Double(1.54850516649762399335E-2);
-        Q := Q*m1+Double(2.39089602715924892727E-2);
-        Q := Q*m1+Double(3.01204715227604046988E-2);
-        Q := Q*m1+Double(3.73774314173823228969E-2);
-        Q := Q*m1+Double(4.88280347570998239232E-2);
-        Q := Q*m1+Double(7.03124996963957469739E-2);
-        Q := Q*m1+Double(1.24999999999870820058E-1);
-        Q := Q*m1+Double(4.99999999999999999821E-1);
+        P := 1.37982864606273237150E-4;
+        P := P*m1+2.28025724005875567385E-3;
+        P := P*m1+7.97404013220415179367E-3;
+        P := P*m1+9.85821379021226008714E-3;
+        P := P*m1+6.87489687449949877925E-3;
+        P := P*m1+6.18901033637687613229E-3;
+        P := P*m1+8.79078273952743772254E-3;
+        P := P*m1+1.49380448916805252718E-2;
+        P := P*m1+3.08851465246711995998E-2;
+        P := P*m1+9.65735902811690126535E-2;
+        P := P*m1+1.38629436111989062502E0;
+        Q := 2.94078955048598507511E-5;
+        Q := Q*m1+9.14184723865917226571E-4;
+        Q := Q*m1+5.94058303753167793257E-3;
+        Q := Q*m1+1.54850516649762399335E-2;
+        Q := Q*m1+2.39089602715924892727E-2;
+        Q := Q*m1+3.01204715227604046988E-2;
+        Q := Q*m1+3.73774314173823228969E-2;
+        Q := Q*m1+4.88280347570998239232E-2;
+        Q := Q*m1+7.03124996963957469739E-2;
+        Q := Q*m1+1.24999999999870820058E-1;
+        Q := Q*m1+4.99999999999999999821E-1;
         Result := P-Q*Ln(m1);
     end;
 end;
@@ -181,22 +179,22 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-function IncompleteEllipticIntegralK(phi : Double; m : Double):Double;
+function IncompleteEllipticIntegralK(phi : Extended; m : Extended):Extended;
 var
-    a : Double;
-    b : Double;
-    c : Double;
-    e : Double;
-    temp : Double;
-    PIO2 : Double;
-    t : Double;
-    K : Double;
+    a : Extended;
+    b : Extended;
+    c : Extended;
+    e : Extended;
+    temp : Extended;
+    PIO2 : Extended;
+    t : Extended;
+    K : Extended;
     d : AlglibInteger;
     md : AlglibInteger;
     s : AlglibInteger;
     npio2 : AlglibInteger;
 begin
-    PIO2 := Double(1.57079632679489661923);
+    PIO2 := 1.57079632679489661923;
     if AP_FP_Eq(m,0) then
     begin
         Result := phi;
@@ -205,7 +203,7 @@ begin
     a := 1-m;
     if AP_FP_Eq(a,0) then
     begin
-        Result := Ln(Tan(Double(0.5)*(PIO2+phi)));
+        Result := Ln(Tan(0.5*(PIO2+phi)));
         Exit;
     end;
     npio2 := Floor(phi/PIO2);
@@ -235,7 +233,7 @@ begin
     t := tan(phi);
     if AP_FP_Greater(AbsReal(t),10) then
     begin
-        e := Double(1.0)/(b*t);
+        e := 1.0/(b*t);
         if AP_FP_Less(AbsReal(e),10) then
         begin
             e := arctan(e);
@@ -252,7 +250,7 @@ begin
             Exit;
         end;
     end;
-    a := Double(1.0);
+    a := 1.0;
     c := sqrt(m);
     d := 1;
     md := 0;
@@ -261,10 +259,10 @@ begin
         temp := b/a;
         phi := phi+arctan(t*temp)+md*Pi;
         md := Trunc((phi+PIO2)/Pi);
-        t := t*(Double(1.0)+temp)/(Double(1.0)-temp*t*t);
-        c := Double(0.5)*(a-b);
+        t := t*(1.0+temp)/(1.0-temp*t*t);
+        c := 0.5*(a-b);
         temp := sqrt(a*b);
-        a := Double(0.5)*(a+b);
+        a := 0.5*(a+b);
         b := temp;
         d := d+d;
     end;
@@ -304,10 +302,10 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library, Release 2.8: June, 2000
 Copyright 1984, 1987, 1989, 2000 by Stephen L. Moshier
 *************************************************************************)
-function EllipticIntegralE(m : Double):Double;
+function EllipticIntegralE(m : Extended):Extended;
 var
-    P : Double;
-    Q : Double;
+    P : Extended;
+    Q : Extended;
 begin
     Assert(AP_FP_Greater_Eq(m,0) and AP_FP_Less_Eq(m,1), 'Domain error in EllipticIntegralE: m<0 or m>1');
     m := 1-m;
@@ -316,27 +314,27 @@ begin
         Result := 1;
         Exit;
     end;
-    P := Double(1.53552577301013293365E-4);
-    P := P*m+Double(2.50888492163602060990E-3);
-    P := P*m+Double(8.68786816565889628429E-3);
-    P := P*m+Double(1.07350949056076193403E-2);
-    P := P*m+Double(7.77395492516787092951E-3);
-    P := P*m+Double(7.58395289413514708519E-3);
-    P := P*m+Double(1.15688436810574127319E-2);
-    P := P*m+Double(2.18317996015557253103E-2);
-    P := P*m+Double(5.68051945617860553470E-2);
-    P := P*m+Double(4.43147180560990850618E-1);
-    P := P*m+Double(1.00000000000000000299E0);
-    Q := Double(3.27954898576485872656E-5);
-    Q := Q*m+Double(1.00962792679356715133E-3);
-    Q := Q*m+Double(6.50609489976927491433E-3);
-    Q := Q*m+Double(1.68862163993311317300E-2);
-    Q := Q*m+Double(2.61769742454493659583E-2);
-    Q := Q*m+Double(3.34833904888224918614E-2);
-    Q := Q*m+Double(4.27180926518931511717E-2);
-    Q := Q*m+Double(5.85936634471101055642E-2);
-    Q := Q*m+Double(9.37499997197644278445E-2);
-    Q := Q*m+Double(2.49999999999888314361E-1);
+    P := 1.53552577301013293365E-4;
+    P := P*m+2.50888492163602060990E-3;
+    P := P*m+8.68786816565889628429E-3;
+    P := P*m+1.07350949056076193403E-2;
+    P := P*m+7.77395492516787092951E-3;
+    P := P*m+7.58395289413514708519E-3;
+    P := P*m+1.15688436810574127319E-2;
+    P := P*m+2.18317996015557253103E-2;
+    P := P*m+5.68051945617860553470E-2;
+    P := P*m+4.43147180560990850618E-1;
+    P := P*m+1.00000000000000000299E0;
+    Q := 3.27954898576485872656E-5;
+    Q := Q*m+1.00962792679356715133E-3;
+    Q := Q*m+6.50609489976927491433E-3;
+    Q := Q*m+1.68862163993311317300E-2;
+    Q := Q*m+2.61769742454493659583E-2;
+    Q := Q*m+3.34833904888224918614E-2;
+    Q := Q*m+4.27180926518931511717E-2;
+    Q := Q*m+5.85936634471101055642E-2;
+    Q := Q*m+9.37499997197644278445E-2;
+    Q := Q*m+2.49999999999888314361E-1;
     Result := P-Q*m*Ln(m);
 end;
 
@@ -371,23 +369,23 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1993, 2000 by Stephen L. Moshier
 *************************************************************************)
-function IncompleteEllipticIntegralE(phi : Double; m : Double):Double;
+function IncompleteEllipticIntegralE(phi : Extended; m : Extended):Extended;
 var
-    PIO2 : Double;
-    a : Double;
-    b : Double;
-    c : Double;
-    e : Double;
-    temp : Double;
-    lphi : Double;
-    t : Double;
-    EBig : Double;
+    PIO2 : Extended;
+    a : Extended;
+    b : Extended;
+    c : Extended;
+    e : Extended;
+    temp : Extended;
+    lphi : Extended;
+    t : Extended;
+    EBig : Extended;
     d : AlglibInteger;
     md : AlglibInteger;
     npio2 : AlglibInteger;
     s : AlglibInteger;
 begin
-    PIO2 := Double(1.57079632679489661923);
+    PIO2 := 1.57079632679489661923;
     if AP_FP_Eq(m,0) then
     begin
         Result := phi;
@@ -409,7 +407,7 @@ begin
     begin
         s := 1;
     end;
-    a := Double(1.0)-m;
+    a := 1.0-m;
     EBig := EllipticIntegralE(m);
     if AP_FP_Eq(a,0) then
     begin
@@ -434,7 +432,7 @@ begin
         //
         // Transform the amplitude
         //
-        e := Double(1.0)/(b*t);
+        e := 1.0/(b*t);
         
         //
         // ... but avoid multiple recursions.
@@ -452,19 +450,19 @@ begin
         end;
     end;
     c := sqrt(m);
-    a := Double(1.0);
+    a := 1.0;
     d := 1;
-    e := Double(0.0);
+    e := 0.0;
     md := 0;
     while AP_FP_Greater(AbsReal(c/a),MachineEpsilon) do
     begin
         temp := b/a;
         lphi := lphi+arctan(t*temp)+md*PI;
         md := Trunc((lphi+PIO2)/PI);
-        t := t*(Double(1.0)+temp)/(Double(1.0)-temp*t*t);
-        c := Double(0.5)*(a-b);
+        t := t*(1.0+temp)/(1.0-temp*t*t);
+        c := 0.5*(a-b);
         temp := sqrt(a*b);
-        a := Double(0.5)*(a+b);
+        a := 0.5*(a+b);
         b := temp;
         d := d+d;
         e := e+c*sin(lphi);

@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit llstestunit;
 interface
 uses Math, Sysutils, Ap, blas, reflections, creflections, hqrnd, matgen, ablasf, ablas, trfac, trlinsolve, safesolve, rcond, matinv, hblas, sblas, ortfac, rotations, bdsvd, svd, xblas, densesolver, linmin, minlbfgs, minlm, lsfit;
@@ -74,7 +72,7 @@ begin
     LLSErrors := False;
     NLSErrors := False;
     Threshold := 10000*MachineEpsilon;
-    NLThreshold := Double(0.00001);
+    NLThreshold := 0.00001;
     MaxN := 6;
     MaxM := 6;
     PassCount := 4;
@@ -100,7 +98,7 @@ begin
                 SetLength(X, N);
                 SetLength(Y, N);
                 SetLength(W, N);
-                XScale := Double(0.9)+Double(0.1)*RandomReal;
+                XScale := 0.9+0.1*RandomReal;
                 I:=0;
                 while I<=N-1 do
                 begin
@@ -225,8 +223,8 @@ begin
                         C2[I] := 2*RandomReal-1;
                         Inc(I);
                     end;
-                    LSFitNonlinearWFG(A, Y, W, C2, N, M, M, AP_FP_Greater(RandomReal,Double(0.5)), State);
-                    LSFitNonlinearSetCond(State, Double(0.0), NLThreshold, 0);
+                    LSFitNonlinearWFG(A, Y, W, C2, N, M, M, AP_FP_Greater(RandomReal,0.5), State);
+                    LSFitNonlinearSetCond(State, 0.0, NLThreshold, 0);
                     FitLinearNonlinear(M, True, A, State, NLSErrors);
                     LSFitNonlinearResults(State, Info, C2, Rep2);
                     if Info<=0 then
@@ -249,7 +247,7 @@ begin
                         Inc(I);
                     end;
                     LSFitNonlinearWFGH(A, Y, W, C2, N, M, M, State);
-                    LSFitNonlinearSetCond(State, Double(0.0), NLThreshold, 0);
+                    LSFitNonlinearSetCond(State, 0.0, NLThreshold, 0);
                     FitLinearNonlinear(M, False, A, State, NLSErrors);
                     LSFitNonlinearResults(State, Info, C2, Rep2);
                     if Info<=0 then
@@ -276,8 +274,8 @@ begin
                         C2[I] := 2*RandomReal-1;
                         Inc(I);
                     end;
-                    LSFitNonlinearFG(A, Y, C2, N, M, M, AP_FP_Greater(RandomReal,Double(0.5)), State);
-                    LSFitNonlinearSetCond(State, Double(0.0), NLThreshold, 0);
+                    LSFitNonlinearFG(A, Y, C2, N, M, M, AP_FP_Greater(RandomReal,0.5), State);
+                    LSFitNonlinearSetCond(State, 0.0, NLThreshold, 0);
                     FitLinearNonlinear(M, True, A, State, NLSErrors);
                     LSFitNonlinearResults(State, Info, C2, Rep2);
                     if Info<=0 then
@@ -300,7 +298,7 @@ begin
                         Inc(I);
                     end;
                     LSFitNonlinearFGH(A, Y, C2, N, M, M, State);
-                    LSFitNonlinearSetCond(State, Double(0.0), NLThreshold, 0);
+                    LSFitNonlinearSetCond(State, 0.0, NLThreshold, 0);
                     FitLinearNonlinear(M, False, A, State, NLSErrors);
                     LSFitNonlinearResults(State, Info, C2, Rep2);
                     if Info<=0 then
@@ -334,15 +332,15 @@ begin
         I:=0;
         while I<=N-1 do
         begin
-            X[I] := Double(0.1)+Double(0.9)*RandomReal;
-            Y[I] := Double(0.1)+Double(0.9)*RandomReal;
+            X[I] := 0.1+0.9*RandomReal;
+            Y[I] := 0.1+0.9*RandomReal;
             W[I] := 1;
             J:=0;
             while J<=N-1 do
             begin
                 if I=J then
                 begin
-                    A[I,I] := Double(0.1)+Double(0.9)*RandomReal;
+                    A[I,I] := 0.1+0.9*RandomReal;
                     V1 := Min(V1, A[I,I]);
                     V2 := Max(V2, A[I,I]);
                 end
@@ -394,7 +392,7 @@ begin
                     SetLength(X, N);
                     SetLength(Y, N);
                     SetLength(W, N);
-                    XScale := Double(0.9)+Double(0.1)*RandomReal;
+                    XScale := 0.9+0.1*RandomReal;
                     I:=0;
                     while I<=N-1 do
                     begin
@@ -505,7 +503,7 @@ begin
         Inc(I);
     end;
     LSFitNonlinearFG(A, Y, C, N, 1, 1, True, State);
-    LSFitNonlinearSetCond(State, Double(0.0), NLThreshold, 0);
+    LSFitNonlinearSetCond(State, 0.0, NLThreshold, 0);
     while LSFitNonlinearIteration(State) do
     begin
         if State.NeedF then
@@ -557,7 +555,7 @@ begin
         Y[3] := V+V2;
         RefRms := Sqrt((AP_Sqr(V1)+AP_Sqr(V2))/2);
         RefAvg := (AbsReal(V1)+AbsReal(V2))/2;
-        RefAvgRel := Double(0.25)*(AbsReal(V2)/AbsReal(V-V2)+AbsReal(V1)/AbsReal(V-V1)+AbsReal(V1)/AbsReal(V+V1)+AbsReal(V2)/AbsReal(V+V2));
+        RefAvgRel := 0.25*(AbsReal(V2)/AbsReal(V-V2)+AbsReal(V1)/AbsReal(V-V1)+AbsReal(V1)/AbsReal(V+V1)+AbsReal(V2)/AbsReal(V+V2));
         RefMax := Max(V1, V2);
         
         //
@@ -581,7 +579,7 @@ begin
         // Test NLS
         //
         LSFitNonlinearFG(A, Y, C, 4, 1, 1, True, State);
-        LSFitNonlinearSetCond(State, Double(0.0), NLThreshold, 0);
+        LSFitNonlinearSetCond(State, 0.0, NLThreshold, 0);
         while LSFitNonlinearIteration(State) do
         begin
             if State.NeedF then
@@ -686,7 +684,7 @@ begin
     // Setup.
     // Threshold is small because CMatrix may be ill-conditioned
     //
-    Delta := Double(0.001);
+    Delta := 0.001;
     Threshold := Sqrt(MachineEpsilon);
     SetLength(C2, M);
     SetLength(DeltaC, M);

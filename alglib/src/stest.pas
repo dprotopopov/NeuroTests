@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Copyright (c) 2007, Sergey Bochkanov (ALGLIB project).
 
@@ -25,10 +23,10 @@ uses Math, Sysutils, Ap, gammafunc, normaldistr, ibetaf, nearunityunit, binomial
 
 procedure OneSampleSignTest(const X : TReal1DArray;
      N : AlglibInteger;
-     Median : Double;
-     var BothTails : Double;
-     var LeftTail : Double;
-     var RightTail : Double);
+     Median : Extended;
+     var BothTails : Extended;
+     var LeftTail : Extended;
+     var RightTail : Extended);
 
 implementation
 
@@ -74,10 +72,10 @@ approximation is used, so significance levels have about 15 exact digits.
 *************************************************************************)
 procedure OneSampleSignTest(const X : TReal1DArray;
      N : AlglibInteger;
-     Median : Double;
-     var BothTails : Double;
-     var LeftTail : Double;
-     var RightTail : Double);
+     Median : Extended;
+     var BothTails : Extended;
+     var LeftTail : Extended;
+     var RightTail : Extended);
 var
     I : AlglibInteger;
     GTCnt : AlglibInteger;
@@ -85,9 +83,9 @@ var
 begin
     if N<=1 then
     begin
-        BothTails := Double(1.0);
-        LeftTail := Double(1.0);
-        RightTail := Double(1.0);
+        BothTails := 1.0;
+        LeftTail := 1.0;
+        RightTail := 1.0;
         Exit;
     end;
     
@@ -118,14 +116,14 @@ begin
         // all x[i] are equal to Median.
         // So we can conclude that Median is a true median :)
         //
-        BothTails := Double(0.0);
-        LeftTail := Double(0.0);
-        RightTail := Double(0.0);
+        BothTails := 0.0;
+        LeftTail := 0.0;
+        RightTail := 0.0;
         Exit;
     end;
-    BothTails := 2*BinomialDistribution(Min(GTCnt, NECnt-GTCnt), NECnt, Double(0.5));
-    LeftTail := BinomialDistribution(GTCnt, NECnt, Double(0.5));
-    RightTail := BinomialCDistribution(GTCnt-1, NECnt, Double(0.5));
+    BothTails := 2*BinomialDistribution(Min(GTCnt, NECnt-GTCnt), NECnt, 0.5);
+    LeftTail := BinomialDistribution(GTCnt, NECnt, 0.5);
+    RightTail := BinomialCDistribution(GTCnt-1, NECnt, 0.5);
 end;
 
 

@@ -1,4 +1,4 @@
-{$MODESWITCH RESULT+}
+
 program _demo;
 Array[0]
 var
@@ -20,7 +20,7 @@ begin
     S[0] := 10;
     S[1] := 11;
     MinCGCreate(N, S, State);
-    MinCGSetCond(State, Double(0.0), Double(0.0), Double(0.00001), 0);
+    MinCGSetCond(State, 0.0, 0.0, 0.00001, 0);
     MinCGSetXRep(State, True);
     Write(Format(''#13#10''#13#10'F = (x-1)^4 + (y-x)^2'#13#10'',[]));
     Write(Format('OPTIMIZATION STARTED'#13#10'',[]));

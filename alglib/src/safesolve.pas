@@ -1,5 +1,3 @@
-{.$MODESWITCH RESULT+}
-{.$GOTO ON}
 (*************************************************************************
 This file is a part of ALGLIB project.
 
@@ -24,30 +22,30 @@ interface
 uses Math, Sysutils, Ap;
 
 function RMatrixScaledTRSafeSolve(const A : TReal2DArray;
-     SA : Double;
+     SA : Extended;
      N : AlglibInteger;
      var X : TReal1DArray;
      IsUpper : Boolean;
      Trans : AlglibInteger;
      IsUnit : Boolean;
-     MaxGrowth : Double):Boolean;
+     MaxGrowth : Extended):Boolean;
 function CMatrixScaledTRSafeSolve(const A : TComplex2DArray;
-     SA : Double;
+     SA : Extended;
      N : AlglibInteger;
      var X : TComplex1DArray;
      IsUpper : Boolean;
      Trans : AlglibInteger;
      IsUnit : Boolean;
-     MaxGrowth : Double):Boolean;
+     MaxGrowth : Extended):Boolean;
 
 implementation
 
 function CBasicSolveAndUpdate(Alpha : Complex;
      Beta : Complex;
-     LnMax : Double;
-     BNorm : Double;
-     MaxGrowth : Double;
-     var XNorm : Double;
+     LnMax : Extended;
+     BNorm : Extended;
+     MaxGrowth : Extended;
+     var XNorm : Extended;
      var X : Complex):Boolean;forward;
 
 
@@ -59,21 +57,21 @@ Real implementation of CMatrixScaledTRSafeSolve
      Bochkanov Sergey
 *************************************************************************)
 function RMatrixScaledTRSafeSolve(const A : TReal2DArray;
-     SA : Double;
+     SA : Extended;
      N : AlglibInteger;
      var X : TReal1DArray;
      IsUpper : Boolean;
      Trans : AlglibInteger;
      IsUnit : Boolean;
-     MaxGrowth : Double):Boolean;
+     MaxGrowth : Extended):Boolean;
 var
-    LnMax : Double;
-    NrmB : Double;
-    NrmX : Double;
+    LnMax : Extended;
+    NrmB : Extended;
+    NrmX : Extended;
     I : AlglibInteger;
     Alpha : Complex;
     Beta : Complex;
-    VR : Double;
+    VR : Extended;
     CX : Complex;
     Tmp : TReal1DArray;
 begin
@@ -312,17 +310,17 @@ as MaxGrowth is significantly less than MaxRealNumber/norm(b).
      Bochkanov Sergey
 *************************************************************************)
 function CMatrixScaledTRSafeSolve(const A : TComplex2DArray;
-     SA : Double;
+     SA : Extended;
      N : AlglibInteger;
      var X : TComplex1DArray;
      IsUpper : Boolean;
      Trans : AlglibInteger;
      IsUnit : Boolean;
-     MaxGrowth : Double):Boolean;
+     MaxGrowth : Extended):Boolean;
 var
-    LnMax : Double;
-    NrmB : Double;
-    NrmX : Double;
+    LnMax : Extended;
+    NrmB : Extended;
+    NrmX : Extended;
     I : AlglibInteger;
     Alpha : Complex;
     Beta : Complex;
@@ -696,13 +694,13 @@ Parameters:
 *************************************************************************)
 function CBasicSolveAndUpdate(Alpha : Complex;
      Beta : Complex;
-     LnMax : Double;
-     BNorm : Double;
-     MaxGrowth : Double;
-     var XNorm : Double;
+     LnMax : Extended;
+     BNorm : Extended;
+     MaxGrowth : Extended;
+     var XNorm : Extended;
      var X : Complex):Boolean;
 var
-    V : Double;
+    V : Extended;
 begin
     Result := False;
     if C_EqualR(Alpha,0) then

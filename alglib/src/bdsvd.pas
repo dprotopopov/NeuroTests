@@ -1,5 +1,3 @@
-{.$MODESWITCH RESULT+}
-{.$GOTO ON}
 (*************************************************************************
 Copyright (c) 1992-2007 The University of Tennessee.  All rights reserved.
 
@@ -68,21 +66,21 @@ function BidiagonalSVDDecompositionInternal(var D : TReal1DArray;
      var VT : TReal2DArray;
      VStart : AlglibInteger;
      NCVT : AlglibInteger):Boolean;forward;
-function ExtSignBDSQR(a : Double; b : Double):Double;forward;
-procedure Svd2X2(F : Double;
-     G : Double;
-     H : Double;
-     var SSMIN : Double;
-     var SSMAX : Double);forward;
-procedure SvdV2X2(F : Double;
-     G : Double;
-     H : Double;
-     var SSMIN : Double;
-     var SSMAX : Double;
-     var SNR : Double;
-     var CSR : Double;
-     var SNL : Double;
-     var CSL : Double);forward;
+function ExtSignBDSQR(a : Extended; b : Extended):Extended;forward;
+procedure Svd2X2(F : Extended;
+     G : Extended;
+     H : Extended;
+     var SSMIN : Extended;
+     var SSMAX : Extended);forward;
+procedure SvdV2X2(F : Extended;
+     G : Extended;
+     H : Extended;
+     var SSMIN : Extended;
+     var SSMAX : Extended;
+     var SNR : Extended;
+     var CSR : Extended;
+     var SNL : Extended;
+     var CSL : Extended);forward;
 
 
 (*************************************************************************
@@ -237,35 +235,35 @@ var
     MAXIT : AlglibInteger;
     OLDLL : AlglibInteger;
     OLDM : AlglibInteger;
-    ABSE : Double;
-    ABSS : Double;
-    COSL : Double;
-    COSR : Double;
-    CS : Double;
-    EPS : Double;
-    F : Double;
-    G : Double;
-    H : Double;
-    MU : Double;
-    OLDCS : Double;
-    OLDSN : Double;
-    R : Double;
-    SHIFT : Double;
-    SIGMN : Double;
-    SIGMX : Double;
-    SINL : Double;
-    SINR : Double;
-    SLL : Double;
-    SMAX : Double;
-    SMIN : Double;
-    SMINL : Double;
-    SMINLO : Double;
-    SMINOA : Double;
-    SN : Double;
-    THRESH : Double;
-    TOL : Double;
-    TOLMUL : Double;
-    UNFL : Double;
+    ABSE : Extended;
+    ABSS : Extended;
+    COSL : Extended;
+    COSR : Extended;
+    CS : Extended;
+    EPS : Extended;
+    F : Extended;
+    G : Extended;
+    H : Extended;
+    MU : Extended;
+    OLDCS : Extended;
+    OLDSN : Extended;
+    R : Extended;
+    SHIFT : Extended;
+    SIGMN : Extended;
+    SIGMX : Extended;
+    SINL : Extended;
+    SINR : Extended;
+    SLL : Extended;
+    SMAX : Extended;
+    SMIN : Extended;
+    SMINL : Extended;
+    SMINLO : Extended;
+    SMINOA : Extended;
+    SN : Extended;
+    THRESH : Extended;
+    TOL : Extended;
+    TOLMUL : Extended;
+    UNFL : Extended;
     WORK0 : TReal1DArray;
     WORK1 : TReal1DArray;
     WORK2 : TReal1DArray;
@@ -279,7 +277,7 @@ var
     ETemp : TReal1DArray;
     RightSide : Boolean;
     FwdDir : Boolean;
-    Tmp : Double;
+    Tmp : Extended;
     MM1 : AlglibInteger;
     MM0 : AlglibInteger;
     BChangeDir : Boolean;
@@ -1108,7 +1106,7 @@ begin
 end;
 
 
-function ExtSignBDSQR(a : Double; b : Double):Double;
+function ExtSignBDSQR(a : Extended; b : Extended):Extended;
 begin
     if AP_FP_Greater_Eq(b,0) then
     begin
@@ -1121,21 +1119,21 @@ begin
 end;
 
 
-procedure Svd2X2(F : Double;
-     G : Double;
-     H : Double;
-     var SSMIN : Double;
-     var SSMAX : Double);
+procedure Svd2X2(F : Extended;
+     G : Extended;
+     H : Extended;
+     var SSMIN : Extended;
+     var SSMAX : Extended);
 var
-    AAS : Double;
-    AT : Double;
-    AU : Double;
-    C : Double;
-    FA : Double;
-    FHMN : Double;
-    FHMX : Double;
-    GA : Double;
-    HA : Double;
+    AAS : Extended;
+    AT : Extended;
+    AU : Extended;
+    C : Extended;
+    FA : Extended;
+    FHMN : Extended;
+    FHMX : Extended;
+    GA : Extended;
+    HA : Extended;
 begin
     FA := ABSReal(F);
     GA := ABSReal(G);
@@ -1193,41 +1191,41 @@ begin
 end;
 
 
-procedure SvdV2X2(F : Double;
-     G : Double;
-     H : Double;
-     var SSMIN : Double;
-     var SSMAX : Double;
-     var SNR : Double;
-     var CSR : Double;
-     var SNL : Double;
-     var CSL : Double);
+procedure SvdV2X2(F : Extended;
+     G : Extended;
+     H : Extended;
+     var SSMIN : Extended;
+     var SSMAX : Extended;
+     var SNR : Extended;
+     var CSR : Extended;
+     var SNL : Extended;
+     var CSL : Extended);
 var
     GASMAL : Boolean;
     SWP : Boolean;
     PMAX : AlglibInteger;
-    A : Double;
-    CLT : Double;
-    CRT : Double;
-    D : Double;
-    FA : Double;
-    FT : Double;
-    GA : Double;
-    GT : Double;
-    HA : Double;
-    HT : Double;
-    L : Double;
-    M : Double;
-    MM : Double;
-    R : Double;
-    S : Double;
-    SLT : Double;
-    SRT : Double;
-    T : Double;
-    TEMP : Double;
-    TSIGN : Double;
-    TT : Double;
-    V : Double;
+    A : Extended;
+    CLT : Extended;
+    CRT : Extended;
+    D : Extended;
+    FA : Extended;
+    FT : Extended;
+    GA : Extended;
+    GT : Extended;
+    HA : Extended;
+    HT : Extended;
+    L : Extended;
+    M : Extended;
+    MM : Extended;
+    R : Extended;
+    S : Extended;
+    SLT : Extended;
+    SRT : Extended;
+    T : Extended;
+    TEMP : Extended;
+    TSIGN : Extended;
+    TT : Extended;
+    V : Extended;
 begin
     FT := F;
     FA := ABSReal(FT);

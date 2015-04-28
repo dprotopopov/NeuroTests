@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Copyright (c) 1992-2007 The University of Tennessee.  All rights reserved.
 
@@ -117,23 +115,23 @@ var
     KK : AlglibInteger;
     KP : AlglibInteger;
     KSTEP : AlglibInteger;
-    ABSAKK : Double;
-    ALPHA : Double;
-    COLMAX : Double;
-    D11 : Double;
-    D12 : Double;
-    D21 : Double;
-    D22 : Double;
-    R1 : Double;
-    ROWMAX : Double;
-    T : Double;
-    WK : Double;
-    WKM1 : Double;
-    WKP1 : Double;
+    ABSAKK : Extended;
+    ALPHA : Extended;
+    COLMAX : Extended;
+    D11 : Extended;
+    D12 : Extended;
+    D21 : Extended;
+    D22 : Extended;
+    R1 : Extended;
+    ROWMAX : Extended;
+    T : Extended;
+    WK : Extended;
+    WKM1 : Extended;
+    WKP1 : Extended;
     II : AlglibInteger;
     I1 : AlglibInteger;
     I2 : AlglibInteger;
-    VV : Double;
+    VV : Extended;
     Temp : TReal1DArray;
     i_ : AlglibInteger;
 begin
@@ -696,23 +694,23 @@ var
     KK : AlglibInteger;
     KP : AlglibInteger;
     KSTEP : AlglibInteger;
-    ABSAKK : Double;
-    ALPHA : Double;
-    COLMAX : Double;
-    D11 : Double;
-    D12 : Double;
-    D21 : Double;
-    D22 : Double;
-    R1 : Double;
-    ROWMAX : Double;
-    T : Double;
-    WK : Double;
-    WKM1 : Double;
-    WKP1 : Double;
+    ABSAKK : Extended;
+    ALPHA : Extended;
+    COLMAX : Extended;
+    D11 : Extended;
+    D12 : Extended;
+    D21 : Extended;
+    D22 : Extended;
+    R1 : Extended;
+    ROWMAX : Extended;
+    T : Extended;
+    WK : Extended;
+    WKM1 : Extended;
+    WKP1 : Extended;
     II : AlglibInteger;
     I1 : AlglibInteger;
     I2 : AlglibInteger;
-    VV : Double;
+    VV : Extended;
     Temp : TReal1DArray;
     i_ : AlglibInteger;
 begin

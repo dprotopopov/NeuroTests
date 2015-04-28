@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1995, 2000 by Stephen L. Moshier
@@ -30,8 +28,8 @@ unit studenttdistr;
 interface
 uses Math, Sysutils, Ap, gammafunc, normaldistr, ibetaf;
 
-function StudentTDistribution(k : AlglibInteger; t : Double):Double;
-function InvStudentTDistribution(k : AlglibInteger; p : Double):Double;
+function StudentTDistribution(k : AlglibInteger; t : Extended):Extended;
+function InvStudentTDistribution(k : AlglibInteger; p : Extended):Extended;
 
 implementation
 
@@ -76,28 +74,28 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1995, 2000 by Stephen L. Moshier
 *************************************************************************)
-function StudentTDistribution(k : AlglibInteger; t : Double):Double;
+function StudentTDistribution(k : AlglibInteger; t : Extended):Extended;
 var
-    x : Double;
-    rk : Double;
-    z : Double;
-    f : Double;
-    tz : Double;
-    p : Double;
-    xsqk : Double;
+    x : Extended;
+    rk : Extended;
+    z : Extended;
+    f : Extended;
+    tz : Extended;
+    p : Extended;
+    xsqk : Extended;
     j : AlglibInteger;
 begin
     Assert(k>0, 'Domain error in StudentTDistribution');
     if AP_FP_Eq(t,0) then
     begin
-        Result := Double(0.5);
+        Result := 0.5;
         Exit;
     end;
-    if AP_FP_Less(t,-Double(2.0)) then
+    if AP_FP_Less(t,-2.0) then
     begin
         rk := k;
         z := rk/(rk+t*t);
-        Result := Double(0.5)*IncompleteBeta(Double(0.5)*rk, Double(0.5), z);
+        Result := 0.5*IncompleteBeta(0.5*rk, 0.5, z);
         Exit;
     end;
     if AP_FP_Less(t,0) then
@@ -109,15 +107,15 @@ begin
         x := t;
     end;
     rk := k;
-    z := Double(1.0)+x*x/rk;
+    z := 1.0+x*x/rk;
     if k mod 2<>0 then
     begin
         xsqk := x/sqrt(rk);
         p := arctan(xsqk);
         if k>1 then
         begin
-            f := Double(1.0);
-            tz := Double(1.0);
+            f := 1.0;
+            tz := 1.0;
             j := 3;
             while (j<=k-2) and AP_FP_Greater(tz/f,MachineEpsilon) do
             begin
@@ -127,12 +125,12 @@ begin
             end;
             p := p+f*xsqk/z;
         end;
-        p := p*Double(2.0)/PI;
+        p := p*2.0/PI;
     end
     else
     begin
-        f := Double(1.0);
-        tz := Double(1.0);
+        f := 1.0;
+        tz := 1.0;
         j := 2;
         while (j<=k-2) and AP_FP_Greater(tz/f,MachineEpsilon) do
         begin
@@ -146,7 +144,7 @@ begin
     begin
         p := -p;
     end;
-    Result := Double(0.5)+Double(0.5)*p;
+    Result := 0.5+0.5*p;
 end;
 
 
@@ -167,26 +165,26 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1995, 2000 by Stephen L. Moshier
 *************************************************************************)
-function InvStudentTDistribution(k : AlglibInteger; p : Double):Double;
+function InvStudentTDistribution(k : AlglibInteger; p : Extended):Extended;
 var
-    t : Double;
-    rk : Double;
-    z : Double;
+    t : Extended;
+    rk : Extended;
+    z : Extended;
     rflg : AlglibInteger;
 begin
     Assert((k>0) and AP_FP_Greater(p,0) and AP_FP_Less(p,1), 'Domain error in InvStudentTDistribution');
     rk := k;
-    if AP_FP_Greater(p,Double(0.25)) and AP_FP_Less(p,Double(0.75)) then
+    if AP_FP_Greater(p,0.25) and AP_FP_Less(p,0.75) then
     begin
-        if AP_FP_Eq(p,Double(0.5)) then
+        if AP_FP_Eq(p,0.5) then
         begin
             Result := 0;
             Exit;
         end;
-        z := Double(1.0)-Double(2.0)*p;
-        z := InvIncompleteBeta(Double(0.5), Double(0.5)*rk, absReal(z));
-        t := sqrt(rk*z/(Double(1.0)-z));
-        if AP_FP_Less(p,Double(0.5)) then
+        z := 1.0-2.0*p;
+        z := InvIncompleteBeta(0.5, 0.5*rk, absReal(z));
+        t := sqrt(rk*z/(1.0-z));
+        if AP_FP_Less(p,0.5) then
         begin
             t := -t;
         end;
@@ -194,12 +192,12 @@ begin
         Exit;
     end;
     rflg := -1;
-    if AP_FP_Greater_Eq(p,Double(0.5)) then
+    if AP_FP_Greater_Eq(p,0.5) then
     begin
-        p := Double(1.0)-p;
+        p := 1.0-p;
         rflg := 1;
     end;
-    z := InvIncompleteBeta(Double(0.5)*rk, Double(0.5), Double(2.0)*p);
+    z := InvIncompleteBeta(0.5*rk, 0.5, 2.0*p);
     if AP_FP_Less(MaxRealNumber*z,rk) then
     begin
         Result := rflg*MaxRealNumber;

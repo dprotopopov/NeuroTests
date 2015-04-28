@@ -1,4 +1,4 @@
-{$MODESWITCH RESULT+}
+
 program _demo;
 Array[0]
 var
@@ -17,10 +17,10 @@ begin
     // exact solution is (2,1).
     //
     SetLength(S, 2);
-    S[0] := RandomReal-Double(0.5);
-    S[1] := RandomReal-Double(0.5);
+    S[0] := RandomReal-0.5;
+    S[1] := RandomReal-0.5;
     MinLMCreateFGJ(2, 3, S, State);
-    MinLMSetCond(State, Double(0.0), Double(0.0), Double(0.001), 0);
+    MinLMSetCond(State, 0.0, 0.0, 0.001, 0);
     while MinLMIteration(State) do
     begin
         X := State.X[0];

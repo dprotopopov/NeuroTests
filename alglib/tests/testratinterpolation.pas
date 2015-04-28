@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testratinterpolation;
 interface
 uses Math, Sysutils, Ap, tsort, ratinterpolation, blas, reflections, creflections, hqrnd, matgen, ablasf, ablas, trfac, trlinsolve, safesolve, rcond, matinv, hblas, sblas, ortfac, rotations, bdsvd, svd, xblas, densesolver, linmin, minlbfgs, minlm, lsfit, ratint;
@@ -101,7 +99,7 @@ begin
     PassCount := 5;
     MaxN := 15;
     Threshold := 1000000*MachineEpsilon;
-    LipschitzTol := Double(1.3);
+    LipschitzTol := 1.3;
     
     //
     // Basic barycentric functions
@@ -120,7 +118,7 @@ begin
             //
             // generate weights from polynomial interpolation
             //
-            V0 := 1+Double(0.4)*RandomReal-Double(0.2);
+            V0 := 1+0.4*RandomReal-0.2;
             V1 := 2*RandomReal-1;
             V2 := 2*RandomReal-1;
             V3 := 2*RandomReal-1;
@@ -213,7 +211,7 @@ begin
                 // on a denser grid is significantly increased,
                 // continuity test is failed
                 //
-                T := Double(3.0);
+                T := 3.0;
                 K := 100;
                 S1 := 0;
                 J:=0;
@@ -305,7 +303,7 @@ begin
         end;
         if Pass mod 2=1 then
         begin
-            H := Double(0.01)*MaxRealNumber;
+            H := 0.01*MaxRealNumber;
         end;
         X[0] := 0*H;
         X[1] := 1*H;
@@ -325,7 +323,7 @@ begin
         end;
         if Pass div 2=1 then
         begin
-            V0 := Double(0.6)*H;
+            V0 := 0.6*H;
         end;
         BarycentricBuildXYW(X, Y, W, 4, B1);
         T := BarycentricCalc(B1, V0);
@@ -349,7 +347,7 @@ begin
     SetLength(X, 4);
     SetLength(Y, 4);
     SetLength(W, 4);
-    H := Double(0.01)*MaxRealNumber;
+    H := 0.01*MaxRealNumber;
     X[0] := 0*H;
     X[1] := 1*H;
     X[2] := 2*H;
@@ -887,7 +885,7 @@ begin
         end
         else
         begin
-            RefAvgRel := Double(0.25)*(AbsReal(V2)/AbsReal(V-V2)+AbsReal(V1)/AbsReal(V-V1)+AbsReal(V1)/AbsReal(V+V1)+AbsReal(V2)/AbsReal(V+V2));
+            RefAvgRel := 0.25*(AbsReal(V2)/AbsReal(V-V2)+AbsReal(V1)/AbsReal(V-V1)+AbsReal(V1)/AbsReal(V+V1)+AbsReal(V2)/AbsReal(V+V2));
         end;
         RefMax := Max(V1, V2);
         
@@ -1037,7 +1035,7 @@ var
     S3 : Double;
     Delta : Double;
 begin
-    Delta := Double(0.001);
+    Delta := 0.001;
     
     //
     // Test result

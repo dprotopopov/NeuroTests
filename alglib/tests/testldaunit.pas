@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 unit testldaunit;
 interface
 uses Math, Sysutils, Ap, hblas, reflections, creflections, sblas, ablasf, ablas, ortfac, blas, rotations, hsschur, evd, hqrnd, matgen, trfac, trlinsolve, safesolve, rcond, matinv, lda;
@@ -100,7 +98,7 @@ begin
                     Continue;
                 end;
                 LDANErrors := LDANErrors or  not TestWN(XY, WN, NS, NF, NC, 0);
-                LDANErrors := LDANErrors or AP_FP_Less_Eq(AbsReal(WN[Axis,0]),Double(0.75));
+                LDANErrors := LDANErrors or AP_FP_Less_Eq(AbsReal(WN[Axis,0]),0.75);
                 FisherLDA(XY, NS, NF, NC, Info, W1);
                 I:=0;
                 while I<=NF-1 do
@@ -129,7 +127,7 @@ begin
                         Inc(Pass);
                         Continue;
                     end;
-                    LDANErrors := LDANErrors or AP_FP_Less_Eq(WN[Axis,0],Double(0.75));
+                    LDANErrors := LDANErrors or AP_FP_Less_Eq(WN[Axis,0],0.75);
                     FisherLDA(XY, NS, NF, NC, Info, W1);
                     I:=0;
                     while I<=NF-1 do
@@ -207,7 +205,7 @@ begin
         J:=0;
         while J<=NFeatures-1 do
         begin
-            XY[I,J] := GenerateNormal(Double(0.0), Double(1.0));
+            XY[I,J] := GenerateNormal(0.0, 1.0);
             Inc(J);
         end;
         C := I mod NClasses;
@@ -246,7 +244,7 @@ begin
         J:=0;
         while J<=NFeatures-2 do
         begin
-            XY[I,J] := GenerateNormal(Double(0.0), Double(1.0));
+            XY[I,J] := GenerateNormal(0.0, 1.0);
             Inc(J);
         end;
         XY[I,NFeatures-1] := XY[I,NFeatures-2];
@@ -358,9 +356,9 @@ begin
     while I<=NF-1 do
     begin
         WPrev := TX[I];
-        TX[I] := WPrev+Double(0.01);
+        TX[I] := WPrev+0.01;
         Result := Result and AP_FP_Greater_Eq(V,(1-TOL*MachineEpsilon)*CalcJ(NF, ST, SW, TX, P, Q));
-        TX[I] := WPrev-Double(0.01);
+        TX[I] := WPrev-0.01;
         Result := Result and AP_FP_Greater_Eq(V,(1-TOL*MachineEpsilon)*CalcJ(NF, ST, SW, TX, P, Q));
         TX[I] := WPrev;
         Inc(I);
@@ -371,7 +369,7 @@ begin
     //
     SetLength(WORK, NF+1);
     SetLength(A, NF-1+1, NF-1+1);
-    MatrixMatrixMultiply(WN, 0, NF-1, 0, NF-1, False, WN, 0, NF-1, 0, NF-1, True, Double(1.0), A, 0, NF-1, 0, NF-1, Double(0.0), WORK);
+    MatrixMatrixMultiply(WN, 0, NF-1, 0, NF-1, False, WN, 0, NF-1, 0, NF-1, True, 1.0, A, 0, NF-1, 0, NF-1, 0.0, WORK);
     if SMatrixEVD(A, NF, 1, True, TX, Z) then
     begin
         Result := Result and AP_FP_Greater(TX[0],TX[NF-1]*1000*MachineEpsilon);

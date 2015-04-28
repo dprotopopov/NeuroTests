@@ -1,4 +1,4 @@
-{$MODESWITCH RESULT+}
+
 program _demo;
 Array[0]
 var
@@ -48,12 +48,12 @@ begin
     while I<=N-1 do
     begin
         X[I,0] := A+(B-A)*I/(N-1);
-        Y[I] := Double(0.5)*(1+Cos(X[I,0]));
+        Y[I] := 0.5*(1+Cos(X[I,0]));
         Inc(I);
     end;
-    C[0] := Double(1.0);
-    EpsF := Double(0.0);
-    EpsX := Double(0.0001);
+    C[0] := 1.0;
+    EpsF := 0.0;
+    EpsX := 0.0001;
     MaxIts := 0;
     
     //

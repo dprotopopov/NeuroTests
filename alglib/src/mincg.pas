@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Copyright (c) 2010, Sergey Bochkanov (ALGLIB project).
 
@@ -26,11 +24,11 @@ uses Math, Sysutils, Ap, linmin;
 type
 MinCGState = record
     N : AlglibInteger;
-    EpsG : Double;
-    EpsF : Double;
-    EpsX : Double;
+    EpsG : Extended;
+    EpsF : Extended;
+    EpsX : Extended;
     MaxIts : AlglibInteger;
-    StpMax : Double;
+    StpMax : Extended;
     XRep : Boolean;
     CGType : AlglibInteger;
     NFEV : AlglibInteger;
@@ -41,12 +39,12 @@ MinCGState = record
     XN : TReal1DArray;
     DN : TReal1DArray;
     D : TReal1DArray;
-    FOld : Double;
-    Stp : Double;
+    FOld : Extended;
+    Stp : Extended;
     WORK : TReal1DArray;
     YK : TReal1DArray;
     X : TReal1DArray;
-    F : Double;
+    F : Extended;
     G : TReal1DArray;
     NeedFG : Boolean;
     XUpdated : Boolean;
@@ -56,8 +54,8 @@ MinCGState = record
     RepTerminationType : AlglibInteger;
     DebugRestartsCount : AlglibInteger;
     LState : LINMINState;
-    BetaHS : Double;
-    BetaDY : Double;
+    BetaHS : Extended;
+    BetaDY : Extended;
 end;
 
 
@@ -73,13 +71,13 @@ procedure MinCGCreate(N : AlglibInteger;
      const X : TReal1DArray;
      var State : MinCGState);
 procedure MinCGSetCond(var State : MinCGState;
-     EpsG : Double;
-     EpsF : Double;
-     EpsX : Double;
+     EpsG : Extended;
+     EpsF : Extended;
+     EpsX : Extended;
      MaxIts : AlglibInteger);
 procedure MinCGSetXRep(var State : MinCGState; NeedXRep : Boolean);
 procedure MinCGSetCGType(var State : MinCGState; CGType : AlglibInteger);
-procedure MinCGSetStpMax(var State : MinCGState; StpMax : Double);
+procedure MinCGSetStpMax(var State : MinCGState; StpMax : Extended);
 function MinCGIteration(var State : MinCGState):Boolean;
 procedure MinCGResults(const State : MinCGState;
      var X : TReal1DArray;
@@ -192,9 +190,9 @@ automatic stopping criterion selection (small EpsX).
      Copyright 02.04.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure MinCGSetCond(var State : MinCGState;
-     EpsG : Double;
-     EpsF : Double;
-     EpsX : Double;
+     EpsG : Extended;
+     EpsF : Extended;
+     EpsX : Extended;
      MaxIts : AlglibInteger);
 begin
     Assert(AP_FP_Greater_Eq(EpsG,0), 'MinCGSetCond: negative EpsG!');
@@ -203,7 +201,7 @@ begin
     Assert(MaxIts>=0, 'MinCGSetCond: negative MaxIts!');
     if AP_FP_Eq(EpsG,0) and AP_FP_Eq(EpsF,0) and AP_FP_Eq(EpsX,0) and (MaxIts=0) then
     begin
-        EpsX := Double(1.0E-6);
+        EpsX := 1.0E-6;
     end;
     State.EpsG := EpsG;
     State.EpsF := EpsF;
@@ -280,7 +278,7 @@ overflow) without actually calculating function value at the x+stp*d.
   -- ALGLIB --
      Copyright 02.04.2010 by Bochkanov Sergey
 *************************************************************************)
-procedure MinCGSetStpMax(var State : MinCGState; StpMax : Double);
+procedure MinCGSetStpMax(var State : MinCGState; StpMax : Extended);
 begin
     Assert(AP_FP_Greater_Eq(StpMax,0), 'MinCGSetStpMax: StpMax<0!');
     State.StpMax := StpMax;
@@ -329,9 +327,9 @@ function MinCGIteration(var State : MinCGState):Boolean;
 var
     N : AlglibInteger;
     I : AlglibInteger;
-    BetaK : Double;
-    V : Double;
-    VV : Double;
+    BetaK : Extended;
+    V : Extended;
+    VV : Extended;
     MCINFO : AlglibInteger;
 label
 lbl_0, lbl_1, lbl_4, lbl_6, lbl_8, lbl_2, lbl_9, lbl_3, lbl_10, lbl_7, lbl_rcomm;
@@ -447,7 +445,7 @@ lbl_6:
     APVMove(@State.D[0], 0, N-1, @State.DK[0], 0, N-1);
     APVMove(@State.X[0], 0, N-1, @State.XK[0], 0, N-1);
     State.MCStage := 0;
-    State.Stp := Double(1.0);
+    State.Stp := 1.0;
     LinMinNormalizeD(State.D, State.Stp, N);
     MCSRCH(N, State.X, State.F, State.G, State.D, State.Stp, State.StpMax, MCINFO, State.NFEV, State.WORK, State.LState, State.MCStage);
 lbl_8:
@@ -542,7 +540,7 @@ lbl_10:
         Result := False;
         Exit;
     end;
-    if AP_FP_Less_Eq(State.FOld-State.F,State.EpsF*Max(AbsReal(State.FOld), Max(AbsReal(State.F), Double(1.0)))) then
+    if AP_FP_Less_Eq(State.FOld-State.F,State.EpsF*Max(AbsReal(State.FOld), Max(AbsReal(State.F), 1.0))) then
     begin
         
         //

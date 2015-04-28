@@ -1,5 +1,3 @@
-{$MODESWITCH RESULT+}
-{$GOTO ON}
 (*************************************************************************
 Copyright (c) 2007, Sergey Bochkanov (ALGLIB project).
 
@@ -58,9 +56,9 @@ procedure BuildFloaterHormannRationalInterpolant(X : TReal1DArray;
      D : AlglibInteger;
      var W : TReal1DArray);
 var
-    S0 : Double;
-    S : Double;
-    V : Double;
+    S0 : Extended;
+    S : Extended;
+    V : Extended;
     I : AlglibInteger;
     J : AlglibInteger;
     K : AlglibInteger;
