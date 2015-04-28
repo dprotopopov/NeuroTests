@@ -21,7 +21,7 @@ http://www.fsf.org/licensing/licenses
 *************************************************************************)
 unit mlpbase;
 interface
-uses Math, Sysutils, Ap;
+uses Math, Sysutils, Ap, System.Threading;
 
 type
 MultiLayerPerceptron = record
@@ -42,140 +42,140 @@ end;
 
 procedure MLPCreate0(NIn : AlglibInteger;
      NOut : AlglibInteger;
-     var Network : MultiLayerPerceptron);inline;
+     var Network : MultiLayerPerceptron);
 procedure MLPCreate1(NIn : AlglibInteger;
      NHid : AlglibInteger;
      NOut : AlglibInteger;
-     var Network : MultiLayerPerceptron);inline;
+     var Network : MultiLayerPerceptron);
 procedure MLPCreate2(NIn : AlglibInteger;
      NHid1 : AlglibInteger;
      NHid2 : AlglibInteger;
      NOut : AlglibInteger;
-     var Network : MultiLayerPerceptron);inline;
+     var Network : MultiLayerPerceptron);
 procedure MLPCreateB0(NIn : AlglibInteger;
      NOut : AlglibInteger;
      B : Extended;
      D : Extended;
-     var Network : MultiLayerPerceptron);inline;
+     var Network : MultiLayerPerceptron);
 procedure MLPCreateB1(NIn : AlglibInteger;
      NHid : AlglibInteger;
      NOut : AlglibInteger;
      B : Extended;
      D : Extended;
-     var Network : MultiLayerPerceptron);inline;
+     var Network : MultiLayerPerceptron);
 procedure MLPCreateB2(NIn : AlglibInteger;
      NHid1 : AlglibInteger;
      NHid2 : AlglibInteger;
      NOut : AlglibInteger;
      B : Extended;
      D : Extended;
-     var Network : MultiLayerPerceptron);inline;
+     var Network : MultiLayerPerceptron);
 procedure MLPCreateR0(NIn : AlglibInteger;
      NOut : AlglibInteger;
      A : Extended;
      B : Extended;
-     var Network : MultiLayerPerceptron);inline;
+     var Network : MultiLayerPerceptron);
 procedure MLPCreateR1(NIn : AlglibInteger;
      NHid : AlglibInteger;
      NOut : AlglibInteger;
      A : Extended;
      B : Extended;
-     var Network : MultiLayerPerceptron);inline;
+     var Network : MultiLayerPerceptron);
 procedure MLPCreateR2(NIn : AlglibInteger;
      NHid1 : AlglibInteger;
      NHid2 : AlglibInteger;
      NOut : AlglibInteger;
      A : Extended;
      B : Extended;
-     var Network : MultiLayerPerceptron);inline;
+     var Network : MultiLayerPerceptron);
 procedure MLPCreateC0(NIn : AlglibInteger;
      NOut : AlglibInteger;
-     var Network : MultiLayerPerceptron);inline;
+     var Network : MultiLayerPerceptron);
 procedure MLPCreateC1(NIn : AlglibInteger;
      NHid : AlglibInteger;
      NOut : AlglibInteger;
-     var Network : MultiLayerPerceptron);inline;
+     var Network : MultiLayerPerceptron);
 procedure MLPCreateC2(NIn : AlglibInteger;
      NHid1 : AlglibInteger;
      NHid2 : AlglibInteger;
      NOut : AlglibInteger;
-     var Network : MultiLayerPerceptron);inline;
+     var Network : MultiLayerPerceptron);
 procedure MLPCopy(const Network1 : MultiLayerPerceptron;
-     var Network2 : MultiLayerPerceptron);inline;
+     var Network2 : MultiLayerPerceptron);
 procedure MLPSerialize(const Network : MultiLayerPerceptron;
      var RA : TReal1DArray;
-     var RLen : AlglibInteger);inline;
+     var RLen : AlglibInteger);
 procedure MLPUnserialize(const RA : TReal1DArray;
-     var Network : MultiLayerPerceptron);inline;
-procedure MLPRandomize(var Network : MultiLayerPerceptron);inline;
-procedure MLPRandomizeFull(var Network : MultiLayerPerceptron);inline;
+     var Network : MultiLayerPerceptron);
+procedure MLPRandomize(var Network : MultiLayerPerceptron);
+procedure MLPRandomizeFull(var Network : MultiLayerPerceptron);
 procedure MLPInitPreprocessor(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      SSize : AlglibInteger);
 procedure MLPProperties(const Network : MultiLayerPerceptron;
      var NIn : AlglibInteger;
      var NOut : AlglibInteger;
-     var WCount : AlglibInteger);inline;
-function MLPIsSoftmax(const Network : MultiLayerPerceptron):Boolean;inline;
+     var WCount : AlglibInteger);
+function MLPIsSoftmax(const Network : MultiLayerPerceptron):Boolean;
 procedure MLPProcess(var Network : MultiLayerPerceptron;
      const X : TReal1DArray;
-     var Y : TReal1DArray);inline;
+     var Y : TReal1DArray);
 function MLPError(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     SSize : AlglibInteger):Extended;inline;
+     SSize : AlglibInteger):Extended;
 function MLPErrorN(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     SSize : AlglibInteger):Extended;inline;
+     SSize : AlglibInteger):Extended;
 function MLPClsError(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     SSize : AlglibInteger):AlglibInteger;inline;
+     SSize : AlglibInteger):AlglibInteger;
 function MLPRelClsError(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Extended;inline;
+     NPoints : AlglibInteger):Extended;
 function MLPAvgCE(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Extended;inline;
+     NPoints : AlglibInteger):Extended;
 function MLPRMSError(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Extended;inline;
+     NPoints : AlglibInteger):Extended;
 function MLPAvgError(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Extended;inline;
+     NPoints : AlglibInteger):Extended;
 function MLPAvgRelError(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Extended;inline;
+     NPoints : AlglibInteger):Extended;
 procedure MLPGrad(var Network : MultiLayerPerceptron;
      const X : TReal1DArray;
      const DesiredY : TReal1DArray;
      var E : Extended;
-     var Grad : TReal1DArray);inline;
+     var Grad : TReal1DArray);
 procedure MLPGradN(var Network : MultiLayerPerceptron;
      const X : TReal1DArray;
      const DesiredY : TReal1DArray;
      var E : Extended;
-     var Grad : TReal1DArray);inline;
+     var Grad : TReal1DArray);
 procedure MLPGradBatch(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      SSize : AlglibInteger;
      var E : Extended;
-     var Grad : TReal1DArray);inline;
+     var Grad : TReal1DArray);
 procedure MLPGradNBatch(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      SSize : AlglibInteger;
      var E : Extended;
-     var Grad : TReal1DArray);inline;
+     var Grad : TReal1DArray);
 procedure MLPHessianNBatch(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      SSize : AlglibInteger;
      var E : Extended;
      var Grad : TReal1DArray;
-     var H : TReal2DArray);inline;
+     var H : TReal2DArray);
 procedure MLPHessianBatch(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      SSize : AlglibInteger;
      var E : Extended;
      var Grad : TReal1DArray;
-     var H : TReal2DArray);inline;
+     var H : TReal2DArray);
 procedure MLPInternalProcessVector(const StructInfo : TInteger1DArray;
      const Weights : TReal1DArray;
      const ColumnMeans : TReal1DArray;
@@ -190,13 +190,13 @@ procedure AddInputLayer(NCount : AlglibInteger;
      var LTypes : TInteger1DArray;
      var LConnFirst : TInteger1DArray;
      var LConnLast : TInteger1DArray;
-     var LastProc : AlglibInteger);forward;inline;
+     var LastProc : AlglibInteger);forward;
 procedure AddBiasedSummatorLayer(NCount : AlglibInteger;
      var LSizes : TInteger1DArray;
      var LTypes : TInteger1DArray;
      var LConnFirst : TInteger1DArray;
      var LConnLast : TInteger1DArray;
-     var LastProc : AlglibInteger);forward;inline;
+     var LastProc : AlglibInteger);forward;
 procedure MLPCreate(NIn : AlglibInteger;
      NOut : AlglibInteger;
      const LSizes : TInteger1DArray;
@@ -211,13 +211,13 @@ procedure AddActivationLayer(FuncType : AlglibInteger;
      var LTypes : TInteger1DArray;
      var LConnFirst : TInteger1DArray;
      var LConnLast : TInteger1DArray;
-     var LastProc : AlglibInteger);forward;inline;
+     var LastProc : AlglibInteger);forward;
 procedure AddZeroLayer(var LSizes : TInteger1DArray;
      var LTypes : TInteger1DArray;
      var LConnFirst : TInteger1DArray;
      var LConnLast : TInteger1DArray;
-     var LastProc : AlglibInteger);forward;inline;
-function SafeCrossEntropy(T : Extended; Z : Extended):Extended;forward;inline;
+     var LastProc : AlglibInteger);forward;
+function SafeCrossEntropy(T : Extended; Z : Extended):Extended;forward;
 procedure MLPInternalCalculateGradient(var Network : MultiLayerPerceptron;
      const Neurons : TReal1DArray;
      const Weights : TReal1DArray;
@@ -242,7 +242,7 @@ procedure MLPActivationFunction(NET : Extended;
      K : AlglibInteger;
      var F : Extended;
      var DF : Extended;
-     var D2F : Extended);forward;inline;
+     var D2F : Extended);forward;
 
 implementation
 
@@ -1165,14 +1165,19 @@ var
     NIn : AlglibInteger;
     NOut : AlglibInteger;
     WCount : AlglibInteger;
+    NetworkCopy : MultiLayerPerceptron;
 begin
     MLPProperties(Network, NIn, NOut, WCount);
-    I:=0;
-    while I<=WCount-1 do
+    //I:=0;
+    //while I<=WCount-1 do
+    NetworkCopy := Network;
+    TParallel.For(0, WCount-1, procedure (I: Integer)
+    //for I := 0 to WCount-1 do      
     begin
-        Network.Weights[I] := RandomReal-0.5;
-        Inc(I);
-    end;
+        NetworkCopy.Weights[I] := RandomReal-0.5;
+        //Inc(I);
+    end);
+    Network := NetworkCopy;
 end;
 
 
@@ -2000,11 +2005,9 @@ var
     WCount : AlglibInteger;
 begin
     MLPProperties(Network, NIn, NOut, WCount);
-    I:=0;
-    while I<=WCount-1 do
+    for I := 0 to WCount-1 do      
     begin
         Grad[I] := 0;
-        Inc(I);
     end;
     E := 0;
     I := 0;
@@ -3331,11 +3334,9 @@ begin
     IDFDNET := NTotal;
     IDError := 2*NTotal;
     IZeros := 3*NTotal;
-    J:=0;
-    while J<=CSize-1 do
+    for J := 0 to CSize-1 do      
     begin
         Network.Chunks[IZeros,J] := 0;
-        Inc(J);
     end;
     
     //
@@ -3343,11 +3344,10 @@ begin
     // 1. Load inputs from XY to Chunks[0:NIn-1,0:CSize-1]
     // 2. Forward pass
     //
-    I:=0;
-    while I<=NIn-1 do
+    for I := 0 to NIn-1 do
     begin
         J:=0;
-        while J<=CSize-1 do
+        for J := 0 to CSize-1 do
         begin
             if AP_FP_Neq(Network.ColumnSigmas[I],0) then
             begin
@@ -3357,12 +3357,9 @@ begin
             begin
                 Network.Chunks[I,J] := XY[C1+J,I]-Network.ColumnMeans[I];
             end;
-            Inc(J);
         end;
-        Inc(I);
     end;
-    I:=0;
-    while I<=NTotal-1 do
+    for I := 0 to NTotal-1 do
     begin
         Offs := IStart+I*NFieldWidth;
         if Network.StructInfo[Offs+0]>0 then
@@ -3374,13 +3371,11 @@ begin
             //
             N1 := Network.StructInfo[Offs+2];
             APVMove(@Network.Chunks[I][0], 0, CSize-1, @Network.Chunks[N1][0], 0, CSize-1);
-            J:=0;
-            while J<=CSize-1 do
+            for J := 0 to CSize-1 do
             begin
                 MLPActivationFunction(Network.Chunks[I,J], Network.StructInfo[Offs+0], F, DF, D2F);
                 Network.Chunks[I,J] := F;
                 Network.Chunks[IDFDNET+I,J] := DF;
-                Inc(J);
             end;
         end;
         if Network.StructInfo[Offs+0]=0 then
@@ -3395,12 +3390,10 @@ begin
             W1 := Network.StructInfo[Offs+3];
             W2 := W1+Network.StructInfo[Offs+1]-1;
             APVMove(@Network.Chunks[I][0], 0, CSize-1, @Network.Chunks[IZeros][0], 0, CSize-1);
-            J:=N1;
-            while J<=N2 do
+            for J := N1 to N2 do
             begin
                 V := Network.Weights[W1+J-N1];
                 APVAdd(@Network.Chunks[I][0], 0, CSize-1, @Network.Chunks[J][0], 0, CSize-1, V);
-                Inc(J);
             end;
         end;
         if Network.StructInfo[Offs+0]<0 then
@@ -3420,11 +3413,9 @@ begin
                 //
                 // "-1" neuron
                 //
-                K:=0;
-                while K<=CSize-1 do
+                for K := 0 to CSize-1 do
                 begin
                     Network.Chunks[I,K] := -1;
-                    Inc(K);
                 end;
                 BFlag := True;
             end;
@@ -3434,27 +3425,22 @@ begin
                 //
                 // "0" neuron
                 //
-                K:=0;
-                while K<=CSize-1 do
+                for K := 0 to CSize-1 do
                 begin
                     Network.Chunks[I,K] := 0;
-                    Inc(K);
                 end;
                 BFlag := True;
             end;
             Assert(BFlag, 'MLPChunkedGradient: internal error - unknown neuron type!');
         end;
-        Inc(I);
     end;
     
     //
     // Post-processing, error, dError/dOut
     //
-    I:=0;
-    while I<=NTotal-1 do
+    for I := 0 to NTotal-1 do
     begin
         APVMove(@Network.Chunks[IDError+I][0], 0, CSize-1, @Network.Chunks[IZeros][0], 0, CSize-1);
-        Inc(I);
     end;
     Assert((Network.StructInfo[6]=0) or (Network.StructInfo[6]=1), 'MLPChunkedGradient: unknown normalization type!');
     if Network.StructInfo[6]=1 then
@@ -3468,8 +3454,7 @@ begin
         // 2. place sum(exp(..)) to NET
         // 3. calculate dError/dOut and place it to the second block of Chunks
         //
-        K:=0;
-        while K<=CSize-1 do
+        for K := 0 to CSize-1 do
         begin
             
             //
@@ -3557,7 +3542,6 @@ begin
                     Inc(I);
                 end;
             end;
-            Inc(K);
         end;
     end
     else

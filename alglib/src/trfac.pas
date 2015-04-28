@@ -118,7 +118,7 @@ function SPDMatrixCholeskyRec(var A : TReal2DArray;
      Offs : AlglibInteger;
      N : AlglibInteger;
      IsUpper : Boolean;
-     var Tmp : TReal1DArray):Boolean;forward;inline;
+     var Tmp : TReal1DArray):Boolean;forward;
 function HPDMatrixCholesky2(var AAA : TComplex2DArray;
      Offs : AlglibInteger;
      N : AlglibInteger;
@@ -128,7 +128,7 @@ function SPDMatrixCholesky2(var AAA : TReal2DArray;
      Offs : AlglibInteger;
      N : AlglibInteger;
      IsUpper : Boolean;
-     var Tmp : TReal1DArray):Boolean;forward;inline;
+     var Tmp : TReal1DArray):Boolean;forward;
 
 implementation
 
@@ -1779,8 +1779,7 @@ begin
         //
         // Compute the Cholesky factorization A = U'*U.
         //
-        J:=0;
-        while J<=N-1 do
+        for J := 0 to N-1 do          
         begin
             
             //
@@ -1819,7 +1818,6 @@ begin
                 R := 1/AJJ;
                 APVMul(@AAA[Offs+J][0], Offs+J+1, Offs+N-1, R);
             end;
-            Inc(J);
         end;
     end
     else
@@ -1828,8 +1826,7 @@ begin
         //
         // Compute the Cholesky factorization A = L*L'.
         //
-        J:=0;
-        while J<=N-1 do
+        for J := 0 to N-1 do
         begin
             
             //
@@ -1855,24 +1852,19 @@ begin
                 begin
                     APVMove(@Tmp[0], 0, J-1, @AAA[Offs+J][0], Offs, Offs+J-1);
                     RMatrixMV(N-J-1, J, AAA, Offs+J+1, Offs, 0, Tmp, 0, Tmp, N);
-                    I:=0;
-                    while I<=N-J-2 do
+                    for I := 0 to N-J-2 do
                     begin
                         AAA[Offs+J+1+I,Offs+J] := (AAA[Offs+J+1+I,Offs+J]-Tmp[N+I])/AJJ;
-                        Inc(I);
                     end;
                 end
                 else
                 begin
-                    I:=0;
-                    while I<=N-J-2 do
+                    for I := 0 to N-J-2 do
                     begin
                         AAA[Offs+J+1+I,Offs+J] := AAA[Offs+J+1+I,Offs+J]/AJJ;
-                        Inc(I);
                     end;
                 end;
             end;
-            Inc(J);
         end;
     end;
 end;

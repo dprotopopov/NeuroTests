@@ -21,7 +21,7 @@ http://www.fsf.org/licensing/licenses
 *************************************************************************)
 unit densesolver;
 interface
-uses Math, Sysutils, Ap, hblas, reflections, creflections, sblas, ablasf, ablas, ortfac, blas, rotations, bdsvd, svd, hqrnd, matgen, trfac, trlinsolve, safesolve, rcond, xblas;
+uses Math, Sysutils, System.Threading, Ap, hblas, reflections, creflections, sblas, ablasf, ablas, ortfac, blas, rotations, bdsvd, svd, hqrnd, matgen, trfac, trlinsolve, safesolve, rcond, xblas;
 
 type
 DenseSolverReport = record
@@ -138,14 +138,14 @@ procedure SPDMatrixSolveM(const A : TReal2DArray;
      M : AlglibInteger;
      var Info : AlglibInteger;
      var Rep : DenseSolverReport;
-     var X : TReal2DArray);inline;
+     var X : TReal2DArray);//inline;
 procedure SPDMatrixSolve(const A : TReal2DArray;
      N : AlglibInteger;
      IsUpper : Boolean;
      const B : TReal1DArray;
      var Info : AlglibInteger;
      var Rep : DenseSolverReport;
-     var X : TReal1DArray);inline;
+     var X : TReal1DArray);//inline;
 procedure SPDMatrixCholeskySolveM(const CHA : TReal2DArray;
      N : AlglibInteger;
      IsUpper : Boolean;
@@ -153,14 +153,14 @@ procedure SPDMatrixCholeskySolveM(const CHA : TReal2DArray;
      M : AlglibInteger;
      var Info : AlglibInteger;
      var Rep : DenseSolverReport;
-     var X : TReal2DArray);inline;
+     var X : TReal2DArray);//inline;
 procedure SPDMatrixCholeskySolve(const CHA : TReal2DArray;
      N : AlglibInteger;
      IsUpper : Boolean;
      const B : TReal1DArray;
      var Info : AlglibInteger;
      var Rep : DenseSolverReport;
-     var X : TReal1DArray);inline;
+     var X : TReal1DArray);//inline;
 procedure HPDMatrixSolveM(const A : TComplex2DArray;
      N : AlglibInteger;
      IsUpper : Boolean;
@@ -261,7 +261,7 @@ procedure SPDBasicCholeskySolve(const CHA : TReal2DArray;
      N : AlglibInteger;
      IsUpper : Boolean;
      var XB : TReal1DArray;
-     var Tmp : TReal1DArray);forward;inline;
+     var Tmp : TReal1DArray);forward;
 procedure CBasicLUSolve(const LUA : TComplex2DArray;
      const P : TInteger1DArray;
      ScaleA : Extended;
@@ -1394,8 +1394,7 @@ begin
     // 3. solve
     //
     SqrtScaleA := 0;
-    I:=0;
-    while I<=N-1 do
+    for I := 0 to N-1 do      
     begin
         if IsUpper then
         begin
@@ -1413,7 +1412,6 @@ begin
             SqrtScaleA := Max(SqrtScaleA, AbsReal(CHA[I,J]));
             Inc(J);
         end;
-        Inc(I);
     end;
     if AP_FP_Eq(SqrtScaleA,0) then
     begin
@@ -2358,6 +2356,7 @@ var
     MXB : Extended;
     ScaleRight : Extended;
     i_ : AlglibInteger;
+    //Xcopy : TReal2DArray;
 begin
     Assert(AP_FP_Greater(SqrtScaleA,0));
     
@@ -2384,16 +2383,12 @@ begin
     Rep.RInf := Rep.R1;
     if AP_FP_Less(Rep.R1,RCondThreshold) then
     begin
-        I:=0;
-        while I<=N-1 do
+        for I := 0 to N-1 do
         begin
-            J:=0;
-            while J<=M-1 do
+            for J := 0 to M-1 do
             begin
                 X[I,J] := 0;
-                Inc(J);
             end;
-            Inc(I);
         end;
         Rep.R1 := 0;
         Rep.RInf := 0;
@@ -2405,10 +2400,11 @@ begin
     //
     // solve
     //
-    K:=0;
-    while K<=M-1 do
+    //Xcopy := X;
+    //TParallel.For(0, M-1, procedure (K: Integer)
+    for K := 0 to M-1 do 
     begin
-        
+
         //
         // copy B to contiguous storage
         //
@@ -2424,11 +2420,9 @@ begin
         //   it is chosen to make |scaleRight*b| close to 1.
         //
         MXB := 0;
-        I:=0;
-        while I<=N-1 do
+        for I := 0 to N-1 do
         begin
             MXB := Max(MXB, AbsReal(BC[I]));
-            Inc(I);
         end;
         if AP_FP_Eq(MXB,0) then
         begin
@@ -2453,7 +2447,6 @@ begin
         begin
             X[i_,K] := V*XC[i_];
         end;
-        Inc(K);
     end;
 end;
 
@@ -2907,6 +2900,7 @@ procedure SPDBasicCholeskySolve(const CHA : TReal2DArray;
 var
     I : AlglibInteger;
     V : Extended;
+    XBcopy, Tmpcopy : TReal1DArray;
 begin
     
     //
@@ -2918,34 +2912,34 @@ begin
         //
         // Solve U'*y=b first.
         //
-        I:=0;
-        while I<=N-1 do
+        XBcopy := XB;
+        Tmpcopy := Tmp;
+        TParallel.For(0, N-1, procedure (I: Integer)
         begin
-            XB[I] := XB[I]/(SqrtScaleA*CHA[I,I]);
+            XBcopy[I] := XBcopy[I]/(SqrtScaleA*CHA[I,I]);
             if I<N-1 then
             begin
-                V := XB[I];
-                APVMove(@Tmp[0], I+1, N-1, @CHA[I][0], I+1, N-1, SqrtScaleA);
-                APVSub(@XB[0], I+1, N-1, @Tmp[0], I+1, N-1, V);
+                V := XBcopy[I];
+                APVMove(@Tmpcopy[0], I+1, N-1, @CHA[I][0], I+1, N-1, SqrtScaleA);
+                APVSub(@XBcopy[0], I+1, N-1, @Tmpcopy[0], I+1, N-1, V);
             end;
-            Inc(I);
-        end;
+        end);
         
         //
         // Solve U*x=y then.
         //
-        I:=N-1;
-        while I>=0 do
+        TParallel.For(0, N-1, procedure (I: Integer)
         begin
+            I:=N-1 - I; // invert
             if I<N-1 then
             begin
-                APVMove(@Tmp[0], I+1, N-1, @CHA[I][0], I+1, N-1, SqrtScaleA);
-                V := APVDotProduct(@Tmp[0], I+1, N-1, @XB[0], I+1, N-1);
-                XB[I] := XB[I]-V;
+                APVMove(@Tmpcopy[0], I+1, N-1, @CHA[I][0], I+1, N-1, SqrtScaleA);
+                V := APVDotProduct(@Tmpcopy[0], I+1, N-1, @XBcopy[0], I+1, N-1);
+                XBcopy[I] := XBcopy[I]-V;
             end;
-            XB[I] := XB[I]/(SqrtScaleA*CHA[I,I]);
-            Dec(I);
-        end;
+            XBcopy[I] := XBcopy[I]/(SqrtScaleA*CHA[I,I]);
+        end);
+        
     end
     else
     begin
