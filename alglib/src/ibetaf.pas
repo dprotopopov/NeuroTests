@@ -28,25 +28,25 @@ unit ibetaf;
 interface
 uses Math, Sysutils, Ap, gammafunc, normaldistr;
 
-function IncompleteBeta(a : Extended; b : Extended; x : Extended):Extended;
-function InvIncompleteBeta(a : Extended; b : Extended; y : Extended):Extended;
+function IncompleteBeta(a : Double; b : Double; x : Double):Double;
+function InvIncompleteBeta(a : Double; b : Double; y : Double):Double;
 
 implementation
 
-function IncompleteBetaFE(a : Extended;
-     b : Extended;
-     x : Extended;
-     big : Extended;
-     biginv : Extended):Extended;forward;
-function IncompleteBetaFE2(a : Extended;
-     b : Extended;
-     x : Extended;
-     big : Extended;
-     biginv : Extended):Extended;forward;
-function IncompleteBetaPS(a : Extended;
-     b : Extended;
-     x : Extended;
-     MAXGAM : Extended):Extended;forward;
+function IncompleteBetaFE(a : Double;
+     b : Double;
+     x : Double;
+     big : Double;
+     biginv : Double):Double;forward;
+function IncompleteBetaFE2(a : Double;
+     b : Double;
+     x : Double;
+     big : Double;
+     biginv : Double):Double;forward;
+function IncompleteBetaPS(a : Double;
+     b : Double;
+     x : Double;
+     MAXGAM : Double):Double;forward;
 
 
 (*************************************************************************
@@ -90,19 +90,19 @@ were excluded from these statistics.
 Cephes Math Library, Release 2.8:  June, 2000
 Copyright 1984, 1995, 2000 by Stephen L. Moshier
 *************************************************************************)
-function IncompleteBeta(a : Extended; b : Extended; x : Extended):Extended;
+function IncompleteBeta(a : Double; b : Double; x : Double):Double;
 var
-    t : Extended;
-    xc : Extended;
-    w : Extended;
-    y : Extended;
+    t : Double;
+    xc : Double;
+    w : Double;
+    y : Double;
     flag : AlglibInteger;
-    sg : Extended;
-    big : Extended;
-    biginv : Extended;
-    MAXGAM : Extended;
-    MINLOG : Extended;
-    MAXLOG : Extended;
+    sg : Double;
+    big : Double;
+    biginv : Double;
+    MAXGAM : Double;
+    MINLOG : Double;
+    MAXLOG : Double;
 begin
     big := 4.503599627370496e15;
     biginv := 2.22044604925031308085e-16;
@@ -242,28 +242,28 @@ With a = .5, b constrained to half-integer or integer values:
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1996, 2000 by Stephen L. Moshier
 *************************************************************************)
-function InvIncompleteBeta(a : Extended; b : Extended; y : Extended):Extended;
+function InvIncompleteBeta(a : Double; b : Double; y : Double):Double;
 var
-    aaa : Extended;
-    bbb : Extended;
-    y0 : Extended;
-    d : Extended;
-    yyy : Extended;
-    x : Extended;
-    x0 : Extended;
-    x1 : Extended;
-    lgm : Extended;
-    yp : Extended;
-    di : Extended;
-    dithresh : Extended;
-    yl : Extended;
-    yh : Extended;
-    xt : Extended;
+    aaa : Double;
+    bbb : Double;
+    y0 : Double;
+    d : Double;
+    yyy : Double;
+    x : Double;
+    x0 : Double;
+    x1 : Double;
+    lgm : Double;
+    yp : Double;
+    di : Double;
+    dithresh : Double;
+    yl : Double;
+    yh : Double;
+    xt : Double;
     i : AlglibInteger;
     rflg : AlglibInteger;
     dir : AlglibInteger;
     nflg : AlglibInteger;
-    s : Extended;
+    s : Double;
     MainLoopPos : AlglibInteger;
     ihalve : AlglibInteger;
     ihalvecycle : AlglibInteger;
@@ -666,31 +666,31 @@ Continued fraction expansion #1 for incomplete beta integral
 Cephes Math Library, Release 2.8:  June, 2000
 Copyright 1984, 1995, 2000 by Stephen L. Moshier
 *************************************************************************)
-function IncompleteBetaFE(a : Extended;
-     b : Extended;
-     x : Extended;
-     big : Extended;
-     biginv : Extended):Extended;
+function IncompleteBetaFE(a : Double;
+     b : Double;
+     x : Double;
+     big : Double;
+     biginv : Double):Double;
 var
-    xk : Extended;
-    pk : Extended;
-    pkm1 : Extended;
-    pkm2 : Extended;
-    qk : Extended;
-    qkm1 : Extended;
-    qkm2 : Extended;
-    k1 : Extended;
-    k2 : Extended;
-    k3 : Extended;
-    k4 : Extended;
-    k5 : Extended;
-    k6 : Extended;
-    k7 : Extended;
-    k8 : Extended;
-    r : Extended;
-    t : Extended;
-    ans : Extended;
-    thresh : Extended;
+    xk : Double;
+    pk : Double;
+    pkm1 : Double;
+    pkm2 : Double;
+    qk : Double;
+    qkm1 : Double;
+    qkm2 : Double;
+    k1 : Double;
+    k2 : Double;
+    k3 : Double;
+    k4 : Double;
+    k5 : Double;
+    k6 : Double;
+    k7 : Double;
+    k8 : Double;
+    r : Double;
+    t : Double;
+    ans : Double;
+    thresh : Double;
     n : AlglibInteger;
 begin
     k1 := a;
@@ -776,32 +776,32 @@ for incomplete beta integral
 Cephes Math Library, Release 2.8:  June, 2000
 Copyright 1984, 1995, 2000 by Stephen L. Moshier
 *************************************************************************)
-function IncompleteBetaFE2(a : Extended;
-     b : Extended;
-     x : Extended;
-     big : Extended;
-     biginv : Extended):Extended;
+function IncompleteBetaFE2(a : Double;
+     b : Double;
+     x : Double;
+     big : Double;
+     biginv : Double):Double;
 var
-    xk : Extended;
-    pk : Extended;
-    pkm1 : Extended;
-    pkm2 : Extended;
-    qk : Extended;
-    qkm1 : Extended;
-    qkm2 : Extended;
-    k1 : Extended;
-    k2 : Extended;
-    k3 : Extended;
-    k4 : Extended;
-    k5 : Extended;
-    k6 : Extended;
-    k7 : Extended;
-    k8 : Extended;
-    r : Extended;
-    t : Extended;
-    ans : Extended;
-    z : Extended;
-    thresh : Extended;
+    xk : Double;
+    pk : Double;
+    pkm1 : Double;
+    pkm2 : Double;
+    qk : Double;
+    qkm1 : Double;
+    qkm2 : Double;
+    k1 : Double;
+    k2 : Double;
+    k3 : Double;
+    k4 : Double;
+    k5 : Double;
+    k6 : Double;
+    k7 : Double;
+    k8 : Double;
+    r : Double;
+    t : Double;
+    ans : Double;
+    z : Double;
+    thresh : Double;
     n : AlglibInteger;
 begin
     k1 := a;
@@ -888,20 +888,20 @@ Use when b*x is small and x not too close to 1.
 Cephes Math Library, Release 2.8:  June, 2000
 Copyright 1984, 1995, 2000 by Stephen L. Moshier
 *************************************************************************)
-function IncompleteBetaPS(a : Extended;
-     b : Extended;
-     x : Extended;
-     MAXGAM : Extended):Extended;
+function IncompleteBetaPS(a : Double;
+     b : Double;
+     x : Double;
+     MAXGAM : Double):Double;
 var
-    s : Extended;
-    t : Extended;
-    u : Extended;
-    v : Extended;
-    n : Extended;
-    t1 : Extended;
-    z : Extended;
-    ai : Extended;
-    sg : Extended;
+    s : Double;
+    t : Double;
+    u : Double;
+    v : Double;
+    n : Double;
+    t1 : Double;
+    z : Double;
+    ai : Double;
+    sg : Double;
 begin
     ai := 1.0/a;
     u := (1.0-b)*x;

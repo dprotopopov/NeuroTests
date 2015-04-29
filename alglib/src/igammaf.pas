@@ -28,9 +28,9 @@ unit igammaf;
 interface
 uses Math, Sysutils, Ap, gammafunc, normaldistr;
 
-function IncompleteGamma(a : Extended; x : Extended):Extended;
-function IncompleteGammaC(a : Extended; x : Extended):Extended;
-function InvIncompleteGammaC(a : Extended; y0 : Extended):Extended;
+function IncompleteGamma(a : Double; x : Double):Double;
+function IncompleteGammaC(a : Double; x : Double):Double;
+function InvIncompleteGammaC(a : Double; y0 : Double):Double;
 
 implementation
 
@@ -63,14 +63,14 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1985, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-function IncompleteGamma(a : Extended; x : Extended):Extended;
+function IncompleteGamma(a : Double; x : Double):Double;
 var
-    IGammaEpsilon : Extended;
-    ans : Extended;
-    ax : Extended;
-    c : Extended;
-    r : Extended;
-    Tmp : Extended;
+    IGammaEpsilon : Double;
+    ans : Double;
+    ax : Double;
+    c : Double;
+    r : Double;
+    Tmp : Double;
 begin
     IGammaEpsilon := 0.000000000000001;
     if AP_FP_Less_Eq(x,0) or AP_FP_Less_Eq(a,0) then
@@ -135,26 +135,26 @@ arithmetic   domain   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1985, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-function IncompleteGammaC(a : Extended; x : Extended):Extended;
+function IncompleteGammaC(a : Double; x : Double):Double;
 var
-    IGammaEpsilon : Extended;
-    IGammaBigNumber : Extended;
-    IGammaBigNumberInv : Extended;
-    ans : Extended;
-    ax : Extended;
-    c : Extended;
-    yc : Extended;
-    r : Extended;
-    t : Extended;
-    y : Extended;
-    z : Extended;
-    pk : Extended;
-    pkm1 : Extended;
-    pkm2 : Extended;
-    qk : Extended;
-    qkm1 : Extended;
-    qkm2 : Extended;
-    Tmp : Extended;
+    IGammaEpsilon : Double;
+    IGammaBigNumber : Double;
+    IGammaBigNumberInv : Double;
+    ans : Double;
+    ax : Double;
+    c : Double;
+    yc : Double;
+    r : Double;
+    t : Double;
+    y : Double;
+    z : Double;
+    pk : Double;
+    pkm1 : Double;
+    pkm2 : Double;
+    qk : Double;
+    qkm1 : Double;
+    qkm2 : Double;
+    Tmp : Double;
 begin
     IGammaEpsilon := 0.000000000000001;
     IGammaBigNumber := 4503599627370496.0;
@@ -253,22 +253,22 @@ arithmetic   domain   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1995, 2000 by Stephen L. Moshier
 *************************************************************************)
-function InvIncompleteGammaC(a : Extended; y0 : Extended):Extended;
+function InvIncompleteGammaC(a : Double; y0 : Double):Double;
 var
-    IGammaEpsilon : Extended;
-    IInvGammaBigNumber : Extended;
-    x0 : Extended;
-    x1 : Extended;
-    x : Extended;
-    yl : Extended;
-    yh : Extended;
-    y : Extended;
-    d : Extended;
-    lgm : Extended;
-    dithresh : Extended;
+    IGammaEpsilon : Double;
+    IInvGammaBigNumber : Double;
+    x0 : Double;
+    x1 : Double;
+    x : Double;
+    yl : Double;
+    yh : Double;
+    y : Double;
+    d : Double;
+    lgm : Double;
+    dithresh : Double;
     i : AlglibInteger;
     dir : AlglibInteger;
-    Tmp : Extended;
+    Tmp : Double;
 begin
     IGammaEpsilon := 0.000000000000001;
     IInvGammaBigNumber := 4503599627370496.0;

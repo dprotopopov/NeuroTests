@@ -37,19 +37,19 @@ const
 /////////////////////////////////////////////////////////////////////////
 type
     AlglibInteger = LongInt;
-    PDouble = ^Extended;
+    PDouble = ^Double;
 
     Complex = record
-        X, Y: Extended;
+        X, Y: Double;
     end;
 
     TInteger1DArray     = array of LongInt;
-    TReal1DArray        = array of Extended;
+    TReal1DArray        = array of Double;
     TComplex1DArray     = array of Complex;
     TBoolean1DArray     = array of Boolean;
 
     TInteger2DArray     = array of array of LongInt;
-    TReal2DArray        = array of array of Extended;
+    TReal2DArray        = array of array of Double;
     TComplex2DArray     = array of array of Complex;
     TBoolean2DArray     = array of array of Boolean;
 
@@ -64,12 +64,12 @@ type
 /////////////////////////////////////////////////////////////////////////
 // Functions/procedures
 /////////////////////////////////////////////////////////////////////////
-function AbsReal(X : Extended):Extended;
+function AbsReal(X : Double):Double;
 function AbsInt (I : AlglibInteger):AlglibInteger;
-function RandomReal():Extended;
+function RandomReal():Double;
 function RandomInteger(I : AlglibInteger):AlglibInteger;
-function Sign(X:Extended):AlglibInteger;
-function AP_Sqr(X:Extended):Extended;
+function Sign(X:Double):AlglibInteger;
+function AP_Sqr(X:Double):Double;
 
 function DynamicArrayCopy(const A: TInteger1DArray):TInteger1DArray;overload;
 function DynamicArrayCopy(const A: TReal1DArray):TReal1DArray;overload;
@@ -81,83 +81,83 @@ function DynamicArrayCopy(const A: TReal2DArray):TReal2DArray;overload;
 function DynamicArrayCopy(const A: TComplex2DArray):TComplex2DArray;overload;
 function DynamicArrayCopy(const A: TBoolean2DArray):TBoolean2DArray;overload;
 
-function AbsComplex(const Z : Complex):Extended;
+function AbsComplex(const Z : Complex):Double;
 function Conj(const Z : Complex):Complex;
 function CSqr(const Z : Complex):Complex;
 
-function C_Complex(const X : Extended):Complex;
+function C_Complex(const X : Double):Complex;
 function C_Opposite(const Z : Complex):Complex;
 function C_Add(const Z1 : Complex; const Z2 : Complex):Complex;
 function C_Mul(const Z1 : Complex; const Z2 : Complex):Complex;
-function C_AddR(const Z1 : Complex; const R : Extended):Complex;
-function C_MulR(const Z1 : Complex; const R : Extended):Complex;
+function C_AddR(const Z1 : Complex; const R : Double):Complex;
+function C_MulR(const Z1 : Complex; const R : Double):Complex;
 function C_Sub(const Z1 : Complex; const Z2 : Complex):Complex;
-function C_SubR(const Z1 : Complex; const R : Extended):Complex;
-function C_RSub(const R : Extended; const Z1 : Complex):Complex;
+function C_SubR(const Z1 : Complex; const R : Double):Complex;
+function C_RSub(const R : Double; const Z1 : Complex):Complex;
 function C_Div(const Z1 : Complex; const Z2 : Complex):Complex;
-function C_DivR(const Z1 : Complex; const R : Extended):Complex;
-function C_RDiv(const R : Extended; const Z2 : Complex):Complex;
+function C_DivR(const Z1 : Complex; const R : Double):Complex;
+function C_RDiv(const R : Double; const Z2 : Complex):Complex;
 function C_Equal(const Z1 : Complex; const Z2 : Complex):Boolean;
 function C_NotEqual(const Z1 : Complex; const Z2 : Complex):Boolean;
-function C_EqualR(const Z1 : Complex; const R : Extended):Boolean;
-function C_NotEqualR(const Z1 : Complex; const R : Extended):Boolean;
+function C_EqualR(const Z1 : Complex; const R : Double):Boolean;
+function C_NotEqualR(const Z1 : Complex; const R : Double):Boolean;
 
 /////////////////////////////////////////////////////////////////////////
 // AP BLAS generic interface
 /////////////////////////////////////////////////////////////////////////
 //procedure UseAPBLAS(Flag: Boolean);
 function APVDotProduct(
-   V1: PExtended; I11, I12: AlglibInteger;
-   V2: PExtended; I21, I22: AlglibInteger):Extended;
+   V1: PDouble; I11, I12: AlglibInteger;
+   V2: PDouble; I21, I22: AlglibInteger):Double;
 procedure APVMove(
-   VDst: PExtended; I11, I12: AlglibInteger;
-   VSrc: PExtended; I21, I22: AlglibInteger);overload;
+   VDst: PDouble; I11, I12: AlglibInteger;
+   VSrc: PDouble; I21, I22: AlglibInteger);overload;
 procedure APVMove(
-   VDst: PExtended; I11, I12: AlglibInteger;
-   VSrc: PExtended; I21, I22: AlglibInteger;
-   S: Extended);overload;
+   VDst: PDouble; I11, I12: AlglibInteger;
+   VSrc: PDouble; I21, I22: AlglibInteger;
+   S: Double);overload;
 procedure APVMoveNeg(
-   VDst: PExtended; I11, I12: AlglibInteger;
-   VSrc: PExtended; I21, I22: AlglibInteger);
+   VDst: PDouble; I11, I12: AlglibInteger;
+   VSrc: PDouble; I21, I22: AlglibInteger);
 procedure APVAdd(
-   VDst: PExtended; I11, I12: AlglibInteger;
-   VSrc: PExtended; I21, I22: AlglibInteger);overload;
+   VDst: PDouble; I11, I12: AlglibInteger;
+   VSrc: PDouble; I21, I22: AlglibInteger);overload;
 procedure APVAdd(
-   VDst: PExtended; I11, I12: AlglibInteger;
-   VSrc: PExtended; I21, I22: AlglibInteger;
+   VDst: PDouble; I11, I12: AlglibInteger;
+   VSrc: PDouble; I21, I22: AlglibInteger;
    S: Real);overload;
 procedure APVSub(
-   VDst: PExtended; I11, I12: AlglibInteger;
-   VSrc: PExtended; I21, I22: AlglibInteger);overload;
+   VDst: PDouble; I11, I12: AlglibInteger;
+   VSrc: PDouble; I21, I22: AlglibInteger);overload;
 procedure APVSub(
-   VDst: PExtended; I11, I12: AlglibInteger;
-   VSrc: PExtended; I21, I22: AlglibInteger;
+   VDst: PDouble; I11, I12: AlglibInteger;
+   VSrc: PDouble; I21, I22: AlglibInteger;
    S: Real);overload;
 procedure APVMul(
-   VOp: PExtended; I1, I2: AlglibInteger;
+   VOp: PDouble; I1, I2: AlglibInteger;
    S: Real);
 
 /////////////////////////////////////////////////////////////////////////
 // IEEE-compliant functions, placed at the end, under 'non-optimization'
 // compiler switch
 /////////////////////////////////////////////////////////////////////////
-function AP_Double(X:Extended):Extended;
-function AP_FP_Eq(X:Extended; Y:Extended):Boolean;
-function AP_FP_NEq(X:Extended; Y:Extended):Boolean;
-function AP_FP_Less(X:Extended; Y:Extended):Boolean;
-function AP_FP_Less_Eq(X:Extended; Y:Extended):Boolean;
-function AP_FP_Greater(X:Extended; Y:Extended):Boolean;
-function AP_FP_Greater_Eq(X:Extended; Y:Extended):Boolean;
+function AP_Double(X:Double):Double;
+function AP_FP_Eq(X:Double; Y:Double):Boolean;
+function AP_FP_NEq(X:Double; Y:Double):Boolean;
+function AP_FP_Less(X:Double; Y:Double):Boolean;
+function AP_FP_Less_Eq(X:Double; Y:Double):Boolean;
+function AP_FP_Greater(X:Double; Y:Double):Boolean;
+function AP_FP_Greater_Eq(X:Double; Y:Double):Boolean;
 
 {var
     // pointers to AP BLAS functions
-    ASMDotProduct1: function(V1: PExtended; V2: PExtended; N: AlglibInteger):Extended;cdecl;
-    ASMMove1: procedure(VDst: PExtended; VSrc: PExtended; N: AlglibInteger);cdecl;
-    ASMMoveS1: procedure(VDst: PExtended; VSrc: PExtended; N: AlglibInteger; S: Extended);cdecl;
-    ASMMoveNeg1: procedure(VDst: PExtended; VSrc: PExtended; N: AlglibInteger);cdecl;
-    ASMAdd1: procedure(VDst: PExtended; VSrc: PExtended; N: AlglibInteger);cdecl;
-    ASMAddS1: procedure(VDst: PExtended; VSrc: PExtended; N: AlglibInteger; S: Extended);cdecl;
-    ASMSub1: procedure(VDst: PExtended; VSrc: PExtended; N: AlglibInteger);cdecl;
+    ASMDotProduct1: function(V1: PDouble; V2: PDouble; N: AlglibInteger):Double;cdecl;
+    ASMMove1: procedure(VDst: PDouble; VSrc: PDouble; N: AlglibInteger);cdecl;
+    ASMMoveS1: procedure(VDst: PDouble; VSrc: PDouble; N: AlglibInteger; S: Double);cdecl;
+    ASMMoveNeg1: procedure(VDst: PDouble; VSrc: PDouble; N: AlglibInteger);cdecl;
+    ASMAdd1: procedure(VDst: PDouble; VSrc: PDouble; N: AlglibInteger);cdecl;
+    ASMAddS1: procedure(VDst: PDouble; VSrc: PDouble; N: AlglibInteger; S: Double);cdecl;
+    ASMSub1: procedure(VDst: PDouble; VSrc: PDouble; N: AlglibInteger);cdecl;
 }
 
 implementation
@@ -168,19 +168,19 @@ implementation
 }
     // pointers to AP BLAS functions
 {$IFNDEF NOABLAS}
-{    ASMDotProduct1: function(V1: PExtended; V2: PExtended; N: AlglibInteger):Extended;cdecl;
-    ASMMove1: procedure(VDst: PExtended; VSrc: PExtended; N: AlglibInteger);cdecl;
-    ASMMoveS1: procedure(VDst: PExtended; VSrc: PExtended; N: AlglibInteger; S: Extended);cdecl;
-    ASMMoveNeg1: procedure(VDst: PExtended; VSrc: PExtended; N: AlglibInteger);cdecl;
-    ASMAdd1: procedure(VDst: PExtended; VSrc: PExtended; N: AlglibInteger);cdecl;
-    ASMAddS1: procedure(VDst: PExtended; VSrc: PExtended; N: AlglibInteger; S: Extended);cdecl;
-    ASMSub1: procedure(VDst: PExtended; VSrc: PExtended; N: AlglibInteger);cdecl;}
+{    ASMDotProduct1: function(V1: PDouble; V2: PDouble; N: AlglibInteger):Double;cdecl;
+    ASMMove1: procedure(VDst: PDouble; VSrc: PDouble; N: AlglibInteger);cdecl;
+    ASMMoveS1: procedure(VDst: PDouble; VSrc: PDouble; N: AlglibInteger; S: Double);cdecl;
+    ASMMoveNeg1: procedure(VDst: PDouble; VSrc: PDouble; N: AlglibInteger);cdecl;
+    ASMAdd1: procedure(VDst: PDouble; VSrc: PDouble; N: AlglibInteger);cdecl;
+    ASMAddS1: procedure(VDst: PDouble; VSrc: PDouble; N: AlglibInteger; S: Double);cdecl;
+    ASMSub1: procedure(VDst: PDouble; VSrc: PDouble; N: AlglibInteger);cdecl;}
 {$ENDIF}
 
 /////////////////////////////////////////////////////////////////////////
 // Functions/procedures
 /////////////////////////////////////////////////////////////////////////
-function AbsReal(X : Extended):Extended;
+function AbsReal(X : Double):Double;
 begin
     //Result := Abs(X);
     if X>=0 then
@@ -198,7 +198,7 @@ begin
         AbsInt:=-I;
 end;
 
-function RandomReal():Extended;
+function RandomReal():Double;
 begin
     RandomReal:=Random;
 end;
@@ -208,7 +208,7 @@ begin
     RandomInteger:=Random(I);
 end;
 
-function Sign(X:Extended):AlglibInteger;
+function Sign(X:Double):AlglibInteger;
 begin
     if X>0 then
         Sign := 1
@@ -218,7 +218,7 @@ begin
         Sign := 0;
 end;
 
-function AP_Sqr(X:Extended):Extended;
+function AP_Sqr(X:Double):Double;
 begin
     AP_Sqr := X*X;
 end;
@@ -333,12 +333,12 @@ end;
 /////////////////////////////////////////////////////////////////////////
 // complex numbers
 /////////////////////////////////////////////////////////////////////////
-function AbsComplex(const Z : Complex):Extended;
+function AbsComplex(const Z : Complex):Double;
 var
-    W : Extended;
-    XABS : Extended;
-    YABS : Extended;
-    V : Extended;
+    W : Double;
+    XABS : Double;
+    YABS : Double;
+    V : Double;
 begin
     XABS := AbsReal(Z.X);
     YABS := AbsReal(Z.Y);
@@ -369,7 +369,7 @@ begin
 end;
 
 
-function C_Complex(const X : Extended):Complex;
+function C_Complex(const X : Double):Complex;
 begin
     C_Complex.X := X;
     C_Complex.Y := 0;
@@ -397,14 +397,14 @@ begin
 end;
 
 
-function C_AddR(const Z1 : Complex; const R : Extended):Complex;
+function C_AddR(const Z1 : Complex; const R : Double):Complex;
 begin
     C_AddR.X := Z1.X+R;
     C_AddR.Y := Z1.Y;
 end;
 
 
-function C_MulR(const Z1 : Complex; const R : Extended):Complex;
+function C_MulR(const Z1 : Complex; const R : Double):Complex;
 begin
     C_MulR.X := Z1.X*R;
     C_MulR.Y := Z1.Y*R;
@@ -418,14 +418,14 @@ begin
 end;
 
 
-function C_SubR(const Z1 : Complex; const R : Extended):Complex;
+function C_SubR(const Z1 : Complex; const R : Double):Complex;
 begin
     C_SubR.X := Z1.X-R;
     C_SubR.Y := Z1.Y;
 end;
 
 
-function C_RSub(const R : Extended; const Z1 : Complex):Complex;
+function C_RSub(const R : Double; const Z1 : Complex):Complex;
 begin
     C_RSub.X := R-Z1.X;
     C_RSub.Y := -Z1.Y;
@@ -434,12 +434,12 @@ end;
 
 function C_Div(const Z1 : Complex; const Z2 : Complex):Complex;
 var
-    A : Extended;
-    B : Extended;
-    C : Extended;
-    D : Extended;
-    E : Extended;
-    F : Extended;
+    A : Double;
+    B : Double;
+    C : Double;
+    D : Double;
+    E : Double;
+    F : Double;
 begin
     A := Z1.X;
     B := Z1.Y;
@@ -462,20 +462,20 @@ begin
 end;
 
 
-function C_DivR(const Z1 : Complex; const R : Extended):Complex;
+function C_DivR(const Z1 : Complex; const R : Double):Complex;
 begin
     C_DivR.X := Z1.X/R;
     C_DivR.Y := Z1.Y/R;
 end;
 
 
-function C_RDiv(const R : Extended; const Z2 : Complex):Complex;
+function C_RDiv(const R : Double; const Z2 : Complex):Complex;
 var
-    A : Extended;
-    C : Extended;
-    D : Extended;
-    E : Extended;
-    F : Extended;
+    A : Double;
+    C : Double;
+    D : Double;
+    E : Double;
+    F : Double;
 begin
     A := R;
     C := Z2.X;
@@ -508,12 +508,12 @@ begin
     C_NotEqual := (Z1.X<>Z2.X) or (Z1.Y<>Z2.Y);
 end;
 
-function C_EqualR(const Z1 : Complex; const R : Extended):Boolean;
+function C_EqualR(const Z1 : Complex; const R : Double):Boolean;
 begin
     C_EqualR := (Z1.X=R) and (Z1.Y=0);
 end;
 
-function C_NotEqualR(const Z1 : Complex; const R : Extended):Boolean;
+function C_NotEqualR(const Z1 : Complex; const R : Double):Boolean;
 begin
     C_NotEqualR := (Z1.X<>R) or (Z1.Y<>0);
 end;
@@ -528,11 +528,11 @@ begin
 end;}
 
 function APVDotProduct(
-   V1: PExtended; I11, I12: AlglibInteger;
-   V2: PExtended; I21, I22: AlglibInteger):Extended;
+   V1: PDouble; I11, I12: AlglibInteger;
+   V2: PDouble; I21, I22: AlglibInteger):Double;
 var
     I, C: LongInt;
-    R:  Extended;
+    R:  Double;
 begin
     Assert(I12-I11=I22-I21, 'APVDotProduct: arrays of different size!');
     Inc(V1, I11);
@@ -554,8 +554,8 @@ end;
 
 
 procedure APVMove(
-   VDst: PExtended; I11, I12: AlglibInteger;
-   VSrc: PExtended; I21, I22: AlglibInteger);overload;
+   VDst: PDouble; I11, I12: AlglibInteger;
+   VSrc: PDouble; I21, I22: AlglibInteger);overload;
 var
     I, C: LongInt;
 begin
@@ -577,9 +577,9 @@ end;
 
 
 procedure APVMove(
-   VDst: PExtended; I11, I12: AlglibInteger;
-   VSrc: PExtended; I21, I22: AlglibInteger;
-   S: Extended);overload;
+   VDst: PDouble; I11, I12: AlglibInteger;
+   VSrc: PDouble; I21, I22: AlglibInteger;
+   S: Double);overload;
 var
     I, C: LongInt;
 begin
@@ -601,8 +601,8 @@ end;
 
 
 procedure APVMoveNeg(
-   VDst: PExtended; I11, I12: AlglibInteger;
-   VSrc: PExtended; I21, I22: AlglibInteger);
+   VDst: PDouble; I11, I12: AlglibInteger;
+   VSrc: PDouble; I21, I22: AlglibInteger);
 var
     I, C: LongInt;
 begin
@@ -624,8 +624,8 @@ end;
 
 
 procedure APVAdd(
-   VDst: PExtended; I11, I12: AlglibInteger;
-   VSrc: PExtended; I21, I22: AlglibInteger);overload;
+   VDst: PDouble; I11, I12: AlglibInteger;
+   VSrc: PDouble; I21, I22: AlglibInteger);overload;
 var
     I, C: LongInt;
 begin
@@ -647,8 +647,8 @@ end;
 
 
 procedure APVAdd(
-   VDst: PExtended; I11, I12: AlglibInteger;
-   VSrc: PExtended; I21, I22: AlglibInteger;
+   VDst: PDouble; I11, I12: AlglibInteger;
+   VSrc: PDouble; I21, I22: AlglibInteger;
    S: Real);overload;
 var
     I, C: LongInt;
@@ -671,8 +671,8 @@ end;
 
 
 procedure APVSub(
-   VDst: PExtended; I11, I12: AlglibInteger;
-   VSrc: PExtended; I21, I22: AlglibInteger);overload;
+   VDst: PDouble; I11, I12: AlglibInteger;
+   VSrc: PDouble; I21, I22: AlglibInteger);overload;
 var
     I, C: LongInt;
 begin
@@ -694,8 +694,8 @@ end;
 
 
 procedure APVSub(
-   VDst: PExtended; I11, I12: AlglibInteger;
-   VSrc: PExtended; I21, I22: AlglibInteger;
+   VDst: PDouble; I11, I12: AlglibInteger;
+   VSrc: PDouble; I21, I22: AlglibInteger;
    S: Real);overload;
 begin
     Assert(I12-I11=I22-I21, 'APVSub: arrays of different size!');
@@ -704,7 +704,7 @@ end;
 
 
 procedure APVMul(
-   VOp: PExtended; I1, I2: AlglibInteger;
+   VOp: PDouble; I1, I2: AlglibInteger;
    S: Real);
 var
     I, C: LongInt;
@@ -722,37 +722,37 @@ end;
 // IEEE-compliant functions
 /////////////////////////////////////////////////////////////////////////
 {$OPTIMIZATION OFF}
-function AP_Double(X:Extended):Extended;
+function AP_Double(X:Double):Double;
 begin
     AP_Double:=X;
 end;
 
-function AP_FP_Eq(X:Extended; Y:Extended):Boolean;
+function AP_FP_Eq(X:Double; Y:Double):Boolean;
 begin
     AP_FP_Eq:=X=Y;
 end;
 
-function AP_FP_NEq(X:Extended; Y:Extended):Boolean;
+function AP_FP_NEq(X:Double; Y:Double):Boolean;
 begin
     AP_FP_NEq:=X<>Y;
 end;
 
-function AP_FP_Less(X:Extended; Y:Extended):Boolean;
+function AP_FP_Less(X:Double; Y:Double):Boolean;
 begin
     AP_FP_Less:=X<Y;
 end;
 
-function AP_FP_Less_Eq(X:Extended; Y:Extended):Boolean;
+function AP_FP_Less_Eq(X:Double; Y:Double):Boolean;
 begin
     AP_FP_Less_Eq:=X<=Y;
 end;
 
-function AP_FP_Greater(X:Extended; Y:Extended):Boolean;
+function AP_FP_Greater(X:Double; Y:Double):Boolean;
 begin
     AP_FP_Greater:=X>Y;
 end;
 
-function AP_FP_Greater_Eq(X:Extended; Y:Extended):Boolean;
+function AP_FP_Greater_Eq(X:Double; Y:Double):Boolean;
 begin
     AP_FP_Greater_Eq:=X>=Y;
 end;

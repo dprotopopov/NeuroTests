@@ -56,9 +56,9 @@ procedure BuildFloaterHormannRationalInterpolant(X : TReal1DArray;
      D : AlglibInteger;
      var W : TReal1DArray);
 var
-    S0 : Extended;
-    S : Extended;
-    V : Extended;
+    S0 : Double;
+    S : Double;
+    V : Double;
     I : AlglibInteger;
     J : AlglibInteger;
     K : AlglibInteger;

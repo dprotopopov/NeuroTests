@@ -23,20 +23,20 @@ uses Math, Sysutils, Ap;
 
 procedure CalculateMoments(const X : TReal1DArray;
      N : AlglibInteger;
-     var Mean : Extended;
-     var Variance : Extended;
-     var Skewness : Extended;
-     var Kurtosis : Extended);
+     var Mean : Double;
+     var Variance : Double;
+     var Skewness : Double;
+     var Kurtosis : Double);
 procedure CalculateADev(const X : TReal1DArray;
      N : AlglibInteger;
-     var ADev : Extended);
+     var ADev : Double);
 procedure CalculateMedian(X : TReal1DArray;
      N : AlglibInteger;
-     var Median : Extended);
+     var Median : Double);
 procedure CalculatePercentile(X : TReal1DArray;
      N : AlglibInteger;
-     P : Extended;
-     var V : Extended);
+     P : Double;
+     var V : Double);
 
 implementation
 
@@ -62,16 +62,16 @@ Output parameters:
 *************************************************************************)
 procedure CalculateMoments(const X : TReal1DArray;
      N : AlglibInteger;
-     var Mean : Extended;
-     var Variance : Extended;
-     var Skewness : Extended;
-     var Kurtosis : Extended);
+     var Mean : Double;
+     var Variance : Double;
+     var Skewness : Double;
+     var Kurtosis : Double);
 var
     I : AlglibInteger;
-    V : Extended;
-    V1 : Extended;
-    V2 : Extended;
-    StdDev : Extended;
+    V : Double;
+    V1 : Double;
+    V2 : Double;
+    StdDev : Double;
 begin
     Mean := 0;
     Variance := 0;
@@ -157,10 +157,10 @@ Output parameters:
 *************************************************************************)
 procedure CalculateADev(const X : TReal1DArray;
      N : AlglibInteger;
-     var ADev : Extended);
+     var ADev : Double);
 var
     I : AlglibInteger;
-    Mean : Extended;
+    Mean : Double;
 begin
     Mean := 0;
     ADev := 0;
@@ -208,7 +208,7 @@ Output parameters:
 *************************************************************************)
 procedure CalculateMedian(X : TReal1DArray;
      N : AlglibInteger;
-     var Median : Extended);
+     var Median : Double);
 var
     i : AlglibInteger;
     ir : AlglibInteger;
@@ -216,8 +216,8 @@ var
     l : AlglibInteger;
     midp : AlglibInteger;
     K : AlglibInteger;
-    a : Extended;
-    tval : Extended;
+    a : Double;
+    tval : Double;
 begin
     X := DynamicArrayCopy(X);
     
@@ -357,11 +357,11 @@ Output parameters:
 *************************************************************************)
 procedure CalculatePercentile(X : TReal1DArray;
      N : AlglibInteger;
-     P : Extended;
-     var V : Extended);
+     P : Double;
+     var V : Double);
 var
     I1 : AlglibInteger;
-    T : Extended;
+    T : Double;
 begin
     X := DynamicArrayCopy(X);
     Assert(N>1, 'CalculatePercentile: N<=1!');
@@ -389,7 +389,7 @@ var
     I : AlglibInteger;
     K : AlglibInteger;
     T : AlglibInteger;
-    Tmp : Extended;
+    Tmp : Double;
 begin
     if N=1 then
     begin

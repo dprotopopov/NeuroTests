@@ -23,7 +23,7 @@ uses Math, Sysutils, Ap, tsort, hblas, reflections, creflections, sblas, ablasf,
 
 procedure GKQGenerateRec(Alpha : TReal1DArray;
      Beta : TReal1DArray;
-     Mu0 : Extended;
+     Mu0 : Double;
      N : AlglibInteger;
      var Info : AlglibInteger;
      var X : TReal1DArray;
@@ -35,8 +35,8 @@ procedure GKQGenerateGaussLegendre(N : AlglibInteger;
      var WKronrod : TReal1DArray;
      var WGauss : TReal1DArray);
 procedure GKQGenerateGaussJacobi(N : AlglibInteger;
-     Alpha : Extended;
-     Beta : Extended;
+     Alpha : Double;
+     Beta : Double;
      var Info : AlglibInteger;
      var X : TReal1DArray;
      var WKronrod : TReal1DArray;
@@ -50,7 +50,7 @@ procedure GKQLegendreTbl(N : AlglibInteger;
      var X : TReal1DArray;
      var WKronrod : TReal1DArray;
      var WGauss : TReal1DArray;
-     var Eps : Extended);
+     var Eps : Double);
 
 implementation
 
@@ -102,7 +102,7 @@ OUTPUT PARAMETERS:
 *************************************************************************)
 procedure GKQGenerateRec(Alpha : TReal1DArray;
      Beta : TReal1DArray;
-     Mu0 : Extended;
+     Mu0 : Double;
      N : AlglibInteger;
      var Info : AlglibInteger;
      var X : TReal1DArray;
@@ -116,7 +116,7 @@ var
     S : TReal1DArray;
     WLen : AlglibInteger;
     WOffs : AlglibInteger;
-    U : Extended;
+    U : Double;
     M : AlglibInteger;
     L : AlglibInteger;
     K : AlglibInteger;
@@ -332,7 +332,7 @@ procedure GKQGenerateGaussLegendre(N : AlglibInteger;
      var WKronrod : TReal1DArray;
      var WGauss : TReal1DArray);
 var
-    Eps : Extended;
+    Eps : Double;
 begin
     if AP_FP_Greater(MachineEpsilon,1.0E-32) and ((N=15) or (N=21) or (N=31) or (N=41) or (N=51) or (N=61)) then
     begin
@@ -383,8 +383,8 @@ OUTPUT PARAMETERS:
      Copyright 12.05.2009 by Bochkanov Sergey
 *************************************************************************)
 procedure GKQGenerateGaussJacobi(N : AlglibInteger;
-     Alpha : Extended;
-     Beta : Extended;
+     Alpha : Double;
+     Beta : Double;
      var Info : AlglibInteger;
      var X : TReal1DArray;
      var WKronrod : TReal1DArray;
@@ -393,12 +393,12 @@ var
     CLen : AlglibInteger;
     A : TReal1DArray;
     B : TReal1DArray;
-    Alpha2 : Extended;
-    Beta2 : Extended;
-    APB : Extended;
-    T : Extended;
+    Alpha2 : Double;
+    Beta2 : Double;
+    APB : Double;
+    T : Double;
     I : AlglibInteger;
-    S : Extended;
+    S : Double;
 begin
     if (N mod 2<>1) or (N<3) then
     begin
@@ -502,7 +502,7 @@ var
     Beta : TReal1DArray;
     ALen : AlglibInteger;
     BLen : AlglibInteger;
-    Mu0 : Extended;
+    Mu0 : Double;
     K : AlglibInteger;
     I : AlglibInteger;
 begin
@@ -556,7 +556,7 @@ end;
 (*************************************************************************
 Returns Gauss and Gauss-Kronrod nodes for quadrature with N  points  using
 pre-calculated table. Nodes/weights were  computed  with  accuracy  up  to
-1.0E-32 (if MPFR version of ALGLIB is used). In standard Extended  precision
+1.0E-32 (if MPFR version of ALGLIB is used). In standard double  precision
 accuracy reduces to something about 2.0E-16 (depending  on your compiler's
 handling of long floating point constants).
 
@@ -579,13 +579,13 @@ procedure GKQLegendreTbl(N : AlglibInteger;
      var X : TReal1DArray;
      var WKronrod : TReal1DArray;
      var WGauss : TReal1DArray;
-     var Eps : Extended);
+     var Eps : Double);
 var
     I : AlglibInteger;
     NG : AlglibInteger;
     P1 : TInteger1DArray;
     P2 : TInteger1DArray;
-    Tmp : Extended;
+    Tmp : Double;
 begin
     Assert((N=15) or (N=21) or (N=31) or (N=41) or (N=51) or (N=61), 'GKQNodesTbl: incorrect N!');
     SetLength(X, N-1+1);

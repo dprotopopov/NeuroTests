@@ -25,15 +25,15 @@ procedure FTest(const X : TReal1DArray;
      N : AlglibInteger;
      const Y : TReal1DArray;
      M : AlglibInteger;
-     var BothTails : Extended;
-     var LeftTail : Extended;
-     var RightTail : Extended);
+     var BothTails : Double;
+     var LeftTail : Double;
+     var RightTail : Double);
 procedure OneSampleVarianceTest(const X : TReal1DArray;
      N : AlglibInteger;
-     Variance : Extended;
-     var BothTails : Extended;
-     var LeftTail : Extended;
-     var RightTail : Extended);
+     Variance : Double;
+     var BothTails : Double;
+     var LeftTail : Double;
+     var RightTail : Double);
 
 implementation
 
@@ -77,18 +77,18 @@ procedure FTest(const X : TReal1DArray;
      N : AlglibInteger;
      const Y : TReal1DArray;
      M : AlglibInteger;
-     var BothTails : Extended;
-     var LeftTail : Extended;
-     var RightTail : Extended);
+     var BothTails : Double;
+     var LeftTail : Double;
+     var RightTail : Double);
 var
     I : AlglibInteger;
-    XMean : Extended;
-    YMean : Extended;
-    XVar : Extended;
-    YVar : Extended;
+    XMean : Double;
+    YMean : Double;
+    XVar : Double;
+    YVar : Double;
     DF1 : AlglibInteger;
     DF2 : AlglibInteger;
-    Stat : Extended;
+    Stat : Double;
 begin
     if (N<=2) or (M<=2) then
     begin
@@ -193,16 +193,16 @@ Output parameters:
 *************************************************************************)
 procedure OneSampleVarianceTest(const X : TReal1DArray;
      N : AlglibInteger;
-     Variance : Extended;
-     var BothTails : Extended;
-     var LeftTail : Extended;
-     var RightTail : Extended);
+     Variance : Double;
+     var BothTails : Double;
+     var LeftTail : Double;
+     var RightTail : Double);
 var
     I : AlglibInteger;
-    XMean : Extended;
-    XVar : Extended;
-    S : Extended;
-    Stat : Extended;
+    XMean : Double;
+    XVar : Double;
+    S : Double;
+    Stat : Double;
 begin
     if N<=1 then
     begin

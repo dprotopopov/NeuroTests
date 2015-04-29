@@ -57,18 +57,18 @@ procedure InternalAuxSchur(WANTT : Boolean;
      var WORKC1 : TReal1DArray;
      var WORKS1 : TReal1DArray;
      var INFO : AlglibInteger);forward;
-procedure Aux2X2Schur(var A : Extended;
-     var B : Extended;
-     var C : Extended;
-     var D : Extended;
-     var RT1R : Extended;
-     var RT1I : Extended;
-     var RT2R : Extended;
-     var RT2I : Extended;
-     var CS : Extended;
-     var SN : Extended);forward;
-function ExtSchurSign(a : Extended; b : Extended):Extended;forward;
-function ExtSchurSignToOne(b : Extended):AlglibInteger;forward;
+procedure Aux2X2Schur(var A : Double;
+     var B : Double;
+     var C : Double;
+     var D : Double;
+     var RT1R : Double;
+     var RT1I : Double;
+     var RT2R : Double;
+     var RT2I : Double;
+     var CS : Double;
+     var SN : Double);forward;
+function ExtSchurSign(a : Double; b : Double):Double;forward;
+function ExtSchurSignToOne(b : Double):AlglibInteger;forward;
 
 
 (*************************************************************************
@@ -152,14 +152,14 @@ var
     NR : AlglibInteger;
     NS : AlglibInteger;
     NV : AlglibInteger;
-    ABSW : Extended;
-    OVFL : Extended;
-    SMLNUM : Extended;
-    TAU : Extended;
-    TEMP : Extended;
-    TST1 : Extended;
-    ULP : Extended;
-    UNFL : Extended;
+    ABSW : Double;
+    OVFL : Double;
+    SMLNUM : Double;
+    TAU : Double;
+    TEMP : Double;
+    TST1 : Double;
+    ULP : Double;
+    UNFL : Double;
     S : TReal2DArray;
     V : TReal1DArray;
     VV : TReal1DArray;
@@ -171,11 +171,11 @@ var
     INITZ : Boolean;
     WANTT : Boolean;
     WANTZ : Boolean;
-    CNST : Extended;
+    CNST : Double;
     FailFlag : Boolean;
     P1 : AlglibInteger;
     P2 : AlglibInteger;
-    VT : Extended;
+    VT : Double;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin
@@ -279,7 +279,7 @@ begin
     begin
         
         //
-        // Use the standard Extended-shift algorithm
+        // Use the standard double-shift algorithm
         //
         InternalAuxSchur(WANTT, WANTZ, N, 1, N, H, WR, WI, 1, N, Z, WORK, WORKV3, WORKC1, WORKS1, INFO);
         
@@ -637,7 +637,7 @@ begin
         
         //
         // A submatrix of order <= MAXB in rows and columns L to I has split
-        // off. Use the Extended-shift QR algorithm to handle it.
+        // off. Use the double-shift QR algorithm to handle it.
         //
         InternalAuxSchur(WANTT, WANTZ, N, L, I, H, WR, WI, 1, N, Z, WORK, WORKV3, WORKC1, WORKS1, INFO);
         if INFO>0 then
@@ -684,46 +684,46 @@ var
     NH : AlglibInteger;
     NR : AlglibInteger;
     NZ : AlglibInteger;
-    AVE : Extended;
-    CS : Extended;
-    DISC : Extended;
-    H00 : Extended;
-    H10 : Extended;
-    H11 : Extended;
-    H12 : Extended;
-    H21 : Extended;
-    H22 : Extended;
-    H33 : Extended;
-    H33S : Extended;
-    H43H34 : Extended;
-    H44 : Extended;
-    H44S : Extended;
-    OVFL : Extended;
-    S : Extended;
-    SMLNUM : Extended;
-    SN : Extended;
-    SUM : Extended;
-    T1 : Extended;
-    T2 : Extended;
-    T3 : Extended;
-    TST1 : Extended;
-    UNFL : Extended;
-    V1 : Extended;
-    V2 : Extended;
-    V3 : Extended;
+    AVE : Double;
+    CS : Double;
+    DISC : Double;
+    H00 : Double;
+    H10 : Double;
+    H11 : Double;
+    H12 : Double;
+    H21 : Double;
+    H22 : Double;
+    H33 : Double;
+    H33S : Double;
+    H43H34 : Double;
+    H44 : Double;
+    H44S : Double;
+    OVFL : Double;
+    S : Double;
+    SMLNUM : Double;
+    SN : Double;
+    SUM : Double;
+    T1 : Double;
+    T2 : Double;
+    T3 : Double;
+    TST1 : Double;
+    UNFL : Double;
+    V1 : Double;
+    V2 : Double;
+    V3 : Double;
     FailFlag : Boolean;
-    DAT1 : Extended;
-    DAT2 : Extended;
+    DAT1 : Double;
+    DAT2 : Double;
     P1 : AlglibInteger;
-    HIM1IM1 : Extended;
-    HIM1I : Extended;
-    HIIM1 : Extended;
-    HII : Extended;
-    WRIM1 : Extended;
-    WRI : Extended;
-    WIIM1 : Extended;
-    WII : Extended;
-    Ulp : Extended;
+    HIM1IM1 : Double;
+    HIM1I : Double;
+    HIIM1 : Double;
+    HII : Double;
+    WRIM1 : Double;
+    WRI : Double;
+    WIIM1 : Double;
+    WII : Double;
+    Ulp : Double;
 begin
     INFO := 0;
     DAT1 := 0.75;
@@ -849,7 +849,7 @@ begin
             begin
                 
                 //
-                // Prepare to use Francis' Extended shift
+                // Prepare to use Francis' double shift
                 // (i.e. 2nd degree generalized Rayleigh quotient)
                 //
                 H44 := H[I,I];
@@ -888,7 +888,7 @@ begin
             begin
                 
                 //
-                // Determine the effect of starting the Extended-shift QR
+                // Determine the effect of starting the double-shift QR
                 // iteration at row M, and see if this would make H(M,M-1)
                 // negligible.
                 //
@@ -923,7 +923,7 @@ begin
             end;
             
             //
-            // Extended-shift QR step
+            // Double-shift QR step
             //
             K:=M;
             while K<=I-1 do
@@ -1149,35 +1149,35 @@ begin
 end;
 
 
-procedure Aux2X2Schur(var A : Extended;
-     var B : Extended;
-     var C : Extended;
-     var D : Extended;
-     var RT1R : Extended;
-     var RT1I : Extended;
-     var RT2R : Extended;
-     var RT2I : Extended;
-     var CS : Extended;
-     var SN : Extended);
+procedure Aux2X2Schur(var A : Double;
+     var B : Double;
+     var C : Double;
+     var D : Double;
+     var RT1R : Double;
+     var RT1I : Double;
+     var RT2R : Double;
+     var RT2I : Double;
+     var CS : Double;
+     var SN : Double);
 var
-    MULTPL : Extended;
-    AA : Extended;
-    BB : Extended;
-    BCMAX : Extended;
-    BCMIS : Extended;
-    CC : Extended;
-    CS1 : Extended;
-    DD : Extended;
-    EPS : Extended;
-    P : Extended;
-    SAB : Extended;
-    SAC : Extended;
-    SCL : Extended;
-    SIGMA : Extended;
-    SN1 : Extended;
-    TAU : Extended;
-    TEMP : Extended;
-    Z : Extended;
+    MULTPL : Double;
+    AA : Double;
+    BB : Double;
+    BCMAX : Double;
+    BCMIS : Double;
+    CC : Double;
+    CS1 : Double;
+    DD : Double;
+    EPS : Double;
+    P : Double;
+    SAB : Double;
+    SAC : Double;
+    SCL : Double;
+    SIGMA : Double;
+    SN1 : Double;
+    TAU : Double;
+    TEMP : Double;
+    Z : Double;
 begin
     MULTPL := 4.0;
     EPS := MachineEpsilon;
@@ -1330,7 +1330,7 @@ begin
 end;
 
 
-function ExtSchurSign(a : Extended; b : Extended):Extended;
+function ExtSchurSign(a : Double; b : Double):Double;
 begin
     if AP_FP_Greater_Eq(b,0) then
     begin
@@ -1343,7 +1343,7 @@ begin
 end;
 
 
-function ExtSchurSignToOne(b : Extended):AlglibInteger;
+function ExtSchurSignToOne(b : Double):AlglibInteger;
 begin
     if AP_FP_Greater_Eq(b,0) then
     begin

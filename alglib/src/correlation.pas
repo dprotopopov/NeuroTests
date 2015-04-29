@@ -23,10 +23,10 @@ uses Math, Sysutils, Ap;
 
 function PearsonCorrelation(const X : TReal1DArray;
      const Y : TReal1DArray;
-     N : AlglibInteger):Extended;
+     N : AlglibInteger):Double;
 function SpearmanRankCorrelation(X : TReal1DArray;
      Y : TReal1DArray;
-     N : AlglibInteger):Extended;
+     N : AlglibInteger):Double;
 
 implementation
 
@@ -49,16 +49,16 @@ Result:
 *************************************************************************)
 function PearsonCorrelation(const X : TReal1DArray;
      const Y : TReal1DArray;
-     N : AlglibInteger):Extended;
+     N : AlglibInteger):Double;
 var
     I : AlglibInteger;
-    XMean : Extended;
-    YMean : Extended;
-    S : Extended;
-    XV : Extended;
-    YV : Extended;
-    T1 : Extended;
-    T2 : Extended;
+    XMean : Double;
+    YMean : Double;
+    S : Double;
+    XV : Double;
+    YV : Double;
+    T1 : Double;
+    T2 : Double;
 begin
     XV := 0;
     YV := 0;
@@ -126,7 +126,7 @@ Result:
 *************************************************************************)
 function SpearmanRankCorrelation(X : TReal1DArray;
      Y : TReal1DArray;
-     N : AlglibInteger):Extended;
+     N : AlglibInteger):Double;
 begin
     X := DynamicArrayCopy(X);
     Y := DynamicArrayCopy(Y);
@@ -145,7 +145,7 @@ var
     J : AlglibInteger;
     K : AlglibInteger;
     T : AlglibInteger;
-    Tmp : Extended;
+    Tmp : Double;
     TmpI : AlglibInteger;
     R : TReal1DArray;
     C : TInteger1DArray;

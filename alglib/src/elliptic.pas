@@ -28,11 +28,11 @@ unit elliptic;
 interface
 uses Math, Sysutils, Ap;
 
-function EllipticIntegralK(m : Extended):Extended;
-function EllipticIntegralKHighPrecision(m1 : Extended):Extended;
-function IncompleteEllipticIntegralK(phi : Extended; m : Extended):Extended;
-function EllipticIntegralE(m : Extended):Extended;
-function IncompleteEllipticIntegralE(phi : Extended; m : Extended):Extended;
+function EllipticIntegralK(m : Double):Double;
+function EllipticIntegralKHighPrecision(m1 : Double):Double;
+function IncompleteEllipticIntegralK(phi : Double; m : Double):Double;
+function EllipticIntegralE(m : Double):Double;
+function IncompleteEllipticIntegralE(phi : Double; m : Double):Double;
 
 implementation
 
@@ -66,7 +66,7 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library, Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-function EllipticIntegralK(m : Extended):Extended;
+function EllipticIntegralK(m : Double):Double;
 begin
     Result := EllipticIntegralKHighPrecision(1.0-m);
 end;
@@ -107,10 +107,10 @@ arithmetic   domain     # trials      peak         rms
 
 Алгоритм взят из библиотеки Cephes
 *************************************************************************)
-function EllipticIntegralKHighPrecision(m1 : Extended):Extended;
+function EllipticIntegralKHighPrecision(m1 : Double):Double;
 var
-    P : Extended;
-    Q : Extended;
+    P : Double;
+    Q : Double;
 begin
     if AP_FP_Less_Eq(m1,MachineEpsilon) then
     begin
@@ -179,16 +179,16 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-function IncompleteEllipticIntegralK(phi : Extended; m : Extended):Extended;
+function IncompleteEllipticIntegralK(phi : Double; m : Double):Double;
 var
-    a : Extended;
-    b : Extended;
-    c : Extended;
-    e : Extended;
-    temp : Extended;
-    PIO2 : Extended;
-    t : Extended;
-    K : Extended;
+    a : Double;
+    b : Double;
+    c : Double;
+    e : Double;
+    temp : Double;
+    PIO2 : Double;
+    t : Double;
+    K : Double;
     d : AlglibInteger;
     md : AlglibInteger;
     s : AlglibInteger;
@@ -302,10 +302,10 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library, Release 2.8: June, 2000
 Copyright 1984, 1987, 1989, 2000 by Stephen L. Moshier
 *************************************************************************)
-function EllipticIntegralE(m : Extended):Extended;
+function EllipticIntegralE(m : Double):Double;
 var
-    P : Extended;
-    Q : Extended;
+    P : Double;
+    Q : Double;
 begin
     Assert(AP_FP_Greater_Eq(m,0) and AP_FP_Less_Eq(m,1), 'Domain error in EllipticIntegralE: m<0 or m>1');
     m := 1-m;
@@ -369,17 +369,17 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1993, 2000 by Stephen L. Moshier
 *************************************************************************)
-function IncompleteEllipticIntegralE(phi : Extended; m : Extended):Extended;
+function IncompleteEllipticIntegralE(phi : Double; m : Double):Double;
 var
-    PIO2 : Extended;
-    a : Extended;
-    b : Extended;
-    c : Extended;
-    e : Extended;
-    temp : Extended;
-    lphi : Extended;
-    t : Extended;
-    EBig : Extended;
+    PIO2 : Double;
+    a : Double;
+    b : Double;
+    c : Double;
+    e : Double;
+    temp : Double;
+    lphi : Double;
+    t : Double;
+    EBig : Double;
     d : AlglibInteger;
     md : AlglibInteger;
     npio2 : AlglibInteger;

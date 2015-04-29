@@ -31,11 +31,11 @@ Polynomial fitting report:
     MaxError        maximum error
 *************************************************************************)
 PolynomialFitReport = record
-    TaskRCond : Extended;
-    RMSError : Extended;
-    AvgError : Extended;
-    AvgRelError : Extended;
-    MaxError : Extended;
+    TaskRCond : Double;
+    RMSError : Double;
+    AvgError : Double;
+    AvgRelError : Double;
+    MaxError : Double;
 end;
 
 
@@ -44,36 +44,36 @@ procedure PolynomialBuild(const X : TReal1DArray;
      const Y : TReal1DArray;
      N : AlglibInteger;
      var P : BarycentricInterpolant);
-procedure PolynomialBuildEqDist(A : Extended;
-     B : Extended;
+procedure PolynomialBuildEqDist(A : Double;
+     B : Double;
      const Y : TReal1DArray;
      N : AlglibInteger;
      var P : BarycentricInterpolant);
-procedure PolynomialBuildCheb1(A : Extended;
-     B : Extended;
+procedure PolynomialBuildCheb1(A : Double;
+     B : Double;
      const Y : TReal1DArray;
      N : AlglibInteger;
      var P : BarycentricInterpolant);
-procedure PolynomialBuildCheb2(A : Extended;
-     B : Extended;
+procedure PolynomialBuildCheb2(A : Double;
+     B : Double;
      const Y : TReal1DArray;
      N : AlglibInteger;
      var P : BarycentricInterpolant);
-function PolynomialCalcEqDist(A : Extended;
-     B : Extended;
+function PolynomialCalcEqDist(A : Double;
+     B : Double;
      const F : TReal1DArray;
      N : AlglibInteger;
-     T : Extended):Extended;
-function PolynomialCalcCheb1(A : Extended;
-     B : Extended;
+     T : Double):Double;
+function PolynomialCalcCheb1(A : Double;
+     B : Double;
      const F : TReal1DArray;
      N : AlglibInteger;
-     T : Extended):Extended;
-function PolynomialCalcCheb2(A : Extended;
-     B : Extended;
+     T : Double):Double;
+function PolynomialCalcCheb2(A : Double;
+     B : Double;
      const F : TReal1DArray;
      N : AlglibInteger;
-     T : Extended):Extended;
+     T : Double):Double;
 procedure PolynomialFit(const X : TReal1DArray;
      const Y : TReal1DArray;
      N : AlglibInteger;
@@ -121,10 +121,10 @@ var
     J : AlglibInteger;
     K : AlglibInteger;
     W : TReal1DArray;
-    B : Extended;
-    A : Extended;
-    V : Extended;
-    MX : Extended;
+    B : Double;
+    A : Double;
+    V : Double;
+    MX : Double;
 begin
     Assert(N>0, 'PolIntBuild: N<=0!');
     
@@ -198,8 +198,8 @@ OIYTPUT PARAMETERS
   -- ALGLIB --
      Copyright 03.12.2009 by Bochkanov Sergey
 *************************************************************************)
-procedure PolynomialBuildEqDist(A : Extended;
-     B : Extended;
+procedure PolynomialBuildEqDist(A : Double;
+     B : Double;
      const Y : TReal1DArray;
      N : AlglibInteger;
      var P : BarycentricInterpolant);
@@ -207,7 +207,7 @@ var
     I : AlglibInteger;
     W : TReal1DArray;
     X : TReal1DArray;
-    V : Extended;
+    V : Double;
 begin
     Assert(N>0, 'PolIntBuildEqDist: N<=0!');
     
@@ -263,8 +263,8 @@ OIYTPUT PARAMETERS
   -- ALGLIB --
      Copyright 03.12.2009 by Bochkanov Sergey
 *************************************************************************)
-procedure PolynomialBuildCheb1(A : Extended;
-     B : Extended;
+procedure PolynomialBuildCheb1(A : Double;
+     B : Double;
      const Y : TReal1DArray;
      N : AlglibInteger;
      var P : BarycentricInterpolant);
@@ -272,8 +272,8 @@ var
     I : AlglibInteger;
     W : TReal1DArray;
     X : TReal1DArray;
-    V : Extended;
-    T : Extended;
+    V : Double;
+    T : Double;
 begin
     Assert(N>0, 'PolIntBuildCheb1: N<=0!');
     
@@ -329,8 +329,8 @@ OIYTPUT PARAMETERS
   -- ALGLIB --
      Copyright 03.12.2009 by Bochkanov Sergey
 *************************************************************************)
-procedure PolynomialBuildCheb2(A : Extended;
-     B : Extended;
+procedure PolynomialBuildCheb2(A : Double;
+     B : Double;
      const Y : TReal1DArray;
      N : AlglibInteger;
      var P : BarycentricInterpolant);
@@ -338,7 +338,7 @@ var
     I : AlglibInteger;
     W : TReal1DArray;
     X : TReal1DArray;
-    V : Extended;
+    V : Double;
 begin
     Assert(N>0, 'PolIntBuildCheb2: N<=0!');
     
@@ -404,22 +404,22 @@ IMPORTANT
   -- ALGLIB --
      Copyright 02.12.2009 by Bochkanov Sergey
 *************************************************************************)
-function PolynomialCalcEqDist(A : Extended;
-     B : Extended;
+function PolynomialCalcEqDist(A : Double;
+     B : Double;
      const F : TReal1DArray;
      N : AlglibInteger;
-     T : Extended):Extended;
+     T : Double):Double;
 var
-    S1 : Extended;
-    S2 : Extended;
-    V : Extended;
-    Threshold : Extended;
-    S : Extended;
-    H : Extended;
+    S1 : Double;
+    S2 : Double;
+    V : Double;
+    Threshold : Double;
+    S : Double;
+    H : Double;
     I : AlglibInteger;
     J : AlglibInteger;
-    W : Extended;
-    X : Extended;
+    W : Double;
+    X : Double;
 begin
     Assert(N>0, 'PolIntEqDist: N<=0!');
     Threshold := Sqrt(MinRealNumber);
@@ -521,30 +521,30 @@ IMPORTANT
   -- ALGLIB --
      Copyright 02.12.2009 by Bochkanov Sergey
 *************************************************************************)
-function PolynomialCalcCheb1(A : Extended;
-     B : Extended;
+function PolynomialCalcCheb1(A : Double;
+     B : Double;
      const F : TReal1DArray;
      N : AlglibInteger;
-     T : Extended):Extended;
+     T : Double):Double;
 var
-    S1 : Extended;
-    S2 : Extended;
-    V : Extended;
-    Threshold : Extended;
-    S : Extended;
+    S1 : Double;
+    S2 : Double;
+    V : Double;
+    Threshold : Double;
+    S : Double;
     I : AlglibInteger;
     J : AlglibInteger;
-    A0 : Extended;
-    Delta : Extended;
-    Alpha : Extended;
-    Beta : Extended;
-    CA : Extended;
-    SA : Extended;
-    TempC : Extended;
-    TempS : Extended;
-    X : Extended;
-    W : Extended;
-    P1 : Extended;
+    A0 : Double;
+    Delta : Double;
+    Alpha : Double;
+    Beta : Double;
+    CA : Double;
+    SA : Double;
+    TempC : Double;
+    TempS : Double;
+    X : Double;
+    W : Double;
+    P1 : Double;
 begin
     Assert(N>0, 'PolIntCheb1: N<=0!');
     Threshold := Sqrt(MinRealNumber);
@@ -703,30 +703,30 @@ IMPORTANT
   -- ALGLIB --
      Copyright 02.12.2009 by Bochkanov Sergey
 *************************************************************************)
-function PolynomialCalcCheb2(A : Extended;
-     B : Extended;
+function PolynomialCalcCheb2(A : Double;
+     B : Double;
      const F : TReal1DArray;
      N : AlglibInteger;
-     T : Extended):Extended;
+     T : Double):Double;
 var
-    S1 : Extended;
-    S2 : Extended;
-    V : Extended;
-    Threshold : Extended;
-    S : Extended;
+    S1 : Double;
+    S2 : Double;
+    V : Double;
+    Threshold : Double;
+    S : Double;
     I : AlglibInteger;
     J : AlglibInteger;
-    A0 : Extended;
-    Delta : Extended;
-    Alpha : Extended;
-    Beta : Extended;
-    CA : Extended;
-    SA : Extended;
-    TempC : Extended;
-    TempS : Extended;
-    X : Extended;
-    W : Extended;
-    P1 : Extended;
+    A0 : Double;
+    Delta : Double;
+    Alpha : Double;
+    Beta : Double;
+    CA : Double;
+    SA : Double;
+    TempC : Double;
+    TempS : Double;
+    X : Double;
+    W : Double;
+    P1 : Double;
 begin
     Assert(N>0, 'PolIntCheb2: N<=0!');
     Threshold := Sqrt(MinRealNumber);
@@ -991,10 +991,10 @@ procedure PolynomialFitWC(X : TReal1DArray;
      var P : BarycentricInterpolant;
      var Rep : PolynomialFitReport);
 var
-    XA : Extended;
-    XB : Extended;
-    SA : Extended;
-    SB : Extended;
+    XA : Double;
+    XB : Double;
+    SA : Double;
+    SB : Double;
     XOriginal : TReal1DArray;
     YOriginal : TReal1DArray;
     Y2 : TReal1DArray;
@@ -1009,11 +1009,11 @@ var
     CMatrix : TReal2DArray;
     I : AlglibInteger;
     J : AlglibInteger;
-    MX : Extended;
-    Decay : Extended;
-    U : Extended;
-    V : Extended;
-    S : Extended;
+    MX : Double;
+    Decay : Double;
+    U : Double;
+    V : Double;
+    S : Double;
     RelCnt : AlglibInteger;
     LRep : LSFitReport;
 begin

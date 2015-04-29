@@ -31,10 +31,10 @@ procedure IterativeEstimate1Norm(N : AlglibInteger;
      var V : TReal1DArray;
      var X : TReal1DArray;
      var ISGN : TInteger1DArray;
-     var EST : Extended;
+     var EST : Double;
      var KASE : AlglibInteger);
 function DemoIterativeEstimate1Norm(const A : TReal2DArray;
-     N : AlglibInteger):Extended;
+     N : AlglibInteger):Double;
 
 implementation
 
@@ -80,12 +80,12 @@ procedure IterativeEstimate1Norm(N : AlglibInteger;
      var V : TReal1DArray;
      var X : TReal1DArray;
      var ISGN : TInteger1DArray;
-     var EST : Extended;
+     var EST : Double;
      var KASE : AlglibInteger);
 var
     ITMAX : AlglibInteger;
     I : AlglibInteger;
-    T : Extended;
+    T : Double;
     Flg : Boolean;
     PosITER : AlglibInteger;
     PosJ : AlglibInteger;
@@ -343,10 +343,10 @@ Return:
      Copyright 2005 by Bochkanov Sergey
 *************************************************************************)
 function DemoIterativeEstimate1Norm(const A : TReal2DArray;
-     N : AlglibInteger):Extended;
+     N : AlglibInteger):Double;
 var
     I : AlglibInteger;
-    S : Extended;
+    S : Double;
     X : TReal1DArray;
     T : TReal1DArray;
     V : TReal1DArray;

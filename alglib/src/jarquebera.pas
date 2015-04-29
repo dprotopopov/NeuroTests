@@ -23,45 +23,45 @@ uses Math, Sysutils, Ap;
 
 procedure JarqueBeraTest(const X : TReal1DArray;
      N : AlglibInteger;
-     var P : Extended);
+     var P : Double);
 
 implementation
 
 procedure JarqueBeraStatistic(const X : TReal1DArray;
      N : AlglibInteger;
-     var S : Extended);forward;
-function JarqueBeraApprox(N : AlglibInteger; S : Extended):Extended;forward;
-function JBTbl5(S : Extended):Extended;forward;
-function JBTbl6(S : Extended):Extended;forward;
-function JBTbl7(S : Extended):Extended;forward;
-function JBTbl8(S : Extended):Extended;forward;
-function JBTbl9(S : Extended):Extended;forward;
-function JBTbl10(S : Extended):Extended;forward;
-function JBTbl11(S : Extended):Extended;forward;
-function JBTbl12(S : Extended):Extended;forward;
-function JBTbl13(S : Extended):Extended;forward;
-function JBTbl14(S : Extended):Extended;forward;
-function JBTbl15(S : Extended):Extended;forward;
-function JBTbl16(S : Extended):Extended;forward;
-function JBTbl17(S : Extended):Extended;forward;
-function JBTbl18(S : Extended):Extended;forward;
-function JBTbl19(S : Extended):Extended;forward;
-function JBTbl20(S : Extended):Extended;forward;
-function JBTbl30(S : Extended):Extended;forward;
-function JBTbl50(S : Extended):Extended;forward;
-function JBTbl65(S : Extended):Extended;forward;
-function JBTbl100(S : Extended):Extended;forward;
-function JBTbl130(S : Extended):Extended;forward;
-function JBTbl200(S : Extended):Extended;forward;
-function JBTbl301(S : Extended):Extended;forward;
-function JBTbl501(S : Extended):Extended;forward;
-function JBTbl701(S : Extended):Extended;forward;
-function JBTbl1401(S : Extended):Extended;forward;
-procedure JBCheb(X : Extended;
-     C : Extended;
-     var TJ : Extended;
-     var TJ1 : Extended;
-     var R : Extended);forward;
+     var S : Double);forward;
+function JarqueBeraApprox(N : AlglibInteger; S : Double):Double;forward;
+function JBTbl5(S : Double):Double;forward;
+function JBTbl6(S : Double):Double;forward;
+function JBTbl7(S : Double):Double;forward;
+function JBTbl8(S : Double):Double;forward;
+function JBTbl9(S : Double):Double;forward;
+function JBTbl10(S : Double):Double;forward;
+function JBTbl11(S : Double):Double;forward;
+function JBTbl12(S : Double):Double;forward;
+function JBTbl13(S : Double):Double;forward;
+function JBTbl14(S : Double):Double;forward;
+function JBTbl15(S : Double):Double;forward;
+function JBTbl16(S : Double):Double;forward;
+function JBTbl17(S : Double):Double;forward;
+function JBTbl18(S : Double):Double;forward;
+function JBTbl19(S : Double):Double;forward;
+function JBTbl20(S : Double):Double;forward;
+function JBTbl30(S : Double):Double;forward;
+function JBTbl50(S : Double):Double;forward;
+function JBTbl65(S : Double):Double;forward;
+function JBTbl100(S : Double):Double;forward;
+function JBTbl130(S : Double):Double;forward;
+function JBTbl200(S : Double):Double;forward;
+function JBTbl301(S : Double):Double;forward;
+function JBTbl501(S : Double):Double;forward;
+function JBTbl701(S : Double):Double;forward;
+function JBTbl1401(S : Double):Double;forward;
+procedure JBCheb(X : Double;
+     C : Double;
+     var TJ : Double;
+     var TJ1 : Double;
+     var R : Double);forward;
 
 
 (*************************************************************************
@@ -104,9 +104,9 @@ from table values.
 *************************************************************************)
 procedure JarqueBeraTest(const X : TReal1DArray;
      N : AlglibInteger;
-     var P : Extended);
+     var P : Double);
 var
-    S : Extended;
+    S : Double;
 begin
     
     //
@@ -128,17 +128,17 @@ end;
 
 procedure JarqueBeraStatistic(const X : TReal1DArray;
      N : AlglibInteger;
-     var S : Extended);
+     var S : Double);
 var
     I : AlglibInteger;
-    V : Extended;
-    V1 : Extended;
-    V2 : Extended;
-    StdDev : Extended;
-    Mean : Extended;
-    Variance : Extended;
-    Skewness : Extended;
-    Kurtosis : Extended;
+    V : Double;
+    V1 : Double;
+    V2 : Double;
+    StdDev : Double;
+    Mean : Double;
+    Variance : Double;
+    Skewness : Double;
+    Kurtosis : Double;
 begin
     Mean := 0;
     Variance := 0;
@@ -211,21 +211,21 @@ begin
 end;
 
 
-function JarqueBeraApprox(N : AlglibInteger; S : Extended):Extended;
+function JarqueBeraApprox(N : AlglibInteger; S : Double):Double;
 var
     VX : TReal1DArray;
     VY : TReal1DArray;
     CTbl : TReal2DArray;
-    T1 : Extended;
-    T2 : Extended;
-    T3 : Extended;
-    T : Extended;
-    F1 : Extended;
-    F2 : Extended;
-    F3 : Extended;
-    F12 : Extended;
-    F23 : Extended;
-    X : Extended;
+    T1 : Double;
+    T2 : Double;
+    T3 : Double;
+    T : Double;
+    F1 : Double;
+    F2 : Double;
+    F3 : Double;
+    F12 : Double;
+    F23 : Double;
+    X : Double;
 begin
     Result := 1;
     X := S;
@@ -447,11 +447,11 @@ begin
 end;
 
 
-function JBTbl5(S : Extended):Extended;
+function JBTbl5(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,0.4000) then
@@ -499,11 +499,11 @@ begin
 end;
 
 
-function JBTbl6(S : Extended):Extended;
+function JBTbl6(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,0.2500) then
@@ -570,11 +570,11 @@ begin
 end;
 
 
-function JBTbl7(S : Extended):Extended;
+function JBTbl7(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,1.4000) then
@@ -649,11 +649,11 @@ begin
 end;
 
 
-function JBTbl8(S : Extended):Extended;
+function JBTbl8(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,1.3000) then
@@ -722,11 +722,11 @@ begin
 end;
 
 
-function JBTbl9(S : Extended):Extended;
+function JBTbl9(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,1.3000) then
@@ -795,11 +795,11 @@ begin
 end;
 
 
-function JBTbl10(S : Extended):Extended;
+function JBTbl10(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,1.2000) then
@@ -863,11 +863,11 @@ begin
 end;
 
 
-function JBTbl11(S : Extended):Extended;
+function JBTbl11(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,1.2000) then
@@ -931,11 +931,11 @@ begin
 end;
 
 
-function JBTbl12(S : Extended):Extended;
+function JBTbl12(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,1.0000) then
@@ -1006,11 +1006,11 @@ begin
 end;
 
 
-function JBTbl13(S : Extended):Extended;
+function JBTbl13(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,1.0000) then
@@ -1081,11 +1081,11 @@ begin
 end;
 
 
-function JBTbl14(S : Extended):Extended;
+function JBTbl14(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,1.0000) then
@@ -1156,11 +1156,11 @@ begin
 end;
 
 
-function JBTbl15(S : Extended):Extended;
+function JBTbl15(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,2.0000) then
@@ -1225,11 +1225,11 @@ begin
 end;
 
 
-function JBTbl16(S : Extended):Extended;
+function JBTbl16(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,2.0000) then
@@ -1294,11 +1294,11 @@ begin
 end;
 
 
-function JBTbl17(S : Extended):Extended;
+function JBTbl17(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,3.0000) then
@@ -1367,11 +1367,11 @@ begin
 end;
 
 
-function JBTbl18(S : Extended):Extended;
+function JBTbl18(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,3.0000) then
@@ -1440,11 +1440,11 @@ begin
 end;
 
 
-function JBTbl19(S : Extended):Extended;
+function JBTbl19(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,3.0000) then
@@ -1513,11 +1513,11 @@ begin
 end;
 
 
-function JBTbl20(S : Extended):Extended;
+function JBTbl20(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,4.0000) then
@@ -1592,11 +1592,11 @@ begin
 end;
 
 
-function JBTbl30(S : Extended):Extended;
+function JBTbl30(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,4.0000) then
@@ -1666,11 +1666,11 @@ begin
 end;
 
 
-function JBTbl50(S : Extended):Extended;
+function JBTbl50(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,4.0000) then
@@ -1735,11 +1735,11 @@ begin
 end;
 
 
-function JBTbl65(S : Extended):Extended;
+function JBTbl65(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,4.0000) then
@@ -1800,11 +1800,11 @@ begin
 end;
 
 
-function JBTbl100(S : Extended):Extended;
+function JBTbl100(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,4.0000) then
@@ -1861,11 +1861,11 @@ begin
 end;
 
 
-function JBTbl130(S : Extended):Extended;
+function JBTbl130(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,4.0000) then
@@ -1922,11 +1922,11 @@ begin
 end;
 
 
-function JBTbl200(S : Extended):Extended;
+function JBTbl200(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,4.0000) then
@@ -1983,11 +1983,11 @@ begin
 end;
 
 
-function JBTbl301(S : Extended):Extended;
+function JBTbl301(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,4.0000) then
@@ -2044,11 +2044,11 @@ begin
 end;
 
 
-function JBTbl501(S : Extended):Extended;
+function JBTbl501(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,4.0000) then
@@ -2101,11 +2101,11 @@ begin
 end;
 
 
-function JBTbl701(S : Extended):Extended;
+function JBTbl701(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,4.0000) then
@@ -2158,11 +2158,11 @@ begin
 end;
 
 
-function JBTbl1401(S : Extended):Extended;
+function JBTbl1401(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,4.0000) then
@@ -2215,13 +2215,13 @@ begin
 end;
 
 
-procedure JBCheb(X : Extended;
-     C : Extended;
-     var TJ : Extended;
-     var TJ1 : Extended;
-     var R : Extended);
+procedure JBCheb(X : Double;
+     C : Double;
+     var TJ : Double;
+     var TJ1 : Double;
+     var R : Double);
 var
-    T : Extended;
+    T : Double;
 begin
     R := R+C*TJ;
     T := 2*X*TJ1-TJ;

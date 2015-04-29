@@ -66,7 +66,7 @@ begin
     DrawDataOnChart(Chart1, SeriesSrc, lX);
 
     ConstructMatrixFromLine(lX, CSubLineWidth, 10, lXY);
-    CalcNeuroMatrix(1, lXY, lNetwork);
+    CalcNeuroMatrix(false, 1, CSubLineWidth, 1, lXY, lNetwork);
 
     SetLength(lXsub, CSubLineWidth);
     SetLength(lXfiltered, Length(lX));
@@ -79,6 +79,7 @@ begin
       lXfiltered[i + CSubLineWidth] := NeuroRegression(lNetwork, lXsub, lY);
     end;
     DrawDataOnChart(Chart2, SeriesFiltered, lXfiltered);
+    
   finally
     Screen.Cursor := crDefault;
     SetLength(lX, 0);

@@ -65,44 +65,44 @@ procedure MLPECreate2(NIn : AlglibInteger;
      var Ensemble : MLPEnsemble);
 procedure MLPECreateB0(NIn : AlglibInteger;
      NOut : AlglibInteger;
-     B : Extended;
-     D : Extended;
+     B : Double;
+     D : Double;
      EnsembleSize : AlglibInteger;
      var Ensemble : MLPEnsemble);
 procedure MLPECreateB1(NIn : AlglibInteger;
      NHid : AlglibInteger;
      NOut : AlglibInteger;
-     B : Extended;
-     D : Extended;
+     B : Double;
+     D : Double;
      EnsembleSize : AlglibInteger;
      var Ensemble : MLPEnsemble);
 procedure MLPECreateB2(NIn : AlglibInteger;
      NHid1 : AlglibInteger;
      NHid2 : AlglibInteger;
      NOut : AlglibInteger;
-     B : Extended;
-     D : Extended;
+     B : Double;
+     D : Double;
      EnsembleSize : AlglibInteger;
      var Ensemble : MLPEnsemble);
 procedure MLPECreateR0(NIn : AlglibInteger;
      NOut : AlglibInteger;
-     A : Extended;
-     B : Extended;
+     A : Double;
+     B : Double;
      EnsembleSize : AlglibInteger;
      var Ensemble : MLPEnsemble);
 procedure MLPECreateR1(NIn : AlglibInteger;
      NHid : AlglibInteger;
      NOut : AlglibInteger;
-     A : Extended;
-     B : Extended;
+     A : Double;
+     B : Double;
      EnsembleSize : AlglibInteger;
      var Ensemble : MLPEnsemble);
 procedure MLPECreateR2(NIn : AlglibInteger;
      NHid1 : AlglibInteger;
      NHid2 : AlglibInteger;
      NOut : AlglibInteger;
-     A : Extended;
-     B : Extended;
+     A : Double;
+     B : Double;
      EnsembleSize : AlglibInteger;
      var Ensemble : MLPEnsemble);
 procedure MLPECreateC0(NIn : AlglibInteger;
@@ -138,23 +138,23 @@ procedure MLPEProcess(var Ensemble : MLPEnsemble;
      var Y : TReal1DArray);
 function MLPERelClsError(var Ensemble : MLPEnsemble;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Extended;
+     NPoints : AlglibInteger):Double;
 function MLPEAvgCE(var Ensemble : MLPEnsemble;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Extended;
+     NPoints : AlglibInteger):Double;
 function MLPERMSError(var Ensemble : MLPEnsemble;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Extended;
+     NPoints : AlglibInteger):Double;
 function MLPEAvgError(var Ensemble : MLPEnsemble;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Extended;
+     NPoints : AlglibInteger):Double;
 function MLPEAvgRelError(var Ensemble : MLPEnsemble;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Extended;
+     NPoints : AlglibInteger):Double;
 procedure MLPEBaggingLM(var Ensemble : MLPEnsemble;
      const XY : TReal2DArray;
      NPoints : AlglibInteger;
-     Decay : Extended;
+     Decay : Double;
      Restarts : AlglibInteger;
      var Info : AlglibInteger;
      var Rep : MLPReport;
@@ -162,9 +162,9 @@ procedure MLPEBaggingLM(var Ensemble : MLPEnsemble;
 procedure MLPEBaggingLBFGS(var Ensemble : MLPEnsemble;
      const XY : TReal2DArray;
      NPoints : AlglibInteger;
-     Decay : Extended;
+     Decay : Double;
      Restarts : AlglibInteger;
-     WStep : Extended;
+     WStep : Double;
      MaxIts : AlglibInteger;
      var Info : AlglibInteger;
      var Rep : MLPReport;
@@ -172,7 +172,7 @@ procedure MLPEBaggingLBFGS(var Ensemble : MLPEnsemble;
 procedure MLPETrainES(var Ensemble : MLPEnsemble;
      const XY : TReal2DArray;
      NPoints : AlglibInteger;
-     Decay : Extended;
+     Decay : Double;
      Restarts : AlglibInteger;
      var Info : AlglibInteger;
      var Rep : MLPReport);
@@ -186,17 +186,17 @@ const
 procedure MLPEAllErrors(var Ensemble : MLPEnsemble;
      const XY : TReal2DArray;
      NPoints : AlglibInteger;
-     var RelCls : Extended;
-     var AvgCE : Extended;
-     var RMS : Extended;
-     var Avg : Extended;
-     var AvgRel : Extended);forward;
+     var RelCls : Double;
+     var AvgCE : Double;
+     var RMS : Double;
+     var Avg : Double;
+     var AvgRel : Double);forward;
 procedure MLPEBaggingInternal(var Ensemble : MLPEnsemble;
      const XY : TReal2DArray;
      NPoints : AlglibInteger;
-     Decay : Extended;
+     Decay : Double;
      Restarts : AlglibInteger;
-     WStep : Extended;
+     WStep : Double;
      MaxIts : AlglibInteger;
      LMAlgorithm : Boolean;
      var Info : AlglibInteger;
@@ -269,8 +269,8 @@ Like MLPCreateB0, but for ensembles.
 *************************************************************************)
 procedure MLPECreateB0(NIn : AlglibInteger;
      NOut : AlglibInteger;
-     B : Extended;
-     D : Extended;
+     B : Double;
+     D : Double;
      EnsembleSize : AlglibInteger;
      var Ensemble : MLPEnsemble);
 var
@@ -290,8 +290,8 @@ Like MLPCreateB1, but for ensembles.
 procedure MLPECreateB1(NIn : AlglibInteger;
      NHid : AlglibInteger;
      NOut : AlglibInteger;
-     B : Extended;
-     D : Extended;
+     B : Double;
+     D : Double;
      EnsembleSize : AlglibInteger;
      var Ensemble : MLPEnsemble);
 var
@@ -312,8 +312,8 @@ procedure MLPECreateB2(NIn : AlglibInteger;
      NHid1 : AlglibInteger;
      NHid2 : AlglibInteger;
      NOut : AlglibInteger;
-     B : Extended;
-     D : Extended;
+     B : Double;
+     D : Double;
      EnsembleSize : AlglibInteger;
      var Ensemble : MLPEnsemble);
 var
@@ -332,8 +332,8 @@ Like MLPCreateR0, but for ensembles.
 *************************************************************************)
 procedure MLPECreateR0(NIn : AlglibInteger;
      NOut : AlglibInteger;
-     A : Extended;
-     B : Extended;
+     A : Double;
+     B : Double;
      EnsembleSize : AlglibInteger;
      var Ensemble : MLPEnsemble);
 var
@@ -353,8 +353,8 @@ Like MLPCreateR1, but for ensembles.
 procedure MLPECreateR1(NIn : AlglibInteger;
      NHid : AlglibInteger;
      NOut : AlglibInteger;
-     A : Extended;
-     B : Extended;
+     A : Double;
+     B : Double;
      EnsembleSize : AlglibInteger;
      var Ensemble : MLPEnsemble);
 var
@@ -375,8 +375,8 @@ procedure MLPECreateR2(NIn : AlglibInteger;
      NHid1 : AlglibInteger;
      NHid2 : AlglibInteger;
      NOut : AlglibInteger;
-     A : Extended;
-     B : Extended;
+     A : Double;
+     B : Double;
      EnsembleSize : AlglibInteger;
      var Ensemble : MLPEnsemble);
 var
@@ -847,7 +847,7 @@ var
     ES : AlglibInteger;
     WC : AlglibInteger;
     CC : AlglibInteger;
-    V : Extended;
+    V : Double;
 begin
     ES := Ensemble.EnsembleSize;
     WC := Ensemble.WCount;
@@ -897,13 +897,13 @@ are used as classifiers.
 *************************************************************************)
 function MLPERelClsError(var Ensemble : MLPEnsemble;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Extended;
+     NPoints : AlglibInteger):Double;
 var
-    RelCls : Extended;
-    AvgCE : Extended;
-    RMS : Extended;
-    Avg : Extended;
-    AvgRel : Extended;
+    RelCls : Double;
+    AvgCE : Double;
+    RMS : Double;
+    Avg : Double;
+    AvgRel : Double;
 begin
     MLPEAllErrors(Ensemble, XY, NPoints, RelCls, AvgCE, RMS, Avg, AvgRel);
     Result := RelCls;
@@ -927,13 +927,13 @@ RESULT:
 *************************************************************************)
 function MLPEAvgCE(var Ensemble : MLPEnsemble;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Extended;
+     NPoints : AlglibInteger):Double;
 var
-    RelCls : Extended;
-    AvgCE : Extended;
-    RMS : Extended;
-    Avg : Extended;
-    AvgRel : Extended;
+    RelCls : Double;
+    AvgCE : Double;
+    RMS : Double;
+    Avg : Double;
+    AvgRel : Double;
 begin
     MLPEAllErrors(Ensemble, XY, NPoints, RelCls, AvgCE, RMS, Avg, AvgRel);
     Result := AvgCE;
@@ -958,13 +958,13 @@ RMS error means error when estimating posterior probabilities.
 *************************************************************************)
 function MLPERMSError(var Ensemble : MLPEnsemble;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Extended;
+     NPoints : AlglibInteger):Double;
 var
-    RelCls : Extended;
-    AvgCE : Extended;
-    RMS : Extended;
-    Avg : Extended;
-    AvgRel : Extended;
+    RelCls : Double;
+    AvgCE : Double;
+    RMS : Double;
+    Avg : Double;
+    AvgRel : Double;
 begin
     MLPEAllErrors(Ensemble, XY, NPoints, RelCls, AvgCE, RMS, Avg, AvgRel);
     Result := RMS;
@@ -988,13 +988,13 @@ it means average error when estimating posterior probabilities.
 *************************************************************************)
 function MLPEAvgError(var Ensemble : MLPEnsemble;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Extended;
+     NPoints : AlglibInteger):Double;
 var
-    RelCls : Extended;
-    AvgCE : Extended;
-    RMS : Extended;
-    Avg : Extended;
-    AvgRel : Extended;
+    RelCls : Double;
+    AvgCE : Double;
+    RMS : Double;
+    Avg : Double;
+    AvgRel : Double;
 begin
     MLPEAllErrors(Ensemble, XY, NPoints, RelCls, AvgCE, RMS, Avg, AvgRel);
     Result := Avg;
@@ -1018,13 +1018,13 @@ it means average relative error when estimating posterior probabilities.
 *************************************************************************)
 function MLPEAvgRelError(var Ensemble : MLPEnsemble;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Extended;
+     NPoints : AlglibInteger):Double;
 var
-    RelCls : Extended;
-    AvgCE : Extended;
-    RMS : Extended;
-    Avg : Extended;
-    AvgRel : Extended;
+    RelCls : Double;
+    AvgCE : Double;
+    RMS : Double;
+    Avg : Double;
+    AvgRel : Double;
 begin
     MLPEAllErrors(Ensemble, XY, NPoints, RelCls, AvgCE, RMS, Avg, AvgRel);
     Result := AvgRel;
@@ -1059,7 +1059,7 @@ OUTPUT PARAMETERS:
 procedure MLPEBaggingLM(var Ensemble : MLPEnsemble;
      const XY : TReal2DArray;
      NPoints : AlglibInteger;
-     Decay : Extended;
+     Decay : Double;
      Restarts : AlglibInteger;
      var Info : AlglibInteger;
      var Rep : MLPReport;
@@ -1100,9 +1100,9 @@ OUTPUT PARAMETERS:
 procedure MLPEBaggingLBFGS(var Ensemble : MLPEnsemble;
      const XY : TReal2DArray;
      NPoints : AlglibInteger;
-     Decay : Extended;
+     Decay : Double;
      Restarts : AlglibInteger;
-     WStep : Extended;
+     WStep : Double;
      MaxIts : AlglibInteger;
      var Info : AlglibInteger;
      var Rep : MLPReport;
@@ -1139,7 +1139,7 @@ OUTPUT PARAMETERS:
 procedure MLPETrainES(var Ensemble : MLPEnsemble;
      const XY : TReal2DArray;
      NPoints : AlglibInteger;
-     Decay : Extended;
+     Decay : Double;
      Restarts : AlglibInteger;
      var Info : AlglibInteger;
      var Rep : MLPReport);
@@ -1267,11 +1267,11 @@ Calculation of all types of errors
 procedure MLPEAllErrors(var Ensemble : MLPEnsemble;
      const XY : TReal2DArray;
      NPoints : AlglibInteger;
-     var RelCls : Extended;
-     var AvgCE : Extended;
-     var RMS : Extended;
-     var Avg : Extended;
-     var AvgRel : Extended);
+     var RelCls : Double;
+     var AvgCE : Double;
+     var RMS : Double;
+     var Avg : Double;
+     var AvgRel : Double);
 var
     I : AlglibInteger;
     Buf : TReal1DArray;
@@ -1325,9 +1325,9 @@ Internal bagging subroutine.
 procedure MLPEBaggingInternal(var Ensemble : MLPEnsemble;
      const XY : TReal2DArray;
      NPoints : AlglibInteger;
-     Decay : Extended;
+     Decay : Double;
      Restarts : AlglibInteger;
-     WStep : Extended;
+     WStep : Double;
      MaxIts : AlglibInteger;
      LMAlgorithm : Boolean;
      var Info : AlglibInteger;
@@ -1349,7 +1349,7 @@ var
     I : AlglibInteger;
     J : AlglibInteger;
     K : AlglibInteger;
-    V : Extended;
+    V : Double;
     TmpRep : MLPReport;
     Network : MultiLayerPerceptron;
 begin

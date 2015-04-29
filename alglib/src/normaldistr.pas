@@ -28,11 +28,11 @@ unit normaldistr;
 interface
 uses Math, Sysutils, Ap;
 
-function Erf(X : Extended):Extended;
-function ErfC(X : Extended):Extended;
-function NormalDistribution(X : Extended):Extended;
-function InvErf(E : Extended):Extended;
-function InvNormalDistribution(y0 : Extended):Extended;
+function Erf(X : Double):Double;
+function ErfC(X : Double):Double;
+function NormalDistribution(X : Double):Double;
+function InvErf(E : Double):Double;
+function InvNormalDistribution(y0 : Double):Double;
 
 implementation
 
@@ -62,12 +62,12 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1988, 1992, 2000 by Stephen L. Moshier
 *************************************************************************)
-function Erf(X : Extended):Extended;
+function Erf(X : Double):Double;
 var
-    XSq : Extended;
-    S : Extended;
-    P : Extended;
-    Q : Extended;
+    XSq : Double;
+    S : Double;
+    P : Double;
+    Q : Double;
 begin
     S := Sign(X);
     X := AbsReal(X);
@@ -127,10 +127,10 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1988, 1992, 2000 by Stephen L. Moshier
 *************************************************************************)
-function ErfC(X : Extended):Extended;
+function ErfC(X : Double):Double;
 var
-    P : Extended;
-    Q : Extended;
+    P : Double;
+    Q : Double;
 begin
     if AP_FP_Less(X,0) then
     begin
@@ -199,7 +199,7 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1988, 1992, 2000 by Stephen L. Moshier
 *************************************************************************)
-function NormalDistribution(X : Extended):Extended;
+function NormalDistribution(X : Double):Double;
 begin
     Result := 0.5*(Erf(x/1.41421356237309504880)+1);
 end;
@@ -211,7 +211,7 @@ Inverse of the error function
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1988, 1992, 2000 by Stephen L. Moshier
 *************************************************************************)
-function InvErf(E : Extended):Extended;
+function InvErf(E : Double):Double;
 begin
     Result := InvNormalDistribution(0.5*(E+1))/Sqrt(2);
 end;
@@ -242,23 +242,23 @@ arithmetic   domain        # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1988, 1992, 2000 by Stephen L. Moshier
 *************************************************************************)
-function InvNormalDistribution(y0 : Extended):Extended;
+function InvNormalDistribution(y0 : Double):Double;
 var
-    Expm2 : Extended;
-    S2Pi : Extended;
-    x : Extended;
-    y : Extended;
-    z : Extended;
-    y2 : Extended;
-    x0 : Extended;
-    x1 : Extended;
+    Expm2 : Double;
+    S2Pi : Double;
+    x : Double;
+    y : Double;
+    z : Double;
+    y2 : Double;
+    x0 : Double;
+    x1 : Double;
     code : AlglibInteger;
-    P0 : Extended;
-    Q0 : Extended;
-    P1 : Extended;
-    Q1 : Extended;
-    P2 : Extended;
-    Q2 : Extended;
+    P0 : Double;
+    Q0 : Double;
+    P1 : Double;
+    Q1 : Double;
+    P2 : Double;
+    Q2 : Double;
 begin
     Expm2 := 0.13533528323661269189;
     s2pi := 2.50662827463100050242;

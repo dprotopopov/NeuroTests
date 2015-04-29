@@ -46,12 +46,12 @@ not be used outside ALGLIB.
 *************************************************************************)
 LRReport = record
     C : TReal2DArray;
-    RMSError : Extended;
-    AvgError : Extended;
-    AvgRelError : Extended;
-    CVRMSError : Extended;
-    CVAvgError : Extended;
-    CVAvgRelError : Extended;
+    RMSError : Double;
+    AvgError : Double;
+    AvgRelError : Double;
+    CVRMSError : Double;
+    CVAvgError : Double;
+    CVAvgRelError : Double;
     NCVDefects : AlglibInteger;
     CVDefects : TInteger1DArray;
 end;
@@ -90,16 +90,16 @@ procedure LRUnpack(const LM : LinearModel;
 procedure LRPack(const V : TReal1DArray;
      NVars : AlglibInteger;
      var LM : LinearModel);
-function LRProcess(const LM : LinearModel; const X : TReal1DArray):Extended;
+function LRProcess(const LM : LinearModel; const X : TReal1DArray):Double;
 function LRRMSError(const LM : LinearModel;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Extended;
+     NPoints : AlglibInteger):Double;
 function LRAvgError(const LM : LinearModel;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Extended;
+     NPoints : AlglibInteger):Double;
 function LRAvgRelError(const LM : LinearModel;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Extended;
+     NPoints : AlglibInteger):Double;
 procedure LRCopy(const LM1 : LinearModel; var LM2 : LinearModel);
 procedure LRSerialize(const LM : LinearModel;
      var RA : TReal1DArray;
@@ -109,18 +109,18 @@ procedure LRLineS(const XY : TReal2DArray;
      const S : TReal1DArray;
      N : AlglibInteger;
      var Info : AlglibInteger;
-     var A : Extended;
-     var B : Extended;
-     var VarA : Extended;
-     var VarB : Extended;
-     var CovAB : Extended;
-     var CorrAB : Extended;
-     var P : Extended);
+     var A : Double;
+     var B : Double;
+     var VarA : Double;
+     var VarB : Double;
+     var CovAB : Double;
+     var CorrAB : Double;
+     var P : Double);
 procedure LRLine(const XY : TReal2DArray;
      N : AlglibInteger;
      var Info : AlglibInteger;
-     var A : Extended;
-     var B : Extended);
+     var A : Double;
+     var B : Double);
 
 implementation
 
@@ -181,7 +181,7 @@ procedure LRBuild(const XY : TReal2DArray;
 var
     S : TReal1DArray;
     I : AlglibInteger;
-    Sigma2 : Extended;
+    Sigma2 : Double;
 begin
     if (NPoints<=NVars+1) or (NVars<1) then
     begin
@@ -254,12 +254,12 @@ var
     Sigmas : TReal1DArray;
     I : AlglibInteger;
     J : AlglibInteger;
-    V : Extended;
+    V : Double;
     Offs : AlglibInteger;
-    Mean : Extended;
-    Variance : Extended;
-    Skewness : Extended;
-    Kurtosis : Extended;
+    Mean : Double;
+    Variance : Double;
+    Skewness : Double;
+    Kurtosis : Double;
     i_ : AlglibInteger;
 begin
     
@@ -381,12 +381,12 @@ var
     C : TReal1DArray;
     I : AlglibInteger;
     J : AlglibInteger;
-    V : Extended;
+    V : Double;
     Offs : AlglibInteger;
-    Mean : Extended;
-    Variance : Extended;
-    Skewness : Extended;
-    Kurtosis : Extended;
+    Mean : Double;
+    Variance : Double;
+    Skewness : Double;
+    Kurtosis : Double;
     i_ : AlglibInteger;
 begin
     
@@ -506,7 +506,7 @@ procedure LRBuildZ(const XY : TReal2DArray;
 var
     S : TReal1DArray;
     I : AlglibInteger;
-    Sigma2 : Extended;
+    Sigma2 : Double;
 begin
     if (NPoints<=NVars+1) or (NVars<1) then
     begin
@@ -606,9 +606,9 @@ Result:
   -- ALGLIB --
      Copyright 03.09.2008 by Bochkanov Sergey
 *************************************************************************)
-function LRProcess(const LM : LinearModel; const X : TReal1DArray):Extended;
+function LRProcess(const LM : LinearModel; const X : TReal1DArray):Double;
 var
-    V : Extended;
+    V : Double;
     Offs : AlglibInteger;
     NVars : AlglibInteger;
 begin
@@ -636,10 +636,10 @@ RESULT:
 *************************************************************************)
 function LRRMSError(const LM : LinearModel;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Extended;
+     NPoints : AlglibInteger):Double;
 var
     I : AlglibInteger;
-    V : Extended;
+    V : Double;
     Offs : AlglibInteger;
     NVars : AlglibInteger;
 begin
@@ -675,10 +675,10 @@ RESULT:
 *************************************************************************)
 function LRAvgError(const LM : LinearModel;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Extended;
+     NPoints : AlglibInteger):Double;
 var
     I : AlglibInteger;
-    V : Extended;
+    V : Double;
     Offs : AlglibInteger;
     NVars : AlglibInteger;
 begin
@@ -714,11 +714,11 @@ RESULT:
 *************************************************************************)
 function LRAvgRelError(const LM : LinearModel;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Extended;
+     NPoints : AlglibInteger):Double;
 var
     I : AlglibInteger;
     K : AlglibInteger;
-    V : Extended;
+    V : Double;
     Offs : AlglibInteger;
     NVars : AlglibInteger;
 begin
@@ -817,24 +817,24 @@ procedure LRLineS(const XY : TReal2DArray;
      const S : TReal1DArray;
      N : AlglibInteger;
      var Info : AlglibInteger;
-     var A : Extended;
-     var B : Extended;
-     var VarA : Extended;
-     var VarB : Extended;
-     var CovAB : Extended;
-     var CorrAB : Extended;
-     var P : Extended);
+     var A : Double;
+     var B : Double;
+     var VarA : Double;
+     var VarB : Double;
+     var CovAB : Double;
+     var CorrAB : Double;
+     var P : Double);
 var
     I : AlglibInteger;
-    SS : Extended;
-    SX : Extended;
-    SXX : Extended;
-    SY : Extended;
-    STT : Extended;
-    E1 : Extended;
-    E2 : Extended;
-    T : Extended;
-    Chi2 : Extended;
+    SS : Double;
+    SX : Double;
+    SXX : Double;
+    SY : Double;
+    STT : Double;
+    E1 : Double;
+    E2 : Double;
+    T : Double;
+    Chi2 : Double;
 begin
     if N<2 then
     begin
@@ -932,16 +932,16 @@ end;
 procedure LRLine(const XY : TReal2DArray;
      N : AlglibInteger;
      var Info : AlglibInteger;
-     var A : Extended;
-     var B : Extended);
+     var A : Double;
+     var B : Double);
 var
     S : TReal1DArray;
     I : AlglibInteger;
-    VarA : Extended;
-    VarB : Extended;
-    CovAB : Extended;
-    CorrAB : Extended;
-    P : Extended;
+    VarA : Double;
+    VarB : Double;
+    CovAB : Double;
+    CorrAB : Double;
+    P : Double;
 begin
     if N<2 then
     begin
@@ -986,9 +986,9 @@ var
     NCV : AlglibInteger;
     NA : AlglibInteger;
     NACV : AlglibInteger;
-    R : Extended;
-    P : Extended;
-    EpsTol : Extended;
+    R : Double;
+    P : Double;
+    EpsTol : Double;
     AR2 : LRReport;
     Offs : AlglibInteger;
     TLM : LinearModel;

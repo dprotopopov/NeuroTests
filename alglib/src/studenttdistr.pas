@@ -28,8 +28,8 @@ unit studenttdistr;
 interface
 uses Math, Sysutils, Ap, gammafunc, normaldistr, ibetaf;
 
-function StudentTDistribution(k : AlglibInteger; t : Extended):Extended;
-function InvStudentTDistribution(k : AlglibInteger; p : Extended):Extended;
+function StudentTDistribution(k : AlglibInteger; t : Double):Double;
+function InvStudentTDistribution(k : AlglibInteger; p : Double):Double;
 
 implementation
 
@@ -74,15 +74,15 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1995, 2000 by Stephen L. Moshier
 *************************************************************************)
-function StudentTDistribution(k : AlglibInteger; t : Extended):Extended;
+function StudentTDistribution(k : AlglibInteger; t : Double):Double;
 var
-    x : Extended;
-    rk : Extended;
-    z : Extended;
-    f : Extended;
-    tz : Extended;
-    p : Extended;
-    xsqk : Extended;
+    x : Double;
+    rk : Double;
+    z : Double;
+    f : Double;
+    tz : Double;
+    p : Double;
+    xsqk : Double;
     j : AlglibInteger;
 begin
     Assert(k>0, 'Domain error in StudentTDistribution');
@@ -165,11 +165,11 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1995, 2000 by Stephen L. Moshier
 *************************************************************************)
-function InvStudentTDistribution(k : AlglibInteger; p : Extended):Extended;
+function InvStudentTDistribution(k : AlglibInteger; p : Double):Double;
 var
-    t : Extended;
-    rk : Extended;
-    z : Extended;
+    t : Double;
+    rk : Double;
+    z : Double;
     rflg : AlglibInteger;
 begin
     Assert((k>0) and AP_FP_Greater(p,0) and AP_FP_Less(p,1), 'Domain error in InvStudentTDistribution');

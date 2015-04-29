@@ -81,62 +81,62 @@ procedure PSpline3ParameterValues(const P : PSpline3Interpolant;
      var N : AlglibInteger;
      var T : TReal1DArray);
 procedure PSpline2Calc(const P : PSpline2Interpolant;
-     T : Extended;
-     var X : Extended;
-     var Y : Extended);
+     T : Double;
+     var X : Double;
+     var Y : Double);
 procedure PSpline3Calc(const P : PSpline3Interpolant;
-     T : Extended;
-     var X : Extended;
-     var Y : Extended;
-     var Z : Extended);
+     T : Double;
+     var X : Double;
+     var Y : Double;
+     var Z : Double);
 procedure PSpline2Tangent(const P : PSpline2Interpolant;
-     T : Extended;
-     var X : Extended;
-     var Y : Extended);
+     T : Double;
+     var X : Double;
+     var Y : Double);
 procedure PSpline3Tangent(const P : PSpline3Interpolant;
-     T : Extended;
-     var X : Extended;
-     var Y : Extended;
-     var Z : Extended);
+     T : Double;
+     var X : Double;
+     var Y : Double;
+     var Z : Double);
 procedure PSpline2Diff(const P : PSpline2Interpolant;
-     T : Extended;
-     var X : Extended;
-     var DX : Extended;
-     var Y : Extended;
-     var DY : Extended);
+     T : Double;
+     var X : Double;
+     var DX : Double;
+     var Y : Double;
+     var DY : Double);
 procedure PSpline3Diff(const P : PSpline3Interpolant;
-     T : Extended;
-     var X : Extended;
-     var DX : Extended;
-     var Y : Extended;
-     var DY : Extended;
-     var Z : Extended;
-     var DZ : Extended);
+     T : Double;
+     var X : Double;
+     var DX : Double;
+     var Y : Double;
+     var DY : Double;
+     var Z : Double;
+     var DZ : Double);
 procedure PSpline2Diff2(const P : PSpline2Interpolant;
-     T : Extended;
-     var X : Extended;
-     var DX : Extended;
-     var D2X : Extended;
-     var Y : Extended;
-     var DY : Extended;
-     var D2Y : Extended);
+     T : Double;
+     var X : Double;
+     var DX : Double;
+     var D2X : Double;
+     var Y : Double;
+     var DY : Double;
+     var D2Y : Double);
 procedure PSpline3Diff2(const P : PSpline3Interpolant;
-     T : Extended;
-     var X : Extended;
-     var DX : Extended;
-     var D2X : Extended;
-     var Y : Extended;
-     var DY : Extended;
-     var D2Y : Extended;
-     var Z : Extended;
-     var DZ : Extended;
-     var D2Z : Extended);
+     T : Double;
+     var X : Double;
+     var DX : Double;
+     var D2X : Double;
+     var Y : Double;
+     var DY : Double;
+     var D2Y : Double;
+     var Z : Double;
+     var DZ : Double;
+     var D2Z : Double);
 function PSpline2ArcLength(const P : PSpline2Interpolant;
-     A : Extended;
-     B : Extended):Extended;
+     A : Double;
+     B : Double):Double;
 function PSpline3ArcLength(const P : PSpline3Interpolant;
-     A : Extended;
-     B : Extended):Extended;
+     A : Double;
+     B : Double):Double;
 
 implementation
 
@@ -189,7 +189,7 @@ procedure PSpline2Build(XY : TReal2DArray;
      var P : PSpline2Interpolant);
 var
     Tmp : TReal1DArray;
-    V : Extended;
+    V : Double;
     I : AlglibInteger;
     i_ : AlglibInteger;
 begin
@@ -280,7 +280,7 @@ procedure PSpline3Build(XY : TReal2DArray;
      var P : PSpline3Interpolant);
 var
     Tmp : TReal1DArray;
-    V : Extended;
+    V : Double;
     I : AlglibInteger;
     i_ : AlglibInteger;
 begin
@@ -411,7 +411,7 @@ procedure PSpline2BuildPeriodic(XY : TReal2DArray;
 var
     XYP : TReal2DArray;
     Tmp : TReal1DArray;
-    V : Extended;
+    V : Double;
     I : AlglibInteger;
     i_ : AlglibInteger;
 begin
@@ -494,7 +494,7 @@ procedure PSpline3BuildPeriodic(XY : TReal2DArray;
 var
     XYP : TReal2DArray;
     Tmp : TReal1DArray;
-    V : Extended;
+    V : Double;
     I : AlglibInteger;
     i_ : AlglibInteger;
 begin
@@ -659,9 +659,9 @@ OUTPUT PARAMETERS:
      Copyright 28.05.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure PSpline2Calc(const P : PSpline2Interpolant;
-     T : Extended;
-     var X : Extended;
-     var Y : Extended);
+     T : Double;
+     var X : Double;
+     var Y : Double);
 begin
     if P.Periodic then
     begin
@@ -695,10 +695,10 @@ OUTPUT PARAMETERS:
      Copyright 28.05.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure PSpline3Calc(const P : PSpline3Interpolant;
-     T : Extended;
-     var X : Extended;
-     var Y : Extended;
-     var Z : Extended);
+     T : Double;
+     var X : Double;
+     var Y : Double;
+     var Z : Double);
 begin
     if P.Periodic then
     begin
@@ -734,13 +734,13 @@ NOTE:
      Copyright 28.05.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure PSpline2Tangent(const P : PSpline2Interpolant;
-     T : Extended;
-     var X : Extended;
-     var Y : Extended);
+     T : Double;
+     var X : Double;
+     var Y : Double);
 var
-    V : Extended;
-    V0 : Extended;
-    V1 : Extended;
+    V : Double;
+    V0 : Double;
+    V1 : Double;
 begin
     if P.Periodic then
     begin
@@ -786,15 +786,15 @@ NOTE:
      Copyright 28.05.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure PSpline3Tangent(const P : PSpline3Interpolant;
-     T : Extended;
-     var X : Extended;
-     var Y : Extended;
-     var Z : Extended);
+     T : Double;
+     var X : Double;
+     var Y : Double;
+     var Z : Double);
 var
-    V : Extended;
-    V0 : Extended;
-    V1 : Extended;
-    V2 : Extended;
+    V : Double;
+    V0 : Double;
+    V1 : Double;
+    V2 : Double;
 begin
     if P.Periodic then
     begin
@@ -834,13 +834,13 @@ OUTPUT PARAMETERS:
      Copyright 28.05.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure PSpline2Diff(const P : PSpline2Interpolant;
-     T : Extended;
-     var X : Extended;
-     var DX : Extended;
-     var Y : Extended;
-     var DY : Extended);
+     T : Double;
+     var X : Double;
+     var DX : Double;
+     var Y : Double;
+     var DY : Double);
 var
-    D2S : Extended;
+    D2S : Double;
 begin
     if P.Periodic then
     begin
@@ -876,15 +876,15 @@ OUTPUT PARAMETERS:
      Copyright 28.05.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure PSpline3Diff(const P : PSpline3Interpolant;
-     T : Extended;
-     var X : Extended;
-     var DX : Extended;
-     var Y : Extended;
-     var DY : Extended;
-     var Z : Extended;
-     var DZ : Extended);
+     T : Double;
+     var X : Double;
+     var DX : Double;
+     var Y : Double;
+     var DY : Double;
+     var Z : Double;
+     var DZ : Double);
 var
-    D2S : Extended;
+    D2S : Double;
 begin
     if P.Periodic then
     begin
@@ -921,13 +921,13 @@ OUTPUT PARAMETERS:
      Copyright 28.05.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure PSpline2Diff2(const P : PSpline2Interpolant;
-     T : Extended;
-     var X : Extended;
-     var DX : Extended;
-     var D2X : Extended;
-     var Y : Extended;
-     var DY : Extended;
-     var D2Y : Extended);
+     T : Double;
+     var X : Double;
+     var DX : Double;
+     var D2X : Double;
+     var Y : Double;
+     var DY : Double;
+     var D2Y : Double);
 begin
     if P.Periodic then
     begin
@@ -966,16 +966,16 @@ OUTPUT PARAMETERS:
      Copyright 28.05.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure PSpline3Diff2(const P : PSpline3Interpolant;
-     T : Extended;
-     var X : Extended;
-     var DX : Extended;
-     var D2X : Extended;
-     var Y : Extended;
-     var DY : Extended;
-     var D2Y : Extended;
-     var Z : Extended;
-     var DZ : Extended;
-     var D2Z : Extended);
+     T : Double;
+     var X : Double;
+     var DX : Double;
+     var D2X : Double;
+     var Y : Double;
+     var DY : Double;
+     var D2Y : Double;
+     var Z : Double;
+     var DZ : Double;
+     var D2Z : Double);
 begin
     if P.Periodic then
     begin
@@ -1005,17 +1005,17 @@ RESULT:
      Copyright 30.05.2010 by Bochkanov Sergey
 *************************************************************************)
 function PSpline2ArcLength(const P : PSpline2Interpolant;
-     A : Extended;
-     B : Extended):Extended;
+     A : Double;
+     B : Double):Double;
 var
     State : AutoGKState;
     Rep : AutoGKReport;
-    SX : Extended;
-    DSX : Extended;
-    D2SX : Extended;
-    SY : Extended;
-    DSY : Extended;
-    D2SY : Extended;
+    SX : Double;
+    DSX : Double;
+    D2SX : Double;
+    SY : Double;
+    DSY : Double;
+    D2SY : Double;
 begin
     AutoGKSmooth(A, B, State);
     while AutoGKIteration(State) do
@@ -1047,20 +1047,20 @@ RESULT:
      Copyright 30.05.2010 by Bochkanov Sergey
 *************************************************************************)
 function PSpline3ArcLength(const P : PSpline3Interpolant;
-     A : Extended;
-     B : Extended):Extended;
+     A : Double;
+     B : Double):Double;
 var
     State : AutoGKState;
     Rep : AutoGKReport;
-    SX : Extended;
-    DSX : Extended;
-    D2SX : Extended;
-    SY : Extended;
-    DSY : Extended;
-    D2SY : Extended;
-    SZ : Extended;
-    DSZ : Extended;
-    D2SZ : Extended;
+    SX : Double;
+    DSX : Double;
+    D2SX : Double;
+    SY : Double;
+    DSY : Double;
+    D2SY : Double;
+    SZ : Double;
+    DSZ : Double;
+    D2SZ : Double;
 begin
     AutoGKSmooth(A, B, State);
     while AutoGKIteration(State) do
@@ -1083,7 +1083,7 @@ procedure PSpline2Par(const XY : TReal2DArray;
      PT : AlglibInteger;
      var P : TReal1DArray);
 var
-    V : Extended;
+    V : Double;
     I : AlglibInteger;
 begin
     Assert((PT>=0) and (PT<=2), 'PSpline2Par: internal error!');
@@ -1136,7 +1136,7 @@ procedure PSpline3Par(const XY : TReal2DArray;
      PT : AlglibInteger;
      var P : TReal1DArray);
 var
-    V : Extended;
+    V : Double;
     I : AlglibInteger;
 begin
     Assert((PT>=0) and (PT<=2), 'PSpline3Par: internal error!');

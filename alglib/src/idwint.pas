@@ -29,7 +29,7 @@ IDWInterpolant = record
     N : AlglibInteger;
     NX : AlglibInteger;
     D : AlglibInteger;
-    R : Extended;
+    R : Double;
     NW : AlglibInteger;
     Tree : KDTree;
     ModelType : AlglibInteger;
@@ -39,13 +39,13 @@ IDWInterpolant = record
     RBuf : TReal1DArray;
     XYBuf : TReal2DArray;
     DebugSolverFailures : AlglibInteger;
-    DebugWorstRCond : Extended;
-    DebugBestRCond : Extended;
+    DebugWorstRCond : Double;
+    DebugBestRCond : Double;
 end;
 
 
 
-function IDWCalc(var Z : IDWInterpolant; const X : TReal1DArray):Extended;
+function IDWCalc(var Z : IDWInterpolant; const X : TReal1DArray):Double;
 procedure IDWBuildModifiedShepard(const XY : TReal2DArray;
      N : AlglibInteger;
      NX : AlglibInteger;
@@ -56,7 +56,7 @@ procedure IDWBuildModifiedShepard(const XY : TReal2DArray;
 procedure IDWBuildModifiedShepardR(const XY : TReal2DArray;
      N : AlglibInteger;
      NX : AlglibInteger;
-     R : Extended;
+     R : Double;
      var Z : IDWInterpolant);
 procedure IDWBuildNoisy(const XY : TReal2DArray;
      N : AlglibInteger;
@@ -74,7 +74,7 @@ const
 
 function IDWCalcQ(var Z : IDWInterpolant;
      const X : TReal1DArray;
-     K : AlglibInteger):Extended;forward;
+     K : AlglibInteger):Double;forward;
 procedure IDWInit1(N : AlglibInteger;
      NX : AlglibInteger;
      D : AlglibInteger;
@@ -89,7 +89,7 @@ procedure IDWInternalSolver(var Y : TReal1DArray;
      M : AlglibInteger;
      var Info : AlglibInteger;
      var X : TReal1DArray;
-     var TaskRCond : Extended);forward;
+     var TaskRCond : Double);forward;
 
 
 (*************************************************************************
@@ -106,19 +106,19 @@ Result:
   -- ALGLIB --
      Copyright 02.03.2010 by Bochkanov Sergey
 *************************************************************************)
-function IDWCalc(var Z : IDWInterpolant; const X : TReal1DArray):Extended;
+function IDWCalc(var Z : IDWInterpolant; const X : TReal1DArray):Double;
 var
     NX : AlglibInteger;
     I : AlglibInteger;
     K : AlglibInteger;
-    R : Extended;
-    S : Extended;
-    W : Extended;
-    V1 : Extended;
-    V2 : Extended;
-    D0 : Extended;
-    DI : Extended;
-    V : Extended;
+    R : Double;
+    S : Double;
+    W : Double;
+    V1 : Double;
+    V2 : Double;
+    D0 : Double;
+    DI : Double;
+    V : Double;
 begin
     if Z.ModelType=0 then
     begin
@@ -274,13 +274,13 @@ var
     K : AlglibInteger;
     J2 : AlglibInteger;
     J3 : AlglibInteger;
-    V : Extended;
-    R : Extended;
-    S : Extended;
-    D0 : Extended;
-    DI : Extended;
-    V1 : Extended;
-    V2 : Extended;
+    V : Double;
+    R : Double;
+    S : Double;
+    D0 : Double;
+    DI : Double;
+    V1 : Double;
+    V2 : Double;
     NC : AlglibInteger;
     Offs : AlglibInteger;
     X : TReal1DArray;
@@ -293,7 +293,7 @@ var
     Temp : TReal1DArray;
     Tags : TInteger1DArray;
     Info : AlglibInteger;
-    TaskRCond : Extended;
+    TaskRCond : Double;
 begin
     
     //
@@ -630,7 +630,7 @@ NOTES:
 procedure IDWBuildModifiedShepardR(const XY : TReal2DArray;
      N : AlglibInteger;
      NX : AlglibInteger;
-     R : Extended;
+     R : Double;
      var Z : IDWInterpolant);
 var
     I : AlglibInteger;
@@ -751,10 +751,10 @@ var
     K : AlglibInteger;
     J2 : AlglibInteger;
     J3 : AlglibInteger;
-    V : Extended;
+    V : Double;
     NC : AlglibInteger;
     Offs : AlglibInteger;
-    TaskRCond : Extended;
+    TaskRCond : Double;
     X : TReal1DArray;
     QRBuf : TReal1DArray;
     QXYBuf : TReal2DArray;
@@ -977,7 +977,7 @@ Internal subroutine: K-th nodal function calculation
 *************************************************************************)
 function IDWCalcQ(var Z : IDWInterpolant;
      const X : TReal1DArray;
-     K : AlglibInteger):Extended;
+     K : AlglibInteger):Double;
 var
     NX : AlglibInteger;
     I : AlglibInteger;
@@ -1106,12 +1106,12 @@ procedure IDWInternalSolver(var Y : TReal1DArray;
      M : AlglibInteger;
      var Info : AlglibInteger;
      var X : TReal1DArray;
-     var TaskRCond : Extended);
+     var TaskRCond : Double);
 var
     I : AlglibInteger;
     J : AlglibInteger;
-    V : Extended;
-    Tau : Extended;
+    V : Double;
+    Tau : Double;
     B : TReal1DArray;
     SRep : DenseSolverLSReport;
     i_ : AlglibInteger;

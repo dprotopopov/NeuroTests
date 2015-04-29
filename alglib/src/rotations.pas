@@ -45,11 +45,11 @@ procedure ApplyRotationsFromTheRight(IsForward : Boolean;
      const S : TReal1DArray;
      var A : TReal2DArray;
      var WORK : TReal1DArray);
-procedure GenerateRotation(F : Extended;
-     G : Extended;
-     var CS : Extended;
-     var SN : Extended;
-     var R : Extended);
+procedure GenerateRotation(F : Double;
+     G : Double;
+     var CS : Double;
+     var SN : Double;
+     var R : Double);
 
 implementation
 
@@ -90,9 +90,9 @@ procedure ApplyRotationsFromTheLeft(IsForward : Boolean;
 var
     J : AlglibInteger;
     JP1 : AlglibInteger;
-    CTEMP : Extended;
-    STEMP : Extended;
-    TEMP : Extended;
+    CTEMP : Double;
+    STEMP : Double;
+    TEMP : Double;
 begin
     if (M1>M2) or (N1>N2) then
     begin
@@ -234,9 +234,9 @@ procedure ApplyRotationsFromTheRight(IsForward : Boolean;
 var
     J : AlglibInteger;
     JP1 : AlglibInteger;
-    CTEMP : Extended;
-    STEMP : Extended;
-    TEMP : Extended;
+    CTEMP : Double;
+    STEMP : Double;
+    TEMP : Double;
     i_ : AlglibInteger;
 begin
     
@@ -376,14 +376,14 @@ The subroutine generates the elementary rotation, so that:
 
 CS**2 + SN**2 = 1
 *************************************************************************)
-procedure GenerateRotation(F : Extended;
-     G : Extended;
-     var CS : Extended;
-     var SN : Extended;
-     var R : Extended);
+procedure GenerateRotation(F : Double;
+     G : Double;
+     var CS : Double;
+     var SN : Double;
+     var R : Double);
 var
-    F1 : Extended;
-    G1 : Extended;
+    F1 : Double;
+    G1 : Double;
 begin
     if AP_FP_Eq(G,0) then
     begin

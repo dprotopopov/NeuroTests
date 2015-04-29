@@ -148,24 +148,24 @@ procedure RMatrixLeftTRSM(M : AlglibInteger;
      J2 : AlglibInteger);
 procedure CMatrixSYRK(N : AlglibInteger;
      K : AlglibInteger;
-     Alpha : Extended;
+     Alpha : Double;
      const A : TComplex2DArray;
      IA : AlglibInteger;
      JA : AlglibInteger;
      OpTypeA : AlglibInteger;
-     Beta : Extended;
+     Beta : Double;
      var C : TComplex2DArray;
      IC : AlglibInteger;
      JC : AlglibInteger;
      IsUpper : Boolean);
 procedure RMatrixSYRK(N : AlglibInteger;
      K : AlglibInteger;
-     Alpha : Extended;
+     Alpha : Double;
      const A : TReal2DArray;
      IA : AlglibInteger;
      JA : AlglibInteger;
      OpTypeA : AlglibInteger;
-     Beta : Extended;
+     Beta : Double;
      var C : TReal2DArray;
      IC : AlglibInteger;
      JC : AlglibInteger;
@@ -189,7 +189,7 @@ procedure CMatrixGEMM(M : AlglibInteger;
 procedure RMatrixGEMM(M : AlglibInteger;
      N : AlglibInteger;
      K : AlglibInteger;
-     Alpha : Extended;
+     Alpha : Double;
      const A : TReal2DArray;
      IA : AlglibInteger;
      JA : AlglibInteger;
@@ -198,7 +198,7 @@ procedure RMatrixGEMM(M : AlglibInteger;
      IB : AlglibInteger;
      JB : AlglibInteger;
      OpTypeB : AlglibInteger;
-     Beta : Extended;
+     Beta : Double;
      var C : TReal2DArray;
      IC : AlglibInteger;
      JC : AlglibInteger);
@@ -255,24 +255,24 @@ procedure RMatrixLeftTRSM2(M : AlglibInteger;
      J2 : AlglibInteger);forward;
 procedure CMatrixSYRK2(N : AlglibInteger;
      K : AlglibInteger;
-     Alpha : Extended;
+     Alpha : Double;
      const A : TComplex2DArray;
      IA : AlglibInteger;
      JA : AlglibInteger;
      OpTypeA : AlglibInteger;
-     Beta : Extended;
+     Beta : Double;
      var C : TComplex2DArray;
      IC : AlglibInteger;
      JC : AlglibInteger;
      IsUpper : Boolean);forward;
 procedure RMatrixSYRK2(N : AlglibInteger;
      K : AlglibInteger;
-     Alpha : Extended;
+     Alpha : Double;
      const A : TReal2DArray;
      IA : AlglibInteger;
      JA : AlglibInteger;
      OpTypeA : AlglibInteger;
-     Beta : Extended;
+     Beta : Double;
      var C : TReal2DArray;
      IC : AlglibInteger;
      JC : AlglibInteger;
@@ -296,7 +296,7 @@ procedure CMatrixGEMMK(M : AlglibInteger;
 procedure RMatrixGEMMK(M : AlglibInteger;
      N : AlglibInteger;
      K : AlglibInteger;
-     Alpha : Extended;
+     Alpha : Double;
      const A : TReal2DArray;
      IA : AlglibInteger;
      JA : AlglibInteger;
@@ -305,7 +305,7 @@ procedure RMatrixGEMMK(M : AlglibInteger;
      IB : AlglibInteger;
      JB : AlglibInteger;
      OpTypeB : AlglibInteger;
-     Beta : Extended;
+     Beta : Double;
      var C : TReal2DArray;
      IC : AlglibInteger;
      JC : AlglibInteger);forward;
@@ -696,7 +696,7 @@ procedure RMatrixRank1(M : AlglibInteger;
      IV : AlglibInteger);
 var
     I : AlglibInteger;
-    S : Extended;
+    S : Double;
 begin
     if (M=0) or (N=0) then
     begin
@@ -894,7 +894,7 @@ procedure RMatrixMV(M : AlglibInteger;
      IY : AlglibInteger);
 var
     I : AlglibInteger;
-    V : Extended;
+    V : Double;
 begin
     if M=0 then
     begin
@@ -1456,12 +1456,12 @@ INPUT PARAMETERS
 *************************************************************************)
 procedure CMatrixSYRK(N : AlglibInteger;
      K : AlglibInteger;
-     Alpha : Extended;
+     Alpha : Double;
      const A : TComplex2DArray;
      IA : AlglibInteger;
      JA : AlglibInteger;
      OpTypeA : AlglibInteger;
-     Beta : Extended;
+     Beta : Double;
      var C : TComplex2DArray;
      IC : AlglibInteger;
      JC : AlglibInteger;
@@ -1545,12 +1545,12 @@ OpType may be only 0 or 1.
 *************************************************************************)
 procedure RMatrixSYRK(N : AlglibInteger;
      K : AlglibInteger;
-     Alpha : Extended;
+     Alpha : Double;
      const A : TReal2DArray;
      IA : AlglibInteger;
      JA : AlglibInteger;
      OpTypeA : AlglibInteger;
-     Beta : Extended;
+     Beta : Double;
      var C : TReal2DArray;
      IC : AlglibInteger;
      JC : AlglibInteger;
@@ -1772,7 +1772,7 @@ OpType may be only 0 or 1.
 procedure RMatrixGEMM(M : AlglibInteger;
      N : AlglibInteger;
      K : AlglibInteger;
-     Alpha : Extended;
+     Alpha : Double;
      const A : TReal2DArray;
      IA : AlglibInteger;
      JA : AlglibInteger;
@@ -1781,7 +1781,7 @@ procedure RMatrixGEMM(M : AlglibInteger;
      IB : AlglibInteger;
      JB : AlglibInteger;
      OpTypeB : AlglibInteger;
-     Beta : Extended;
+     Beta : Double;
      var C : TReal2DArray;
      IC : AlglibInteger;
      JC : AlglibInteger);
@@ -2476,8 +2476,8 @@ procedure RMatrixRightTRSM2(M : AlglibInteger;
 var
     I : AlglibInteger;
     J : AlglibInteger;
-    VR : Extended;
-    VD : Extended;
+    VR : Double;
+    VD : Double;
 begin
     
     //
@@ -2655,8 +2655,8 @@ procedure RMatrixLeftTRSM2(M : AlglibInteger;
 var
     I : AlglibInteger;
     J : AlglibInteger;
-    VR : Extended;
-    VD : Extended;
+    VR : Double;
+    VD : Double;
 begin
     
     //
@@ -2812,12 +2812,12 @@ Level 2 subroutine
 *************************************************************************)
 procedure CMatrixSYRK2(N : AlglibInteger;
      K : AlglibInteger;
-     Alpha : Extended;
+     Alpha : Double;
      const A : TComplex2DArray;
      IA : AlglibInteger;
      JA : AlglibInteger;
      OpTypeA : AlglibInteger;
-     Beta : Extended;
+     Beta : Double;
      var C : TComplex2DArray;
      IC : AlglibInteger;
      JC : AlglibInteger;
@@ -2972,12 +2972,12 @@ Level 2 subrotuine
 *************************************************************************)
 procedure RMatrixSYRK2(N : AlglibInteger;
      K : AlglibInteger;
-     Alpha : Extended;
+     Alpha : Double;
      const A : TReal2DArray;
      IA : AlglibInteger;
      JA : AlglibInteger;
      OpTypeA : AlglibInteger;
-     Beta : Extended;
+     Beta : Double;
      var C : TReal2DArray;
      IC : AlglibInteger;
      JC : AlglibInteger;
@@ -2987,7 +2987,7 @@ var
     J : AlglibInteger;
     J1 : AlglibInteger;
     J2 : AlglibInteger;
-    V : Extended;
+    V : Double;
 begin
     
     //
@@ -3442,7 +3442,7 @@ GEMM kernel
 procedure RMatrixGEMMK(M : AlglibInteger;
      N : AlglibInteger;
      K : AlglibInteger;
-     Alpha : Extended;
+     Alpha : Double;
      const A : TReal2DArray;
      IA : AlglibInteger;
      JA : AlglibInteger;
@@ -3451,14 +3451,14 @@ procedure RMatrixGEMMK(M : AlglibInteger;
      IB : AlglibInteger;
      JB : AlglibInteger;
      OpTypeB : AlglibInteger;
-     Beta : Extended;
+     Beta : Double;
      var C : TReal2DArray;
      IC : AlglibInteger;
      JC : AlglibInteger);
 var
     I : AlglibInteger;
     J : AlglibInteger;
-    V : Extended;
+    V : Double;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin

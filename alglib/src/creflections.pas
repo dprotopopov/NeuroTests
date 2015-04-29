@@ -91,13 +91,13 @@ procedure ComplexGenerateReflection(var X : TComplex1DArray;
 var
     J : AlglibInteger;
     ALPHA : Complex;
-    ALPHI : Extended;
-    ALPHR : Extended;
-    BETA : Extended;
-    XNORM : Extended;
-    MX : Extended;
+    ALPHI : Double;
+    ALPHR : Double;
+    BETA : Double;
+    XNORM : Double;
+    MX : Double;
     T : Complex;
-    S : Extended;
+    S : Double;
     V : Complex;
     i_ : AlglibInteger;
 begin

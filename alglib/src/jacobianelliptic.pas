@@ -28,12 +28,12 @@ unit jacobianelliptic;
 interface
 uses Math, Sysutils, Ap;
 
-procedure JacobianEllipticFunctions(u : Extended;
-     m : Extended;
-     var sn : Extended;
-     var cn : Extended;
-     var dn : Extended;
-     var ph : Extended);
+procedure JacobianEllipticFunctions(u : Double;
+     m : Double;
+     var sn : Double;
+     var cn : Double;
+     var dn : Double;
+     var ph : Double);
 
 implementation
 
@@ -77,18 +77,18 @@ Accuracy deteriorates when u is large.
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-procedure JacobianEllipticFunctions(u : Extended;
-     m : Extended;
-     var sn : Extended;
-     var cn : Extended;
-     var dn : Extended;
-     var ph : Extended);
+procedure JacobianEllipticFunctions(u : Double;
+     m : Double;
+     var sn : Double;
+     var cn : Double;
+     var dn : Double;
+     var ph : Double);
 var
-    ai : Extended;
-    b : Extended;
-    phi : Extended;
-    t : Extended;
-    twon : Extended;
+    ai : Double;
+    b : Double;
+    phi : Double;
+    t : Double;
+    twon : Double;
     a : TReal1DArray;
     c : TReal1DArray;
     i : AlglibInteger;

@@ -28,7 +28,7 @@ unit dawson;
 interface
 uses Math, Sysutils, Ap;
 
-function DawsonIntegral(X : Extended):Extended;
+function DawsonIntegral(X : Double):Double;
 
 implementation
 
@@ -57,17 +57,17 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1989, 2000 by Stephen L. Moshier
 *************************************************************************)
-function DawsonIntegral(X : Extended):Extended;
+function DawsonIntegral(X : Double):Double;
 var
-    X2 : Extended;
-    Y : Extended;
+    X2 : Double;
+    Y : Double;
     Sg : AlglibInteger;
-    AN : Extended;
-    AD : Extended;
-    BN : Extended;
-    BD : Extended;
-    CN : Extended;
-    CD : Extended;
+    AN : Double;
+    AD : Double;
+    BN : Double;
+    BD : Double;
+    CN : Double;
+    CD : Double;
 begin
     Sg := 1;
     if AP_FP_Less(X,0) then

@@ -26,16 +26,16 @@ MinLMState = record
     WrongParams : Boolean;
     N : AlglibInteger;
     M : AlglibInteger;
-    EpsG : Extended;
-    EpsF : Extended;
-    EpsX : Extended;
+    EpsG : Double;
+    EpsF : Double;
+    EpsX : Double;
     MaxIts : AlglibInteger;
     XRep : Boolean;
-    StpMax : Extended;
+    StpMax : Double;
     Flags : AlglibInteger;
     UserMode : AlglibInteger;
     X : TReal1DArray;
-    F : Extended;
+    F : Double;
     FI : TReal1DArray;
     J : TReal2DArray;
     H : TReal2DArray;
@@ -52,7 +52,7 @@ MinLMState = record
     XDir : TReal1DArray;
     GBase : TReal1DArray;
     XPrev : TReal1DArray;
-    FPrev : Extended;
+    FPrev : Double;
     RawModel : TReal2DArray;
     Model : TReal2DArray;
     WORK : TReal1DArray;
@@ -95,12 +95,12 @@ procedure MinLMCreateFJ(const N : AlglibInteger;
      const X : TReal1DArray;
      var State : MinLMState);
 procedure MinLMSetCond(var State : MinLMState;
-     EpsG : Extended;
-     EpsF : Extended;
-     EpsX : Extended;
+     EpsG : Double;
+     EpsF : Double;
+     EpsX : Double;
      MaxIts : AlglibInteger);
 procedure MinLMSetXRep(var State : MinLMState; NeedXRep : Boolean);
-procedure MinLMSetStpMax(var State : MinLMState; StpMax : Extended);
+procedure MinLMSetStpMax(var State : MinLMState; StpMax : Double);
 function MinLMIteration(var State : MinLMState):Boolean;
 procedure MinLMResults(const State : MinLMState;
      var X : TReal1DArray;
@@ -123,12 +123,12 @@ procedure LMPrepare(N : AlglibInteger;
      HaveGrad : Boolean;
      var State : MinLMState);forward;
 procedure LMClearRequestFields(var State : MinLMState);forward;
-function IncreaseLambda(var Lambda : Extended;
-     var Nu : Extended;
-     LambdaUp : Extended):Boolean;forward;
-procedure DecreaseLambda(var Lambda : Extended;
-     var Nu : Extended;
-     LambdaDown : Extended);forward;
+function IncreaseLambda(var Lambda : Double;
+     var Nu : Double;
+     LambdaUp : Double):Boolean;forward;
+procedure DecreaseLambda(var Lambda : Double;
+     var Nu : Double;
+     LambdaDown : Double);forward;
 
 
 (*************************************************************************
@@ -388,9 +388,9 @@ automatic stopping criterion selection (small EpsX).
      Copyright 02.04.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure MinLMSetCond(var State : MinLMState;
-     EpsG : Extended;
-     EpsF : Extended;
-     EpsX : Extended;
+     EpsG : Double;
+     EpsF : Double;
+     EpsX : Double;
      MaxIts : AlglibInteger);
 begin
     Assert(AP_FP_Greater_Eq(EpsG,0), 'MinLMSetCond: negative EpsG!');
@@ -457,7 +457,7 @@ with limits on step size.
   -- ALGLIB --
      Copyright 02.04.2010 by Bochkanov Sergey
 *************************************************************************)
-procedure MinLMSetStpMax(var State : MinLMState; StpMax : Extended);
+procedure MinLMSetStpMax(var State : MinLMState; StpMax : Double);
 begin
     Assert(AP_FP_Greater_Eq(StpMax,0), 'MinLMSetStpMax: StpMax<0!');
     State.StpMax := StpMax;
@@ -506,16 +506,16 @@ var
     N : AlglibInteger;
     M : AlglibInteger;
     I : AlglibInteger;
-    StepNorm : Extended;
+    StepNorm : Double;
     SPD : Boolean;
-    FBase : Extended;
-    FNew : Extended;
-    Lambda : Extended;
-    Nu : Extended;
-    LambdaUp : Extended;
-    LambdaDown : Extended;
+    FBase : Double;
+    FNew : Double;
+    Lambda : Double;
+    Nu : Double;
+    LambdaUp : Double;
+    LambdaDown : Double;
     LBFGSFlags : AlglibInteger;
-    V : Extended;
+    V : Double;
 label
 lbl_18, lbl_0, lbl_20, lbl_1, lbl_22, lbl_19, lbl_16, lbl_2, lbl_3, lbl_24, lbl_17, lbl_4, lbl_26, lbl_5, lbl_28, lbl_30, lbl_34, lbl_6, lbl_35, lbl_32, lbl_38, lbl_7, lbl_39, lbl_36, lbl_42, lbl_8, lbl_43, lbl_40, lbl_9, lbl_46, lbl_10, lbl_47, lbl_44, lbl_52, lbl_11, lbl_53, lbl_50, lbl_48, lbl_12, lbl_54, lbl_13, lbl_56, lbl_14, lbl_58, lbl_31, lbl_15, lbl_60, lbl_rcomm;
 begin
@@ -1261,14 +1261,14 @@ end;
 (*************************************************************************
 Increases lambda, returns False when there is a danger of overflow
 *************************************************************************)
-function IncreaseLambda(var Lambda : Extended;
-     var Nu : Extended;
-     LambdaUp : Extended):Boolean;
+function IncreaseLambda(var Lambda : Double;
+     var Nu : Double;
+     LambdaUp : Double):Boolean;
 var
-    LnLambda : Extended;
-    LnNu : Extended;
-    LnLambdaUp : Extended;
-    LnMax : Extended;
+    LnLambda : Double;
+    LnNu : Double;
+    LnLambdaUp : Double;
+    LnMax : Double;
 begin
     Result := False;
     LnLambda := Ln(Lambda);
@@ -1292,9 +1292,9 @@ end;
 (*************************************************************************
 Decreases lambda, but leaves it unchanged when there is danger of underflow.
 *************************************************************************)
-procedure DecreaseLambda(var Lambda : Extended;
-     var Nu : Extended;
-     LambdaDown : Extended);
+procedure DecreaseLambda(var Lambda : Double;
+     var Nu : Double;
+     LambdaDown : Double);
 begin
     Nu := 1;
     if AP_FP_Less(Ln(Lambda)+Ln(LambdaDown),Ln(MinRealNumber)) then

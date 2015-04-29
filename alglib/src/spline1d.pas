@@ -43,11 +43,11 @@ Spline fitting report:
     MaxError        maximum error
 *************************************************************************)
 Spline1DFitReport = record
-    TaskRCond : Extended;
-    RMSError : Extended;
-    AvgError : Extended;
-    AvgRelError : Extended;
-    MaxError : Extended;
+    TaskRCond : Double;
+    RMSError : Double;
+    AvgError : Double;
+    AvgRelError : Double;
+    MaxError : Double;
 end;
 
 
@@ -60,15 +60,15 @@ procedure Spline1DBuildCubic(X : TReal1DArray;
      Y : TReal1DArray;
      N : AlglibInteger;
      BoundLType : AlglibInteger;
-     BoundL : Extended;
+     BoundL : Double;
      BoundRType : AlglibInteger;
-     BoundR : Extended;
+     BoundR : Double;
      var C : Spline1DInterpolant);
 procedure Spline1DBuildCatmullRom(X : TReal1DArray;
      Y : TReal1DArray;
      N : AlglibInteger;
      BoundType : AlglibInteger;
-     Tension : Extended;
+     Tension : Double;
      var C : Spline1DInterpolant);
 procedure Spline1DBuildHermite(X : TReal1DArray;
      Y : TReal1DArray;
@@ -117,24 +117,24 @@ procedure Spline1DFitHermite(const X : TReal1DArray;
      var Info : AlglibInteger;
      var S : Spline1DInterpolant;
      var Rep : Spline1DFitReport);
-function Spline1DCalc(const C : Spline1DInterpolant; X : Extended):Extended;
+function Spline1DCalc(const C : Spline1DInterpolant; X : Double):Double;
 procedure Spline1DDiff(const C : Spline1DInterpolant;
-     X : Extended;
-     var S : Extended;
-     var DS : Extended;
-     var D2S : Extended);
+     X : Double;
+     var S : Double;
+     var DS : Double;
+     var D2S : Double);
 procedure Spline1DCopy(const C : Spline1DInterpolant;
      var CC : Spline1DInterpolant);
 procedure Spline1DUnpack(const C : Spline1DInterpolant;
      var N : AlglibInteger;
      var Tbl : TReal2DArray);
 procedure Spline1DLinTransX(var C : Spline1DInterpolant;
-     A : Extended;
-     B : Extended);
+     A : Double;
+     B : Double);
 procedure Spline1DLinTransY(var C : Spline1DInterpolant;
-     A : Extended;
-     B : Extended);
-function Spline1DIntegrate(const C : Spline1DInterpolant; X : Extended):Extended;
+     A : Double;
+     B : Double);
+function Spline1DIntegrate(const C : Spline1DInterpolant; X : Double):Double;
 
 implementation
 
@@ -173,13 +173,13 @@ procedure SolveCyclicTridiagonal(const A : TReal1DArray;
      const D : TReal1DArray;
      N : AlglibInteger;
      var X : TReal1DArray);forward;
-function DiffThreePoint(T : Extended;
-     X0 : Extended;
-     F0 : Extended;
-     X1 : Extended;
-     F1 : Extended;
-     X2 : Extended;
-     F2 : Extended):Extended;forward;
+function DiffThreePoint(T : Double;
+     X0 : Double;
+     F0 : Double;
+     X1 : Double;
+     F1 : Double;
+     X2 : Double;
+     F2 : Double):Double;forward;
 
 
 (*************************************************************************
@@ -291,9 +291,9 @@ procedure Spline1DBuildCubic(X : TReal1DArray;
      Y : TReal1DArray;
      N : AlglibInteger;
      BoundLType : AlglibInteger;
-     BoundL : Extended;
+     BoundL : Double;
      BoundRType : AlglibInteger;
-     BoundR : Extended;
+     BoundR : Double;
      var C : Spline1DInterpolant);
 var
     A1 : TReal1DArray;
@@ -303,7 +303,7 @@ var
     D : TReal1DArray;
     DT : TReal1DArray;
     I : AlglibInteger;
-    V : Extended;
+    V : Double;
 begin
     X := DynamicArrayCopy(X);
     Y := DynamicArrayCopy(Y);
@@ -526,7 +526,7 @@ procedure Spline1DBuildCatmullRom(X : TReal1DArray;
      Y : TReal1DArray;
      N : AlglibInteger;
      BoundType : AlglibInteger;
-     Tension : Extended;
+     Tension : Double;
      var C : Spline1DInterpolant);
 var
     A1 : TReal1DArray;
@@ -536,7 +536,7 @@ var
     D : TReal1DArray;
     DT : TReal1DArray;
     I : AlglibInteger;
-    V : Extended;
+    V : Double;
 begin
     X := DynamicArrayCopy(X);
     Y := DynamicArrayCopy(Y);
@@ -654,9 +654,9 @@ procedure Spline1DBuildHermite(X : TReal1DArray;
      var C : Spline1DInterpolant);
 var
     I : AlglibInteger;
-    Delta : Extended;
-    Delta2 : Extended;
-    Delta3 : Extended;
+    Delta : Double;
+    Delta2 : Double;
+    Delta3 : Double;
 begin
     X := DynamicArrayCopy(X);
     Y := DynamicArrayCopy(Y);
@@ -1099,12 +1099,12 @@ Result:
   -- ALGLIB PROJECT --
      Copyright 23.06.2007 by Bochkanov Sergey
 *************************************************************************)
-function Spline1DCalc(const C : Spline1DInterpolant; X : Extended):Extended;
+function Spline1DCalc(const C : Spline1DInterpolant; X : Double):Double;
 var
     L : AlglibInteger;
     R : AlglibInteger;
     M : AlglibInteger;
-    T : Extended;
+    T : Double;
 begin
     Assert(C.K=3, 'Spline1DCalc: internal error');
     
@@ -1159,15 +1159,15 @@ Result:
      Copyright 24.06.2007 by Bochkanov Sergey
 *************************************************************************)
 procedure Spline1DDiff(const C : Spline1DInterpolant;
-     X : Extended;
-     var S : Extended;
-     var DS : Extended;
-     var D2S : Extended);
+     X : Double;
+     var S : Double;
+     var DS : Double;
+     var D2S : Double);
 var
     L : AlglibInteger;
     R : AlglibInteger;
     M : AlglibInteger;
-    T : Extended;
+    T : Double;
 begin
     Assert(C.K=3, 'Spline1DCalc: internal error');
     
@@ -1298,15 +1298,15 @@ Result:
      Copyright 30.06.2007 by Bochkanov Sergey
 *************************************************************************)
 procedure Spline1DLinTransX(var C : Spline1DInterpolant;
-     A : Extended;
-     B : Extended);
+     A : Double;
+     B : Double);
 var
     I : AlglibInteger;
     J : AlglibInteger;
     N : AlglibInteger;
-    V : Extended;
-    DV : Extended;
-    D2V : Extended;
+    V : Double;
+    DV : Double;
+    D2V : Double;
     X : TReal1DArray;
     Y : TReal1DArray;
     D : TReal1DArray;
@@ -1370,8 +1370,8 @@ Result:
      Copyright 30.06.2007 by Bochkanov Sergey
 *************************************************************************)
 procedure Spline1DLinTransY(var C : Spline1DInterpolant;
-     A : Extended;
-     B : Extended);
+     A : Double;
+     B : Double);
 var
     I : AlglibInteger;
     J : AlglibInteger;
@@ -1406,7 +1406,7 @@ Result:
   -- ALGLIB PROJECT --
      Copyright 23.06.2007 by Bochkanov Sergey
 *************************************************************************)
-function Spline1DIntegrate(const C : Spline1DInterpolant; X : Extended):Extended;
+function Spline1DIntegrate(const C : Spline1DInterpolant; X : Double):Double;
 var
     N : AlglibInteger;
     I : AlglibInteger;
@@ -1414,11 +1414,11 @@ var
     L : AlglibInteger;
     R : AlglibInteger;
     M : AlglibInteger;
-    W : Extended;
-    V : Extended;
-    T : Extended;
-    IntAB : Extended;
-    AdditionalTerm : Extended;
+    W : Double;
+    V : Double;
+    T : Double;
+    IntAB : Double;
+    AdditionalTerm : Double;
 begin
     N := C.N;
     
@@ -1551,21 +1551,21 @@ var
     XOriginal : TReal1DArray;
     YOriginal : TReal1DArray;
     LRep : LSFitReport;
-    V0 : Extended;
-    V1 : Extended;
-    V2 : Extended;
-    MX : Extended;
+    V0 : Double;
+    V1 : Double;
+    V2 : Double;
+    MX : Double;
     S2 : Spline1DInterpolant;
     I : AlglibInteger;
     J : AlglibInteger;
     RelCnt : AlglibInteger;
-    XA : Extended;
-    XB : Extended;
-    SA : Extended;
-    SB : Extended;
-    BL : Extended;
-    BR : Extended;
-    Decay : Extended;
+    XA : Double;
+    XB : Double;
+    SA : Double;
+    SB : Double;
+    BL : Double;
+    BR : Double;
+    Decay : Double;
 begin
     X := DynamicArrayCopy(X);
     Y := DynamicArrayCopy(Y);
@@ -1906,7 +1906,7 @@ var
     J : AlglibInteger;
     K : AlglibInteger;
     T : AlglibInteger;
-    Tmp : Extended;
+    Tmp : Double;
     IsAscending : Boolean;
     IsDescending : Boolean;
 begin
@@ -2040,7 +2040,7 @@ var
     J : AlglibInteger;
     K : AlglibInteger;
     T : AlglibInteger;
-    Tmp : Extended;
+    Tmp : Double;
     IsAscending : Boolean;
     IsDescending : Boolean;
 begin
@@ -2194,7 +2194,7 @@ procedure SolveTridiagonal(A : TReal1DArray;
      var X : TReal1DArray);
 var
     K : AlglibInteger;
-    T : Extended;
+    T : Double;
 begin
     A := DynamicArrayCopy(A);
     B := DynamicArrayCopy(B);
@@ -2240,10 +2240,10 @@ procedure SolveCyclicTridiagonal(const A : TReal1DArray;
      var X : TReal1DArray);
 var
     K : AlglibInteger;
-    T : Extended;
-    Alpha : Extended;
-    Beta : Extended;
-    Gamma : Extended;
+    T : Double;
+    Alpha : Double;
+    Beta : Double;
+    Gamma : Double;
     Y : TReal1DArray;
     Z : TReal1DArray;
     U : TReal1DArray;
@@ -2278,16 +2278,16 @@ end;
 (*************************************************************************
 Internal subroutine. Three-point differentiation
 *************************************************************************)
-function DiffThreePoint(T : Extended;
-     X0 : Extended;
-     F0 : Extended;
-     X1 : Extended;
-     F1 : Extended;
-     X2 : Extended;
-     F2 : Extended):Extended;
+function DiffThreePoint(T : Double;
+     X0 : Double;
+     F0 : Double;
+     X1 : Double;
+     F1 : Double;
+     X2 : Double;
+     F2 : Double):Double;
 var
-    A : Extended;
-    B : Extended;
+    A : Double;
+    B : Double;
 begin
     T := T-X0;
     X1 := X1-X0;

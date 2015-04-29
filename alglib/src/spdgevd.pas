@@ -110,7 +110,7 @@ var
     J2INC : AlglibInteger;
     I : AlglibInteger;
     J : AlglibInteger;
-    V : Extended;
+    V : Double;
 begin
     A := DynamicArrayCopy(A);
     
@@ -257,7 +257,7 @@ var
     W3 : TReal1DArray;
     I : AlglibInteger;
     J : AlglibInteger;
-    V : Extended;
+    V : Double;
     Rep : MatInvReport;
     Info : AlglibInteger;
     i_ : AlglibInteger;

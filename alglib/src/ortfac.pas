@@ -250,7 +250,7 @@ var
     I : AlglibInteger;
     J : AlglibInteger;
     K : AlglibInteger;
-    V : Extended;
+    V : Double;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin
@@ -404,7 +404,7 @@ var
     I : AlglibInteger;
     J : AlglibInteger;
     K : AlglibInteger;
-    V : Extended;
+    V : Double;
 begin
     if (M<=0) or (N<=0) then
     begin
@@ -827,7 +827,7 @@ var
     I : AlglibInteger;
     J : AlglibInteger;
     K : AlglibInteger;
-    V : Extended;
+    V : Double;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin
@@ -1029,7 +1029,7 @@ var
     I : AlglibInteger;
     J : AlglibInteger;
     K : AlglibInteger;
-    V : Extended;
+    V : Double;
 begin
     Assert(QRows<=N, 'RMatrixLQUnpackQ: QRows>N!');
     if (M<=0) or (N<=0) or (QRows<=0) then
@@ -1682,7 +1682,7 @@ var
     MinMN : AlglibInteger;
     MaxMN : AlglibInteger;
     I : AlglibInteger;
-    LTau : Extended;
+    LTau : Double;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin
@@ -2388,7 +2388,7 @@ procedure RMatrixHessenberg(var A : TReal2DArray;
      var Tau : TReal1DArray);
 var
     I : AlglibInteger;
-    V : Extended;
+    V : Double;
     T : TReal1DArray;
     WORK : TReal1DArray;
     i_ : AlglibInteger;
@@ -2643,9 +2643,9 @@ procedure SMatrixTD(var A : TReal2DArray;
      var E : TReal1DArray);
 var
     I : AlglibInteger;
-    ALPHA : Extended;
-    TAUI : Extended;
-    V : Extended;
+    ALPHA : Double;
+    TAUI : Double;
+    V : Double;
     T : TReal1DArray;
     T2 : TReal1DArray;
     T3 : TReal1DArray;
@@ -3363,7 +3363,7 @@ var
     I : AlglibInteger;
     K : AlglibInteger;
     MinMN : AlglibInteger;
-    Tmp : Extended;
+    Tmp : Double;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin
@@ -3426,7 +3426,7 @@ var
     I : AlglibInteger;
     K : AlglibInteger;
     MinMN : AlglibInteger;
-    Tmp : Extended;
+    Tmp : Double;
 begin
     MinMN := Min(M, N);
     K := Min(M, N);
@@ -3628,7 +3628,7 @@ var
     I : AlglibInteger;
     J : AlglibInteger;
     K : AlglibInteger;
-    V : Extended;
+    V : Double;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin

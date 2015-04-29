@@ -34,14 +34,14 @@ KDTree = record
     BoxMax : TReal1DArray;
     CurBoxMin : TReal1DArray;
     CurBoxMax : TReal1DArray;
-    CurDist : Extended;
+    CurDist : Double;
     Nodes : TInteger1DArray;
     Splits : TReal1DArray;
     X : TReal1DArray;
     KNeeded : AlglibInteger;
-    RNeeded : Extended;
+    RNeeded : Double;
     SelfMatch : Boolean;
-    ApproxF : Extended;
+    ApproxF : Double;
     KCur : AlglibInteger;
     Idx : TInteger1DArray;
     R : TReal1DArray;
@@ -70,13 +70,13 @@ function KDTreeQueryKNN(var KDT : KDTree;
      SelfMatch : Boolean):AlglibInteger;
 function KDTreeQueryRNN(var KDT : KDTree;
      const X : TReal1DArray;
-     R : Extended;
+     R : Double;
      SelfMatch : Boolean):AlglibInteger;
 function KDTreeQueryAKNN(var KDT : KDTree;
      const X : TReal1DArray;
      K : AlglibInteger;
      SelfMatch : Boolean;
-     Eps : Extended):AlglibInteger;
+     Eps : Double):AlglibInteger;
 procedure KDTreeQueryResultsX(const KDT : KDTree;
      var X : TReal2DArray;
      var K : AlglibInteger);
@@ -99,7 +99,7 @@ procedure KDTreeSplit(var KDT : KDTree;
      I1 : AlglibInteger;
      I2 : AlglibInteger;
      D : AlglibInteger;
-     S : Extended;
+     S : Double;
      var I3 : AlglibInteger);forward;
 procedure KDTreeGenerateTreeRec(var KDT : KDTree;
      var NodesOffs : AlglibInteger;
@@ -111,10 +111,10 @@ procedure KDTreeQueryNNRec(var KDT : KDTree; Offs : AlglibInteger);forward;
 procedure KDTreeInitBox(var KDT : KDTree; const X : TReal1DArray);forward;
 function VRootFreeNorm(const X : TReal1DArray;
      N : AlglibInteger;
-     NormType : AlglibInteger):Extended;forward;
-function VRootFreeComponentNorm(X : Extended;
-     NormType : AlglibInteger):Extended;forward;
-function VRangeDist(X : Extended; A : Extended; B : Extended):Extended;forward;
+     NormType : AlglibInteger):Double;forward;
+function VRootFreeComponentNorm(X : Double;
+     NormType : AlglibInteger):Double;forward;
+function VRangeDist(X : Double; A : Double; B : Double):Double;forward;
 
 
 (*************************************************************************
@@ -368,14 +368,14 @@ actual results:
 *************************************************************************)
 function KDTreeQueryRNN(var KDT : KDTree;
      const X : TReal1DArray;
-     R : Extended;
+     R : Double;
      SelfMatch : Boolean):AlglibInteger;
 var
     I : AlglibInteger;
     J : AlglibInteger;
-    VX : Extended;
-    VMin : Extended;
-    VMax : Extended;
+    VX : Double;
+    VMin : Double;
+    VMax : Double;
 begin
     Assert(AP_FP_Greater(R,0), 'KDTreeQueryRNN: incorrect R!');
     
@@ -461,13 +461,13 @@ function KDTreeQueryAKNN(var KDT : KDTree;
      const X : TReal1DArray;
      K : AlglibInteger;
      SelfMatch : Boolean;
-     Eps : Extended):AlglibInteger;
+     Eps : Double):AlglibInteger;
 var
     I : AlglibInteger;
     J : AlglibInteger;
-    VX : Extended;
-    VMin : Extended;
-    VMax : Extended;
+    VX : Double;
+    VMin : Double;
+    VMax : Double;
 begin
     Assert(K>0, 'KDTreeQueryKNN: incorrect K!');
     Assert(AP_FP_Greater_Eq(Eps,0), 'KDTreeQueryKNN: incorrect Eps!');
@@ -710,14 +710,14 @@ procedure KDTreeSplit(var KDT : KDTree;
      I1 : AlglibInteger;
      I2 : AlglibInteger;
      D : AlglibInteger;
-     S : Extended;
+     S : Double;
      var I3 : AlglibInteger);
 var
     I : AlglibInteger;
     J : AlglibInteger;
     ILeft : AlglibInteger;
     IRight : AlglibInteger;
-    V : Extended;
+    V : Double;
 begin
     
     //
@@ -806,14 +806,14 @@ var
     I3 : AlglibInteger;
     CntLess : AlglibInteger;
     CntGreater : AlglibInteger;
-    MinV : Extended;
-    MaxV : Extended;
+    MinV : Double;
+    MaxV : Double;
     MinIdx : AlglibInteger;
     MaxIdx : AlglibInteger;
     D : AlglibInteger;
-    DS : Extended;
-    S : Extended;
-    V : Extended;
+    DS : Double;
+    S : Double;
+    V : Double;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin
@@ -999,7 +999,7 @@ Recursive subroutine for NN queries.
 *************************************************************************)
 procedure KDTreeQueryNNRec(var KDT : KDTree; Offs : AlglibInteger);
 var
-    PtDist : Extended;
+    PtDist : Double;
     I : AlglibInteger;
     J : AlglibInteger;
     K : AlglibInteger;
@@ -1009,16 +1009,16 @@ var
     I2 : AlglibInteger;
     K1 : AlglibInteger;
     K2 : AlglibInteger;
-    R1 : Extended;
-    R2 : Extended;
+    R1 : Double;
+    R2 : Double;
     D : AlglibInteger;
-    S : Extended;
-    V : Extended;
-    T1 : Extended;
+    S : Double;
+    V : Double;
+    T1 : Double;
     ChildBestOffs : AlglibInteger;
     ChildWorstOffs : AlglibInteger;
     ChildOffs : AlglibInteger;
-    PrevDist : Extended;
+    PrevDist : Double;
     ToDive : Boolean;
     BestIsLeft : Boolean;
     UpdateMin : Boolean;
@@ -1291,9 +1291,9 @@ Initializes CurBox[].
 procedure KDTreeInitBox(var KDT : KDTree; const X : TReal1DArray);
 var
     I : AlglibInteger;
-    VX : Extended;
-    VMin : Extended;
-    VMax : Extended;
+    VX : Double;
+    VMin : Double;
+    VMax : Double;
 begin
     
     //
@@ -1386,7 +1386,7 @@ Returns norm_k(x)^k (root-free = faster, but preserves ordering)
 *************************************************************************)
 function VRootFreeNorm(const X : TReal1DArray;
      N : AlglibInteger;
-     NormType : AlglibInteger):Extended;
+     NormType : AlglibInteger):Double;
 var
     I : AlglibInteger;
 begin
@@ -1433,7 +1433,7 @@ Returns norm_k(x)^k (root-free = faster, but preserves ordering)
   -- ALGLIB --
      Copyright 28.02.2010 by Bochkanov Sergey
 *************************************************************************)
-function VRootFreeComponentNorm(X : Extended; NormType : AlglibInteger):Extended;
+function VRootFreeComponentNorm(X : Double; NormType : AlglibInteger):Double;
 begin
     Result := 0;
     if NormType=0 then
@@ -1457,7 +1457,7 @@ Returns range distance: distance from X to [A,B]
   -- ALGLIB --
      Copyright 28.02.2010 by Bochkanov Sergey
 *************************************************************************)
-function VRangeDist(X : Extended; A : Extended; B : Extended):Extended;
+function VRangeDist(X : Double; A : Double; B : Double):Double;
 begin
     if AP_FP_Less(X,A) then
     begin

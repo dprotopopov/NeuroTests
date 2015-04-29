@@ -25,7 +25,7 @@ procedure RMatrixInvUpdateSimple(var InvA : TReal2DArray;
      N : AlglibInteger;
      UpdRow : AlglibInteger;
      UpdColumn : AlglibInteger;
-     UpdVal : Extended);
+     UpdVal : Double);
 procedure RMatrixInvUpdateRow(var InvA : TReal2DArray;
      N : AlglibInteger;
      UpdRow : AlglibInteger;
@@ -42,7 +42,7 @@ procedure ShermanMorrisonSimpleUpdate(var InvA : TReal2DArray;
      N : AlglibInteger;
      UpdRow : AlglibInteger;
      UpdColumn : AlglibInteger;
-     UpdVal : Extended);
+     UpdVal : Double);
 procedure ShermanMorrisonUpdateRow(var InvA : TReal2DArray;
      N : AlglibInteger;
      UpdRow : AlglibInteger;
@@ -83,13 +83,13 @@ procedure RMatrixInvUpdateSimple(var InvA : TReal2DArray;
      N : AlglibInteger;
      UpdRow : AlglibInteger;
      UpdColumn : AlglibInteger;
-     UpdVal : Extended);
+     UpdVal : Double);
 var
     T1 : TReal1DArray;
     T2 : TReal1DArray;
     I : AlglibInteger;
-    Lambda : Extended;
-    VT : Extended;
+    Lambda : Double;
+    VT : Double;
     i_ : AlglibInteger;
 begin
     Assert((UpdRow>=0) and (UpdRow<N), 'RMatrixInvUpdateSimple: incorrect UpdRow!');
@@ -159,8 +159,8 @@ var
     T2 : TReal1DArray;
     I : AlglibInteger;
     J : AlglibInteger;
-    Lambda : Extended;
-    VT : Extended;
+    Lambda : Double;
+    VT : Double;
     i_ : AlglibInteger;
 begin
     SetLength(T1, N-1+1);
@@ -233,8 +233,8 @@ var
     T1 : TReal1DArray;
     T2 : TReal1DArray;
     I : AlglibInteger;
-    Lambda : Extended;
-    VT : Extended;
+    Lambda : Double;
+    VT : Double;
 begin
     SetLength(T1, N-1+1);
     SetLength(T2, N-1+1);
@@ -300,8 +300,8 @@ var
     T2 : TReal1DArray;
     I : AlglibInteger;
     J : AlglibInteger;
-    Lambda : Extended;
-    VT : Extended;
+    Lambda : Double;
+    VT : Double;
     i_ : AlglibInteger;
 begin
     SetLength(T1, N-1+1);
@@ -352,13 +352,13 @@ procedure ShermanMorrisonSimpleUpdate(var InvA : TReal2DArray;
      N : AlglibInteger;
      UpdRow : AlglibInteger;
      UpdColumn : AlglibInteger;
-     UpdVal : Extended);
+     UpdVal : Double);
 var
     T1 : TReal1DArray;
     T2 : TReal1DArray;
     I : AlglibInteger;
-    Lambda : Extended;
-    VT : Extended;
+    Lambda : Double;
+    VT : Double;
     i_ : AlglibInteger;
 begin
     SetLength(T1, N+1);
@@ -405,8 +405,8 @@ var
     T2 : TReal1DArray;
     I : AlglibInteger;
     J : AlglibInteger;
-    Lambda : Extended;
-    VT : Extended;
+    Lambda : Double;
+    VT : Double;
     i_ : AlglibInteger;
 begin
     SetLength(T1, N+1);
@@ -458,8 +458,8 @@ var
     T1 : TReal1DArray;
     T2 : TReal1DArray;
     I : AlglibInteger;
-    Lambda : Extended;
-    VT : Extended;
+    Lambda : Double;
+    VT : Double;
 begin
     SetLength(T1, N+1);
     SetLength(T2, N+1);
@@ -504,8 +504,8 @@ var
     T2 : TReal1DArray;
     I : AlglibInteger;
     J : AlglibInteger;
-    Lambda : Extended;
-    VT : Extended;
+    Lambda : Double;
+    VT : Double;
     i_ : AlglibInteger;
 begin
     SetLength(T1, N+1);

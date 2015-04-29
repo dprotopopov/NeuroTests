@@ -37,7 +37,7 @@ Fields:
 HQRNDState = record
     S1 : AlglibInteger;
     S2 : AlglibInteger;
-    V : Extended;
+    V : Double;
     MagicV : AlglibInteger;
 end;
 
@@ -47,15 +47,15 @@ procedure HQRNDRandomize(var State : HQRNDState);
 procedure HQRNDSeed(S1 : AlglibInteger;
      S2 : AlglibInteger;
      var State : HQRNDState);
-function HQRNDUniformR(var State : HQRNDState):Extended;
+function HQRNDUniformR(var State : HQRNDState):Double;
 function HQRNDUniformI(N : AlglibInteger;
      var State : HQRNDState):AlglibInteger;
-function HQRNDNormal(var State : HQRNDState):Extended;
-procedure HQRNDUnit2(var State : HQRNDState; var X : Extended; var Y : Extended);
+function HQRNDNormal(var State : HQRNDState):Double;
+procedure HQRNDUnit2(var State : HQRNDState; var X : Double; var Y : Double);
 procedure HQRNDNormal2(var State : HQRNDState;
-     var X1 : Extended;
-     var X2 : Extended);
-function HQRNDExponential(Lambda : Extended; var State : HQRNDState):Extended;
+     var X1 : Double;
+     var X2 : Double);
+function HQRNDExponential(Lambda : Double; var State : HQRNDState):Double;
 
 implementation
 
@@ -107,7 +107,7 @@ State structure must be initialized with HQRNDRandomize() or HQRNDSeed().
   -- ALGLIB --
      Copyright 02.12.2009 by Bochkanov Sergey
 *************************************************************************)
-function HQRNDUniformR(var State : HQRNDState):Extended;
+function HQRNDUniformR(var State : HQRNDState):Double;
 begin
     Result := State.V*HQRNDIntegerBase(State);
 end;
@@ -153,10 +153,10 @@ State structure must be initialized with HQRNDRandomize() or HQRNDSeed().
   -- ALGLIB --
      Copyright 02.12.2009 by Bochkanov Sergey
 *************************************************************************)
-function HQRNDNormal(var State : HQRNDState):Extended;
+function HQRNDNormal(var State : HQRNDState):Double;
 var
-    V1 : Extended;
-    V2 : Extended;
+    V1 : Double;
+    V2 : Double;
 begin
     HQRNDNormal2(State, V1, V2);
     Result := V1;
@@ -171,11 +171,11 @@ State structure must be initialized with HQRNDRandomize() or HQRNDSeed().
   -- ALGLIB --
      Copyright 02.12.2009 by Bochkanov Sergey
 *************************************************************************)
-procedure HQRNDUnit2(var State : HQRNDState; var X : Extended; var Y : Extended);
+procedure HQRNDUnit2(var State : HQRNDState; var X : Double; var Y : Double);
 var
-    V : Extended;
-    MX : Extended;
-    MN : Extended;
+    V : Double;
+    MX : Double;
+    MN : Double;
 begin
     repeat
         HQRNDNormal2(State, X, Y);
@@ -200,12 +200,12 @@ State structure must be initialized with HQRNDRandomize() or HQRNDSeed().
      Copyright 02.12.2009 by Bochkanov Sergey
 *************************************************************************)
 procedure HQRNDNormal2(var State : HQRNDState;
-     var X1 : Extended;
-     var X2 : Extended);
+     var X1 : Double;
+     var X2 : Double);
 var
-    U : Extended;
-    V : Extended;
-    S : Extended;
+    U : Double;
+    V : Double;
+    S : Double;
 begin
     while True do
     begin
@@ -236,7 +236,7 @@ State structure must be initialized with HQRNDRandomize() or HQRNDSeed().
   -- ALGLIB --
      Copyright 11.08.2007 by Bochkanov Sergey
 *************************************************************************)
-function HQRNDExponential(Lambda : Extended; var State : HQRNDState):Extended;
+function HQRNDExponential(Lambda : Double; var State : HQRNDState):Double;
 begin
     Assert(AP_FP_Greater(Lambda,0), 'HQRNDExponential: Lambda<=0!');
     Result := -Ln(HQRNDUniformR(State))/Lambda;

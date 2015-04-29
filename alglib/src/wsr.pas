@@ -23,49 +23,49 @@ uses Math, Sysutils, Ap;
 
 procedure WilcoxonSignedRankTest(X : TReal1DArray;
      N : AlglibInteger;
-     E : Extended;
-     var BothTails : Extended;
-     var LeftTail : Extended;
-     var RightTail : Extended);
+     E : Double;
+     var BothTails : Double;
+     var LeftTail : Double;
+     var RightTail : Double);
 
 implementation
 
-procedure WCheb(X : Extended;
-     C : Extended;
-     var TJ : Extended;
-     var TJ1 : Extended;
-     var R : Extended);forward;
-function W5(S : Extended):Extended;forward;
-function W6(S : Extended):Extended;forward;
-function W7(S : Extended):Extended;forward;
-function W8(S : Extended):Extended;forward;
-function W9(S : Extended):Extended;forward;
-function W10(S : Extended):Extended;forward;
-function W11(S : Extended):Extended;forward;
-function W12(S : Extended):Extended;forward;
-function W13(S : Extended):Extended;forward;
-function W14(S : Extended):Extended;forward;
-function W15(S : Extended):Extended;forward;
-function W16(S : Extended):Extended;forward;
-function W17(S : Extended):Extended;forward;
-function W18(S : Extended):Extended;forward;
-function W19(S : Extended):Extended;forward;
-function W20(S : Extended):Extended;forward;
-function W21(S : Extended):Extended;forward;
-function W22(S : Extended):Extended;forward;
-function W23(S : Extended):Extended;forward;
-function W24(S : Extended):Extended;forward;
-function W25(S : Extended):Extended;forward;
-function W26(S : Extended):Extended;forward;
-function W27(S : Extended):Extended;forward;
-function W28(S : Extended):Extended;forward;
-function W29(S : Extended):Extended;forward;
-function W30(S : Extended):Extended;forward;
-function W40(S : Extended):Extended;forward;
-function W60(S : Extended):Extended;forward;
-function W120(S : Extended):Extended;forward;
-function W200(S : Extended):Extended;forward;
-function WSigma(S : Extended; N : AlglibInteger):Extended;forward;
+procedure WCheb(X : Double;
+     C : Double;
+     var TJ : Double;
+     var TJ1 : Double;
+     var R : Double);forward;
+function W5(S : Double):Double;forward;
+function W6(S : Double):Double;forward;
+function W7(S : Double):Double;forward;
+function W8(S : Double):Double;forward;
+function W9(S : Double):Double;forward;
+function W10(S : Double):Double;forward;
+function W11(S : Double):Double;forward;
+function W12(S : Double):Double;forward;
+function W13(S : Double):Double;forward;
+function W14(S : Double):Double;forward;
+function W15(S : Double):Double;forward;
+function W16(S : Double):Double;forward;
+function W17(S : Double):Double;forward;
+function W18(S : Double):Double;forward;
+function W19(S : Double):Double;forward;
+function W20(S : Double):Double;forward;
+function W21(S : Double):Double;forward;
+function W22(S : Double):Double;forward;
+function W23(S : Double):Double;forward;
+function W24(S : Double):Double;forward;
+function W25(S : Double):Double;forward;
+function W26(S : Double):Double;forward;
+function W27(S : Double):Double;forward;
+function W28(S : Double):Double;forward;
+function W29(S : Double):Double;forward;
+function W30(S : Double):Double;forward;
+function W40(S : Double):Double;forward;
+function W60(S : Double):Double;forward;
+function W120(S : Double):Double;forward;
+function W200(S : Double):Double;forward;
+function WSigma(S : Double; N : AlglibInteger):Double;forward;
 
 
 (*************************************************************************
@@ -119,26 +119,26 @@ the significance level outlies this interval, the test returns 0.0001.
 *************************************************************************)
 procedure WilcoxonSignedRankTest(X : TReal1DArray;
      N : AlglibInteger;
-     E : Extended;
-     var BothTails : Extended;
-     var LeftTail : Extended;
-     var RightTail : Extended);
+     E : Double;
+     var BothTails : Double;
+     var LeftTail : Double;
+     var RightTail : Double);
 var
     I : AlglibInteger;
     J : AlglibInteger;
     K : AlglibInteger;
     T : AlglibInteger;
-    Tmp : Extended;
+    Tmp : Double;
     TmpI : AlglibInteger;
     NS : AlglibInteger;
     R : TReal1DArray;
     C : TInteger1DArray;
-    W : Extended;
-    P : Extended;
-    MP : Extended;
-    S : Extended;
-    Sigma : Extended;
-    Mu : Extended;
+    W : Double;
+    P : Double;
+    MP : Double;
+    S : Double;
+    Sigma : Double;
+    Mu : Double;
 begin
     X := DynamicArrayCopy(X);
     
@@ -318,13 +318,13 @@ end;
 (*************************************************************************
 Sequential Chebyshev interpolation.
 *************************************************************************)
-procedure WCheb(X : Extended;
-     C : Extended;
-     var TJ : Extended;
-     var TJ1 : Extended;
-     var R : Extended);
+procedure WCheb(X : Double;
+     C : Double;
+     var TJ : Double;
+     var TJ1 : Double;
+     var R : Double);
 var
-    T : Extended;
+    T : Double;
 begin
     R := R+C*TJ;
     T := 2*X*TJ1-TJ;
@@ -336,10 +336,10 @@ end;
 (*************************************************************************
 Tail(S, 5)
 *************************************************************************)
-function W5(S : Extended):Extended;
+function W5(S : Double):Double;
 var
     W : AlglibInteger;
-    R : Extended;
+    R : Double;
 begin
     W := Round(-3.708099e+00*S+7.500000e+00);
     if W>=7 then
@@ -381,10 +381,10 @@ end;
 (*************************************************************************
 Tail(S, 6)
 *************************************************************************)
-function W6(S : Extended):Extended;
+function W6(S : Double):Double;
 var
     W : AlglibInteger;
-    R : Extended;
+    R : Double;
 begin
     W := Round(-4.769696e+00*S+1.050000e+01);
     if W>=10 then
@@ -438,10 +438,10 @@ end;
 (*************************************************************************
 Tail(S, 7)
 *************************************************************************)
-function W7(S : Extended):Extended;
+function W7(S : Double):Double;
 var
     W : AlglibInteger;
-    R : Extended;
+    R : Double;
 begin
     W := Round(-5.916080e+00*S+1.400000e+01);
     if W>=14 then
@@ -511,10 +511,10 @@ end;
 (*************************************************************************
 Tail(S, 8)
 *************************************************************************)
-function W8(S : Extended):Extended;
+function W8(S : Double):Double;
 var
     W : AlglibInteger;
-    R : Extended;
+    R : Double;
 begin
     W := Round(-7.141428e+00*S+1.800000e+01);
     if W>=18 then
@@ -600,10 +600,10 @@ end;
 (*************************************************************************
 Tail(S, 9)
 *************************************************************************)
-function W9(S : Extended):Extended;
+function W9(S : Double):Double;
 var
     W : AlglibInteger;
-    R : Extended;
+    R : Double;
 begin
     W := Round(-8.440972e+00*S+2.250000e+01);
     if W>=22 then
@@ -705,10 +705,10 @@ end;
 (*************************************************************************
 Tail(S, 10)
 *************************************************************************)
-function W10(S : Extended):Extended;
+function W10(S : Double):Double;
 var
     W : AlglibInteger;
-    R : Extended;
+    R : Double;
 begin
     W := Round(-9.810708e+00*S+2.750000e+01);
     if W>=27 then
@@ -830,10 +830,10 @@ end;
 (*************************************************************************
 Tail(S, 11)
 *************************************************************************)
-function W11(S : Extended):Extended;
+function W11(S : Double):Double;
 var
     W : AlglibInteger;
-    R : Extended;
+    R : Double;
 begin
     W := Round(-1.124722e+01*S+3.300000e+01);
     if W>=33 then
@@ -979,10 +979,10 @@ end;
 (*************************************************************************
 Tail(S, 12)
 *************************************************************************)
-function W12(S : Extended):Extended;
+function W12(S : Double):Double;
 var
     W : AlglibInteger;
-    R : Extended;
+    R : Double;
 begin
     W := Round(-1.274755e+01*S+3.900000e+01);
     if W>=39 then
@@ -1152,10 +1152,10 @@ end;
 (*************************************************************************
 Tail(S, 13)
 *************************************************************************)
-function W13(S : Extended):Extended;
+function W13(S : Double):Double;
 var
     W : AlglibInteger;
-    R : Extended;
+    R : Double;
 begin
     W := Round(-1.430909e+01*S+4.550000e+01);
     if W>=45 then
@@ -1349,10 +1349,10 @@ end;
 (*************************************************************************
 Tail(S, 14)
 *************************************************************************)
-function W14(S : Extended):Extended;
+function W14(S : Double):Double;
 var
     W : AlglibInteger;
-    R : Extended;
+    R : Double;
 begin
     W := Round(-1.592953e+01*S+5.250000e+01);
     if W>=52 then
@@ -1574,10 +1574,10 @@ end;
 (*************************************************************************
 Tail(S, 15)
 *************************************************************************)
-function W15(S : Extended):Extended;
+function W15(S : Double):Double;
 var
     W : AlglibInteger;
-    R : Extended;
+    R : Double;
 begin
     W := Round(-1.760682e+01*S+6.000000e+01);
     if W>=60 then
@@ -1831,10 +1831,10 @@ end;
 (*************************************************************************
 Tail(S, 16)
 *************************************************************************)
-function W16(S : Extended):Extended;
+function W16(S : Double):Double;
 var
     W : AlglibInteger;
-    R : Extended;
+    R : Double;
 begin
     W := Round(-1.933908e+01*S+6.800000e+01);
     if W>=68 then
@@ -2120,10 +2120,10 @@ end;
 (*************************************************************************
 Tail(S, 17)
 *************************************************************************)
-function W17(S : Extended):Extended;
+function W17(S : Double):Double;
 var
     W : AlglibInteger;
-    R : Extended;
+    R : Double;
 begin
     W := Round(-2.112463e+01*S+7.650000e+01);
     if W>=76 then
@@ -2441,10 +2441,10 @@ end;
 (*************************************************************************
 Tail(S, 18)
 *************************************************************************)
-function W18(S : Extended):Extended;
+function W18(S : Double):Double;
 var
     W : AlglibInteger;
-    R : Extended;
+    R : Double;
 begin
     W := Round(-2.296193e+01*S+8.550000e+01);
     if W>=85 then
@@ -2798,10 +2798,10 @@ end;
 (*************************************************************************
 Tail(S, 19)
 *************************************************************************)
-function W19(S : Extended):Extended;
+function W19(S : Double):Double;
 var
     W : AlglibInteger;
-    R : Extended;
+    R : Double;
 begin
     W := Round(-2.484955e+01*S+9.500000e+01);
     if W>=95 then
@@ -3195,10 +3195,10 @@ end;
 (*************************************************************************
 Tail(S, 20)
 *************************************************************************)
-function W20(S : Extended):Extended;
+function W20(S : Double):Double;
 var
     W : AlglibInteger;
-    R : Extended;
+    R : Double;
 begin
     W := Round(-2.678619e+01*S+1.050000e+02);
     if W>=105 then
@@ -3632,10 +3632,10 @@ end;
 (*************************************************************************
 Tail(S, 21)
 *************************************************************************)
-function W21(S : Extended):Extended;
+function W21(S : Double):Double;
 var
     W : AlglibInteger;
-    R : Extended;
+    R : Double;
 begin
     W := Round(-2.877064e+01*S+1.155000e+02);
     if W>=115 then
@@ -4109,10 +4109,10 @@ end;
 (*************************************************************************
 Tail(S, 22)
 *************************************************************************)
-function W22(S : Extended):Extended;
+function W22(S : Double):Double;
 var
     W : AlglibInteger;
-    R : Extended;
+    R : Double;
 begin
     W := Round(-3.080179e+01*S+1.265000e+02);
     if W>=126 then
@@ -4630,10 +4630,10 @@ end;
 (*************************************************************************
 Tail(S, 23)
 *************************************************************************)
-function W23(S : Extended):Extended;
+function W23(S : Double):Double;
 var
     W : AlglibInteger;
-    R : Extended;
+    R : Double;
 begin
     W := Round(-3.287856e+01*S+1.380000e+02);
     if W>=138 then
@@ -5199,10 +5199,10 @@ end;
 (*************************************************************************
 Tail(S, 24)
 *************************************************************************)
-function W24(S : Extended):Extended;
+function W24(S : Double):Double;
 var
     W : AlglibInteger;
-    R : Extended;
+    R : Double;
 begin
     W := Round(-3.500000e+01*S+1.500000e+02);
     if W>=150 then
@@ -5816,11 +5816,11 @@ end;
 (*************************************************************************
 Tail(S, 25)
 *************************************************************************)
-function W25(S : Extended):Extended;
+function W25(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/4.000000e+00-1, 1.0);
@@ -5843,11 +5843,11 @@ end;
 (*************************************************************************
 Tail(S, 26)
 *************************************************************************)
-function W26(S : Extended):Extended;
+function W26(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/4.000000e+00-1, 1.0);
@@ -5870,11 +5870,11 @@ end;
 (*************************************************************************
 Tail(S, 27)
 *************************************************************************)
-function W27(S : Extended):Extended;
+function W27(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/4.000000e+00-1, 1.0);
@@ -5897,11 +5897,11 @@ end;
 (*************************************************************************
 Tail(S, 28)
 *************************************************************************)
-function W28(S : Extended):Extended;
+function W28(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/4.000000e+00-1, 1.0);
@@ -5924,11 +5924,11 @@ end;
 (*************************************************************************
 Tail(S, 29)
 *************************************************************************)
-function W29(S : Extended):Extended;
+function W29(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/4.000000e+00-1, 1.0);
@@ -5951,11 +5951,11 @@ end;
 (*************************************************************************
 Tail(S, 30)
 *************************************************************************)
-function W30(S : Extended):Extended;
+function W30(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/4.000000e+00-1, 1.0);
@@ -5978,11 +5978,11 @@ end;
 (*************************************************************************
 Tail(S, 40)
 *************************************************************************)
-function W40(S : Extended):Extended;
+function W40(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/4.000000e+00-1, 1.0);
@@ -6005,11 +6005,11 @@ end;
 (*************************************************************************
 Tail(S, 60)
 *************************************************************************)
-function W60(S : Extended):Extended;
+function W60(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/4.000000e+00-1, 1.0);
@@ -6032,11 +6032,11 @@ end;
 (*************************************************************************
 Tail(S, 120)
 *************************************************************************)
-function W120(S : Extended):Extended;
+function W120(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/4.000000e+00-1, 1.0);
@@ -6059,11 +6059,11 @@ end;
 (*************************************************************************
 Tail(S, 200)
 *************************************************************************)
-function W200(S : Extended):Extended;
+function W200(S : Double):Double;
 var
-    X : Extended;
-    TJ : Extended;
-    TJ1 : Extended;
+    X : Double;
+    TJ : Double;
+    TJ1 : Double;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/4.000000e+00-1, 1.0);
@@ -6086,19 +6086,19 @@ end;
 (*************************************************************************
 Tail(S,N), S>=0
 *************************************************************************)
-function WSigma(S : Extended; N : AlglibInteger):Extended;
+function WSigma(S : Double; N : AlglibInteger):Double;
 var
-    F0 : Extended;
-    F1 : Extended;
-    F2 : Extended;
-    F3 : Extended;
-    F4 : Extended;
-    X0 : Extended;
-    X1 : Extended;
-    X2 : Extended;
-    X3 : Extended;
-    X4 : Extended;
-    X : Extended;
+    F0 : Double;
+    F1 : Double;
+    F2 : Double;
+    F3 : Double;
+    F4 : Double;
+    X0 : Double;
+    X1 : Double;
+    X2 : Double;
+    X3 : Double;
+    X4 : Double;
+    X : Double;
 begin
     if N=5 then
     begin

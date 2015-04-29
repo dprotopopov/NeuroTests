@@ -387,8 +387,8 @@ procedure FFTR1DInternalEven(var A : TReal1DArray;
      var Buf : TReal1DArray;
      var Plan : FTPlan);
 var
-    X : Extended;
-    Y : Extended;
+    X : Double;
+    Y : Double;
     I : AlglibInteger;
     N2 : AlglibInteger;
     Idx : AlglibInteger;
@@ -452,9 +452,9 @@ procedure FFTR1DInvInternalEven(var A : TReal1DArray;
      var Buf : TReal1DArray;
      var Plan : FTPlan);
 var
-    X : Extended;
-    Y : Extended;
-    T : Extended;
+    X : Double;
+    Y : Double;
+    T : Double;
     I : AlglibInteger;
     N2 : AlglibInteger;
 begin

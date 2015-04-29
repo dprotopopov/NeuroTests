@@ -21,25 +21,25 @@ unit correlationtests;
 interface
 uses Math, Sysutils, Ap, gammafunc, normaldistr, ibetaf, studenttdistr, correlation;
 
-procedure PearsonCorrelationSignificance(R : Extended;
+procedure PearsonCorrelationSignificance(R : Double;
      N : AlglibInteger;
-     var BothTails : Extended;
-     var LeftTail : Extended;
-     var RightTail : Extended);
-procedure SpearmanRankCorrelationSignificance(R : Extended;
+     var BothTails : Double;
+     var LeftTail : Double;
+     var RightTail : Double);
+procedure SpearmanRankCorrelationSignificance(R : Double;
      N : AlglibInteger;
-     var BothTails : Extended;
-     var LeftTail : Extended;
-     var RightTail : Extended);
+     var BothTails : Double;
+     var LeftTail : Double;
+     var RightTail : Double);
 
 implementation
 
-function SpearmanTail5(S : Extended):Extended;forward;
-function SpearmanTail6(S : Extended):Extended;forward;
-function SpearmanTail7(S : Extended):Extended;forward;
-function SpearmanTail8(S : Extended):Extended;forward;
-function SpearmanTail9(S : Extended):Extended;forward;
-function SpearmanTail(T : Extended; N : AlglibInteger):Extended;forward;
+function SpearmanTail5(S : Double):Double;forward;
+function SpearmanTail6(S : Double):Double;forward;
+function SpearmanTail7(S : Double):Double;forward;
+function SpearmanTail8(S : Double):Double;forward;
+function SpearmanTail9(S : Double):Double;forward;
+function SpearmanTail(T : Double; N : AlglibInteger):Double;forward;
 
 
 (*************************************************************************
@@ -78,14 +78,14 @@ Output parameters:
   -- ALGLIB --
      Copyright 09.04.2007 by Bochkanov Sergey
 *************************************************************************)
-procedure PearsonCorrelationSignificance(R : Extended;
+procedure PearsonCorrelationSignificance(R : Double;
      N : AlglibInteger;
-     var BothTails : Extended;
-     var LeftTail : Extended;
-     var RightTail : Extended);
+     var BothTails : Double;
+     var LeftTail : Double;
+     var RightTail : Double);
 var
-    T : Extended;
-    P : Extended;
+    T : Double;
+    P : Double;
 begin
     
     //
@@ -162,14 +162,14 @@ Output parameters:
   -- ALGLIB --
      Copyright 09.04.2007 by Bochkanov Sergey
 *************************************************************************)
-procedure SpearmanRankCorrelationSignificance(R : Extended;
+procedure SpearmanRankCorrelationSignificance(R : Double;
      N : AlglibInteger;
-     var BothTails : Extended;
-     var LeftTail : Extended;
-     var RightTail : Extended);
+     var BothTails : Double;
+     var LeftTail : Double;
+     var RightTail : Double);
 var
-    T : Extended;
-    P : Extended;
+    T : Double;
+    P : Double;
 begin
     
     //
@@ -221,7 +221,7 @@ end;
 (*************************************************************************
 Tail(S, 5)
 *************************************************************************)
-function SpearmanTail5(S : Extended):Extended;
+function SpearmanTail5(S : Double):Double;
 begin
     if AP_FP_Less(S,0.000e+00) then
     begin
@@ -290,7 +290,7 @@ end;
 (*************************************************************************
 Tail(S, 6)
 *************************************************************************)
-function SpearmanTail6(S : Extended):Extended;
+function SpearmanTail6(S : Double):Double;
 begin
     if AP_FP_Less(S,1.001e+00) then
     begin
@@ -354,7 +354,7 @@ end;
 (*************************************************************************
 Tail(S, 7)
 *************************************************************************)
-function SpearmanTail7(S : Extended):Extended;
+function SpearmanTail7(S : Double):Double;
 begin
     if AP_FP_Less(S,1.001e+00) then
     begin
@@ -453,7 +453,7 @@ end;
 (*************************************************************************
 Tail(S, 8)
 *************************************************************************)
-function SpearmanTail8(S : Extended):Extended;
+function SpearmanTail8(S : Double):Double;
 begin
     if AP_FP_Less(S,2.001e+00) then
     begin
@@ -547,7 +547,7 @@ end;
 (*************************************************************************
 Tail(S, 9)
 *************************************************************************)
-function SpearmanTail9(S : Extended):Extended;
+function SpearmanTail9(S : Double):Double;
 begin
     if AP_FP_Less(S,2.001e+00) then
     begin
@@ -676,7 +676,7 @@ end;
 (*************************************************************************
 Tail(T,N), accepts T<0
 *************************************************************************)
-function SpearmanTail(T : Extended; N : AlglibInteger):Extended;
+function SpearmanTail(T : Double; N : AlglibInteger):Double;
 begin
     if N=5 then
     begin

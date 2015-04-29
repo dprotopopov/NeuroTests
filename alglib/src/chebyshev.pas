@@ -21,11 +21,11 @@ uses Math, Sysutils, Ap;
 
 function ChebyshevCalculate(const r : AlglibInteger;
      const N : AlglibInteger;
-     const X : Extended):Extended;
+     const X : Double):Double;
 function ChebyshevSum(const C : TReal1DArray;
      const r : AlglibInteger;
      const n : AlglibInteger;
-     const x : Extended):Extended;
+     const x : Double):Double;
 procedure ChebyshevCoefficients(const N : AlglibInteger; var C : TReal1DArray);
 procedure FromChebyshev(const A : TReal1DArray;
      const N : AlglibInteger;
@@ -47,11 +47,11 @@ Result:
 *************************************************************************)
 function ChebyshevCalculate(const r : AlglibInteger;
      const N : AlglibInteger;
-     const X : Extended):Extended;
+     const X : Double):Double;
 var
     I : AlglibInteger;
-    A : Extended;
-    B : Extended;
+    A : Double;
+    B : Double;
 begin
     
     //
@@ -116,10 +116,10 @@ Result:
 function ChebyshevSum(const C : TReal1DArray;
      const r : AlglibInteger;
      const n : AlglibInteger;
-     const x : Extended):Extended;
+     const x : Double):Double;
 var
-    b1 : Extended;
-    b2 : Extended;
+    b1 : Double;
+    b2 : Double;
     i : AlglibInteger;
 begin
     b1 := 0;
@@ -199,8 +199,8 @@ procedure FromChebyshev(const A : TReal1DArray;
 var
     I : AlglibInteger;
     K : AlglibInteger;
-    E : Extended;
-    D : Extended;
+    E : Double;
+    D : Double;
 begin
     SetLength(b, N+1);
     I:=0;

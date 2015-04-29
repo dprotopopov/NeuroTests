@@ -22,30 +22,30 @@ interface
 uses Math, Sysutils, Ap;
 
 function RMatrixScaledTRSafeSolve(const A : TReal2DArray;
-     SA : Extended;
+     SA : Double;
      N : AlglibInteger;
      var X : TReal1DArray;
      IsUpper : Boolean;
      Trans : AlglibInteger;
      IsUnit : Boolean;
-     MaxGrowth : Extended):Boolean;
+     MaxGrowth : Double):Boolean;
 function CMatrixScaledTRSafeSolve(const A : TComplex2DArray;
-     SA : Extended;
+     SA : Double;
      N : AlglibInteger;
      var X : TComplex1DArray;
      IsUpper : Boolean;
      Trans : AlglibInteger;
      IsUnit : Boolean;
-     MaxGrowth : Extended):Boolean;
+     MaxGrowth : Double):Boolean;
 
 implementation
 
 function CBasicSolveAndUpdate(Alpha : Complex;
      Beta : Complex;
-     LnMax : Extended;
-     BNorm : Extended;
-     MaxGrowth : Extended;
-     var XNorm : Extended;
+     LnMax : Double;
+     BNorm : Double;
+     MaxGrowth : Double;
+     var XNorm : Double;
      var X : Complex):Boolean;forward;
 
 
@@ -57,21 +57,21 @@ Real implementation of CMatrixScaledTRSafeSolve
      Bochkanov Sergey
 *************************************************************************)
 function RMatrixScaledTRSafeSolve(const A : TReal2DArray;
-     SA : Extended;
+     SA : Double;
      N : AlglibInteger;
      var X : TReal1DArray;
      IsUpper : Boolean;
      Trans : AlglibInteger;
      IsUnit : Boolean;
-     MaxGrowth : Extended):Boolean;
+     MaxGrowth : Double):Boolean;
 var
-    LnMax : Extended;
-    NrmB : Extended;
-    NrmX : Extended;
+    LnMax : Double;
+    NrmB : Double;
+    NrmX : Double;
     I : AlglibInteger;
     Alpha : Complex;
     Beta : Complex;
-    VR : Extended;
+    VR : Double;
     CX : Complex;
     Tmp : TReal1DArray;
 begin
@@ -310,17 +310,17 @@ as MaxGrowth is significantly less than MaxRealNumber/norm(b).
      Bochkanov Sergey
 *************************************************************************)
 function CMatrixScaledTRSafeSolve(const A : TComplex2DArray;
-     SA : Extended;
+     SA : Double;
      N : AlglibInteger;
      var X : TComplex1DArray;
      IsUpper : Boolean;
      Trans : AlglibInteger;
      IsUnit : Boolean;
-     MaxGrowth : Extended):Boolean;
+     MaxGrowth : Double):Boolean;
 var
-    LnMax : Extended;
-    NrmB : Extended;
-    NrmX : Extended;
+    LnMax : Double;
+    NrmB : Double;
+    NrmX : Double;
     I : AlglibInteger;
     Alpha : Complex;
     Beta : Complex;
@@ -694,13 +694,13 @@ Parameters:
 *************************************************************************)
 function CBasicSolveAndUpdate(Alpha : Complex;
      Beta : Complex;
-     LnMax : Extended;
-     BNorm : Extended;
-     MaxGrowth : Extended;
-     var XNorm : Extended;
+     LnMax : Double;
+     BNorm : Double;
+     MaxGrowth : Double;
+     var XNorm : Double;
      var X : Complex):Boolean;
 var
-    V : Extended;
+    V : Double;
 begin
     Result := False;
     if C_EqualR(Alpha,0) then

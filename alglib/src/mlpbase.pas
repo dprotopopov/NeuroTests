@@ -52,39 +52,39 @@ procedure MLPCreate2(NIn : AlglibInteger;
      var Network : MultiLayerPerceptron);
 procedure MLPCreateB0(NIn : AlglibInteger;
      NOut : AlglibInteger;
-     B : Extended;
-     D : Extended;
+     B : Double;
+     D : Double;
      var Network : MultiLayerPerceptron);
 procedure MLPCreateB1(NIn : AlglibInteger;
      NHid : AlglibInteger;
      NOut : AlglibInteger;
-     B : Extended;
-     D : Extended;
+     B : Double;
+     D : Double;
      var Network : MultiLayerPerceptron);
 procedure MLPCreateB2(NIn : AlglibInteger;
      NHid1 : AlglibInteger;
      NHid2 : AlglibInteger;
      NOut : AlglibInteger;
-     B : Extended;
-     D : Extended;
+     B : Double;
+     D : Double;
      var Network : MultiLayerPerceptron);
 procedure MLPCreateR0(NIn : AlglibInteger;
      NOut : AlglibInteger;
-     A : Extended;
-     B : Extended;
+     A : Double;
+     B : Double;
      var Network : MultiLayerPerceptron);
 procedure MLPCreateR1(NIn : AlglibInteger;
      NHid : AlglibInteger;
      NOut : AlglibInteger;
-     A : Extended;
-     B : Extended;
+     A : Double;
+     B : Double;
      var Network : MultiLayerPerceptron);
 procedure MLPCreateR2(NIn : AlglibInteger;
      NHid1 : AlglibInteger;
      NHid2 : AlglibInteger;
      NOut : AlglibInteger;
-     A : Extended;
-     B : Extended;
+     A : Double;
+     B : Double;
      var Network : MultiLayerPerceptron);
 procedure MLPCreateC0(NIn : AlglibInteger;
      NOut : AlglibInteger;
@@ -120,58 +120,58 @@ procedure MLPProcess(var Network : MultiLayerPerceptron;
      var Y : TReal1DArray);
 function MLPError(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     SSize : AlglibInteger):Extended;
+     SSize : AlglibInteger):Double;
 function MLPErrorN(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     SSize : AlglibInteger):Extended;
+     SSize : AlglibInteger):Double;
 function MLPClsError(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      SSize : AlglibInteger):AlglibInteger;
 function MLPRelClsError(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Extended;
+     NPoints : AlglibInteger):Double;
 function MLPAvgCE(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Extended;
+     NPoints : AlglibInteger):Double;
 function MLPRMSError(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Extended;
+     NPoints : AlglibInteger):Double;
 function MLPAvgError(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Extended;
+     NPoints : AlglibInteger):Double;
 function MLPAvgRelError(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Extended;
+     NPoints : AlglibInteger):Double;
 procedure MLPGrad(var Network : MultiLayerPerceptron;
      const X : TReal1DArray;
      const DesiredY : TReal1DArray;
-     var E : Extended;
+     var E : Double;
      var Grad : TReal1DArray);
 procedure MLPGradN(var Network : MultiLayerPerceptron;
      const X : TReal1DArray;
      const DesiredY : TReal1DArray;
-     var E : Extended;
+     var E : Double;
      var Grad : TReal1DArray);
 procedure MLPGradBatch(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      SSize : AlglibInteger;
-     var E : Extended;
+     var E : Double;
      var Grad : TReal1DArray);
 procedure MLPGradNBatch(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      SSize : AlglibInteger;
-     var E : Extended;
+     var E : Double;
      var Grad : TReal1DArray);
 procedure MLPHessianNBatch(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      SSize : AlglibInteger;
-     var E : Extended;
+     var E : Double;
      var Grad : TReal1DArray;
      var H : TReal2DArray);
 procedure MLPHessianBatch(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      SSize : AlglibInteger;
-     var E : Extended;
+     var E : Double;
      var Grad : TReal1DArray;
      var H : TReal2DArray);
 procedure MLPInternalProcessVector(const StructInfo : TInteger1DArray;
@@ -222,16 +222,16 @@ procedure MLPCreate(NIn : AlglibInteger;
      LayersCount : AlglibInteger;
      IsClsNet : Boolean;
      var Network : MultiLayerPerceptron);forward;
-procedure MLPActivationFunction(NET : Extended;
+procedure MLPActivationFunction(NET : Double;
      K : AlglibInteger;
-     var F : Extended;
-     var DF : Extended;
-     var D2F : Extended);forward;
+     var F : Double;
+     var DF : Double;
+     var D2F : Double);forward;
 procedure MLPHessianBatchInternal(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      SSize : AlglibInteger;
      NaturalErr : Boolean;
-     var E : Extended;
+     var E : Double;
      var Grad : TReal1DArray;
      var H : TReal2DArray);forward;
 procedure MLPInternalCalculateGradient(var Network : MultiLayerPerceptron;
@@ -244,10 +244,10 @@ procedure MLPChunkedGradient(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      CStart : AlglibInteger;
      CSize : AlglibInteger;
-     var E : Extended;
+     var E : Double;
      var Grad : TReal1DArray;
      NaturalErrorFunc : Boolean);forward;
-function SafeCrossEntropy(T : Extended; Z : Extended):Extended;forward;
+function SafeCrossEntropy(T : Double; Z : Double):Double;forward;
 
 
 (*************************************************************************
@@ -403,8 +403,8 @@ or
 *************************************************************************)
 procedure MLPCreateB0(NIn : AlglibInteger;
      NOut : AlglibInteger;
-     B : Extended;
-     D : Extended;
+     B : Double;
+     D : Double;
      var Network : MultiLayerPerceptron);
 var
     LSizes : TInteger1DArray;
@@ -467,8 +467,8 @@ Same as MLPCreateB0 but with non-linear hidden layer.
 procedure MLPCreateB1(NIn : AlglibInteger;
      NHid : AlglibInteger;
      NOut : AlglibInteger;
-     B : Extended;
-     D : Extended;
+     B : Double;
+     D : Double;
      var Network : MultiLayerPerceptron);
 var
     LSizes : TInteger1DArray;
@@ -534,8 +534,8 @@ procedure MLPCreateB2(NIn : AlglibInteger;
      NHid1 : AlglibInteger;
      NHid2 : AlglibInteger;
      NOut : AlglibInteger;
-     B : Extended;
-     D : Extended;
+     B : Double;
+     D : Double;
      var Network : MultiLayerPerceptron);
 var
     LSizes : TInteger1DArray;
@@ -603,8 +603,8 @@ random values. Activation function of the output layer takes values [A,B].
 *************************************************************************)
 procedure MLPCreateR0(NIn : AlglibInteger;
      NOut : AlglibInteger;
-     A : Extended;
-     B : Extended;
+     A : Double;
+     B : Double;
      var Network : MultiLayerPerceptron);
 var
     LSizes : TInteger1DArray;
@@ -659,8 +659,8 @@ Same as MLPCreateR0, but with non-linear hidden layer.
 procedure MLPCreateR1(NIn : AlglibInteger;
      NHid : AlglibInteger;
      NOut : AlglibInteger;
-     A : Extended;
-     B : Extended;
+     A : Double;
+     B : Double;
      var Network : MultiLayerPerceptron);
 var
     LSizes : TInteger1DArray;
@@ -718,8 +718,8 @@ procedure MLPCreateR2(NIn : AlglibInteger;
      NHid1 : AlglibInteger;
      NHid2 : AlglibInteger;
      NOut : AlglibInteger;
-     A : Extended;
-     B : Extended;
+     A : Double;
+     B : Double;
      var Network : MultiLayerPerceptron);
 var
     LSizes : TInteger1DArray;
@@ -1263,7 +1263,7 @@ var
     NType : AlglibInteger;
     Means : TReal1DArray;
     Sigmas : TReal1DArray;
-    S : Extended;
+    S : Double;
 begin
     MLPProperties(Network, NIn, NOut, WCount);
     NTotal := Network.StructInfo[3];
@@ -1432,14 +1432,14 @@ Error function for neural network, internal subroutine.
 *************************************************************************)
 function MLPError(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     SSize : AlglibInteger):Extended;
+     SSize : AlglibInteger):Double;
 var
     I : AlglibInteger;
     K : AlglibInteger;
     NIn : AlglibInteger;
     NOut : AlglibInteger;
     WCount : AlglibInteger;
-    E : Extended;
+    E : Double;
 begin
     MLPProperties(Network, NIn, NOut, WCount);
     Result := 0;
@@ -1483,14 +1483,14 @@ Natural error function for neural network, internal subroutine.
 *************************************************************************)
 function MLPErrorN(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     SSize : AlglibInteger):Extended;
+     SSize : AlglibInteger):Double;
 var
     I : AlglibInteger;
     K : AlglibInteger;
     NIn : AlglibInteger;
     NOut : AlglibInteger;
     WCount : AlglibInteger;
-    E : Extended;
+    E : Double;
 begin
     MLPProperties(Network, NIn, NOut, WCount);
     Result := 0;
@@ -1636,7 +1636,7 @@ RESULT:
 *************************************************************************)
 function MLPRelClsError(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Extended;
+     NPoints : AlglibInteger):Double;
 begin
     Result := AP_Double(MLPClsError(Network, XY, NPoints))/NPoints;
 end;
@@ -1659,7 +1659,7 @@ RESULT:
 *************************************************************************)
 function MLPAvgCE(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Extended;
+     NPoints : AlglibInteger):Double;
 var
     NIn : AlglibInteger;
     NOut : AlglibInteger;
@@ -1696,7 +1696,7 @@ RESULT:
 *************************************************************************)
 function MLPRMSError(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Extended;
+     NPoints : AlglibInteger):Double;
 var
     NIn : AlglibInteger;
     NOut : AlglibInteger;
@@ -1725,7 +1725,7 @@ RESULT:
 *************************************************************************)
 function MLPAvgError(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Extended;
+     NPoints : AlglibInteger):Double;
 var
     I : AlglibInteger;
     J : AlglibInteger;
@@ -1799,7 +1799,7 @@ RESULT:
 *************************************************************************)
 function MLPAvgRelError(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Extended;
+     NPoints : AlglibInteger):Double;
 var
     I : AlglibInteger;
     J : AlglibInteger;
@@ -1870,7 +1870,7 @@ Gradient calculation. Internal subroutine.
 procedure MLPGrad(var Network : MultiLayerPerceptron;
      const X : TReal1DArray;
      const DesiredY : TReal1DArray;
-     var E : Extended;
+     var E : Double;
      var Grad : TReal1DArray);
 var
     I : AlglibInteger;
@@ -1915,10 +1915,10 @@ Gradient calculation (natural error function). Internal subroutine.
 procedure MLPGradN(var Network : MultiLayerPerceptron;
      const X : TReal1DArray;
      const DesiredY : TReal1DArray;
-     var E : Extended;
+     var E : Double;
      var Grad : TReal1DArray);
 var
-    S : Extended;
+    S : Double;
     I : AlglibInteger;
     NOut : AlglibInteger;
     NTotal : AlglibInteger;
@@ -1989,7 +1989,7 @@ Batch gradient calculation. Internal subroutine.
 procedure MLPGradBatch(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      SSize : AlglibInteger;
-     var E : Extended;
+     var E : Double;
      var Grad : TReal1DArray);
 var
     I : AlglibInteger;
@@ -2023,7 +2023,7 @@ Batch gradient calculation (natural error function). Internal subroutine.
 procedure MLPGradNBatch(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      SSize : AlglibInteger;
-     var E : Extended;
+     var E : Double;
      var Grad : TReal1DArray);
 var
     I : AlglibInteger;
@@ -2063,7 +2063,7 @@ Internal subroutine.
 procedure MLPHessianNBatch(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      SSize : AlglibInteger;
-     var E : Extended;
+     var E : Double;
      var Grad : TReal1DArray;
      var H : TReal2DArray);
 begin
@@ -2086,7 +2086,7 @@ Internal subroutine.
 procedure MLPHessianBatch(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      SSize : AlglibInteger;
-     var E : Extended;
+     var E : Double;
      var Grad : TReal1DArray;
      var H : TReal2DArray);
 begin
@@ -2116,11 +2116,11 @@ var
     NOut : AlglibInteger;
     IStart : AlglibInteger;
     Offs : AlglibInteger;
-    NET : Extended;
-    F : Extended;
-    DF : Extended;
-    D2F : Extended;
-    MX : Extended;
+    NET : Double;
+    F : Double;
+    DF : Double;
+    D2F : Double;
+    MX : Double;
     PErr : Boolean;
 begin
     
@@ -2561,16 +2561,16 @@ Internal subroutine
   -- ALGLIB --
      Copyright 04.11.2007 by Bochkanov Sergey
 *************************************************************************)
-procedure MLPActivationFunction(NET : Extended;
+procedure MLPActivationFunction(NET : Double;
      K : AlglibInteger;
-     var F : Extended;
-     var DF : Extended;
-     var D2F : Extended);
+     var F : Double;
+     var DF : Double;
+     var D2F : Double);
 var
-    NET2 : Extended;
-    ARG : Extended;
-    ROOT : Extended;
-    R : Extended;
+    NET2 : Double;
+    ARG : Double;
+    ROOT : Double;
+    R : Double;
 begin
     F := 0;
     DF := 0;
@@ -2635,7 +2635,7 @@ procedure MLPHessianBatchInternal(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      SSize : AlglibInteger;
      NaturalErr : Boolean;
-     var E : Extended;
+     var E : Double;
      var Grad : TReal1DArray;
      var H : TReal2DArray);
 var
@@ -2653,21 +2653,21 @@ var
     N2 : AlglibInteger;
     W1 : AlglibInteger;
     W2 : AlglibInteger;
-    S : Extended;
-    T : Extended;
-    V : Extended;
-    ET : Extended;
+    S : Double;
+    T : Double;
+    V : Double;
+    ET : Double;
     BFlag : Boolean;
-    F : Extended;
-    DF : Extended;
-    D2F : Extended;
-    dEIdYJ : Extended;
-    MX : Extended;
-    Q : Extended;
-    Z : Extended;
-    S2 : Extended;
-    ExpI : Extended;
-    ExpJ : Extended;
+    F : Double;
+    DF : Double;
+    D2F : Double;
+    dEIdYJ : Double;
+    MX : Double;
+    Q : Double;
+    Z : Double;
+    S2 : Double;
+    ExpI : Double;
+    ExpJ : Double;
     X : TReal1DArray;
     DesiredY : TReal1DArray;
     GT : TReal1DArray;
@@ -3142,13 +3142,13 @@ var
     NIn : AlglibInteger;
     NOut : AlglibInteger;
     Offs : AlglibInteger;
-    dEdF : Extended;
-    dFdNET : Extended;
-    V : Extended;
-    FOwn : Extended;
-    DEOwn : Extended;
-    NET : Extended;
-    MX : Extended;
+    dEdF : Double;
+    dFdNET : Double;
+    V : Double;
+    FOwn : Double;
+    DEOwn : Double;
+    NET : Double;
+    MX : Double;
     BFlag : Boolean;
 begin
     
@@ -3281,7 +3281,7 @@ procedure MLPChunkedGradient(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      CStart : AlglibInteger;
      CSize : AlglibInteger;
-     var E : Extended;
+     var E : Double;
      var Grad : TReal1DArray;
      NaturalErrorFunc : Boolean);
 var
@@ -3299,16 +3299,16 @@ var
     NIn : AlglibInteger;
     NOut : AlglibInteger;
     Offs : AlglibInteger;
-    F : Extended;
-    DF : Extended;
-    D2F : Extended;
-    V : Extended;
-    S : Extended;
-    FOwn : Extended;
-    DEOwn : Extended;
-    NET : Extended;
-    LnNET : Extended;
-    MX : Extended;
+    F : Double;
+    DF : Double;
+    D2F : Double;
+    V : Double;
+    S : Double;
+    FOwn : Double;
+    DEOwn : Double;
+    NET : Double;
+    LnNET : Double;
+    MX : Double;
     BFlag : Boolean;
     IStart : AlglibInteger;
     INeurons : AlglibInteger;
@@ -3656,9 +3656,9 @@ end;
 Returns T*Ln(T/Z), guarded against overflow/underflow.
 Internal subroutine.
 *************************************************************************)
-function SafeCrossEntropy(T : Extended; Z : Extended):Extended;
+function SafeCrossEntropy(T : Double; Z : Double):Double;
 var
-    R : Extended;
+    R : Double;
 begin
     if AP_FP_Eq(T,0) then
     begin

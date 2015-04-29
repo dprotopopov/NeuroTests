@@ -2,15 +2,31 @@ unit calc_utils;
 
 interface
 
-uses SysUtils, Ap, mlpbase, mlptrain;
+uses SysUtils, graphics, Ap, mlpbase, mlptrain;
 
+procedure NewEmptyMatrix(aWidth, aHeight: Integer; out lXY: TReal2DArray);
 procedure ConstructMatrixFromLine(lX: TReal1DArray; aSubLineWidth, aStep: Integer; out lXY: TReal2DArray);
-procedure CalcNeuroMatrix(aLevelCount:byte; lXY: TReal2DArray; out lNetwork: MultiLayerPerceptron);
-procedure GetSubLine(aXSrc: TReal1DArray; aPosition, aSubLineWidth: Integer; var aXDest: TReal1DArray); inline;
+procedure CalcNeuroMatrix(aClassificator: boolean; aLevelCount: byte; lInCount, lOutCount: Integer; lXY: TReal2DArray;
+  out lNetwork: MultiLayerPerceptron);
+procedure GetSubLine(aXSrc: TReal1DArray; aPosition, aSubLineWidth: Integer; var aXDest: TReal1DArray);
+procedure PutImageToArrayLine(aImageIdx, aCharIdx: Integer; aCanvas: TCanvas; aWidth, aHeight: Integer;
+  var lXY: TReal2DArray);
+procedure Get1DArrayFromImage(aCanvas: TCanvas; aWidth, aHeight: Integer; var lX: TReal1DArray);
 function NeuroRegression(var lNetwork: MultiLayerPerceptron; lX: TReal1DArray; var lY: TReal1DArray): extended;
 
 implementation
+
 uses Math;
+
+procedure NewEmptyMatrix(aWidth, aHeight: Integer; out lXY: TReal2DArray);
+var
+  x, y: Integer;
+begin
+  SetLength(lXY, aHeight, aWidth);
+  for y := Low(lXY) to High(lXY) do
+    for x := Low(lXY[0]) to High(lXY[0]) do
+      lXY[y, x] := 0;
+end;
 
 procedure ConstructMatrixFromLine(lX: TReal1DArray; aSubLineWidth, aStep: Integer; out lXY: TReal2DArray);
 var
@@ -28,10 +44,9 @@ begin
   end;
 end;
 
-procedure CalcNeuroMatrix(aLevelCount:byte; lXY: TReal2DArray; out lNetwork: MultiLayerPerceptron);
+procedure CalcNeuroMatrix(aClassificator: boolean; aLevelCount: byte; lInCount, lOutCount: Integer; lXY: TReal2DArray;
+  out lNetwork: MultiLayerPerceptron);
 var
-  lInCount: Integer;
-  lOutCount: Integer;
   lMaxIts: Integer;
   lMaxStep: Double;
   lRestarts: Integer;
@@ -42,8 +57,6 @@ var
   lReport: MLPReport;
 begin
   Randomize;
-  lInCount := Length(lXY[0]) - 1; // количество точек данных в одной выборке
-  lOutCount := 1; // кличество точек - заведомо корректных результатов
   lMaxIts := 500; // количество итераций обучения (внутреннее)
   lMaxStep := 0.001; // внутренний параметр обучения нейросети
   lRestarts := 500; // внутренний параметр обучения нейросети
@@ -51,15 +64,30 @@ begin
   lPoints := Length(lXY); // количество обучающих выборок (в нашем лучае можно и поменьше)
 
   // здесь можно использовать любую из функций MLPCreate
-  case aLevelCount of
-    1: MLPCreate0(lInCount, lOutCount, {0, 50,} lNetwork);
-    2: MLPCreate1(lInCount, lInCount, lOutCount, {0, 50,} lNetwork);
-    else MLPCreate2(lInCount, lInCount, lInCount, lOutCount, {0, 50,} lNetwork);
-  end;  
+  case aClassificator of
+    false:
+      case aLevelCount of
+        1:
+          MLPCreate0(lInCount, lOutCount, { 0, 50, } lNetwork);
+        2:
+          MLPCreate1(lInCount, lInCount, lOutCount, { 0, 50, } lNetwork);
+      else
+        MLPCreate2(lInCount, lInCount, lInCount, lOutCount, { 0, 50, } lNetwork);
+      end;
+    true:
+      case aLevelCount of
+        1:
+          MLPCreateC0(lInCount, lOutCount, { 0, 50, } lNetwork);
+        2:
+          MLPCreateC1(lInCount, lInCount, lOutCount, { 0, 50, } lNetwork);
+      else
+        MLPCreateC2(lInCount, lInCount, lInCount, lOutCount, { 0, 50, } lNetwork);
+      end;
+  end;
 
   // один из методов обучения. Можно использовать любой другой
   MLPTrainLBFGS(lNetwork, lXY, lPoints, lDecay, lRestarts, lMaxStep, lMaxIts, lInfo, lReport);
-  //MLPTrainLM(lNetwork, lXY, lPoints, lDecay, lRestarts, lInfo, lReport);
+  // MLPTrainLM(lNetwork, lXY, lPoints, lDecay, lRestarts, lInfo, lReport);
 end;
 
 // aSubLineWidth - длина строки с конечным обучающим значением
@@ -75,6 +103,45 @@ function NeuroRegression(var lNetwork: MultiLayerPerceptron; lX: TReal1DArray; v
 begin
   MLPProcess(lNetwork, lX, lY);
   Result := lY[0];
+end;
+
+procedure PutImageToArrayLine(aImageIdx, aCharIdx: Integer; aCanvas: TCanvas; aWidth, aHeight: Integer;
+  var lXY: TReal2DArray);
+var
+  x, y, i: Integer;
+begin
+  aCanvas.Lock;
+  try
+    i := 0;
+    for y := 0 to aHeight - 1 do
+      for x := 0 to aWidth - 1 do
+      begin
+        lXY[aImageIdx, i] := aCanvas.Pixels[x, y];
+        inc(i);
+      end;
+
+    lXY[aImageIdx, aWidth * aHeight + aCharIdx] := 1;
+  finally
+    aCanvas.Unlock;
+  end;
+end;
+
+procedure Get1DArrayFromImage(aCanvas: TCanvas; aWidth, aHeight: Integer; var lX: TReal1DArray);
+var
+  x, y, i: Integer;
+begin
+  aCanvas.Lock;
+  try
+    i := 0;
+    for y := 0 to aHeight - 1 do
+      for x := 0 to aWidth - 1 do
+      begin
+        lX[i] := aCanvas.Pixels[x, y];
+        inc(i);
+      end;
+  finally
+    aCanvas.Unlock;
+  end;
 end;
 
 end.

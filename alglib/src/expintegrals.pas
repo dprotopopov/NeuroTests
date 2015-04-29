@@ -28,8 +28,8 @@ unit expintegrals;
 interface
 uses Math, Sysutils, Ap;
 
-function ExponentialIntegralEI(X : Extended):Extended;
-function ExponentialIntegralEN(X : Extended; N : AlglibInteger):Extended;
+function ExponentialIntegralEI(X : Double):Double;
+function ExponentialIntegralEN(X : Double; N : AlglibInteger):Double;
 
 implementation
 
@@ -58,13 +58,13 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  May, 1999
 Copyright 1999 by Stephen L. Moshier
 *************************************************************************)
-function ExponentialIntegralEI(X : Extended):Extended;
+function ExponentialIntegralEI(X : Double):Double;
 var
-    EUL : Extended;
-    f : Extended;
-    f1 : Extended;
-    f2 : Extended;
-    w : Extended;
+    EUL : Double;
+    f : Double;
+    f1 : Double;
+    f2 : Double;
+    w : Double;
 begin
     EUL := 0.5772156649015328606065;
     if AP_FP_Less_Eq(X,0) then
@@ -264,24 +264,24 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1985, 2000 by Stephen L. Moshier
 *************************************************************************)
-function ExponentialIntegralEN(X : Extended; N : AlglibInteger):Extended;
+function ExponentialIntegralEN(X : Double; N : AlglibInteger):Double;
 var
-    r : Extended;
-    t : Extended;
-    yk : Extended;
-    xk : Extended;
-    pk : Extended;
-    pkm1 : Extended;
-    pkm2 : Extended;
-    qk : Extended;
-    qkm1 : Extended;
-    qkm2 : Extended;
-    psi : Extended;
-    z : Extended;
+    r : Double;
+    t : Double;
+    yk : Double;
+    xk : Double;
+    pk : Double;
+    pkm1 : Double;
+    pkm2 : Double;
+    qk : Double;
+    qkm1 : Double;
+    qkm2 : Double;
+    psi : Double;
+    z : Double;
     i : AlglibInteger;
     k : AlglibInteger;
-    big : Extended;
-    EUL : Extended;
+    big : Double;
+    EUL : Double;
 begin
     EUL := 0.57721566490153286060;
     big := 1.44115188075855872*Power(10, 17);

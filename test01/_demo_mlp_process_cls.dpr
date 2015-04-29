@@ -2,7 +2,12 @@
 program _demo;
 {$APPTYPE CONSOLE}
 
-uses SysUtils, Ap, mlpbase, mlptrain;
+uses
+  SysUtils,
+  Ap,
+  mlpbase,
+  mlptrain;
+  //testmlpeunit in '..\alglib\tests\testmlpeunit.pas';
 
 procedure DoProcess(const X0, X1: Double; var Net: MultiLayerPerceptron;
   X: TReal1DArray; var Y: TReal1DArray);
@@ -85,6 +90,8 @@ begin
     PrintMatrix(lX, lY, i + 1);
   end;
 
+  //testmlpeunit_test;
+  
   ReadLn;
 
 end.

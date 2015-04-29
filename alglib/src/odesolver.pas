@@ -25,15 +25,15 @@ type
 ODESolverState = record
     N : AlglibInteger;
     M : AlglibInteger;
-    XScale : Extended;
-    H : Extended;
-    Eps : Extended;
+    XScale : Double;
+    H : Double;
+    Eps : Double;
     FracEps : Boolean;
     YC : TReal1DArray;
     EScale : TReal1DArray;
     XG : TReal1DArray;
     SolverType : AlglibInteger;
-    X : Extended;
+    X : Double;
     Y : TReal1DArray;
     DY : TReal1DArray;
     YTbl : TReal2DArray;
@@ -61,8 +61,8 @@ procedure ODESolverRKCK(const Y : TReal1DArray;
      N : AlglibInteger;
      const X : TReal1DArray;
      M : AlglibInteger;
-     Eps : Extended;
-     H : Extended;
+     Eps : Double;
+     H : Double;
      var State : ODESolverState);
 function ODESolverIteration(var State : ODESolverState):Boolean;
 procedure ODESolverResults(const State : ODESolverState;
@@ -82,8 +82,8 @@ procedure ODESolverInit(SolverType : AlglibInteger;
      N : AlglibInteger;
      const X : TReal1DArray;
      M : AlglibInteger;
-     Eps : Extended;
-     H : Extended;
+     Eps : Double;
+     H : Double;
      var State : ODESolverState);forward;
 
 
@@ -138,8 +138,8 @@ procedure ODESolverRKCK(const Y : TReal1DArray;
      N : AlglibInteger;
      const X : TReal1DArray;
      M : AlglibInteger;
-     Eps : Extended;
-     H : Extended;
+     Eps : Double;
+     H : Double;
      var State : ODESolverState);
 begin
     ODESolverInit(0, Y, N, X, M, Eps, H, State);
@@ -173,13 +173,13 @@ var
     I : AlglibInteger;
     J : AlglibInteger;
     K : AlglibInteger;
-    XC : Extended;
-    V : Extended;
-    H : Extended;
-    H2 : Extended;
+    XC : Double;
+    V : Double;
+    H : Double;
+    H2 : Double;
     GridPoint : Boolean;
-    Err : Extended;
-    MaxGrowPow : Extended;
+    Err : Double;
+    MaxGrowPow : Double;
     KLimit : AlglibInteger;
 label
 lbl_3, lbl_6, lbl_8, lbl_0, lbl_10, lbl_7, lbl_5, lbl_1, lbl_rcomm;
@@ -558,7 +558,7 @@ procedure ODESolverResults(const State : ODESolverState;
      var YTbl : TReal2DArray;
      var Rep : ODESolverReport);
 var
-    V : Extended;
+    V : Double;
     I : AlglibInteger;
 begin
     Rep.TerminationType := State.RepTerminationType;
@@ -592,12 +592,12 @@ procedure ODESolverInit(SolverType : AlglibInteger;
      N : AlglibInteger;
      const X : TReal1DArray;
      M : AlglibInteger;
-     Eps : Extended;
-     H : Extended;
+     Eps : Double;
+     H : Double;
      var State : ODESolverState);
 var
     I : AlglibInteger;
-    V : Extended;
+    V : Double;
 begin
     
     //

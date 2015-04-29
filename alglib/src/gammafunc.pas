@@ -28,12 +28,12 @@ unit gammafunc;
 interface
 uses Math, Sysutils, Ap;
 
-function Gamma(x : Extended):Extended;
-function LnGamma(x : Extended; var SgnGam : Extended):Extended;
+function Gamma(x : Double):Double;
+function LnGamma(x : Double; var SgnGam : Double):Double;
 
 implementation
 
-function GammaStirF(X : Extended):Extended;forward;
+function GammaStirF(X : Double):Double;forward;
 
 
 (*************************************************************************
@@ -56,15 +56,15 @@ Cephes Math Library Release 2.8:  June, 2000
 Original copyright 1984, 1987, 1989, 1992, 2000 by Stephen L. Moshier
 Translated to AlgoPascal by Bochkanov Sergey (2005, 2006, 2007).
 *************************************************************************)
-function Gamma(x : Extended):Extended;
+function Gamma(x : Double):Double;
 var
-    p : Extended;
-    PP : Extended;
-    q : Extended;
-    QQ : Extended;
-    z : Extended;
+    p : Double;
+    PP : Double;
+    q : Double;
+    QQ : Double;
+    z : Double;
     i : AlglibInteger;
-    SgnGam : Extended;
+    SgnGam : Double;
 begin
     SgnGam := 1;
     q := AbsReal(x);
@@ -179,20 +179,20 @@ Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1989, 1992, 2000 by Stephen L. Moshier
 Translated to AlgoPascal by Bochkanov Sergey (2005, 2006, 2007).
 *************************************************************************)
-function LnGamma(x : Extended; var SgnGam : Extended):Extended;
+function LnGamma(x : Double; var SgnGam : Double):Double;
 var
-    A : Extended;
-    B : Extended;
-    C : Extended;
-    p : Extended;
-    q : Extended;
-    u : Extended;
-    w : Extended;
-    z : Extended;
+    A : Double;
+    B : Double;
+    C : Double;
+    p : Double;
+    q : Double;
+    u : Double;
+    w : Double;
+    z : Double;
     i : AlglibInteger;
-    LogPi : Extended;
-    LS2PI : Extended;
-    Tmp : Extended;
+    LogPi : Double;
+    LS2PI : Double;
+    Tmp : Double;
 begin
     SgnGam := 1;
     LogPi := 1.14472988584940017414;
@@ -295,12 +295,12 @@ begin
 end;
 
 
-function GammaStirF(X : Extended):Extended;
+function GammaStirF(X : Double):Double;
 var
-    y : Extended;
-    w : Extended;
-    v : Extended;
-    Stir : Extended;
+    y : Double;
+    w : Double;
+    v : Double;
+    Stir : Double;
 begin
     w := 1/x;
     Stir := 7.87311395793093628397E-4;

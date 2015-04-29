@@ -35,12 +35,12 @@ procedure TagSortFast(var A : TReal1DArray; N : AlglibInteger);
 procedure TagHeapPushI(var A : TReal1DArray;
      var B : TInteger1DArray;
      var N : AlglibInteger;
-     VA : Extended;
+     VA : Double;
      VB : AlglibInteger);
 procedure TagHeapReplaceTopI(var A : TReal1DArray;
      var B : TInteger1DArray;
      N : AlglibInteger;
-     VA : Extended;
+     VA : Double;
      VB : AlglibInteger);
 procedure TagHeapPopI(var A : TReal1DArray;
      var B : TInteger1DArray;
@@ -152,7 +152,7 @@ var
     I : AlglibInteger;
     K : AlglibInteger;
     T : AlglibInteger;
-    Tmp : Extended;
+    Tmp : Double;
     TmpI : AlglibInteger;
 begin
     
@@ -243,8 +243,8 @@ var
     I : AlglibInteger;
     K : AlglibInteger;
     T : AlglibInteger;
-    Tmp : Extended;
-    TmpR : Extended;
+    Tmp : Double;
+    TmpR : Double;
 begin
     
     //
@@ -332,7 +332,7 @@ var
     I : AlglibInteger;
     K : AlglibInteger;
     T : AlglibInteger;
-    Tmp : Extended;
+    Tmp : Double;
 begin
     
     //
@@ -424,12 +424,12 @@ PARAMETERS:
 procedure TagHeapPushI(var A : TReal1DArray;
      var B : TInteger1DArray;
      var N : AlglibInteger;
-     VA : Extended;
+     VA : Double;
      VB : AlglibInteger);
 var
     J : AlglibInteger;
     K : AlglibInteger;
-    V : Extended;
+    V : Double;
 begin
     if N<0 then
     begin
@@ -503,15 +503,15 @@ PARAMETERS:
 procedure TagHeapReplaceTopI(var A : TReal1DArray;
      var B : TInteger1DArray;
      N : AlglibInteger;
-     VA : Extended;
+     VA : Double;
      VB : AlglibInteger);
 var
     J : AlglibInteger;
     K1 : AlglibInteger;
     K2 : AlglibInteger;
-    V : Extended;
-    V1 : Extended;
-    V2 : Extended;
+    V : Double;
+    V1 : Double;
+    V2 : Double;
 begin
     if N<1 then
     begin
@@ -623,7 +623,7 @@ procedure TagHeapPopI(var A : TReal1DArray;
      var B : TInteger1DArray;
      var N : AlglibInteger);
 var
-    VA : Extended;
+    VA : Double;
     VB : AlglibInteger;
 begin
     if N<1 then

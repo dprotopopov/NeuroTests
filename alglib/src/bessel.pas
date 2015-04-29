@@ -28,44 +28,44 @@ unit bessel;
 interface
 uses Math, Sysutils, Ap;
 
-function BesselJ0(X : Extended):Extended;
-function BesselJ1(X : Extended):Extended;
-function BesselJN(n : AlglibInteger; x : Extended):Extended;
-function BesselY0(X : Extended):Extended;
-function BesselY1(X : Extended):Extended;
-function BesselYN(N : AlglibInteger; X : Extended):Extended;
-function BesselI0(X : Extended):Extended;
-function BesselI1(x : Extended):Extended;
-function BesselK0(X : Extended):Extended;
-function BesselK1(x : Extended):Extended;
-function BesselKN(nn : AlglibInteger; x : Extended):Extended;
+function BesselJ0(X : Double):Double;
+function BesselJ1(X : Double):Double;
+function BesselJN(n : AlglibInteger; x : Double):Double;
+function BesselY0(X : Double):Double;
+function BesselY1(X : Double):Double;
+function BesselYN(N : AlglibInteger; X : Double):Double;
+function BesselI0(X : Double):Double;
+function BesselI1(x : Double):Double;
+function BesselK0(X : Double):Double;
+function BesselK1(x : Double):Double;
+function BesselKN(nn : AlglibInteger; x : Double):Double;
 
 implementation
 
-procedure BesselMFirstCheb(c : Extended;
-     var b0 : Extended;
-     var b1 : Extended;
-     var b2 : Extended);forward;
-procedure BesselMNextCheb(x : Extended;
-     c : Extended;
-     var b0 : Extended;
-     var b1 : Extended;
-     var b2 : Extended);forward;
-procedure BesselM1FirstCheb(c : Extended;
-     var b0 : Extended;
-     var b1 : Extended;
-     var b2 : Extended);forward;
-procedure BesselM1NextCheb(x : Extended;
-     c : Extended;
-     var b0 : Extended;
-     var b1 : Extended;
-     var b2 : Extended);forward;
-procedure BesselAsympt0(X : Extended;
-     var PZero : Extended;
-     var QZero : Extended);forward;
-procedure BesselAsympt1(X : Extended;
-     var PZero : Extended;
-     var QZero : Extended);forward;
+procedure BesselMFirstCheb(c : Double;
+     var b0 : Double;
+     var b1 : Double;
+     var b2 : Double);forward;
+procedure BesselMNextCheb(x : Double;
+     c : Double;
+     var b0 : Double;
+     var b1 : Double;
+     var b2 : Double);forward;
+procedure BesselM1FirstCheb(c : Double;
+     var b0 : Double;
+     var b1 : Double;
+     var b2 : Double);forward;
+procedure BesselM1NextCheb(x : Double;
+     c : Double;
+     var b0 : Double;
+     var b1 : Double;
+     var b2 : Double);forward;
+procedure BesselAsympt0(X : Double;
+     var PZero : Double;
+     var QZero : Double);forward;
+procedure BesselAsympt1(X : Double;
+     var PZero : Double;
+     var QZero : Double);forward;
 
 
 (*************************************************************************
@@ -98,14 +98,14 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1989, 2000 by Stephen L. Moshier
 *************************************************************************)
-function BesselJ0(X : Extended):Extended;
+function BesselJ0(X : Double):Double;
 var
-    XSq : Extended;
-    NN : Extended;
-    PZero : Extended;
-    QZero : Extended;
-    P1 : Extended;
-    Q1 : Extended;
+    XSq : Double;
+    NN : Double;
+    PZero : Double;
+    QZero : Double;
+    P1 : Double;
+    Q1 : Double;
 begin
     if AP_FP_Less(X,0) then
     begin
@@ -161,15 +161,15 @@ arithmetic   domain      # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1989, 2000 by Stephen L. Moshier
 *************************************************************************)
-function BesselJ1(X : Extended):Extended;
+function BesselJ1(X : Double):Double;
 var
-    S : Extended;
-    XSq : Extended;
-    NN : Extended;
-    PZero : Extended;
-    QZero : Extended;
-    P1 : Extended;
-    Q1 : Extended;
+    S : Double;
+    XSq : Double;
+    NN : Double;
+    PZero : Double;
+    QZero : Double;
+    P1 : Double;
+    Q1 : Double;
 begin
     S := Sign(X);
     if AP_FP_Less(X,0) then
@@ -237,14 +237,14 @@ Not suitable for large n or x. Use jv() (fractional order) instead.
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-function BesselJN(n : AlglibInteger; x : Extended):Extended;
+function BesselJN(n : AlglibInteger; x : Double):Double;
 var
-    pkm2 : Extended;
-    pkm1 : Extended;
-    pk : Extended;
-    xk : Extended;
-    r : Extended;
-    ans : Extended;
+    pkm2 : Double;
+    pkm1 : Double;
+    pk : Double;
+    xk : Double;
+    r : Double;
+    ans : Double;
     k : AlglibInteger;
     sg : AlglibInteger;
 begin
@@ -360,14 +360,14 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1989, 2000 by Stephen L. Moshier
 *************************************************************************)
-function BesselY0(X : Extended):Extended;
+function BesselY0(X : Double):Double;
 var
-    NN : Extended;
-    XSq : Extended;
-    PZero : Extended;
-    QZero : Extended;
-    P4 : Extended;
-    Q4 : Extended;
+    NN : Double;
+    XSq : Double;
+    PZero : Double;
+    QZero : Double;
+    P4 : Double;
+    Q4 : Double;
 begin
     if AP_FP_Greater(X,8.0) then
     begin
@@ -420,14 +420,14 @@ arithmetic   domain      # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1989, 2000 by Stephen L. Moshier
 *************************************************************************)
-function BesselY1(X : Extended):Extended;
+function BesselY1(X : Double):Double;
 var
-    NN : Extended;
-    XSq : Extended;
-    PZero : Extended;
-    QZero : Extended;
-    P4 : Extended;
-    Q4 : Extended;
+    NN : Double;
+    XSq : Double;
+    PZero : Double;
+    QZero : Double;
+    P4 : Double;
+    Q4 : Double;
 begin
     if AP_FP_Greater(X,8.0) then
     begin
@@ -482,13 +482,13 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-function BesselYN(N : AlglibInteger; X : Extended):Extended;
+function BesselYN(N : AlglibInteger; X : Double):Double;
 var
     I : AlglibInteger;
-    A : Extended;
-    B : Extended;
-    Tmp : Extended;
-    S : Extended;
+    A : Double;
+    B : Double;
+    Tmp : Double;
+    S : Double;
 begin
     S := 1;
     if N<0 then
@@ -544,14 +544,14 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-function BesselI0(X : Extended):Extended;
+function BesselI0(X : Double):Double;
 var
-    y : Extended;
-    v : Extended;
-    z : Extended;
-    b0 : Extended;
-    b1 : Extended;
-    b2 : Extended;
+    y : Double;
+    v : Double;
+    z : Double;
+    b0 : Double;
+    b1 : Double;
+    b2 : Double;
 begin
     if AP_FP_Less(x,0) then
     begin
@@ -646,14 +646,14 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1985, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-function BesselI1(x : Extended):Extended;
+function BesselI1(x : Double):Double;
 var
-    y : Extended;
-    z : Extended;
-    v : Extended;
-    b0 : Extended;
-    b1 : Extended;
-    b2 : Extended;
+    y : Double;
+    z : Double;
+    v : Double;
+    b0 : Double;
+    b1 : Double;
+    b2 : Double;
 begin
     z := AbsReal(x);
     if AP_FP_Less_Eq(z,8.0) then
@@ -751,14 +751,14 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-function BesselK0(X : Extended):Extended;
+function BesselK0(X : Double):Double;
 var
-    y : Extended;
-    z : Extended;
-    v : Extended;
-    b0 : Extended;
-    b1 : Extended;
-    b2 : Extended;
+    y : Double;
+    z : Double;
+    v : Double;
+    b0 : Double;
+    b1 : Double;
+    b2 : Double;
 begin
     Assert(AP_FP_Greater(x,0), 'Domain error in BesselK0: x<=0');
     if AP_FP_Less_Eq(x,2) then
@@ -831,14 +831,14 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-function BesselK1(x : Extended):Extended;
+function BesselK1(x : Double):Double;
 var
-    y : Extended;
-    z : Extended;
-    v : Extended;
-    b0 : Extended;
-    b1 : Extended;
-    b2 : Extended;
+    y : Double;
+    z : Double;
+    v : Double;
+    b0 : Double;
+    b1 : Double;
+    b2 : Double;
 begin
     z := 0.5*x;
     Assert(AP_FP_Greater(z,0), 'Domain error in K1');
@@ -915,27 +915,27 @@ between the two expansions used.
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1988, 2000 by Stephen L. Moshier
 *************************************************************************)
-function BesselKN(nn : AlglibInteger; x : Extended):Extended;
+function BesselKN(nn : AlglibInteger; x : Double):Double;
 var
-    k : Extended;
-    kf : Extended;
-    nk1f : Extended;
-    nkf : Extended;
-    zn : Extended;
-    t : Extended;
-    s : Extended;
-    z0 : Extended;
-    z : Extended;
-    ans : Extended;
-    fn : Extended;
-    pn : Extended;
-    pk : Extended;
-    zmn : Extended;
-    tlg : Extended;
-    tox : Extended;
+    k : Double;
+    kf : Double;
+    nk1f : Double;
+    nkf : Double;
+    zn : Double;
+    t : Double;
+    s : Double;
+    z0 : Double;
+    z : Double;
+    ans : Double;
+    fn : Double;
+    pn : Double;
+    pk : Double;
+    zmn : Double;
+    tlg : Double;
+    tox : Double;
     i : AlglibInteger;
     n : AlglibInteger;
-    EUL : Extended;
+    EUL : Double;
 begin
     EUL := 5.772156649015328606065e-1;
     if nn<0 then
@@ -1068,10 +1068,10 @@ Internal subroutine
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-procedure BesselMFirstCheb(c : Extended;
-     var b0 : Extended;
-     var b1 : Extended;
-     var b2 : Extended);
+procedure BesselMFirstCheb(c : Double;
+     var b0 : Double;
+     var b1 : Double;
+     var b2 : Double);
 begin
     b0 := c;
     b1 := 0.0;
@@ -1085,11 +1085,11 @@ Internal subroutine
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-procedure BesselMNextCheb(x : Extended;
-     c : Extended;
-     var b0 : Extended;
-     var b1 : Extended;
-     var b2 : Extended);
+procedure BesselMNextCheb(x : Double;
+     c : Double;
+     var b0 : Double;
+     var b1 : Double;
+     var b2 : Double);
 begin
     b2 := b1;
     b1 := b0;
@@ -1103,10 +1103,10 @@ Internal subroutine
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-procedure BesselM1FirstCheb(c : Extended;
-     var b0 : Extended;
-     var b1 : Extended;
-     var b2 : Extended);
+procedure BesselM1FirstCheb(c : Double;
+     var b0 : Double;
+     var b1 : Double;
+     var b2 : Double);
 begin
     b0 := c;
     b1 := 0.0;
@@ -1120,11 +1120,11 @@ Internal subroutine
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-procedure BesselM1NextCheb(x : Extended;
-     c : Extended;
-     var b0 : Extended;
-     var b1 : Extended;
-     var b2 : Extended);
+procedure BesselM1NextCheb(x : Double;
+     c : Double;
+     var b0 : Double;
+     var b1 : Double;
+     var b2 : Double);
 begin
     b2 := b1;
     b1 := b0;
@@ -1132,13 +1132,13 @@ begin
 end;
 
 
-procedure BesselAsympt0(X : Extended; var PZero : Extended; var QZero : Extended);
+procedure BesselAsympt0(X : Double; var PZero : Double; var QZero : Double);
 var
-    XSq : Extended;
-    P2 : Extended;
-    Q2 : Extended;
-    P3 : Extended;
-    Q3 : Extended;
+    XSq : Double;
+    P2 : Double;
+    Q2 : Double;
+    P3 : Double;
+    Q3 : Double;
 begin
     XSq := 64.0/(X*X);
     P2 := 0.0;
@@ -1174,13 +1174,13 @@ begin
 end;
 
 
-procedure BesselAsympt1(X : Extended; var PZero : Extended; var QZero : Extended);
+procedure BesselAsympt1(X : Double; var PZero : Double; var QZero : Double);
 var
-    XSq : Extended;
-    P2 : Extended;
-    Q2 : Extended;
-    P3 : Extended;
-    Q3 : Extended;
+    XSq : Double;
+    P2 : Double;
+    Q2 : Double;
+    P3 : Double;
+    Q3 : Double;
 begin
     XSq := 64.0/(X*X);
     P2 := -1611.616644324610116477412898;

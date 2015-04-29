@@ -23,24 +23,24 @@ uses Math, Sysutils, Ap, gammafunc, normaldistr, ibetaf, studenttdistr;
 
 procedure StudentTTest1(const X : TReal1DArray;
      N : AlglibInteger;
-     Mean : Extended;
-     var BothTails : Extended;
-     var LeftTail : Extended;
-     var RightTail : Extended);
+     Mean : Double;
+     var BothTails : Double;
+     var LeftTail : Double;
+     var RightTail : Double);
 procedure StudentTTest2(const X : TReal1DArray;
      N : AlglibInteger;
      const Y : TReal1DArray;
      M : AlglibInteger;
-     var BothTails : Extended;
-     var LeftTail : Extended;
-     var RightTail : Extended);
+     var BothTails : Double;
+     var LeftTail : Double;
+     var RightTail : Double);
 procedure UnequalVarianceTTest(const X : TReal1DArray;
      N : AlglibInteger;
      const Y : TReal1DArray;
      M : AlglibInteger;
-     var BothTails : Extended;
-     var LeftTail : Extended;
-     var RightTail : Extended);
+     var BothTails : Double;
+     var LeftTail : Double;
+     var RightTail : Double);
 
 implementation
 
@@ -81,19 +81,19 @@ Output parameters:
 *************************************************************************)
 procedure StudentTTest1(const X : TReal1DArray;
      N : AlglibInteger;
-     Mean : Extended;
-     var BothTails : Extended;
-     var LeftTail : Extended;
-     var RightTail : Extended);
+     Mean : Double;
+     var BothTails : Double;
+     var LeftTail : Double;
+     var RightTail : Double);
 var
     I : AlglibInteger;
-    XMean : Extended;
-    XVariance : Extended;
-    XStdDev : Extended;
-    V1 : Extended;
-    V2 : Extended;
-    Stat : Extended;
-    S : Extended;
+    XMean : Double;
+    XVariance : Double;
+    XStdDev : Double;
+    V1 : Double;
+    V2 : Double;
+    Stat : Double;
+    S : Double;
 begin
     if N<=1 then
     begin
@@ -203,16 +203,16 @@ procedure StudentTTest2(const X : TReal1DArray;
      N : AlglibInteger;
      const Y : TReal1DArray;
      M : AlglibInteger;
-     var BothTails : Extended;
-     var LeftTail : Extended;
-     var RightTail : Extended);
+     var BothTails : Double;
+     var LeftTail : Double;
+     var RightTail : Double);
 var
     I : AlglibInteger;
-    XMean : Extended;
-    YMean : Extended;
-    Stat : Extended;
-    S : Extended;
-    P : Extended;
+    XMean : Double;
+    YMean : Double;
+    Stat : Double;
+    S : Double;
+    P : Double;
 begin
     if (N<=1) or (M<=1) then
     begin
@@ -318,19 +318,19 @@ procedure UnequalVarianceTTest(const X : TReal1DArray;
      N : AlglibInteger;
      const Y : TReal1DArray;
      M : AlglibInteger;
-     var BothTails : Extended;
-     var LeftTail : Extended;
-     var RightTail : Extended);
+     var BothTails : Double;
+     var LeftTail : Double;
+     var RightTail : Double);
 var
     I : AlglibInteger;
-    XMean : Extended;
-    YMean : Extended;
-    XVar : Extended;
-    YVar : Extended;
-    DF : Extended;
-    P : Extended;
-    Stat : Extended;
-    C : Extended;
+    XMean : Double;
+    YMean : Double;
+    XVar : Double;
+    YVar : Double;
+    DF : Double;
+    P : Double;
+    Stat : Double;
+    C : Double;
 begin
     if (N<=1) or (M<=1) then
     begin

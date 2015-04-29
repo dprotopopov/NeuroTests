@@ -28,11 +28,11 @@ unit airyf;
 interface
 uses Math, Sysutils, Ap;
 
-procedure Airy(x : Extended;
-     var Ai : Extended;
-     var Aip : Extended;
-     var Bi : Extended;
-     var Bip : Extended);
+procedure Airy(x : Double;
+     var Ai : Double;
+     var Aip : Double;
+     var Bi : Double;
+     var Bip : Double);
 
 implementation
 
@@ -68,43 +68,43 @@ IEEE        -10, 10    Bi'       30000       4.9e-15     7.3e-16
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1989, 2000 by Stephen L. Moshier
 *************************************************************************)
-procedure Airy(x : Extended;
-     var Ai : Extended;
-     var Aip : Extended;
-     var Bi : Extended;
-     var Bip : Extended);
+procedure Airy(x : Double;
+     var Ai : Double;
+     var Aip : Double;
+     var Bi : Double;
+     var Bip : Double);
 var
-    z : Extended;
-    zz : Extended;
-    t : Extended;
-    f : Extended;
-    g : Extended;
-    uf : Extended;
-    ug : Extended;
-    k : Extended;
-    zeta : Extended;
-    theta : Extended;
+    z : Double;
+    zz : Double;
+    t : Double;
+    f : Double;
+    g : Double;
+    uf : Double;
+    ug : Double;
+    k : Double;
+    zeta : Double;
+    theta : Double;
     domflg : AlglibInteger;
-    c1 : Extended;
-    c2 : Extended;
-    sqrt3 : Extended;
-    sqpii : Extended;
-    AFN : Extended;
-    AFD : Extended;
-    AGN : Extended;
-    AGD : Extended;
-    APFN : Extended;
-    APFD : Extended;
-    APGN : Extended;
-    APGD : Extended;
-    AN : Extended;
-    AD : Extended;
-    APN : Extended;
-    APD : Extended;
-    BN16 : Extended;
-    BD16 : Extended;
-    BPPN : Extended;
-    BPPD : Extended;
+    c1 : Double;
+    c2 : Double;
+    sqrt3 : Double;
+    sqpii : Double;
+    AFN : Double;
+    AFD : Double;
+    AGN : Double;
+    AGD : Double;
+    APFN : Double;
+    APFD : Double;
+    APGN : Double;
+    APGD : Double;
+    AN : Double;
+    AD : Double;
+    APN : Double;
+    APD : Double;
+    BN16 : Double;
+    BD16 : Double;
+    BPPN : Double;
+    BPPD : Double;
 begin
     sqpii := 5.64189583547756286948E-1;
     c1 := 0.35502805388781723926;

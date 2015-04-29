@@ -28,7 +28,7 @@ unit psif;
 interface
 uses Math, Sysutils, Ap;
 
-function Psi(X : Extended):Extended;
+function Psi(X : Double):Double;
 
 implementation
 
@@ -71,16 +71,16 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1992, 2000 by Stephen L. Moshier
 *************************************************************************)
-function Psi(X : Extended):Extended;
+function Psi(X : Double):Double;
 var
-    p : Extended;
-    q : Extended;
-    nz : Extended;
-    s : Extended;
-    w : Extended;
-    y : Extended;
-    z : Extended;
-    polv : Extended;
+    p : Double;
+    q : Double;
+    nz : Double;
+    s : Double;
+    w : Double;
+    y : Double;
+    z : Double;
+    polv : Double;
     i : AlglibInteger;
     n : AlglibInteger;
     negative : AlglibInteger;
