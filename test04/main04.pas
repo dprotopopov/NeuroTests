@@ -31,19 +31,20 @@ var
   Form2: TForm2;
 
 implementation
+
 uses calc_utils;
 
 {$R *.dfm}
 
-const 
+const
   ImageSizeW = 20;
   ImageSizeH = 25;
-  ImagePixelCount = ImageSizeW*ImageSizeH;
-  
+  ImagePixelCount = ImageSizeW * ImageSizeH;
+
 procedure TForm2.edInputTextChange(Sender: TObject);
 var
   i: Integer;
-  lX, lY:TReal1DArray;
+  lX, lY: TReal1DArray;
 begin
   if Length(edInputText.Text) > 1 then
     edInputText.Text := copy(edInputText.Text, 0, 1);
@@ -55,16 +56,17 @@ begin
   MLPProcess(lNetwork, lX, lY);
 
   sgResults.RowCount := FCharList.Count + 1;
-  for I := 0 to FCharList.Count - 1 do
+  for i := 0 to FCharList.Count - 1 do
   begin
-    sgResults.Cells[0, I + 1] := FCharList[i];
-    sgResults.Cells[1, I + 1] := FloatToStr(lY[i]);
+    sgResults.Cells[0, i + 1] := FCharList[i];
+    sgResults.Cells[1, i + 1] := FloatToStr(lY[i]);
   end;
-    
+
   SetLength(lX, 0);
   SetLength(lY, 0);
 end;
 
+const cReservedCharsCount = 2;
 procedure TForm2.FormShow(Sender: TObject);
 var
   i: Integer;
@@ -81,14 +83,24 @@ begin
     FCharList.Add(ch);
   for ch := 'А' to 'Я' do
     FCharList.Add(ch);
+  FCharList.Add(#0000);
+  FCharList.Add(#0001);
   // формируем нейросеть
-  NewEmptyMatrix(ImagePixelCount + FCharList.Count, FCharList.Count, lXY);
-  for I := 0 to FCharList.Count - 1 do
+  NewEmptyMatrix(ImagePixelCount + FCharList.Count  - cReservedCharsCount, FCharList.Count, lXY);
+  for i := 0 to FCharList.Count - 1  - cReservedCharsCount do
   begin
-    PrintChar(FBitmap.Canvas, FCharList[I]);
-    PutImageToArrayLine(I, I, FBitmap.Canvas, ImageSizeW, ImageSizeH, lXY);
+    PrintChar(FBitmap.Canvas, FCharList[i]);
+    PutImageToArrayLine(i, i, FBitmap.Canvas, ImageSizeW, ImageSizeH, lXY);
   end;
+  // добавим зарезервированные варианты, которые должны дать 0
+  for i := FCharList.Count - cReservedCharsCount to FCharList.Count - 1 do
+  begin
+    PrintChar(FBitmap.Canvas, FCharList[i]);
+    PutImageToArrayLine(i, -1, FBitmap.Canvas, ImageSizeW, ImageSizeH, lXY);
+  end;
+  
   // обучение нейросети
+  // для задачи с символами количество слоёв не важно. Важнее количество вариантов
   CalcNeuroMatrix(False, 1, ImagePixelCount, FCharList.Count, lXY, lNetwork);
 
   // отобразим букву
@@ -98,8 +110,20 @@ end;
 procedure TForm2.PrintChar(aCanvas: TCanvas; const aStr: string);
 begin
   aCanvas.Lock;
-  aCanvas.Rectangle(0,0,ImageSizeW, ImageSizeH);
-  aCanvas.TextOut(0,0, aStr);
+  if (aStr[1] in [#0000, #0001]) then
+  begin
+    if (aStr[1] = #0000) then
+      aCanvas.Brush.Color := clBlack
+    else if (aStr[1] = #0001) then
+      aCanvas.Brush.Color := clWhite;
+    aCanvas.Rectangle(0, 0, ImageSizeW, ImageSizeH);
+  end
+  else
+  begin
+    aCanvas.Brush.Color := clWhite;
+    aCanvas.Rectangle(0, 0, ImageSizeW, ImageSizeH);
+    aCanvas.TextOut(0, 0, aStr);
+  end;
   aCanvas.Unlock;
 end;
 

@@ -120,7 +120,9 @@ begin
         inc(i);
       end;
 
-    lXY[aImageIdx, aWidth * aHeight + aCharIdx] := 1;
+    // не указываем зарезервированные параметры
+    if (aCharIdx <> -1) then
+      lXY[aImageIdx, aWidth * aHeight + aCharIdx] := 1;
   finally
     aCanvas.Unlock;
   end;
