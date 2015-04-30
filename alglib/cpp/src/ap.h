@@ -27,8 +27,8 @@ http://www.fsf.org/licensing/licenses
 #include <math.h>
 
 #ifdef __BORLANDC__
-#include <list.h>
-#include <vector.h>
+#include <list>
+#include <vector>
 #else
 #include <list>
 #include <vector>
@@ -132,6 +132,7 @@ typedef ptrdiff_t ae_int_t;
 #define ae_true true
 #define ae_false false
 #endif
+
 
 
 /*
@@ -850,7 +851,7 @@ public:
     boolean_1d_array();
     boolean_1d_array(const char *s);
     boolean_1d_array(alglib_impl::ae_vector *p);
-    virtual ~boolean_1d_array() ;
+    virtual ~boolean_1d_array();
 
     const ae_bool& operator()(ae_int_t i) const;
     ae_bool& operator()(ae_int_t i);
