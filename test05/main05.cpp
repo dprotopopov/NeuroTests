@@ -1790,6 +1790,18 @@ ae_bool testmlptrain(ae_bool silent, ae_state *_state) {
 	trnerrors = trnerrors || ae_fp_greater(mlprmserror(&network, &xy, 4,
 		_state), 0.1);
 
+	ae_vector workx;
+	ae_vector y;
+	ae_vector_init(&workx, 2, DT_REAL, _state, ae_true);
+	ae_vector_init(&y, 1, DT_REAL, _state, ae_true);
+	for (int a = 0; a < 2; a++) {
+	  for (int b = 0; b < 2; b++) {
+	  workx.ptr.p_double[0] = a;
+	  workx.ptr.p_double[1] = b;
+	  mlpprocess(&network, &workx, &y, _state);
+	  printf("a = %d, b = %d, result = %f\r\n", a, b, y.ptr.p_double[0]);
+	  }
+	}
 	/*
 	 * Test CV on random noisy problem
 	 */

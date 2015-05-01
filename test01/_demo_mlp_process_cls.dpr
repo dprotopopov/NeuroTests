@@ -3,14 +3,14 @@ program _demo;
 {$APPTYPE CONSOLE}
 
 uses
+  Windows,
   SysUtils,
   Ap,
   mlpbase,
   mlptrain;
-  //testmlpeunit in '..\alglib\tests\testmlpeunit.pas';
+// testmlpeunit in '..\alglib\tests\testmlpeunit.pas';
 
-procedure DoProcess(const X0, X1: Double; var Net: MultiLayerPerceptron;
-  X: TReal1DArray; var Y: TReal1DArray);
+procedure DoProcess(const X0, X1: Double; var Net: MultiLayerPerceptron; X: TReal1DArray; var Y: TReal1DArray);
 begin
   X[0] := X0;
   X[1] := X1;
@@ -19,10 +19,7 @@ end;
 
 procedure PrintMatrix(X: TReal1DArray; Y: TReal1DArray; aIteration: Integer);
 begin
-  Write(Format('IN[0]  = %5.2f'#13#10'', [X[0]]));
-  Write(Format('IN[1]  = %5.2f'#13#10'', [X[1]]));
-  Write(Format('Prob(Class=0|IN) = %5.2f'#13#10'', [Y[0]]));
-  WriteLn(Format('--- %d ------------', [aIteration]));
+  WriteLn(Format('%f + %f = %10.8f', [X[0], X[1], Y[0]]));
 end;
 
 var
@@ -47,6 +44,8 @@ var
 
   lX, lY: TReal1DArray;
 
+  lFreq, lBeginQPC, lEndQPC: int64;
+
 begin
 
   lInCount := 2; // количество точек данных в одной выборке
@@ -55,14 +54,14 @@ begin
   lMaxStep := 0.001; // внутренний параметр обучения нейросети
   lRestarts := 500; // внутренний параметр обучения нейросети
   lDecay := 0.001; // затухание.  внутренний параметр обучения нейросети
-  lPoints := 3; // количество обучающих выборок
+  lPoints := 20; // количество обучающих выборок
 
   lNHid1 := lInCount; // количество узлов в 1-ом скрытом слое
   lNHid2 := lInCount; // количество узлов во 2-ом скрытом слое
 
   // здесь можно использовать любую из функций MLPCreate
-  // MLPCreate2(lInCount, lNHid1, lNHid2, lOutCount, lNetwork);
-  MLPCreate0(lInCount, lOutCount, lNetwork);
+  // MLPCreate0(lInCount, lOutCount, lNetwork);
+  MLPCreate2(lInCount, lInCount, lInCount, lOutCount, lNetwork);
 
   SetLength(lXY, lPoints, lInCount + lOutCount);
   SetLength(lX, lInCount);
@@ -78,20 +77,25 @@ begin
     lXY[zRow, lInCount] := lInCount + zRow;
   end;
 
+  QueryPerformanceFrequency(lFreq);
+  QueryPerformanceCounter(lBeginQPC);
+
   // один из методов обучения. Можно использовать любой другой
-  MLPTrainLBFGS(lNetwork, lXY, lPoints, lDecay, lRestarts, lMaxStep, lMaxIts,
-    lInfo, lReport);
+  //MLPTrainLBFGS(lNetwork, lXY, lPoints, lDecay, lRestarts, lMaxStep, lMaxIts, lInfo, lReport);
+  MLPTrainLM(lNetwork, lXY, lPoints, lDecay, lRestarts, lInfo, lReport);
+
+  QueryPerformanceCounter(lEndQPC);
 
   for i := 0 to 20 do
   begin
-    Write(Format('Classification task'#13#10'', []));
-    DoProcess(1 + i, 2 + i, lNetwork, lX, lY);
+    DoProcess(i, 1 + i, lNetwork, lX, lY);
     // DoProcess(1 + i, 2 + i * 2, lNetwork, lX, lY); - будет отличаться
     PrintMatrix(lX, lY, i + 1);
   end;
 
-  //testmlpeunit_test;
-  
+  WriteLn(Format('Time: %10.8f sec', [(lEndQPC - lBeginQPC) / lFreq]));
+  // testmlpeunit_test;
+
   ReadLn;
 
 end.
