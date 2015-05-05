@@ -29,8 +29,8 @@ uses Math, Sysutils, Ap, reflections, creflections, hqrnd, matgen, ablasf, ablas
 
 type
 MatInvReport = record
-    R1 : Double;
-    RInf : Double;
+    R1 : AlglibFloat;
+    RInf : AlglibFloat;
 end;
 
 
@@ -168,7 +168,7 @@ var
     I : AlglibInteger;
     J : AlglibInteger;
     K : AlglibInteger;
-    V : Double;
+    V : AlglibFloat;
 begin
     Info := 1;
     
@@ -432,9 +432,9 @@ var
     I : AlglibInteger;
     J : AlglibInteger;
     K : AlglibInteger;
-    V : Double;
-    AJJ : Double;
-    AII : Double;
+    V : AlglibFloat;
+    AJJ : AlglibFloat;
+    AII : AlglibFloat;
     Tmp : TReal1DArray;
     Info2 : AlglibInteger;
     Rep2 : MatInvReport;
@@ -865,8 +865,8 @@ var
     N2 : AlglibInteger;
     I : AlglibInteger;
     J : AlglibInteger;
-    V : Double;
-    AJJ : Double;
+    V : AlglibFloat;
+    AJJ : AlglibFloat;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin
@@ -1275,7 +1275,7 @@ var
     JJ : AlglibInteger;
     JP : AlglibInteger;
     K : AlglibInteger;
-    V : Double;
+    V : AlglibFloat;
     N1 : AlglibInteger;
     N2 : AlglibInteger;
 begin
@@ -1563,7 +1563,7 @@ procedure SPDMatrixCholeskyInverseRec(var A : TReal2DArray;
 var
     I : AlglibInteger;
     J : AlglibInteger;
-    V : Double;
+    V : AlglibFloat;
     N1 : AlglibInteger;
     N2 : AlglibInteger;
     Info2 : AlglibInteger;

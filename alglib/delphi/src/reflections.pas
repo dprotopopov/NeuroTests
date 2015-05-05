@@ -29,9 +29,9 @@ uses Math, Sysutils, Ap;
 
 procedure GenerateReflection(var X : TReal1DArray;
      N : AlglibInteger;
-     var Tau : Double);
+     var Tau : AlglibFloat);
 procedure ApplyReflectionFromTheLeft(var C : TReal2DArray;
-     Tau : Double;
+     Tau : AlglibFloat;
      const V : TReal1DArray;
      M1 : AlglibInteger;
      M2 : AlglibInteger;
@@ -39,7 +39,7 @@ procedure ApplyReflectionFromTheLeft(var C : TReal2DArray;
      N2 : AlglibInteger;
      var WORK : TReal1DArray);
 procedure ApplyReflectionFromTheRight(var C : TReal2DArray;
-     Tau : Double;
+     Tau : AlglibFloat;
      const V : TReal1DArray;
      M1 : AlglibInteger;
      M2 : AlglibInteger;
@@ -89,15 +89,15 @@ MODIFICATIONS:
 *************************************************************************)
 procedure GenerateReflection(var X : TReal1DArray;
      N : AlglibInteger;
-     var Tau : Double);
+     var Tau : AlglibFloat);
 var
     J : AlglibInteger;
-    Alpha : Double;
-    XNORM : Double;
-    V : Double;
-    Beta : Double;
-    MX : Double;
-    S : Double;
+    Alpha : AlglibFloat;
+    XNORM : AlglibFloat;
+    V : AlglibFloat;
+    Beta : AlglibFloat;
+    MX : AlglibFloat;
+    S : AlglibFloat;
 begin
     if N<=1 then
     begin
@@ -214,7 +214,7 @@ Output parameters:
      September 30, 1994
 *************************************************************************)
 procedure ApplyReflectionFromTheLeft(var C : TReal2DArray;
-     Tau : Double;
+     Tau : AlglibFloat;
      const V : TReal1DArray;
      M1 : AlglibInteger;
      M2 : AlglibInteger;
@@ -222,7 +222,7 @@ procedure ApplyReflectionFromTheLeft(var C : TReal2DArray;
      N2 : AlglibInteger;
      var WORK : TReal1DArray);
 var
-    T : Double;
+    T : AlglibFloat;
     I : AlglibInteger;
     VM : AlglibInteger;
 begin
@@ -291,7 +291,7 @@ Output parameters:
      September 30, 1994
 *************************************************************************)
 procedure ApplyReflectionFromTheRight(var C : TReal2DArray;
-     Tau : Double;
+     Tau : AlglibFloat;
      const V : TReal1DArray;
      M1 : AlglibInteger;
      M2 : AlglibInteger;
@@ -299,7 +299,7 @@ procedure ApplyReflectionFromTheRight(var C : TReal2DArray;
      N2 : AlglibInteger;
      var WORK : TReal1DArray);
 var
-    T : Double;
+    T : AlglibFloat;
     I : AlglibInteger;
     VM : AlglibInteger;
 begin

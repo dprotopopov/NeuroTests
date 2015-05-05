@@ -25,131 +25,131 @@ procedure MannWhitneyUTest(const X : TReal1DArray;
      N : AlglibInteger;
      const Y : TReal1DArray;
      M : AlglibInteger;
-     var BothTails : Double;
-     var LeftTail : Double;
-     var RightTail : Double);
+     var BothTails : AlglibFloat;
+     var LeftTail : AlglibFloat;
+     var RightTail : AlglibFloat);
 
 implementation
 
-procedure UCheb(X : Double;
-     C : Double;
-     var TJ : Double;
-     var TJ1 : Double;
-     var R : Double);forward;
-function UNInterpolate(P1 : Double;
-     P2 : Double;
-     P3 : Double;
-     N : AlglibInteger):Double;forward;
-function USigma000(N1 : AlglibInteger; N2 : AlglibInteger):Double;forward;
-function USigma075(N1 : AlglibInteger; N2 : AlglibInteger):Double;forward;
-function USigma150(N1 : AlglibInteger; N2 : AlglibInteger):Double;forward;
-function USigma225(N1 : AlglibInteger; N2 : AlglibInteger):Double;forward;
-function USigma300(N1 : AlglibInteger; N2 : AlglibInteger):Double;forward;
-function USigma333(N1 : AlglibInteger; N2 : AlglibInteger):Double;forward;
-function USigma367(N1 : AlglibInteger; N2 : AlglibInteger):Double;forward;
-function USigma400(N1 : AlglibInteger; N2 : AlglibInteger):Double;forward;
-function UTblN5N5(S : Double):Double;forward;
-function UTblN5N6(S : Double):Double;forward;
-function UTblN5N7(S : Double):Double;forward;
-function UTblN5N8(S : Double):Double;forward;
-function UTblN5N9(S : Double):Double;forward;
-function UTblN5N10(S : Double):Double;forward;
-function UTblN5N11(S : Double):Double;forward;
-function UTblN5N12(S : Double):Double;forward;
-function UTblN5N13(S : Double):Double;forward;
-function UTblN5N14(S : Double):Double;forward;
-function UTblN5N15(S : Double):Double;forward;
-function UTblN5N16(S : Double):Double;forward;
-function UTblN5N17(S : Double):Double;forward;
-function UTblN5N18(S : Double):Double;forward;
-function UTblN5N19(S : Double):Double;forward;
-function UTblN5N20(S : Double):Double;forward;
-function UTblN5N21(S : Double):Double;forward;
-function UTblN5N22(S : Double):Double;forward;
-function UTblN5N23(S : Double):Double;forward;
-function UTblN5N24(S : Double):Double;forward;
-function UTblN5N25(S : Double):Double;forward;
-function UTblN5N26(S : Double):Double;forward;
-function UTblN5N27(S : Double):Double;forward;
-function UTblN5N28(S : Double):Double;forward;
-function UTblN5N29(S : Double):Double;forward;
-function UTblN5N30(S : Double):Double;forward;
-function UTblN5N100(S : Double):Double;forward;
-function UTblN6N6(S : Double):Double;forward;
-function UTblN6N7(S : Double):Double;forward;
-function UTblN6N8(S : Double):Double;forward;
-function UTblN6N9(S : Double):Double;forward;
-function UTblN6N10(S : Double):Double;forward;
-function UTblN6N11(S : Double):Double;forward;
-function UTblN6N12(S : Double):Double;forward;
-function UTblN6N13(S : Double):Double;forward;
-function UTblN6N14(S : Double):Double;forward;
-function UTblN6N15(S : Double):Double;forward;
-function UTblN6N30(S : Double):Double;forward;
-function UTblN6N100(S : Double):Double;forward;
-function UTblN7N7(S : Double):Double;forward;
-function UTblN7N8(S : Double):Double;forward;
-function UTblN7N9(S : Double):Double;forward;
-function UTblN7N10(S : Double):Double;forward;
-function UTblN7N11(S : Double):Double;forward;
-function UTblN7N12(S : Double):Double;forward;
-function UTblN7N13(S : Double):Double;forward;
-function UTblN7N14(S : Double):Double;forward;
-function UTblN7N15(S : Double):Double;forward;
-function UTblN7N30(S : Double):Double;forward;
-function UTblN7N100(S : Double):Double;forward;
-function UTblN8N8(S : Double):Double;forward;
-function UTblN8N9(S : Double):Double;forward;
-function UTblN8N10(S : Double):Double;forward;
-function UTblN8N11(S : Double):Double;forward;
-function UTblN8N12(S : Double):Double;forward;
-function UTblN8N13(S : Double):Double;forward;
-function UTblN8N14(S : Double):Double;forward;
-function UTblN8N15(S : Double):Double;forward;
-function UTblN8N30(S : Double):Double;forward;
-function UTblN8N100(S : Double):Double;forward;
-function UTblN9N9(S : Double):Double;forward;
-function UTblN9N10(S : Double):Double;forward;
-function UTblN9N11(S : Double):Double;forward;
-function UTblN9N12(S : Double):Double;forward;
-function UTblN9N13(S : Double):Double;forward;
-function UTblN9N14(S : Double):Double;forward;
-function UTblN9N15(S : Double):Double;forward;
-function UTblN9N30(S : Double):Double;forward;
-function UTblN9N100(S : Double):Double;forward;
-function UTblN10N10(S : Double):Double;forward;
-function UTblN10N11(S : Double):Double;forward;
-function UTblN10N12(S : Double):Double;forward;
-function UTblN10N13(S : Double):Double;forward;
-function UTblN10N14(S : Double):Double;forward;
-function UTblN10N15(S : Double):Double;forward;
-function UTblN10N30(S : Double):Double;forward;
-function UTblN10N100(S : Double):Double;forward;
-function UTblN11N11(S : Double):Double;forward;
-function UTblN11N12(S : Double):Double;forward;
-function UTblN11N13(S : Double):Double;forward;
-function UTblN11N14(S : Double):Double;forward;
-function UTblN11N15(S : Double):Double;forward;
-function UTblN11N30(S : Double):Double;forward;
-function UTblN11N100(S : Double):Double;forward;
-function UTblN12N12(S : Double):Double;forward;
-function UTblN12N13(S : Double):Double;forward;
-function UTblN12N14(S : Double):Double;forward;
-function UTblN12N15(S : Double):Double;forward;
-function UTblN12N30(S : Double):Double;forward;
-function UTblN12N100(S : Double):Double;forward;
-function UTblN13N13(S : Double):Double;forward;
-function UTblN13N14(S : Double):Double;forward;
-function UTblN13N15(S : Double):Double;forward;
-function UTblN13N30(S : Double):Double;forward;
-function UTblN13N100(S : Double):Double;forward;
-function UTblN14N14(S : Double):Double;forward;
-function UTblN14N15(S : Double):Double;forward;
-function UTblN14N30(S : Double):Double;forward;
-function UTblN14N100(S : Double):Double;forward;
-function USigma(S : Double;
+procedure UCheb(X : AlglibFloat;
+     C : AlglibFloat;
+     var TJ : AlglibFloat;
+     var TJ1 : AlglibFloat;
+     var R : AlglibFloat);forward;
+function UNInterpolate(P1 : AlglibFloat;
+     P2 : AlglibFloat;
+     P3 : AlglibFloat;
+     N : AlglibInteger):AlglibFloat;forward;
+function USigma000(N1 : AlglibInteger; N2 : AlglibInteger):AlglibFloat;forward;
+function USigma075(N1 : AlglibInteger; N2 : AlglibInteger):AlglibFloat;forward;
+function USigma150(N1 : AlglibInteger; N2 : AlglibInteger):AlglibFloat;forward;
+function USigma225(N1 : AlglibInteger; N2 : AlglibInteger):AlglibFloat;forward;
+function USigma300(N1 : AlglibInteger; N2 : AlglibInteger):AlglibFloat;forward;
+function USigma333(N1 : AlglibInteger; N2 : AlglibInteger):AlglibFloat;forward;
+function USigma367(N1 : AlglibInteger; N2 : AlglibInteger):AlglibFloat;forward;
+function USigma400(N1 : AlglibInteger; N2 : AlglibInteger):AlglibFloat;forward;
+function UTblN5N5(S : AlglibFloat):AlglibFloat;forward;
+function UTblN5N6(S : AlglibFloat):AlglibFloat;forward;
+function UTblN5N7(S : AlglibFloat):AlglibFloat;forward;
+function UTblN5N8(S : AlglibFloat):AlglibFloat;forward;
+function UTblN5N9(S : AlglibFloat):AlglibFloat;forward;
+function UTblN5N10(S : AlglibFloat):AlglibFloat;forward;
+function UTblN5N11(S : AlglibFloat):AlglibFloat;forward;
+function UTblN5N12(S : AlglibFloat):AlglibFloat;forward;
+function UTblN5N13(S : AlglibFloat):AlglibFloat;forward;
+function UTblN5N14(S : AlglibFloat):AlglibFloat;forward;
+function UTblN5N15(S : AlglibFloat):AlglibFloat;forward;
+function UTblN5N16(S : AlglibFloat):AlglibFloat;forward;
+function UTblN5N17(S : AlglibFloat):AlglibFloat;forward;
+function UTblN5N18(S : AlglibFloat):AlglibFloat;forward;
+function UTblN5N19(S : AlglibFloat):AlglibFloat;forward;
+function UTblN5N20(S : AlglibFloat):AlglibFloat;forward;
+function UTblN5N21(S : AlglibFloat):AlglibFloat;forward;
+function UTblN5N22(S : AlglibFloat):AlglibFloat;forward;
+function UTblN5N23(S : AlglibFloat):AlglibFloat;forward;
+function UTblN5N24(S : AlglibFloat):AlglibFloat;forward;
+function UTblN5N25(S : AlglibFloat):AlglibFloat;forward;
+function UTblN5N26(S : AlglibFloat):AlglibFloat;forward;
+function UTblN5N27(S : AlglibFloat):AlglibFloat;forward;
+function UTblN5N28(S : AlglibFloat):AlglibFloat;forward;
+function UTblN5N29(S : AlglibFloat):AlglibFloat;forward;
+function UTblN5N30(S : AlglibFloat):AlglibFloat;forward;
+function UTblN5N100(S : AlglibFloat):AlglibFloat;forward;
+function UTblN6N6(S : AlglibFloat):AlglibFloat;forward;
+function UTblN6N7(S : AlglibFloat):AlglibFloat;forward;
+function UTblN6N8(S : AlglibFloat):AlglibFloat;forward;
+function UTblN6N9(S : AlglibFloat):AlglibFloat;forward;
+function UTblN6N10(S : AlglibFloat):AlglibFloat;forward;
+function UTblN6N11(S : AlglibFloat):AlglibFloat;forward;
+function UTblN6N12(S : AlglibFloat):AlglibFloat;forward;
+function UTblN6N13(S : AlglibFloat):AlglibFloat;forward;
+function UTblN6N14(S : AlglibFloat):AlglibFloat;forward;
+function UTblN6N15(S : AlglibFloat):AlglibFloat;forward;
+function UTblN6N30(S : AlglibFloat):AlglibFloat;forward;
+function UTblN6N100(S : AlglibFloat):AlglibFloat;forward;
+function UTblN7N7(S : AlglibFloat):AlglibFloat;forward;
+function UTblN7N8(S : AlglibFloat):AlglibFloat;forward;
+function UTblN7N9(S : AlglibFloat):AlglibFloat;forward;
+function UTblN7N10(S : AlglibFloat):AlglibFloat;forward;
+function UTblN7N11(S : AlglibFloat):AlglibFloat;forward;
+function UTblN7N12(S : AlglibFloat):AlglibFloat;forward;
+function UTblN7N13(S : AlglibFloat):AlglibFloat;forward;
+function UTblN7N14(S : AlglibFloat):AlglibFloat;forward;
+function UTblN7N15(S : AlglibFloat):AlglibFloat;forward;
+function UTblN7N30(S : AlglibFloat):AlglibFloat;forward;
+function UTblN7N100(S : AlglibFloat):AlglibFloat;forward;
+function UTblN8N8(S : AlglibFloat):AlglibFloat;forward;
+function UTblN8N9(S : AlglibFloat):AlglibFloat;forward;
+function UTblN8N10(S : AlglibFloat):AlglibFloat;forward;
+function UTblN8N11(S : AlglibFloat):AlglibFloat;forward;
+function UTblN8N12(S : AlglibFloat):AlglibFloat;forward;
+function UTblN8N13(S : AlglibFloat):AlglibFloat;forward;
+function UTblN8N14(S : AlglibFloat):AlglibFloat;forward;
+function UTblN8N15(S : AlglibFloat):AlglibFloat;forward;
+function UTblN8N30(S : AlglibFloat):AlglibFloat;forward;
+function UTblN8N100(S : AlglibFloat):AlglibFloat;forward;
+function UTblN9N9(S : AlglibFloat):AlglibFloat;forward;
+function UTblN9N10(S : AlglibFloat):AlglibFloat;forward;
+function UTblN9N11(S : AlglibFloat):AlglibFloat;forward;
+function UTblN9N12(S : AlglibFloat):AlglibFloat;forward;
+function UTblN9N13(S : AlglibFloat):AlglibFloat;forward;
+function UTblN9N14(S : AlglibFloat):AlglibFloat;forward;
+function UTblN9N15(S : AlglibFloat):AlglibFloat;forward;
+function UTblN9N30(S : AlglibFloat):AlglibFloat;forward;
+function UTblN9N100(S : AlglibFloat):AlglibFloat;forward;
+function UTblN10N10(S : AlglibFloat):AlglibFloat;forward;
+function UTblN10N11(S : AlglibFloat):AlglibFloat;forward;
+function UTblN10N12(S : AlglibFloat):AlglibFloat;forward;
+function UTblN10N13(S : AlglibFloat):AlglibFloat;forward;
+function UTblN10N14(S : AlglibFloat):AlglibFloat;forward;
+function UTblN10N15(S : AlglibFloat):AlglibFloat;forward;
+function UTblN10N30(S : AlglibFloat):AlglibFloat;forward;
+function UTblN10N100(S : AlglibFloat):AlglibFloat;forward;
+function UTblN11N11(S : AlglibFloat):AlglibFloat;forward;
+function UTblN11N12(S : AlglibFloat):AlglibFloat;forward;
+function UTblN11N13(S : AlglibFloat):AlglibFloat;forward;
+function UTblN11N14(S : AlglibFloat):AlglibFloat;forward;
+function UTblN11N15(S : AlglibFloat):AlglibFloat;forward;
+function UTblN11N30(S : AlglibFloat):AlglibFloat;forward;
+function UTblN11N100(S : AlglibFloat):AlglibFloat;forward;
+function UTblN12N12(S : AlglibFloat):AlglibFloat;forward;
+function UTblN12N13(S : AlglibFloat):AlglibFloat;forward;
+function UTblN12N14(S : AlglibFloat):AlglibFloat;forward;
+function UTblN12N15(S : AlglibFloat):AlglibFloat;forward;
+function UTblN12N30(S : AlglibFloat):AlglibFloat;forward;
+function UTblN12N100(S : AlglibFloat):AlglibFloat;forward;
+function UTblN13N13(S : AlglibFloat):AlglibFloat;forward;
+function UTblN13N14(S : AlglibFloat):AlglibFloat;forward;
+function UTblN13N15(S : AlglibFloat):AlglibFloat;forward;
+function UTblN13N30(S : AlglibFloat):AlglibFloat;forward;
+function UTblN13N100(S : AlglibFloat):AlglibFloat;forward;
+function UTblN14N14(S : AlglibFloat):AlglibFloat;forward;
+function UTblN14N15(S : AlglibFloat):AlglibFloat;forward;
+function UTblN14N30(S : AlglibFloat):AlglibFloat;forward;
+function UTblN14N100(S : AlglibFloat):AlglibFloat;forward;
+function USigma(S : AlglibFloat;
      N1 : AlglibInteger;
-     N2 : AlglibInteger):Double;forward;
+     N2 : AlglibInteger):AlglibFloat;forward;
 
 
 (*************************************************************************
@@ -220,25 +220,25 @@ procedure MannWhitneyUTest(const X : TReal1DArray;
      N : AlglibInteger;
      const Y : TReal1DArray;
      M : AlglibInteger;
-     var BothTails : Double;
-     var LeftTail : Double;
-     var RightTail : Double);
+     var BothTails : AlglibFloat;
+     var LeftTail : AlglibFloat;
+     var RightTail : AlglibFloat);
 var
     I : AlglibInteger;
     J : AlglibInteger;
     K : AlglibInteger;
     T : AlglibInteger;
-    Tmp : Double;
+    Tmp : AlglibFloat;
     TmpI : AlglibInteger;
     NS : AlglibInteger;
     R : TReal1DArray;
     C : TInteger1DArray;
-    U : Double;
-    P : Double;
-    MP : Double;
-    S : Double;
-    Sigma : Double;
-    Mu : Double;
+    U : AlglibFloat;
+    P : AlglibFloat;
+    MP : AlglibFloat;
+    S : AlglibFloat;
+    Sigma : AlglibFloat;
+    Mu : AlglibFloat;
     TieCount : AlglibInteger;
     TieSize : TInteger1DArray;
 begin
@@ -419,13 +419,13 @@ end;
 (*************************************************************************
 Sequential Chebyshev interpolation.
 *************************************************************************)
-procedure UCheb(X : Double;
-     C : Double;
-     var TJ : Double;
-     var TJ1 : Double;
-     var R : Double);
+procedure UCheb(X : AlglibFloat;
+     C : AlglibFloat;
+     var TJ : AlglibFloat;
+     var TJ1 : AlglibFloat;
+     var R : AlglibFloat);
 var
-    T : Double;
+    T : AlglibFloat;
 begin
     R := R+C*TJ;
     T := 2*X*TJ1-TJ;
@@ -437,17 +437,17 @@ end;
 (*************************************************************************
 Three-point polynomial interpolation.
 *************************************************************************)
-function UNInterpolate(P1 : Double;
-     P2 : Double;
-     P3 : Double;
-     N : AlglibInteger):Double;
+function UNInterpolate(P1 : AlglibFloat;
+     P2 : AlglibFloat;
+     P3 : AlglibFloat;
+     N : AlglibInteger):AlglibFloat;
 var
-    T1 : Double;
-    T2 : Double;
-    T3 : Double;
-    T : Double;
-    P12 : Double;
-    P23 : Double;
+    T1 : AlglibFloat;
+    T2 : AlglibFloat;
+    T3 : AlglibFloat;
+    T : AlglibFloat;
+    P12 : AlglibFloat;
+    P23 : AlglibFloat;
 begin
     T1 := 1.0/15.0;
     T2 := 1.0/30.0;
@@ -462,11 +462,11 @@ end;
 (*************************************************************************
 Tail(0, N1, N2)
 *************************************************************************)
-function USigma000(N1 : AlglibInteger; N2 : AlglibInteger):Double;
+function USigma000(N1 : AlglibInteger; N2 : AlglibInteger):AlglibFloat;
 var
-    P1 : Double;
-    P2 : Double;
-    P3 : Double;
+    P1 : AlglibFloat;
+    P2 : AlglibFloat;
+    P3 : AlglibFloat;
 begin
     P1 := UNInterpolate(-6.76984e-01, -6.83700e-01, -6.89873e-01, N2);
     P2 := UNInterpolate(-6.83700e-01, -6.87311e-01, -6.90957e-01, N2);
@@ -478,11 +478,11 @@ end;
 (*************************************************************************
 Tail(0.75, N1, N2)
 *************************************************************************)
-function USigma075(N1 : AlglibInteger; N2 : AlglibInteger):Double;
+function USigma075(N1 : AlglibInteger; N2 : AlglibInteger):AlglibFloat;
 var
-    P1 : Double;
-    P2 : Double;
-    P3 : Double;
+    P1 : AlglibFloat;
+    P2 : AlglibFloat;
+    P3 : AlglibFloat;
 begin
     P1 := UNInterpolate(-1.44500e+00, -1.45906e+00, -1.47063e+00, N2);
     P2 := UNInterpolate(-1.45906e+00, -1.46856e+00, -1.47644e+00, N2);
@@ -494,11 +494,11 @@ end;
 (*************************************************************************
 Tail(1.5, N1, N2)
 *************************************************************************)
-function USigma150(N1 : AlglibInteger; N2 : AlglibInteger):Double;
+function USigma150(N1 : AlglibInteger; N2 : AlglibInteger):AlglibFloat;
 var
-    P1 : Double;
-    P2 : Double;
-    P3 : Double;
+    P1 : AlglibFloat;
+    P2 : AlglibFloat;
+    P3 : AlglibFloat;
 begin
     P1 := UNInterpolate(-2.65380e+00, -2.67352e+00, -2.69011e+00, N2);
     P2 := UNInterpolate(-2.67352e+00, -2.68591e+00, -2.69659e+00, N2);
@@ -510,11 +510,11 @@ end;
 (*************************************************************************
 Tail(2.25, N1, N2)
 *************************************************************************)
-function USigma225(N1 : AlglibInteger; N2 : AlglibInteger):Double;
+function USigma225(N1 : AlglibInteger; N2 : AlglibInteger):AlglibFloat;
 var
-    P1 : Double;
-    P2 : Double;
-    P3 : Double;
+    P1 : AlglibFloat;
+    P2 : AlglibFloat;
+    P3 : AlglibFloat;
 begin
     P1 := UNInterpolate(-4.41465e+00, -4.42260e+00, -4.43702e+00, N2);
     P2 := UNInterpolate(-4.42260e+00, -4.41639e+00, -4.41928e+00, N2);
@@ -526,11 +526,11 @@ end;
 (*************************************************************************
 Tail(3.0, N1, N2)
 *************************************************************************)
-function USigma300(N1 : AlglibInteger; N2 : AlglibInteger):Double;
+function USigma300(N1 : AlglibInteger; N2 : AlglibInteger):AlglibFloat;
 var
-    P1 : Double;
-    P2 : Double;
-    P3 : Double;
+    P1 : AlglibFloat;
+    P2 : AlglibFloat;
+    P3 : AlglibFloat;
 begin
     P1 := UNInterpolate(-6.89839e+00, -6.83477e+00, -6.82340e+00, N2);
     P2 := UNInterpolate(-6.83477e+00, -6.74559e+00, -6.71117e+00, N2);
@@ -542,11 +542,11 @@ end;
 (*************************************************************************
 Tail(3.33, N1, N2)
 *************************************************************************)
-function USigma333(N1 : AlglibInteger; N2 : AlglibInteger):Double;
+function USigma333(N1 : AlglibInteger; N2 : AlglibInteger):AlglibFloat;
 var
-    P1 : Double;
-    P2 : Double;
-    P3 : Double;
+    P1 : AlglibFloat;
+    P2 : AlglibFloat;
+    P3 : AlglibFloat;
 begin
     P1 := UNInterpolate(-8.31272e+00, -8.17096e+00, -8.13125e+00, N2);
     P2 := UNInterpolate(-8.17096e+00, -8.00156e+00, -7.93245e+00, N2);
@@ -558,11 +558,11 @@ end;
 (*************************************************************************
 Tail(3.66, N1, N2)
 *************************************************************************)
-function USigma367(N1 : AlglibInteger; N2 : AlglibInteger):Double;
+function USigma367(N1 : AlglibInteger; N2 : AlglibInteger):AlglibFloat;
 var
-    P1 : Double;
-    P2 : Double;
-    P3 : Double;
+    P1 : AlglibFloat;
+    P2 : AlglibFloat;
+    P3 : AlglibFloat;
 begin
     P1 := UNInterpolate(-9.98837e+00, -9.70844e+00, -9.62087e+00, N2);
     P2 := UNInterpolate(-9.70844e+00, -9.41156e+00, -9.28998e+00, N2);
@@ -574,11 +574,11 @@ end;
 (*************************************************************************
 Tail(4.0, N1, N2)
 *************************************************************************)
-function USigma400(N1 : AlglibInteger; N2 : AlglibInteger):Double;
+function USigma400(N1 : AlglibInteger; N2 : AlglibInteger):AlglibFloat;
 var
-    P1 : Double;
-    P2 : Double;
-    P3 : Double;
+    P1 : AlglibFloat;
+    P2 : AlglibFloat;
+    P3 : AlglibFloat;
 begin
     P1 := UNInterpolate(-1.20250e+01, -1.14911e+01, -1.13231e+01, N2);
     P2 := UNInterpolate(-1.14911e+01, -1.09927e+01, -1.07937e+01, N2);
@@ -590,11 +590,11 @@ end;
 (*************************************************************************
 Tail(S, 5, 5)
 *************************************************************************)
-function UTblN5N5(S : Double):Double;
+function UTblN5N5(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/2.611165e+00-1, 1.0);
@@ -622,11 +622,11 @@ end;
 (*************************************************************************
 Tail(S, 5, 6)
 *************************************************************************)
-function UTblN5N6(S : Double):Double;
+function UTblN5N6(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/2.738613e+00-1, 1.0);
@@ -654,11 +654,11 @@ end;
 (*************************************************************************
 Tail(S, 5, 7)
 *************************************************************************)
-function UTblN5N7(S : Double):Double;
+function UTblN5N7(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/2.841993e+00-1, 1.0);
@@ -686,11 +686,11 @@ end;
 (*************************************************************************
 Tail(S, 5, 8)
 *************************************************************************)
-function UTblN5N8(S : Double):Double;
+function UTblN5N8(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/2.927700e+00-1, 1.0);
@@ -718,11 +718,11 @@ end;
 (*************************************************************************
 Tail(S, 5, 9)
 *************************************************************************)
-function UTblN5N9(S : Double):Double;
+function UTblN5N9(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.000000e+00-1, 1.0);
@@ -750,11 +750,11 @@ end;
 (*************************************************************************
 Tail(S, 5, 10)
 *************************************************************************)
-function UTblN5N10(S : Double):Double;
+function UTblN5N10(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.061862e+00-1, 1.0);
@@ -782,11 +782,11 @@ end;
 (*************************************************************************
 Tail(S, 5, 11)
 *************************************************************************)
-function UTblN5N11(S : Double):Double;
+function UTblN5N11(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.115427e+00-1, 1.0);
@@ -814,11 +814,11 @@ end;
 (*************************************************************************
 Tail(S, 5, 12)
 *************************************************************************)
-function UTblN5N12(S : Double):Double;
+function UTblN5N12(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.162278e+00-1, 1.0);
@@ -846,11 +846,11 @@ end;
 (*************************************************************************
 Tail(S, 5, 13)
 *************************************************************************)
-function UTblN5N13(S : Double):Double;
+function UTblN5N13(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.203616e+00-1, 1.0);
@@ -878,11 +878,11 @@ end;
 (*************************************************************************
 Tail(S, 5, 14)
 *************************************************************************)
-function UTblN5N14(S : Double):Double;
+function UTblN5N14(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.240370e+00-1, 1.0);
@@ -910,11 +910,11 @@ end;
 (*************************************************************************
 Tail(S, 5, 15)
 *************************************************************************)
-function UTblN5N15(S : Double):Double;
+function UTblN5N15(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.250000e+00-1, 1.0);
@@ -942,11 +942,11 @@ end;
 (*************************************************************************
 Tail(S, 5, 16)
 *************************************************************************)
-function UTblN5N16(S : Double):Double;
+function UTblN5N16(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.250000e+00-1, 1.0);
@@ -974,11 +974,11 @@ end;
 (*************************************************************************
 Tail(S, 5, 17)
 *************************************************************************)
-function UTblN5N17(S : Double):Double;
+function UTblN5N17(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.250000e+00-1, 1.0);
@@ -1006,11 +1006,11 @@ end;
 (*************************************************************************
 Tail(S, 5, 18)
 *************************************************************************)
-function UTblN5N18(S : Double):Double;
+function UTblN5N18(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.250000e+00-1, 1.0);
@@ -1038,11 +1038,11 @@ end;
 (*************************************************************************
 Tail(S, 5, 19)
 *************************************************************************)
-function UTblN5N19(S : Double):Double;
+function UTblN5N19(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.250000e+00-1, 1.0);
@@ -1070,11 +1070,11 @@ end;
 (*************************************************************************
 Tail(S, 5, 20)
 *************************************************************************)
-function UTblN5N20(S : Double):Double;
+function UTblN5N20(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.250000e+00-1, 1.0);
@@ -1102,11 +1102,11 @@ end;
 (*************************************************************************
 Tail(S, 5, 21)
 *************************************************************************)
-function UTblN5N21(S : Double):Double;
+function UTblN5N21(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.250000e+00-1, 1.0);
@@ -1134,11 +1134,11 @@ end;
 (*************************************************************************
 Tail(S, 5, 22)
 *************************************************************************)
-function UTblN5N22(S : Double):Double;
+function UTblN5N22(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.250000e+00-1, 1.0);
@@ -1166,11 +1166,11 @@ end;
 (*************************************************************************
 Tail(S, 5, 23)
 *************************************************************************)
-function UTblN5N23(S : Double):Double;
+function UTblN5N23(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.250000e+00-1, 1.0);
@@ -1198,11 +1198,11 @@ end;
 (*************************************************************************
 Tail(S, 5, 24)
 *************************************************************************)
-function UTblN5N24(S : Double):Double;
+function UTblN5N24(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.250000e+00-1, 1.0);
@@ -1230,11 +1230,11 @@ end;
 (*************************************************************************
 Tail(S, 5, 25)
 *************************************************************************)
-function UTblN5N25(S : Double):Double;
+function UTblN5N25(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.250000e+00-1, 1.0);
@@ -1262,11 +1262,11 @@ end;
 (*************************************************************************
 Tail(S, 5, 26)
 *************************************************************************)
-function UTblN5N26(S : Double):Double;
+function UTblN5N26(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.250000e+00-1, 1.0);
@@ -1294,11 +1294,11 @@ end;
 (*************************************************************************
 Tail(S, 5, 27)
 *************************************************************************)
-function UTblN5N27(S : Double):Double;
+function UTblN5N27(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.250000e+00-1, 1.0);
@@ -1326,11 +1326,11 @@ end;
 (*************************************************************************
 Tail(S, 5, 28)
 *************************************************************************)
-function UTblN5N28(S : Double):Double;
+function UTblN5N28(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.250000e+00-1, 1.0);
@@ -1358,11 +1358,11 @@ end;
 (*************************************************************************
 Tail(S, 5, 29)
 *************************************************************************)
-function UTblN5N29(S : Double):Double;
+function UTblN5N29(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.250000e+00-1, 1.0);
@@ -1390,11 +1390,11 @@ end;
 (*************************************************************************
 Tail(S, 5, 30)
 *************************************************************************)
-function UTblN5N30(S : Double):Double;
+function UTblN5N30(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.250000e+00-1, 1.0);
@@ -1422,11 +1422,11 @@ end;
 (*************************************************************************
 Tail(S, 5, 100)
 *************************************************************************)
-function UTblN5N100(S : Double):Double;
+function UTblN5N100(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.250000e+00-1, 1.0);
@@ -1454,11 +1454,11 @@ end;
 (*************************************************************************
 Tail(S, 6, 6)
 *************************************************************************)
-function UTblN6N6(S : Double):Double;
+function UTblN6N6(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/2.882307e+00-1, 1.0);
@@ -1486,11 +1486,11 @@ end;
 (*************************************************************************
 Tail(S, 6, 7)
 *************************************************************************)
-function UTblN6N7(S : Double):Double;
+function UTblN6N7(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.000000e+00-1, 1.0);
@@ -1518,11 +1518,11 @@ end;
 (*************************************************************************
 Tail(S, 6, 8)
 *************************************************************************)
-function UTblN6N8(S : Double):Double;
+function UTblN6N8(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.098387e+00-1, 1.0);
@@ -1550,11 +1550,11 @@ end;
 (*************************************************************************
 Tail(S, 6, 9)
 *************************************************************************)
-function UTblN6N9(S : Double):Double;
+function UTblN6N9(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.181981e+00-1, 1.0);
@@ -1582,11 +1582,11 @@ end;
 (*************************************************************************
 Tail(S, 6, 10)
 *************************************************************************)
-function UTblN6N10(S : Double):Double;
+function UTblN6N10(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.253957e+00-1, 1.0);
@@ -1614,11 +1614,11 @@ end;
 (*************************************************************************
 Tail(S, 6, 11)
 *************************************************************************)
-function UTblN6N11(S : Double):Double;
+function UTblN6N11(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.316625e+00-1, 1.0);
@@ -1646,11 +1646,11 @@ end;
 (*************************************************************************
 Tail(S, 6, 12)
 *************************************************************************)
-function UTblN6N12(S : Double):Double;
+function UTblN6N12(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.371709e+00-1, 1.0);
@@ -1678,11 +1678,11 @@ end;
 (*************************************************************************
 Tail(S, 6, 13)
 *************************************************************************)
-function UTblN6N13(S : Double):Double;
+function UTblN6N13(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.420526e+00-1, 1.0);
@@ -1710,11 +1710,11 @@ end;
 (*************************************************************************
 Tail(S, 6, 14)
 *************************************************************************)
-function UTblN6N14(S : Double):Double;
+function UTblN6N14(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.450000e+00-1, 1.0);
@@ -1742,11 +1742,11 @@ end;
 (*************************************************************************
 Tail(S, 6, 15)
 *************************************************************************)
-function UTblN6N15(S : Double):Double;
+function UTblN6N15(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.450000e+00-1, 1.0);
@@ -1774,11 +1774,11 @@ end;
 (*************************************************************************
 Tail(S, 6, 30)
 *************************************************************************)
-function UTblN6N30(S : Double):Double;
+function UTblN6N30(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.450000e+00-1, 1.0);
@@ -1806,11 +1806,11 @@ end;
 (*************************************************************************
 Tail(S, 6, 100)
 *************************************************************************)
-function UTblN6N100(S : Double):Double;
+function UTblN6N100(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.450000e+00-1, 1.0);
@@ -1838,11 +1838,11 @@ end;
 (*************************************************************************
 Tail(S, 7, 7)
 *************************************************************************)
-function UTblN7N7(S : Double):Double;
+function UTblN7N7(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.130495e+00-1, 1.0);
@@ -1870,11 +1870,11 @@ end;
 (*************************************************************************
 Tail(S, 7, 8)
 *************************************************************************)
-function UTblN7N8(S : Double):Double;
+function UTblN7N8(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.240370e+00-1, 1.0);
@@ -1902,11 +1902,11 @@ end;
 (*************************************************************************
 Tail(S, 7, 9)
 *************************************************************************)
-function UTblN7N9(S : Double):Double;
+function UTblN7N9(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.334314e+00-1, 1.0);
@@ -1934,11 +1934,11 @@ end;
 (*************************************************************************
 Tail(S, 7, 10)
 *************************************************************************)
-function UTblN7N10(S : Double):Double;
+function UTblN7N10(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.415650e+00-1, 1.0);
@@ -1966,11 +1966,11 @@ end;
 (*************************************************************************
 Tail(S, 7, 11)
 *************************************************************************)
-function UTblN7N11(S : Double):Double;
+function UTblN7N11(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.486817e+00-1, 1.0);
@@ -1998,11 +1998,11 @@ end;
 (*************************************************************************
 Tail(S, 7, 12)
 *************************************************************************)
-function UTblN7N12(S : Double):Double;
+function UTblN7N12(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.500000e+00-1, 1.0);
@@ -2030,11 +2030,11 @@ end;
 (*************************************************************************
 Tail(S, 7, 13)
 *************************************************************************)
-function UTblN7N13(S : Double):Double;
+function UTblN7N13(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.500000e+00-1, 1.0);
@@ -2062,11 +2062,11 @@ end;
 (*************************************************************************
 Tail(S, 7, 14)
 *************************************************************************)
-function UTblN7N14(S : Double):Double;
+function UTblN7N14(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.500000e+00-1, 1.0);
@@ -2094,11 +2094,11 @@ end;
 (*************************************************************************
 Tail(S, 7, 15)
 *************************************************************************)
-function UTblN7N15(S : Double):Double;
+function UTblN7N15(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.500000e+00-1, 1.0);
@@ -2126,11 +2126,11 @@ end;
 (*************************************************************************
 Tail(S, 7, 30)
 *************************************************************************)
-function UTblN7N30(S : Double):Double;
+function UTblN7N30(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.500000e+00-1, 1.0);
@@ -2158,11 +2158,11 @@ end;
 (*************************************************************************
 Tail(S, 7, 100)
 *************************************************************************)
-function UTblN7N100(S : Double):Double;
+function UTblN7N100(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.500000e+00-1, 1.0);
@@ -2190,11 +2190,11 @@ end;
 (*************************************************************************
 Tail(S, 8, 8)
 *************************************************************************)
-function UTblN8N8(S : Double):Double;
+function UTblN8N8(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.360672e+00-1, 1.0);
@@ -2222,11 +2222,11 @@ end;
 (*************************************************************************
 Tail(S, 8, 9)
 *************************************************************************)
-function UTblN8N9(S : Double):Double;
+function UTblN8N9(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.464102e+00-1, 1.0);
@@ -2254,11 +2254,11 @@ end;
 (*************************************************************************
 Tail(S, 8, 10)
 *************************************************************************)
-function UTblN8N10(S : Double):Double;
+function UTblN8N10(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.554093e+00-1, 1.0);
@@ -2286,11 +2286,11 @@ end;
 (*************************************************************************
 Tail(S, 8, 11)
 *************************************************************************)
-function UTblN8N11(S : Double):Double;
+function UTblN8N11(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.600000e+00-1, 1.0);
@@ -2318,11 +2318,11 @@ end;
 (*************************************************************************
 Tail(S, 8, 12)
 *************************************************************************)
-function UTblN8N12(S : Double):Double;
+function UTblN8N12(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.600000e+00-1, 1.0);
@@ -2350,11 +2350,11 @@ end;
 (*************************************************************************
 Tail(S, 8, 13)
 *************************************************************************)
-function UTblN8N13(S : Double):Double;
+function UTblN8N13(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.600000e+00-1, 1.0);
@@ -2382,11 +2382,11 @@ end;
 (*************************************************************************
 Tail(S, 8, 14)
 *************************************************************************)
-function UTblN8N14(S : Double):Double;
+function UTblN8N14(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.600000e+00-1, 1.0);
@@ -2414,11 +2414,11 @@ end;
 (*************************************************************************
 Tail(S, 8, 15)
 *************************************************************************)
-function UTblN8N15(S : Double):Double;
+function UTblN8N15(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.600000e+00-1, 1.0);
@@ -2446,11 +2446,11 @@ end;
 (*************************************************************************
 Tail(S, 8, 30)
 *************************************************************************)
-function UTblN8N30(S : Double):Double;
+function UTblN8N30(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.600000e+00-1, 1.0);
@@ -2478,11 +2478,11 @@ end;
 (*************************************************************************
 Tail(S, 8, 100)
 *************************************************************************)
-function UTblN8N100(S : Double):Double;
+function UTblN8N100(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.600000e+00-1, 1.0);
@@ -2510,11 +2510,11 @@ end;
 (*************************************************************************
 Tail(S, 9, 9)
 *************************************************************************)
-function UTblN9N9(S : Double):Double;
+function UTblN9N9(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.576237e+00-1, 1.0);
@@ -2542,11 +2542,11 @@ end;
 (*************************************************************************
 Tail(S, 9, 10)
 *************************************************************************)
-function UTblN9N10(S : Double):Double;
+function UTblN9N10(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.650000e+00-1, 1.0);
@@ -2574,11 +2574,11 @@ end;
 (*************************************************************************
 Tail(S, 9, 11)
 *************************************************************************)
-function UTblN9N11(S : Double):Double;
+function UTblN9N11(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.650000e+00-1, 1.0);
@@ -2606,11 +2606,11 @@ end;
 (*************************************************************************
 Tail(S, 9, 12)
 *************************************************************************)
-function UTblN9N12(S : Double):Double;
+function UTblN9N12(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.650000e+00-1, 1.0);
@@ -2638,11 +2638,11 @@ end;
 (*************************************************************************
 Tail(S, 9, 13)
 *************************************************************************)
-function UTblN9N13(S : Double):Double;
+function UTblN9N13(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.650000e+00-1, 1.0);
@@ -2670,11 +2670,11 @@ end;
 (*************************************************************************
 Tail(S, 9, 14)
 *************************************************************************)
-function UTblN9N14(S : Double):Double;
+function UTblN9N14(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.650000e+00-1, 1.0);
@@ -2702,11 +2702,11 @@ end;
 (*************************************************************************
 Tail(S, 9, 15)
 *************************************************************************)
-function UTblN9N15(S : Double):Double;
+function UTblN9N15(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.650000e+00-1, 1.0);
@@ -2734,11 +2734,11 @@ end;
 (*************************************************************************
 Tail(S, 9, 30)
 *************************************************************************)
-function UTblN9N30(S : Double):Double;
+function UTblN9N30(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.650000e+00-1, 1.0);
@@ -2766,11 +2766,11 @@ end;
 (*************************************************************************
 Tail(S, 9, 100)
 *************************************************************************)
-function UTblN9N100(S : Double):Double;
+function UTblN9N100(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.650000e+00-1, 1.0);
@@ -2798,11 +2798,11 @@ end;
 (*************************************************************************
 Tail(S, 10, 10)
 *************************************************************************)
-function UTblN10N10(S : Double):Double;
+function UTblN10N10(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.650000e+00-1, 1.0);
@@ -2830,11 +2830,11 @@ end;
 (*************************************************************************
 Tail(S, 10, 11)
 *************************************************************************)
-function UTblN10N11(S : Double):Double;
+function UTblN10N11(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.650000e+00-1, 1.0);
@@ -2862,11 +2862,11 @@ end;
 (*************************************************************************
 Tail(S, 10, 12)
 *************************************************************************)
-function UTblN10N12(S : Double):Double;
+function UTblN10N12(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.650000e+00-1, 1.0);
@@ -2894,11 +2894,11 @@ end;
 (*************************************************************************
 Tail(S, 10, 13)
 *************************************************************************)
-function UTblN10N13(S : Double):Double;
+function UTblN10N13(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.650000e+00-1, 1.0);
@@ -2926,11 +2926,11 @@ end;
 (*************************************************************************
 Tail(S, 10, 14)
 *************************************************************************)
-function UTblN10N14(S : Double):Double;
+function UTblN10N14(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.650000e+00-1, 1.0);
@@ -2958,11 +2958,11 @@ end;
 (*************************************************************************
 Tail(S, 10, 15)
 *************************************************************************)
-function UTblN10N15(S : Double):Double;
+function UTblN10N15(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.650000e+00-1, 1.0);
@@ -2990,11 +2990,11 @@ end;
 (*************************************************************************
 Tail(S, 10, 30)
 *************************************************************************)
-function UTblN10N30(S : Double):Double;
+function UTblN10N30(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.650000e+00-1, 1.0);
@@ -3022,11 +3022,11 @@ end;
 (*************************************************************************
 Tail(S, 10, 100)
 *************************************************************************)
-function UTblN10N100(S : Double):Double;
+function UTblN10N100(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.650000e+00-1, 1.0);
@@ -3054,11 +3054,11 @@ end;
 (*************************************************************************
 Tail(S, 11, 11)
 *************************************************************************)
-function UTblN11N11(S : Double):Double;
+function UTblN11N11(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.700000e+00-1, 1.0);
@@ -3086,11 +3086,11 @@ end;
 (*************************************************************************
 Tail(S, 11, 12)
 *************************************************************************)
-function UTblN11N12(S : Double):Double;
+function UTblN11N12(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.700000e+00-1, 1.0);
@@ -3118,11 +3118,11 @@ end;
 (*************************************************************************
 Tail(S, 11, 13)
 *************************************************************************)
-function UTblN11N13(S : Double):Double;
+function UTblN11N13(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.700000e+00-1, 1.0);
@@ -3150,11 +3150,11 @@ end;
 (*************************************************************************
 Tail(S, 11, 14)
 *************************************************************************)
-function UTblN11N14(S : Double):Double;
+function UTblN11N14(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.700000e+00-1, 1.0);
@@ -3182,11 +3182,11 @@ end;
 (*************************************************************************
 Tail(S, 11, 15)
 *************************************************************************)
-function UTblN11N15(S : Double):Double;
+function UTblN11N15(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.700000e+00-1, 1.0);
@@ -3214,11 +3214,11 @@ end;
 (*************************************************************************
 Tail(S, 11, 30)
 *************************************************************************)
-function UTblN11N30(S : Double):Double;
+function UTblN11N30(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.700000e+00-1, 1.0);
@@ -3246,11 +3246,11 @@ end;
 (*************************************************************************
 Tail(S, 11, 100)
 *************************************************************************)
-function UTblN11N100(S : Double):Double;
+function UTblN11N100(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.700000e+00-1, 1.0);
@@ -3278,11 +3278,11 @@ end;
 (*************************************************************************
 Tail(S, 12, 12)
 *************************************************************************)
-function UTblN12N12(S : Double):Double;
+function UTblN12N12(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.700000e+00-1, 1.0);
@@ -3310,11 +3310,11 @@ end;
 (*************************************************************************
 Tail(S, 12, 13)
 *************************************************************************)
-function UTblN12N13(S : Double):Double;
+function UTblN12N13(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.700000e+00-1, 1.0);
@@ -3342,11 +3342,11 @@ end;
 (*************************************************************************
 Tail(S, 12, 14)
 *************************************************************************)
-function UTblN12N14(S : Double):Double;
+function UTblN12N14(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.700000e+00-1, 1.0);
@@ -3374,11 +3374,11 @@ end;
 (*************************************************************************
 Tail(S, 12, 15)
 *************************************************************************)
-function UTblN12N15(S : Double):Double;
+function UTblN12N15(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.700000e+00-1, 1.0);
@@ -3406,11 +3406,11 @@ end;
 (*************************************************************************
 Tail(S, 12, 30)
 *************************************************************************)
-function UTblN12N30(S : Double):Double;
+function UTblN12N30(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.700000e+00-1, 1.0);
@@ -3438,11 +3438,11 @@ end;
 (*************************************************************************
 Tail(S, 12, 100)
 *************************************************************************)
-function UTblN12N100(S : Double):Double;
+function UTblN12N100(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.700000e+00-1, 1.0);
@@ -3470,11 +3470,11 @@ end;
 (*************************************************************************
 Tail(S, 13, 13)
 *************************************************************************)
-function UTblN13N13(S : Double):Double;
+function UTblN13N13(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.750000e+00-1, 1.0);
@@ -3502,11 +3502,11 @@ end;
 (*************************************************************************
 Tail(S, 13, 14)
 *************************************************************************)
-function UTblN13N14(S : Double):Double;
+function UTblN13N14(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.750000e+00-1, 1.0);
@@ -3534,11 +3534,11 @@ end;
 (*************************************************************************
 Tail(S, 13, 15)
 *************************************************************************)
-function UTblN13N15(S : Double):Double;
+function UTblN13N15(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.750000e+00-1, 1.0);
@@ -3566,11 +3566,11 @@ end;
 (*************************************************************************
 Tail(S, 13, 30)
 *************************************************************************)
-function UTblN13N30(S : Double):Double;
+function UTblN13N30(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.750000e+00-1, 1.0);
@@ -3598,11 +3598,11 @@ end;
 (*************************************************************************
 Tail(S, 13, 100)
 *************************************************************************)
-function UTblN13N100(S : Double):Double;
+function UTblN13N100(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.750000e+00-1, 1.0);
@@ -3630,11 +3630,11 @@ end;
 (*************************************************************************
 Tail(S, 14, 14)
 *************************************************************************)
-function UTblN14N14(S : Double):Double;
+function UTblN14N14(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.750000e+00-1, 1.0);
@@ -3662,11 +3662,11 @@ end;
 (*************************************************************************
 Tail(S, 14, 15)
 *************************************************************************)
-function UTblN14N15(S : Double):Double;
+function UTblN14N15(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.750000e+00-1, 1.0);
@@ -3694,11 +3694,11 @@ end;
 (*************************************************************************
 Tail(S, 14, 30)
 *************************************************************************)
-function UTblN14N30(S : Double):Double;
+function UTblN14N30(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.750000e+00-1, 1.0);
@@ -3726,11 +3726,11 @@ end;
 (*************************************************************************
 Tail(S, 14, 100)
 *************************************************************************)
-function UTblN14N100(S : Double):Double;
+function UTblN14N100(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     X := Min(2*(S-0.000000e+00)/3.750000e+00-1, 1.0);
@@ -3758,18 +3758,18 @@ end;
 (*************************************************************************
 Tail(S, N1, N2)
 *************************************************************************)
-function USigma(S : Double; N1 : AlglibInteger; N2 : AlglibInteger):Double;
+function USigma(S : AlglibFloat; N1 : AlglibInteger; N2 : AlglibInteger):AlglibFloat;
 var
-    F0 : Double;
-    F1 : Double;
-    F2 : Double;
-    F3 : Double;
-    F4 : Double;
-    S0 : Double;
-    S1 : Double;
-    S2 : Double;
-    S3 : Double;
-    S4 : Double;
+    F0 : AlglibFloat;
+    F1 : AlglibFloat;
+    F2 : AlglibFloat;
+    F3 : AlglibFloat;
+    F4 : AlglibFloat;
+    S0 : AlglibFloat;
+    S1 : AlglibFloat;
+    S2 : AlglibFloat;
+    S3 : AlglibFloat;
+    S4 : AlglibFloat;
 begin
     
     //

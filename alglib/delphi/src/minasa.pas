@@ -24,12 +24,12 @@ uses Math, Sysutils, Ap, linmin;
 type
 MinASAState = record
     N : AlglibInteger;
-    EpsG : Double;
-    EpsF : Double;
-    EpsX : Double;
+    EpsG : AlglibFloat;
+    EpsF : AlglibFloat;
+    EpsX : AlglibFloat;
     MaxIts : AlglibInteger;
     XRep : Boolean;
-    StpMax : Double;
+    StpMax : AlglibFloat;
     CGType : AlglibInteger;
     K : AlglibInteger;
     NFEV : AlglibInteger;
@@ -38,9 +38,9 @@ MinASAState = record
     BndU : TReal1DArray;
     CurAlgo : AlglibInteger;
     ACount : AlglibInteger;
-    Mu : Double;
-    FInit : Double;
-    DGInit : Double;
+    Mu : AlglibFloat;
+    FInit : AlglibFloat;
+    DGInit : AlglibFloat;
     AK : TReal1DArray;
     XK : TReal1DArray;
     DK : TReal1DArray;
@@ -48,13 +48,13 @@ MinASAState = record
     XN : TReal1DArray;
     DN : TReal1DArray;
     D : TReal1DArray;
-    FOld : Double;
-    Stp : Double;
+    FOld : AlglibFloat;
+    Stp : AlglibFloat;
     WORK : TReal1DArray;
     YK : TReal1DArray;
     GC : TReal1DArray;
     X : TReal1DArray;
-    F : Double;
+    F : AlglibFloat;
     G : TReal1DArray;
     NeedFG : Boolean;
     XUpdated : Boolean;
@@ -64,8 +64,8 @@ MinASAState = record
     RepTerminationType : AlglibInteger;
     DebugRestartsCount : AlglibInteger;
     LState : LINMINState;
-    BetaHS : Double;
-    BetaDY : Double;
+    BetaHS : AlglibFloat;
+    BetaDY : AlglibFloat;
 end;
 
 
@@ -84,14 +84,14 @@ procedure MinASACreate(N : AlglibInteger;
      const BndU : TReal1DArray;
      var State : MinASAState);
 procedure MinASASetCond(var State : MinASAState;
-     EpsG : Double;
-     EpsF : Double;
-     EpsX : Double;
+     EpsG : AlglibFloat;
+     EpsF : AlglibFloat;
+     EpsX : AlglibFloat;
      MaxIts : AlglibInteger);
 procedure MinASASetXRep(var State : MinASAState; NeedXRep : Boolean);
 procedure MinASASetAlgorithm(var State : MinASAState;
      AlgoType : AlglibInteger);
-procedure MinASASetStpMax(var State : MinASAState; StpMax : Double);
+procedure MinASASetStpMax(var State : MinASAState; StpMax : AlglibFloat);
 function MinASAIteration(var State : MinASAState):Boolean;
 procedure MinASAResults(const State : MinASAState;
      var X : TReal1DArray;
@@ -107,10 +107,10 @@ const
     GPADecay = 0.5;
     ASARho = 0.5;
 
-function ASABoundVal(X : Double; B1 : Double; B2 : Double):Double;forward;
-function ASABoundedAntiGradNorm(const State : MinASAState):Double;forward;
-function ASAGINorm(const State : MinASAState):Double;forward;
-function ASAD1Norm(const State : MinASAState):Double;forward;
+function ASABoundVal(X : AlglibFloat; B1 : AlglibFloat; B2 : AlglibFloat):AlglibFloat;forward;
+function ASABoundedAntiGradNorm(const State : MinASAState):AlglibFloat;forward;
+function ASAGINorm(const State : MinASAState):AlglibFloat;forward;
+function ASAD1Norm(const State : MinASAState):AlglibFloat;forward;
 function ASAUIsEmpty(const State : MinASAState):Boolean;forward;
 function ASAWantToUnstick(const State : MinASAState):Boolean;forward;
 procedure ClearRequestFields(var State : MinASAState);forward;
@@ -257,9 +257,9 @@ automatic stopping criterion selection (small EpsX).
      Copyright 02.04.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure MinASASetCond(var State : MinASAState;
-     EpsG : Double;
-     EpsF : Double;
-     EpsX : Double;
+     EpsG : AlglibFloat;
+     EpsF : AlglibFloat;
+     EpsX : AlglibFloat;
      MaxIts : AlglibInteger);
 begin
     Assert(AP_FP_Greater_Eq(EpsG,0), 'MinASASetCond: negative EpsG!');
@@ -346,7 +346,7 @@ overflow) without actually calculating function value at the x+stp*d.
   -- ALGLIB --
      Copyright 02.04.2010 by Bochkanov Sergey
 *************************************************************************)
-procedure MinASASetStpMax(var State : MinASAState; StpMax : Double);
+procedure MinASASetStpMax(var State : MinASAState; StpMax : AlglibFloat);
 begin
     Assert(AP_FP_Greater_Eq(StpMax,0), 'MinASASetStpMax: StpMax<0!');
     State.StpMax := StpMax;
@@ -394,9 +394,9 @@ function MinASAIteration(var State : MinASAState):Boolean;
 var
     N : AlglibInteger;
     I : AlglibInteger;
-    BetaK : Double;
-    V : Double;
-    VV : Double;
+    BetaK : AlglibFloat;
+    V : AlglibFloat;
+    VV : AlglibFloat;
     MCINFO : AlglibInteger;
     B : Boolean;
     StepFound : Boolean;
@@ -1309,7 +1309,7 @@ end;
   -- ALGLIB --
      Copyright 20.03.2009 by Bochkanov Sergey
 *************************************************************************)
-function ASABoundVal(X : Double; B1 : Double; B2 : Double):Double;
+function ASABoundVal(X : AlglibFloat; B1 : AlglibFloat; B2 : AlglibFloat):AlglibFloat;
 begin
     if AP_FP_Less_Eq(X,B1) then
     begin
@@ -1340,10 +1340,10 @@ This function may be used to check a stopping criterion.
   -- ALGLIB --
      Copyright 20.03.2009 by Bochkanov Sergey
 *************************************************************************)
-function ASABoundedAntiGradNorm(const State : MinASAState):Double;
+function ASABoundedAntiGradNorm(const State : MinASAState):AlglibFloat;
 var
     I : AlglibInteger;
-    V : Double;
+    V : AlglibFloat;
 begin
     Result := 0;
     I:=0;
@@ -1377,10 +1377,10 @@ sign.
   -- ALGLIB --
      Copyright 20.03.2009 by Bochkanov Sergey
 *************************************************************************)
-function ASAGINorm(const State : MinASAState):Double;
+function ASAGINorm(const State : MinASAState):AlglibFloat;
 var
     I : AlglibInteger;
-    V : Double;
+    V : AlglibFloat;
 begin
     Result := 0;
     I:=0;
@@ -1405,7 +1405,7 @@ OPTIMIZATION' by WILLIAM W. HAGER AND HONGCHAO ZHANG.
   -- ALGLIB --
      Copyright 20.03.2009 by Bochkanov Sergey
 *************************************************************************)
-function ASAD1Norm(const State : MinASAState):Double;
+function ASAD1Norm(const State : MinASAState):AlglibFloat;
 var
     I : AlglibInteger;
 begin
@@ -1437,9 +1437,9 @@ OPTIMIZATION' by WILLIAM W. HAGER AND HONGCHAO ZHANG.
 function ASAUIsEmpty(const State : MinASAState):Boolean;
 var
     I : AlglibInteger;
-    D : Double;
-    D2 : Double;
-    D32 : Double;
+    D : AlglibFloat;
+    D2 : AlglibFloat;
+    D32 : AlglibFloat;
 begin
     D := ASAD1Norm(State);
     D2 := Sqrt(D);

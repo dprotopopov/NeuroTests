@@ -57,18 +57,18 @@ procedure InternalAuxSchur(WANTT : Boolean;
      var WORKC1 : TReal1DArray;
      var WORKS1 : TReal1DArray;
      var INFO : AlglibInteger);forward;
-procedure Aux2X2Schur(var A : Double;
-     var B : Double;
-     var C : Double;
-     var D : Double;
-     var RT1R : Double;
-     var RT1I : Double;
-     var RT2R : Double;
-     var RT2I : Double;
-     var CS : Double;
-     var SN : Double);forward;
-function ExtSchurSign(a : Double; b : Double):Double;forward;
-function ExtSchurSignToOne(b : Double):AlglibInteger;forward;
+procedure Aux2X2Schur(var A : AlglibFloat;
+     var B : AlglibFloat;
+     var C : AlglibFloat;
+     var D : AlglibFloat;
+     var RT1R : AlglibFloat;
+     var RT1I : AlglibFloat;
+     var RT2R : AlglibFloat;
+     var RT2I : AlglibFloat;
+     var CS : AlglibFloat;
+     var SN : AlglibFloat);forward;
+function ExtSchurSign(a : AlglibFloat; b : AlglibFloat):AlglibFloat;forward;
+function ExtSchurSignToOne(b : AlglibFloat):AlglibInteger;forward;
 
 
 (*************************************************************************
@@ -152,14 +152,14 @@ var
     NR : AlglibInteger;
     NS : AlglibInteger;
     NV : AlglibInteger;
-    ABSW : Double;
-    OVFL : Double;
-    SMLNUM : Double;
-    TAU : Double;
-    TEMP : Double;
-    TST1 : Double;
-    ULP : Double;
-    UNFL : Double;
+    ABSW : AlglibFloat;
+    OVFL : AlglibFloat;
+    SMLNUM : AlglibFloat;
+    TAU : AlglibFloat;
+    TEMP : AlglibFloat;
+    TST1 : AlglibFloat;
+    ULP : AlglibFloat;
+    UNFL : AlglibFloat;
     S : TReal2DArray;
     V : TReal1DArray;
     VV : TReal1DArray;
@@ -171,11 +171,11 @@ var
     INITZ : Boolean;
     WANTT : Boolean;
     WANTZ : Boolean;
-    CNST : Double;
+    CNST : AlglibFloat;
     FailFlag : Boolean;
     P1 : AlglibInteger;
     P2 : AlglibInteger;
-    VT : Double;
+    VT : AlglibFloat;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin
@@ -279,7 +279,7 @@ begin
     begin
         
         //
-        // Use the standard double-shift algorithm
+        // Use the standard AlglibFloat-shift algorithm
         //
         InternalAuxSchur(WANTT, WANTZ, N, 1, N, H, WR, WI, 1, N, Z, WORK, WORKV3, WORKC1, WORKS1, INFO);
         
@@ -637,7 +637,7 @@ begin
         
         //
         // A submatrix of order <= MAXB in rows and columns L to I has split
-        // off. Use the double-shift QR algorithm to handle it.
+        // off. Use the AlglibFloat-shift QR algorithm to handle it.
         //
         InternalAuxSchur(WANTT, WANTZ, N, L, I, H, WR, WI, 1, N, Z, WORK, WORKV3, WORKC1, WORKS1, INFO);
         if INFO>0 then
@@ -684,46 +684,46 @@ var
     NH : AlglibInteger;
     NR : AlglibInteger;
     NZ : AlglibInteger;
-    AVE : Double;
-    CS : Double;
-    DISC : Double;
-    H00 : Double;
-    H10 : Double;
-    H11 : Double;
-    H12 : Double;
-    H21 : Double;
-    H22 : Double;
-    H33 : Double;
-    H33S : Double;
-    H43H34 : Double;
-    H44 : Double;
-    H44S : Double;
-    OVFL : Double;
-    S : Double;
-    SMLNUM : Double;
-    SN : Double;
-    SUM : Double;
-    T1 : Double;
-    T2 : Double;
-    T3 : Double;
-    TST1 : Double;
-    UNFL : Double;
-    V1 : Double;
-    V2 : Double;
-    V3 : Double;
+    AVE : AlglibFloat;
+    CS : AlglibFloat;
+    DISC : AlglibFloat;
+    H00 : AlglibFloat;
+    H10 : AlglibFloat;
+    H11 : AlglibFloat;
+    H12 : AlglibFloat;
+    H21 : AlglibFloat;
+    H22 : AlglibFloat;
+    H33 : AlglibFloat;
+    H33S : AlglibFloat;
+    H43H34 : AlglibFloat;
+    H44 : AlglibFloat;
+    H44S : AlglibFloat;
+    OVFL : AlglibFloat;
+    S : AlglibFloat;
+    SMLNUM : AlglibFloat;
+    SN : AlglibFloat;
+    SUM : AlglibFloat;
+    T1 : AlglibFloat;
+    T2 : AlglibFloat;
+    T3 : AlglibFloat;
+    TST1 : AlglibFloat;
+    UNFL : AlglibFloat;
+    V1 : AlglibFloat;
+    V2 : AlglibFloat;
+    V3 : AlglibFloat;
     FailFlag : Boolean;
-    DAT1 : Double;
-    DAT2 : Double;
+    DAT1 : AlglibFloat;
+    DAT2 : AlglibFloat;
     P1 : AlglibInteger;
-    HIM1IM1 : Double;
-    HIM1I : Double;
-    HIIM1 : Double;
-    HII : Double;
-    WRIM1 : Double;
-    WRI : Double;
-    WIIM1 : Double;
-    WII : Double;
-    Ulp : Double;
+    HIM1IM1 : AlglibFloat;
+    HIM1I : AlglibFloat;
+    HIIM1 : AlglibFloat;
+    HII : AlglibFloat;
+    WRIM1 : AlglibFloat;
+    WRI : AlglibFloat;
+    WIIM1 : AlglibFloat;
+    WII : AlglibFloat;
+    Ulp : AlglibFloat;
 begin
     INFO := 0;
     DAT1 := 0.75;
@@ -849,7 +849,7 @@ begin
             begin
                 
                 //
-                // Prepare to use Francis' double shift
+                // Prepare to use Francis' AlglibFloat shift
                 // (i.e. 2nd degree generalized Rayleigh quotient)
                 //
                 H44 := H[I,I];
@@ -888,7 +888,7 @@ begin
             begin
                 
                 //
-                // Determine the effect of starting the double-shift QR
+                // Determine the effect of starting the AlglibFloat-shift QR
                 // iteration at row M, and see if this would make H(M,M-1)
                 // negligible.
                 //
@@ -923,7 +923,7 @@ begin
             end;
             
             //
-            // Double-shift QR step
+            // AlglibFloat-shift QR step
             //
             K:=M;
             while K<=I-1 do
@@ -1149,35 +1149,35 @@ begin
 end;
 
 
-procedure Aux2X2Schur(var A : Double;
-     var B : Double;
-     var C : Double;
-     var D : Double;
-     var RT1R : Double;
-     var RT1I : Double;
-     var RT2R : Double;
-     var RT2I : Double;
-     var CS : Double;
-     var SN : Double);
+procedure Aux2X2Schur(var A : AlglibFloat;
+     var B : AlglibFloat;
+     var C : AlglibFloat;
+     var D : AlglibFloat;
+     var RT1R : AlglibFloat;
+     var RT1I : AlglibFloat;
+     var RT2R : AlglibFloat;
+     var RT2I : AlglibFloat;
+     var CS : AlglibFloat;
+     var SN : AlglibFloat);
 var
-    MULTPL : Double;
-    AA : Double;
-    BB : Double;
-    BCMAX : Double;
-    BCMIS : Double;
-    CC : Double;
-    CS1 : Double;
-    DD : Double;
-    EPS : Double;
-    P : Double;
-    SAB : Double;
-    SAC : Double;
-    SCL : Double;
-    SIGMA : Double;
-    SN1 : Double;
-    TAU : Double;
-    TEMP : Double;
-    Z : Double;
+    MULTPL : AlglibFloat;
+    AA : AlglibFloat;
+    BB : AlglibFloat;
+    BCMAX : AlglibFloat;
+    BCMIS : AlglibFloat;
+    CC : AlglibFloat;
+    CS1 : AlglibFloat;
+    DD : AlglibFloat;
+    EPS : AlglibFloat;
+    P : AlglibFloat;
+    SAB : AlglibFloat;
+    SAC : AlglibFloat;
+    SCL : AlglibFloat;
+    SIGMA : AlglibFloat;
+    SN1 : AlglibFloat;
+    TAU : AlglibFloat;
+    TEMP : AlglibFloat;
+    Z : AlglibFloat;
 begin
     MULTPL := 4.0;
     EPS := MachineEpsilon;
@@ -1330,7 +1330,7 @@ begin
 end;
 
 
-function ExtSchurSign(a : Double; b : Double):Double;
+function ExtSchurSign(a : AlglibFloat; b : AlglibFloat):AlglibFloat;
 begin
     if AP_FP_Greater_Eq(b,0) then
     begin
@@ -1343,7 +1343,7 @@ begin
 end;
 
 
-function ExtSchurSignToOne(b : Double):AlglibInteger;
+function ExtSchurSignToOne(b : AlglibFloat):AlglibInteger;
 begin
     if AP_FP_Greater_Eq(b,0) then
     begin

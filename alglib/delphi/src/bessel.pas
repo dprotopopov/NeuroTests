@@ -28,44 +28,44 @@ unit bessel;
 interface
 uses Math, Sysutils, Ap;
 
-function BesselJ0(X : Double):Double;
-function BesselJ1(X : Double):Double;
-function BesselJN(n : AlglibInteger; x : Double):Double;
-function BesselY0(X : Double):Double;
-function BesselY1(X : Double):Double;
-function BesselYN(N : AlglibInteger; X : Double):Double;
-function BesselI0(X : Double):Double;
-function BesselI1(x : Double):Double;
-function BesselK0(X : Double):Double;
-function BesselK1(x : Double):Double;
-function BesselKN(nn : AlglibInteger; x : Double):Double;
+function BesselJ0(X : AlglibFloat):AlglibFloat;
+function BesselJ1(X : AlglibFloat):AlglibFloat;
+function BesselJN(n : AlglibInteger; x : AlglibFloat):AlglibFloat;
+function BesselY0(X : AlglibFloat):AlglibFloat;
+function BesselY1(X : AlglibFloat):AlglibFloat;
+function BesselYN(N : AlglibInteger; X : AlglibFloat):AlglibFloat;
+function BesselI0(X : AlglibFloat):AlglibFloat;
+function BesselI1(x : AlglibFloat):AlglibFloat;
+function BesselK0(X : AlglibFloat):AlglibFloat;
+function BesselK1(x : AlglibFloat):AlglibFloat;
+function BesselKN(nn : AlglibInteger; x : AlglibFloat):AlglibFloat;
 
 implementation
 
-procedure BesselMFirstCheb(c : Double;
-     var b0 : Double;
-     var b1 : Double;
-     var b2 : Double);forward;
-procedure BesselMNextCheb(x : Double;
-     c : Double;
-     var b0 : Double;
-     var b1 : Double;
-     var b2 : Double);forward;
-procedure BesselM1FirstCheb(c : Double;
-     var b0 : Double;
-     var b1 : Double;
-     var b2 : Double);forward;
-procedure BesselM1NextCheb(x : Double;
-     c : Double;
-     var b0 : Double;
-     var b1 : Double;
-     var b2 : Double);forward;
-procedure BesselAsympt0(X : Double;
-     var PZero : Double;
-     var QZero : Double);forward;
-procedure BesselAsympt1(X : Double;
-     var PZero : Double;
-     var QZero : Double);forward;
+procedure BesselMFirstCheb(c : AlglibFloat;
+     var b0 : AlglibFloat;
+     var b1 : AlglibFloat;
+     var b2 : AlglibFloat);forward;
+procedure BesselMNextCheb(x : AlglibFloat;
+     c : AlglibFloat;
+     var b0 : AlglibFloat;
+     var b1 : AlglibFloat;
+     var b2 : AlglibFloat);forward;
+procedure BesselM1FirstCheb(c : AlglibFloat;
+     var b0 : AlglibFloat;
+     var b1 : AlglibFloat;
+     var b2 : AlglibFloat);forward;
+procedure BesselM1NextCheb(x : AlglibFloat;
+     c : AlglibFloat;
+     var b0 : AlglibFloat;
+     var b1 : AlglibFloat;
+     var b2 : AlglibFloat);forward;
+procedure BesselAsympt0(X : AlglibFloat;
+     var PZero : AlglibFloat;
+     var QZero : AlglibFloat);forward;
+procedure BesselAsympt1(X : AlglibFloat;
+     var PZero : AlglibFloat;
+     var QZero : AlglibFloat);forward;
 
 
 (*************************************************************************
@@ -98,14 +98,14 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1989, 2000 by Stephen L. Moshier
 *************************************************************************)
-function BesselJ0(X : Double):Double;
+function BesselJ0(X : AlglibFloat):AlglibFloat;
 var
-    XSq : Double;
-    NN : Double;
-    PZero : Double;
-    QZero : Double;
-    P1 : Double;
-    Q1 : Double;
+    XSq : AlglibFloat;
+    NN : AlglibFloat;
+    PZero : AlglibFloat;
+    QZero : AlglibFloat;
+    P1 : AlglibFloat;
+    Q1 : AlglibFloat;
 begin
     if AP_FP_Less(X,0) then
     begin
@@ -161,15 +161,15 @@ arithmetic   domain      # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1989, 2000 by Stephen L. Moshier
 *************************************************************************)
-function BesselJ1(X : Double):Double;
+function BesselJ1(X : AlglibFloat):AlglibFloat;
 var
-    S : Double;
-    XSq : Double;
-    NN : Double;
-    PZero : Double;
-    QZero : Double;
-    P1 : Double;
-    Q1 : Double;
+    S : AlglibFloat;
+    XSq : AlglibFloat;
+    NN : AlglibFloat;
+    PZero : AlglibFloat;
+    QZero : AlglibFloat;
+    P1 : AlglibFloat;
+    Q1 : AlglibFloat;
 begin
     S := Sign(X);
     if AP_FP_Less(X,0) then
@@ -237,14 +237,14 @@ Not suitable for large n or x. Use jv() (fractional order) instead.
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-function BesselJN(n : AlglibInteger; x : Double):Double;
+function BesselJN(n : AlglibInteger; x : AlglibFloat):AlglibFloat;
 var
-    pkm2 : Double;
-    pkm1 : Double;
-    pk : Double;
-    xk : Double;
-    r : Double;
-    ans : Double;
+    pkm2 : AlglibFloat;
+    pkm1 : AlglibFloat;
+    pk : AlglibFloat;
+    xk : AlglibFloat;
+    r : AlglibFloat;
+    ans : AlglibFloat;
     k : AlglibInteger;
     sg : AlglibInteger;
 begin
@@ -360,14 +360,14 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1989, 2000 by Stephen L. Moshier
 *************************************************************************)
-function BesselY0(X : Double):Double;
+function BesselY0(X : AlglibFloat):AlglibFloat;
 var
-    NN : Double;
-    XSq : Double;
-    PZero : Double;
-    QZero : Double;
-    P4 : Double;
-    Q4 : Double;
+    NN : AlglibFloat;
+    XSq : AlglibFloat;
+    PZero : AlglibFloat;
+    QZero : AlglibFloat;
+    P4 : AlglibFloat;
+    Q4 : AlglibFloat;
 begin
     if AP_FP_Greater(X,8.0) then
     begin
@@ -420,14 +420,14 @@ arithmetic   domain      # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1989, 2000 by Stephen L. Moshier
 *************************************************************************)
-function BesselY1(X : Double):Double;
+function BesselY1(X : AlglibFloat):AlglibFloat;
 var
-    NN : Double;
-    XSq : Double;
-    PZero : Double;
-    QZero : Double;
-    P4 : Double;
-    Q4 : Double;
+    NN : AlglibFloat;
+    XSq : AlglibFloat;
+    PZero : AlglibFloat;
+    QZero : AlglibFloat;
+    P4 : AlglibFloat;
+    Q4 : AlglibFloat;
 begin
     if AP_FP_Greater(X,8.0) then
     begin
@@ -482,13 +482,13 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-function BesselYN(N : AlglibInteger; X : Double):Double;
+function BesselYN(N : AlglibInteger; X : AlglibFloat):AlglibFloat;
 var
     I : AlglibInteger;
-    A : Double;
-    B : Double;
-    Tmp : Double;
-    S : Double;
+    A : AlglibFloat;
+    B : AlglibFloat;
+    Tmp : AlglibFloat;
+    S : AlglibFloat;
 begin
     S := 1;
     if N<0 then
@@ -544,14 +544,14 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-function BesselI0(X : Double):Double;
+function BesselI0(X : AlglibFloat):AlglibFloat;
 var
-    y : Double;
-    v : Double;
-    z : Double;
-    b0 : Double;
-    b1 : Double;
-    b2 : Double;
+    y : AlglibFloat;
+    v : AlglibFloat;
+    z : AlglibFloat;
+    b0 : AlglibFloat;
+    b1 : AlglibFloat;
+    b2 : AlglibFloat;
 begin
     if AP_FP_Less(x,0) then
     begin
@@ -646,14 +646,14 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1985, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-function BesselI1(x : Double):Double;
+function BesselI1(x : AlglibFloat):AlglibFloat;
 var
-    y : Double;
-    z : Double;
-    v : Double;
-    b0 : Double;
-    b1 : Double;
-    b2 : Double;
+    y : AlglibFloat;
+    z : AlglibFloat;
+    v : AlglibFloat;
+    b0 : AlglibFloat;
+    b1 : AlglibFloat;
+    b2 : AlglibFloat;
 begin
     z := AbsReal(x);
     if AP_FP_Less_Eq(z,8.0) then
@@ -751,14 +751,14 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-function BesselK0(X : Double):Double;
+function BesselK0(X : AlglibFloat):AlglibFloat;
 var
-    y : Double;
-    z : Double;
-    v : Double;
-    b0 : Double;
-    b1 : Double;
-    b2 : Double;
+    y : AlglibFloat;
+    z : AlglibFloat;
+    v : AlglibFloat;
+    b0 : AlglibFloat;
+    b1 : AlglibFloat;
+    b2 : AlglibFloat;
 begin
     Assert(AP_FP_Greater(x,0), 'Domain error in BesselK0: x<=0');
     if AP_FP_Less_Eq(x,2) then
@@ -831,14 +831,14 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-function BesselK1(x : Double):Double;
+function BesselK1(x : AlglibFloat):AlglibFloat;
 var
-    y : Double;
-    z : Double;
-    v : Double;
-    b0 : Double;
-    b1 : Double;
-    b2 : Double;
+    y : AlglibFloat;
+    z : AlglibFloat;
+    v : AlglibFloat;
+    b0 : AlglibFloat;
+    b1 : AlglibFloat;
+    b2 : AlglibFloat;
 begin
     z := 0.5*x;
     Assert(AP_FP_Greater(z,0), 'Domain error in K1');
@@ -915,27 +915,27 @@ between the two expansions used.
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1988, 2000 by Stephen L. Moshier
 *************************************************************************)
-function BesselKN(nn : AlglibInteger; x : Double):Double;
+function BesselKN(nn : AlglibInteger; x : AlglibFloat):AlglibFloat;
 var
-    k : Double;
-    kf : Double;
-    nk1f : Double;
-    nkf : Double;
-    zn : Double;
-    t : Double;
-    s : Double;
-    z0 : Double;
-    z : Double;
-    ans : Double;
-    fn : Double;
-    pn : Double;
-    pk : Double;
-    zmn : Double;
-    tlg : Double;
-    tox : Double;
+    k : AlglibFloat;
+    kf : AlglibFloat;
+    nk1f : AlglibFloat;
+    nkf : AlglibFloat;
+    zn : AlglibFloat;
+    t : AlglibFloat;
+    s : AlglibFloat;
+    z0 : AlglibFloat;
+    z : AlglibFloat;
+    ans : AlglibFloat;
+    fn : AlglibFloat;
+    pn : AlglibFloat;
+    pk : AlglibFloat;
+    zmn : AlglibFloat;
+    tlg : AlglibFloat;
+    tox : AlglibFloat;
     i : AlglibInteger;
     n : AlglibInteger;
-    EUL : Double;
+    EUL : AlglibFloat;
 begin
     EUL := 5.772156649015328606065e-1;
     if nn<0 then
@@ -1068,10 +1068,10 @@ Internal subroutine
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-procedure BesselMFirstCheb(c : Double;
-     var b0 : Double;
-     var b1 : Double;
-     var b2 : Double);
+procedure BesselMFirstCheb(c : AlglibFloat;
+     var b0 : AlglibFloat;
+     var b1 : AlglibFloat;
+     var b2 : AlglibFloat);
 begin
     b0 := c;
     b1 := 0.0;
@@ -1085,11 +1085,11 @@ Internal subroutine
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-procedure BesselMNextCheb(x : Double;
-     c : Double;
-     var b0 : Double;
-     var b1 : Double;
-     var b2 : Double);
+procedure BesselMNextCheb(x : AlglibFloat;
+     c : AlglibFloat;
+     var b0 : AlglibFloat;
+     var b1 : AlglibFloat;
+     var b2 : AlglibFloat);
 begin
     b2 := b1;
     b1 := b0;
@@ -1103,10 +1103,10 @@ Internal subroutine
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-procedure BesselM1FirstCheb(c : Double;
-     var b0 : Double;
-     var b1 : Double;
-     var b2 : Double);
+procedure BesselM1FirstCheb(c : AlglibFloat;
+     var b0 : AlglibFloat;
+     var b1 : AlglibFloat;
+     var b2 : AlglibFloat);
 begin
     b0 := c;
     b1 := 0.0;
@@ -1120,11 +1120,11 @@ Internal subroutine
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-procedure BesselM1NextCheb(x : Double;
-     c : Double;
-     var b0 : Double;
-     var b1 : Double;
-     var b2 : Double);
+procedure BesselM1NextCheb(x : AlglibFloat;
+     c : AlglibFloat;
+     var b0 : AlglibFloat;
+     var b1 : AlglibFloat;
+     var b2 : AlglibFloat);
 begin
     b2 := b1;
     b1 := b0;
@@ -1132,13 +1132,13 @@ begin
 end;
 
 
-procedure BesselAsympt0(X : Double; var PZero : Double; var QZero : Double);
+procedure BesselAsympt0(X : AlglibFloat; var PZero : AlglibFloat; var QZero : AlglibFloat);
 var
-    XSq : Double;
-    P2 : Double;
-    Q2 : Double;
-    P3 : Double;
-    Q3 : Double;
+    XSq : AlglibFloat;
+    P2 : AlglibFloat;
+    Q2 : AlglibFloat;
+    P3 : AlglibFloat;
+    Q3 : AlglibFloat;
 begin
     XSq := 64.0/(X*X);
     P2 := 0.0;
@@ -1174,13 +1174,13 @@ begin
 end;
 
 
-procedure BesselAsympt1(X : Double; var PZero : Double; var QZero : Double);
+procedure BesselAsympt1(X : AlglibFloat; var PZero : AlglibFloat; var QZero : AlglibFloat);
 var
-    XSq : Double;
-    P2 : Double;
-    Q2 : Double;
-    P3 : Double;
-    Q3 : Double;
+    XSq : AlglibFloat;
+    P2 : AlglibFloat;
+    Q2 : AlglibFloat;
+    P3 : AlglibFloat;
+    Q3 : AlglibFloat;
 begin
     XSq := 64.0/(X*X);
     P2 := -1611.616644324610116477412898;

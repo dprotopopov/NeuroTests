@@ -23,13 +23,13 @@ uses Math, Sysutils, Ap, hblas, reflections, creflections, sblas, ablasf, ablas,
 
 type
 DenseSolverReport = record
-    R1 : Double;
-    RInf : Double;
+    R1 : AlglibFloat;
+    RInf : AlglibFloat;
 end;
 
 
 DenseSolverLSReport = record
-    R2 : Double;
+    R2 : AlglibFloat;
     CX : TReal2DArray;
     N : AlglibInteger;
     K : AlglibInteger;
@@ -193,7 +193,7 @@ procedure RMatrixSolveLS(const A : TReal2DArray;
      NRows : AlglibInteger;
      NCols : AlglibInteger;
      const B : TReal1DArray;
-     Threshold : Double;
+     Threshold : AlglibFloat;
      var Info : AlglibInteger;
      var Rep : DenseSolverLSReport;
      var X : TReal1DArray);
@@ -202,7 +202,7 @@ implementation
 
 procedure RMatrixLUSolveInternal(const LUA : TReal2DArray;
      const P : TInteger1DArray;
-     const ScaleA : Double;
+     const ScaleA : AlglibFloat;
      N : AlglibInteger;
      const A : TReal2DArray;
      HaveA : Boolean;
@@ -212,7 +212,7 @@ procedure RMatrixLUSolveInternal(const LUA : TReal2DArray;
      var Rep : DenseSolverReport;
      var X : TReal2DArray);forward;
 procedure SPDMatrixCholeskySolveInternal(const CHA : TReal2DArray;
-     const SqrtScaleA : Double;
+     const SqrtScaleA : AlglibFloat;
      N : AlglibInteger;
      IsUpper : Boolean;
      const A : TReal2DArray;
@@ -224,7 +224,7 @@ procedure SPDMatrixCholeskySolveInternal(const CHA : TReal2DArray;
      var X : TReal2DArray);forward;
 procedure CMatrixLUSolveInternal(const LUA : TComplex2DArray;
      const P : TInteger1DArray;
-     const ScaleA : Double;
+     const ScaleA : AlglibFloat;
      N : AlglibInteger;
      const A : TComplex2DArray;
      HaveA : Boolean;
@@ -234,7 +234,7 @@ procedure CMatrixLUSolveInternal(const LUA : TComplex2DArray;
      var Rep : DenseSolverReport;
      var X : TComplex2DArray);forward;
 procedure HPDMatrixCholeskySolveInternal(const CHA : TComplex2DArray;
-     const SqrtScaleA : Double;
+     const SqrtScaleA : AlglibFloat;
      N : AlglibInteger;
      IsUpper : Boolean;
      const A : TComplex2DArray;
@@ -245,30 +245,30 @@ procedure HPDMatrixCholeskySolveInternal(const CHA : TComplex2DArray;
      var Rep : DenseSolverReport;
      var X : TComplex2DArray);forward;
 function DenseSolverRFSMax(N : AlglibInteger;
-     R1 : Double;
-     RInf : Double):AlglibInteger;forward;
+     R1 : AlglibFloat;
+     RInf : AlglibFloat):AlglibInteger;forward;
 function DenseSolverRFSMaxV2(N : AlglibInteger;
-     R2 : Double):AlglibInteger;forward;
+     R2 : AlglibFloat):AlglibInteger;forward;
 procedure RBasicLUSolve(const LUA : TReal2DArray;
      const P : TInteger1DArray;
-     ScaleA : Double;
+     ScaleA : AlglibFloat;
      N : AlglibInteger;
      var XB : TReal1DArray;
      var Tmp : TReal1DArray);forward;
 procedure SPDBasicCholeskySolve(const CHA : TReal2DArray;
-     SqrtScaleA : Double;
+     SqrtScaleA : AlglibFloat;
      N : AlglibInteger;
      IsUpper : Boolean;
      var XB : TReal1DArray;
      var Tmp : TReal1DArray);forward;
 procedure CBasicLUSolve(const LUA : TComplex2DArray;
      const P : TInteger1DArray;
-     ScaleA : Double;
+     ScaleA : AlglibFloat;
      N : AlglibInteger;
      var XB : TComplex1DArray;
      var Tmp : TComplex1DArray);forward;
 procedure HPDBasicCholeskySolve(const CHA : TComplex2DArray;
-     SqrtScaleA : Double;
+     SqrtScaleA : AlglibFloat;
      N : AlglibInteger;
      IsUpper : Boolean;
      var XB : TComplex1DArray;
@@ -388,7 +388,7 @@ var
     DA : TReal2DArray;
     EmptyA : TReal2DArray;
     P : TInteger1DArray;
-    ScaleA : Double;
+    ScaleA : AlglibFloat;
     I : AlglibInteger;
     J : AlglibInteger;
 begin
@@ -545,7 +545,7 @@ var
     EmptyA : TReal2DArray;
     I : AlglibInteger;
     J : AlglibInteger;
-    ScaleA : Double;
+    ScaleA : AlglibFloat;
 begin
     
     //
@@ -681,7 +681,7 @@ procedure RMatrixMixedSolveM(const A : TReal2DArray;
      var Rep : DenseSolverReport;
      var X : TReal2DArray);
 var
-    ScaleA : Double;
+    ScaleA : AlglibFloat;
     I : AlglibInteger;
     J : AlglibInteger;
 begin
@@ -761,7 +761,7 @@ var
     DA : TComplex2DArray;
     EmptyA : TComplex2DArray;
     P : TInteger1DArray;
-    ScaleA : Double;
+    ScaleA : AlglibFloat;
     I : AlglibInteger;
     J : AlglibInteger;
     i_ : AlglibInteger;
@@ -911,7 +911,7 @@ var
     EmptyA : TComplex2DArray;
     I : AlglibInteger;
     J : AlglibInteger;
-    ScaleA : Double;
+    ScaleA : AlglibFloat;
 begin
     
     //
@@ -1041,7 +1041,7 @@ procedure CMatrixMixedSolveM(const A : TComplex2DArray;
      var Rep : DenseSolverReport;
      var X : TComplex2DArray);
 var
-    ScaleA : Double;
+    ScaleA : AlglibFloat;
     I : AlglibInteger;
     J : AlglibInteger;
 begin
@@ -1178,7 +1178,7 @@ procedure SPDMatrixSolveM(const A : TReal2DArray;
      var X : TReal2DArray);
 var
     DA : TReal2DArray;
-    SqrtScaleA : Double;
+    SqrtScaleA : AlglibFloat;
     I : AlglibInteger;
     J : AlglibInteger;
     J1 : AlglibInteger;
@@ -1369,7 +1369,7 @@ procedure SPDMatrixCholeskySolveM(const CHA : TReal2DArray;
      var X : TReal2DArray);
 var
     EmptyA : TReal2DArray;
-    SqrtScaleA : Double;
+    SqrtScaleA : AlglibFloat;
     I : AlglibInteger;
     J : AlglibInteger;
     J1 : AlglibInteger;
@@ -1523,7 +1523,7 @@ procedure HPDMatrixSolveM(const A : TComplex2DArray;
      var X : TComplex2DArray);
 var
     DA : TComplex2DArray;
-    SqrtScaleA : Double;
+    SqrtScaleA : AlglibFloat;
     I : AlglibInteger;
     J : AlglibInteger;
     J1 : AlglibInteger;
@@ -1719,7 +1719,7 @@ procedure HPDMatrixCholeskySolveM(const CHA : TComplex2DArray;
      var X : TComplex2DArray);
 var
     EmptyA : TComplex2DArray;
-    SqrtScaleA : Double;
+    SqrtScaleA : AlglibFloat;
     I : AlglibInteger;
     J : AlglibInteger;
     J1 : AlglibInteger;
@@ -1883,7 +1883,7 @@ procedure RMatrixSolveLS(const A : TReal2DArray;
      NRows : AlglibInteger;
      NCols : AlglibInteger;
      const B : TReal1DArray;
-     Threshold : Double;
+     Threshold : AlglibFloat;
      var Info : AlglibInteger;
      var Rep : DenseSolverLSReport;
      var X : TReal1DArray);
@@ -1903,8 +1903,8 @@ var
     J : AlglibInteger;
     NSV : AlglibInteger;
     KernelIdx : AlglibInteger;
-    V : Double;
-    VErr : Double;
+    V : AlglibFloat;
+    VErr : AlglibFloat;
     SVDFailed : Boolean;
     ZeroA : Boolean;
     RFS : AlglibInteger;
@@ -2134,7 +2134,7 @@ Internal LU solver
 *************************************************************************)
 procedure RMatrixLUSolveInternal(const LUA : TReal2DArray;
      const P : TInteger1DArray;
-     const ScaleA : Double;
+     const ScaleA : AlglibFloat;
      N : AlglibInteger;
      const A : TReal2DArray;
      HaveA : Boolean;
@@ -2155,10 +2155,10 @@ var
     XA : TReal1DArray;
     XB : TReal1DArray;
     TX : TReal1DArray;
-    V : Double;
-    VErr : Double;
-    MXB : Double;
-    ScaleRight : Double;
+    V : AlglibFloat;
+    VErr : AlglibFloat;
+    MXB : AlglibFloat;
+    ScaleRight : AlglibFloat;
     SmallErr : Boolean;
     TerminateNextTime : Boolean;
     i_ : AlglibInteger;
@@ -2331,7 +2331,7 @@ Internal Cholesky solver
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure SPDMatrixCholeskySolveInternal(const CHA : TReal2DArray;
-     const SqrtScaleA : Double;
+     const SqrtScaleA : AlglibFloat;
      N : AlglibInteger;
      IsUpper : Boolean;
      const A : TReal2DArray;
@@ -2353,10 +2353,10 @@ var
     XA : TReal1DArray;
     XB : TReal1DArray;
     TX : TReal1DArray;
-    V : Double;
-    VErr : Double;
-    MXB : Double;
-    ScaleRight : Double;
+    V : AlglibFloat;
+    VErr : AlglibFloat;
+    MXB : AlglibFloat;
+    ScaleRight : AlglibFloat;
     SmallErr : Boolean;
     TerminateNextTime : Boolean;
     i_ : AlglibInteger;
@@ -2468,7 +2468,7 @@ Internal LU solver
 *************************************************************************)
 procedure CMatrixLUSolveInternal(const LUA : TComplex2DArray;
      const P : TInteger1DArray;
-     const ScaleA : Double;
+     const ScaleA : AlglibFloat;
      N : AlglibInteger;
      const A : TComplex2DArray;
      HaveA : Boolean;
@@ -2491,9 +2491,9 @@ var
     TX : TComplex1DArray;
     TmpBuf : TReal1DArray;
     V : Complex;
-    VErr : Double;
-    MXB : Double;
-    ScaleRight : Double;
+    VErr : AlglibFloat;
+    MXB : AlglibFloat;
+    ScaleRight : AlglibFloat;
     SmallErr : Boolean;
     TerminateNextTime : Boolean;
     i_ : AlglibInteger;
@@ -2679,7 +2679,7 @@ Internal Cholesky solver
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure HPDMatrixCholeskySolveInternal(const CHA : TComplex2DArray;
-     const SqrtScaleA : Double;
+     const SqrtScaleA : AlglibFloat;
      N : AlglibInteger;
      IsUpper : Boolean;
      const A : TComplex2DArray;
@@ -2701,10 +2701,10 @@ var
     XA : TComplex1DArray;
     XB : TComplex1DArray;
     TX : TComplex1DArray;
-    V : Double;
-    VErr : Double;
-    MXB : Double;
-    ScaleRight : Double;
+    V : AlglibFloat;
+    VErr : AlglibFloat;
+    MXB : AlglibFloat;
+    ScaleRight : AlglibFloat;
     SmallErr : Boolean;
     TerminateNextTime : Boolean;
     i_ : AlglibInteger;
@@ -2822,8 +2822,8 @@ Returns maximum count of RFS iterations as function of:
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************)
 function DenseSolverRFSMax(N : AlglibInteger;
-     R1 : Double;
-     RInf : Double):AlglibInteger;
+     R1 : AlglibFloat;
+     RInf : AlglibFloat):AlglibInteger;
 begin
     Result := 5;
 end;
@@ -2839,7 +2839,7 @@ Returns maximum count of RFS iterations as function of:
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************)
-function DenseSolverRFSMaxV2(N : AlglibInteger; R2 : Double):AlglibInteger;
+function DenseSolverRFSMaxV2(N : AlglibInteger; R2 : AlglibFloat):AlglibInteger;
 begin
     Result := DenseSolverRFSMax(N, 0, 0);
 end;
@@ -2857,13 +2857,13 @@ This subroutine assumes that:
 *************************************************************************)
 procedure RBasicLUSolve(const LUA : TReal2DArray;
      const P : TInteger1DArray;
-     ScaleA : Double;
+     ScaleA : AlglibFloat;
      N : AlglibInteger;
      var XB : TReal1DArray;
      var Tmp : TReal1DArray);
 var
     I : AlglibInteger;
-    V : Double;
+    V : AlglibFloat;
 begin
     I:=0;
     while I<=N-1 do
@@ -2906,14 +2906,14 @@ This subroutine assumes that:
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure SPDBasicCholeskySolve(const CHA : TReal2DArray;
-     SqrtScaleA : Double;
+     SqrtScaleA : AlglibFloat;
      N : AlglibInteger;
      IsUpper : Boolean;
      var XB : TReal1DArray;
      var Tmp : TReal1DArray);
 var
     I : AlglibInteger;
-    V : Double;
+    V : AlglibFloat;
 begin
     
     //
@@ -3004,7 +3004,7 @@ This subroutine assumes that:
 *************************************************************************)
 procedure CBasicLUSolve(const LUA : TComplex2DArray;
      const P : TInteger1DArray;
-     ScaleA : Double;
+     ScaleA : AlglibFloat;
      N : AlglibInteger;
      var XB : TComplex1DArray;
      var Tmp : TComplex1DArray);
@@ -3065,7 +3065,7 @@ This subroutine assumes that:
      Copyright 27.01.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure HPDBasicCholeskySolve(const CHA : TComplex2DArray;
-     SqrtScaleA : Double;
+     SqrtScaleA : AlglibFloat;
      N : AlglibInteger;
      IsUpper : Boolean;
      var XB : TComplex1DArray;

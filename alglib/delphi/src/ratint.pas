@@ -27,7 +27,7 @@ Barycentric interpolant.
 *************************************************************************)
 BarycentricInterpolant = record
     N : AlglibInteger;
-    SY : Double;
+    SY : AlglibFloat;
     X : TReal1DArray;
     Y : TReal1DArray;
     W : TReal1DArray;
@@ -43,32 +43,32 @@ Barycentric fitting report:
     MaxError        maximum error
 *************************************************************************)
 BarycentricFitReport = record
-    TaskRCond : Double;
+    TaskRCond : AlglibFloat;
     DBest : AlglibInteger;
-    RMSError : Double;
-    AvgError : Double;
-    AvgRelError : Double;
-    MaxError : Double;
+    RMSError : AlglibFloat;
+    AvgError : AlglibFloat;
+    AvgRelError : AlglibFloat;
+    MaxError : AlglibFloat;
 end;
 
 
 
-function BarycentricCalc(const B : BarycentricInterpolant; T : Double):Double;
+function BarycentricCalc(const B : BarycentricInterpolant; T : AlglibFloat):AlglibFloat;
 procedure BarycentricDiff1(const B : BarycentricInterpolant;
-     T : Double;
-     var F : Double;
-     var DF : Double);
+     T : AlglibFloat;
+     var F : AlglibFloat;
+     var DF : AlglibFloat);
 procedure BarycentricDiff2(const B : BarycentricInterpolant;
-     T : Double;
-     var F : Double;
-     var DF : Double;
-     var D2F : Double);
+     T : AlglibFloat;
+     var F : AlglibFloat;
+     var DF : AlglibFloat;
+     var D2F : AlglibFloat);
 procedure BarycentricLinTransX(var B : BarycentricInterpolant;
-     CA : Double;
-     CB : Double);
+     CA : AlglibFloat;
+     CB : AlglibFloat);
 procedure BarycentricLinTransY(var B : BarycentricInterpolant;
-     CA : Double;
-     CB : Double);
+     CA : AlglibFloat;
+     CB : AlglibFloat);
 procedure BarycentricUnpack(const B : BarycentricInterpolant;
      var N : AlglibInteger;
      var X : TReal1DArray;
@@ -118,7 +118,7 @@ const
 
 procedure BarycentricNormalize(var B : BarycentricInterpolant);forward;
 procedure BarycentricCalcBasis(const B : BarycentricInterpolant;
-     T : Double;
+     T : AlglibFloat;
      var Y : TReal1DArray);forward;
 procedure BarycentricFitWCFixedD(X : TReal1DArray;
      Y : TReal1DArray;
@@ -151,12 +151,12 @@ Result:
   -- ALGLIB --
      Copyright 17.08.2009 by Bochkanov Sergey
 *************************************************************************)
-function BarycentricCalc(const B : BarycentricInterpolant; T : Double):Double;
+function BarycentricCalc(const B : BarycentricInterpolant; T : AlglibFloat):AlglibFloat;
 var
-    S1 : Double;
-    S2 : Double;
-    S : Double;
-    V : Double;
+    S1 : AlglibFloat;
+    S2 : AlglibFloat;
+    S : AlglibFloat;
+    V : AlglibFloat;
     I : AlglibInteger;
 begin
     
@@ -230,29 +230,29 @@ NOTE
      Copyright 17.08.2009 by Bochkanov Sergey
 *************************************************************************)
 procedure BarycentricDiff1(const B : BarycentricInterpolant;
-     T : Double;
-     var F : Double;
-     var DF : Double);
+     T : AlglibFloat;
+     var F : AlglibFloat;
+     var DF : AlglibFloat);
 var
-    V : Double;
-    VV : Double;
+    V : AlglibFloat;
+    VV : AlglibFloat;
     I : AlglibInteger;
     K : AlglibInteger;
-    N0 : Double;
-    N1 : Double;
-    D0 : Double;
-    D1 : Double;
-    S0 : Double;
-    S1 : Double;
-    XK : Double;
-    XI : Double;
-    XMin : Double;
-    XMax : Double;
-    XScale1 : Double;
-    XOffs1 : Double;
-    XScale2 : Double;
-    XOffs2 : Double;
-    XPrev : Double;
+    N0 : AlglibFloat;
+    N1 : AlglibFloat;
+    D0 : AlglibFloat;
+    D1 : AlglibFloat;
+    S0 : AlglibFloat;
+    S1 : AlglibFloat;
+    XK : AlglibFloat;
+    XI : AlglibFloat;
+    XMin : AlglibFloat;
+    XMax : AlglibFloat;
+    XScale1 : AlglibFloat;
+    XOffs1 : AlglibFloat;
+    XScale2 : AlglibFloat;
+    XOffs2 : AlglibFloat;
+    XPrev : AlglibFloat;
 begin
     
     //
@@ -371,26 +371,26 @@ BarycentricDiff1() subroutine in such cases.
      Copyright 17.08.2009 by Bochkanov Sergey
 *************************************************************************)
 procedure BarycentricDiff2(const B : BarycentricInterpolant;
-     T : Double;
-     var F : Double;
-     var DF : Double;
-     var D2F : Double);
+     T : AlglibFloat;
+     var F : AlglibFloat;
+     var DF : AlglibFloat;
+     var D2F : AlglibFloat);
 var
-    V : Double;
-    VV : Double;
+    V : AlglibFloat;
+    VV : AlglibFloat;
     I : AlglibInteger;
     K : AlglibInteger;
-    N0 : Double;
-    N1 : Double;
-    N2 : Double;
-    D0 : Double;
-    D1 : Double;
-    D2 : Double;
-    S0 : Double;
-    S1 : Double;
-    S2 : Double;
-    XK : Double;
-    XI : Double;
+    N0 : AlglibFloat;
+    N1 : AlglibFloat;
+    N2 : AlglibFloat;
+    D0 : AlglibFloat;
+    D1 : AlglibFloat;
+    D2 : AlglibFloat;
+    S0 : AlglibFloat;
+    S1 : AlglibFloat;
+    S2 : AlglibFloat;
+    XK : AlglibFloat;
+    XI : AlglibFloat;
 begin
     F := 0;
     DF := 0;
@@ -492,12 +492,12 @@ OUTPUT PARAMETERS:
      Copyright 19.08.2009 by Bochkanov Sergey
 *************************************************************************)
 procedure BarycentricLinTransX(var B : BarycentricInterpolant;
-     CA : Double;
-     CB : Double);
+     CA : AlglibFloat;
+     CB : AlglibFloat);
 var
     I : AlglibInteger;
     J : AlglibInteger;
-    V : Double;
+    V : AlglibFloat;
 begin
     
     //
@@ -570,11 +570,11 @@ OUTPUT PARAMETERS:
      Copyright 19.08.2009 by Bochkanov Sergey
 *************************************************************************)
 procedure BarycentricLinTransY(var B : BarycentricInterpolant;
-     CA : Double;
-     CB : Double);
+     CA : AlglibFloat;
+     CB : AlglibFloat);
 var
     I : AlglibInteger;
-    V : Double;
+    V : AlglibFloat;
 begin
     I:=0;
     while I<=B.N-1 do
@@ -618,7 +618,7 @@ procedure BarycentricUnpack(const B : BarycentricInterpolant;
      var Y : TReal1DArray;
      var W : TReal1DArray);
 var
-    V : Double;
+    V : AlglibFloat;
 begin
     N := B.N;
     SetLength(X, N);
@@ -790,9 +790,9 @@ procedure BarycentricBuildFloaterHormann(const X : TReal1DArray;
      D : AlglibInteger;
      var B : BarycentricInterpolant);
 var
-    S0 : Double;
-    S : Double;
-    V : Double;
+    S0 : AlglibFloat;
+    S : AlglibFloat;
+    V : AlglibFloat;
     I : AlglibInteger;
     J : AlglibInteger;
     K : AlglibInteger;
@@ -985,8 +985,8 @@ procedure BarycentricFitFloaterHormannWC(const X : TReal1DArray;
 var
     D : AlglibInteger;
     I : AlglibInteger;
-    WRMSCur : Double;
-    WRMSBest : Double;
+    WRMSCur : AlglibFloat;
+    WRMSBest : AlglibFloat;
     LocB : BarycentricInterpolant;
     LocRep : BarycentricFitReport;
     LocInfo : AlglibInteger;
@@ -1106,7 +1106,7 @@ var
     I : AlglibInteger;
     J : AlglibInteger;
     J2 : AlglibInteger;
-    V : Double;
+    V : AlglibFloat;
 begin
     
     //
@@ -1169,12 +1169,12 @@ Used for efficient simultaneous calculation of N basis functions.
      Copyright 17.08.2009 by Bochkanov Sergey
 *************************************************************************)
 procedure BarycentricCalcBasis(const B : BarycentricInterpolant;
-     T : Double;
+     T : AlglibFloat;
      var Y : TReal1DArray);
 var
-    S2 : Double;
-    S : Double;
-    V : Double;
+    S2 : AlglibFloat;
+    S : AlglibFloat;
+    V : AlglibFloat;
     I : AlglibInteger;
     J : AlglibInteger;
 begin
@@ -1263,18 +1263,18 @@ var
     YOriginal : TReal1DArray;
     Tmp : TReal1DArray;
     LRep : LSFitReport;
-    V0 : Double;
-    V1 : Double;
-    MX : Double;
+    V0 : AlglibFloat;
+    V1 : AlglibFloat;
+    MX : AlglibFloat;
     B2 : BarycentricInterpolant;
     I : AlglibInteger;
     J : AlglibInteger;
     RelCnt : AlglibInteger;
-    XA : Double;
-    XB : Double;
-    SA : Double;
-    SB : Double;
-    Decay : Double;
+    XA : AlglibFloat;
+    XB : AlglibFloat;
+    SA : AlglibFloat;
+    SB : AlglibFloat;
+    Decay : AlglibFloat;
 begin
     X := DynamicArrayCopy(X);
     Y := DynamicArrayCopy(Y);

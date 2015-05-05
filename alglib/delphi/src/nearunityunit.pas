@@ -2,17 +2,17 @@ unit nearunityunit;
 interface
 uses Math, Sysutils, Ap;
 
-function Log1P(x : Double):Double;
-function ExpM1(x : Double):Double;
-function CosM1(x : Double):Double;
+function Log1P(x : AlglibFloat):AlglibFloat;
+function ExpM1(x : AlglibFloat):AlglibFloat;
+function CosM1(x : AlglibFloat):AlglibFloat;
 
 implementation
 
-function Log1P(x : Double):Double;
+function Log1P(x : AlglibFloat):AlglibFloat;
 var
-    z : Double;
-    LP : Double;
-    LQ : Double;
+    z : AlglibFloat;
+    LP : AlglibFloat;
+    LQ : AlglibFloat;
 begin
     z := 1.0+x;
     if AP_FP_Less(z,0.70710678118654752440) or AP_FP_Greater(z,1.41421356237309504880) then
@@ -40,12 +40,12 @@ begin
 end;
 
 
-function ExpM1(x : Double):Double;
+function ExpM1(x : AlglibFloat):AlglibFloat;
 var
-    r : Double;
-    xx : Double;
-    EP : Double;
-    EQ : Double;
+    r : AlglibFloat;
+    xx : AlglibFloat;
+    EP : AlglibFloat;
+    EQ : AlglibFloat;
 begin
     if AP_FP_Less(x,-0.5) or AP_FP_Greater(x,0.5) then
     begin
@@ -66,10 +66,10 @@ begin
 end;
 
 
-function CosM1(x : Double):Double;
+function CosM1(x : AlglibFloat):AlglibFloat;
 var
-    xx : Double;
-    C : Double;
+    xx : AlglibFloat;
+    C : AlglibFloat;
 begin
     if AP_FP_Less(x,-0.25*Pi) or AP_FP_Greater(x,0.25*Pi) then
     begin

@@ -28,11 +28,11 @@ unit normaldistr;
 interface
 uses Math, Sysutils, Ap;
 
-function Erf(X : Double):Double;
-function ErfC(X : Double):Double;
-function NormalDistribution(X : Double):Double;
-function InvErf(E : Double):Double;
-function InvNormalDistribution(y0 : Double):Double;
+function Erf(X : AlglibFloat):AlglibFloat;
+function ErfC(X : AlglibFloat):AlglibFloat;
+function NormalDistribution(X : AlglibFloat):AlglibFloat;
+function InvErf(E : AlglibFloat):AlglibFloat;
+function InvNormalDistribution(y0 : AlglibFloat):AlglibFloat;
 
 implementation
 
@@ -62,12 +62,12 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1988, 1992, 2000 by Stephen L. Moshier
 *************************************************************************)
-function Erf(X : Double):Double;
+function Erf(X : AlglibFloat):AlglibFloat;
 var
-    XSq : Double;
-    S : Double;
-    P : Double;
-    Q : Double;
+    XSq : AlglibFloat;
+    S : AlglibFloat;
+    P : AlglibFloat;
+    Q : AlglibFloat;
 begin
     S := Sign(X);
     X := AbsReal(X);
@@ -127,10 +127,10 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1988, 1992, 2000 by Stephen L. Moshier
 *************************************************************************)
-function ErfC(X : Double):Double;
+function ErfC(X : AlglibFloat):AlglibFloat;
 var
-    P : Double;
-    Q : Double;
+    P : AlglibFloat;
+    Q : AlglibFloat;
 begin
     if AP_FP_Less(X,0) then
     begin
@@ -199,7 +199,7 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1988, 1992, 2000 by Stephen L. Moshier
 *************************************************************************)
-function NormalDistribution(X : Double):Double;
+function NormalDistribution(X : AlglibFloat):AlglibFloat;
 begin
     Result := 0.5*(Erf(x/1.41421356237309504880)+1);
 end;
@@ -211,7 +211,7 @@ Inverse of the error function
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1988, 1992, 2000 by Stephen L. Moshier
 *************************************************************************)
-function InvErf(E : Double):Double;
+function InvErf(E : AlglibFloat):AlglibFloat;
 begin
     Result := InvNormalDistribution(0.5*(E+1))/Sqrt(2);
 end;
@@ -242,23 +242,23 @@ arithmetic   domain        # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1988, 1992, 2000 by Stephen L. Moshier
 *************************************************************************)
-function InvNormalDistribution(y0 : Double):Double;
+function InvNormalDistribution(y0 : AlglibFloat):AlglibFloat;
 var
-    Expm2 : Double;
-    S2Pi : Double;
-    x : Double;
-    y : Double;
-    z : Double;
-    y2 : Double;
-    x0 : Double;
-    x1 : Double;
+    Expm2 : AlglibFloat;
+    S2Pi : AlglibFloat;
+    x : AlglibFloat;
+    y : AlglibFloat;
+    z : AlglibFloat;
+    y2 : AlglibFloat;
+    x0 : AlglibFloat;
+    x1 : AlglibFloat;
     code : AlglibInteger;
-    P0 : Double;
-    Q0 : Double;
-    P1 : Double;
-    Q1 : Double;
-    P2 : Double;
-    Q2 : Double;
+    P0 : AlglibFloat;
+    Q0 : AlglibFloat;
+    P1 : AlglibFloat;
+    Q1 : AlglibFloat;
+    P2 : AlglibFloat;
+    Q2 : AlglibFloat;
 begin
     Expm2 := 0.13533528323661269189;
     s2pi := 2.50662827463100050242;

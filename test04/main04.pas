@@ -101,7 +101,7 @@ begin
   
   // обучение нейросети
   // для задачи с символами количество слоёв не важно. Важнее количество вариантов
-  CalcNeuroMatrix(False, 1, ImagePixelCount, FCharList.Count, lXY, lNetwork);
+  CalcNeuroMatrix(False, 3, ImagePixelCount, FCharList.Count, lXY, lNetwork);
 
   // отобразим букву
   edInputText.Text := 'W';

@@ -28,7 +28,7 @@ unit betaf;
 interface
 uses Math, Sysutils, Ap, gammafunc;
 
-function Beta(a : Double; b : Double):Double;
+function Beta(a : AlglibFloat; b : AlglibFloat):AlglibFloat;
 
 implementation
 
@@ -54,11 +54,11 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.0:  April, 1987
 Copyright 1984, 1987 by Stephen L. Moshier
 *************************************************************************)
-function Beta(a : Double; b : Double):Double;
+function Beta(a : AlglibFloat; b : AlglibFloat):AlglibFloat;
 var
-    y : Double;
-    sg : Double;
-    S : Double;
+    y : AlglibFloat;
+    sg : AlglibFloat;
+    S : AlglibFloat;
 begin
     sg := 1;
     Assert(AP_FP_Greater(a,0) or AP_FP_Neq(a,Floor(a)), 'Overflow in Beta');

@@ -170,7 +170,7 @@ var
     C1 : Complex;
     C2 : Complex;
     C3 : Complex;
-    T : Double;
+    T : AlglibFloat;
 begin
     Assert((N>0) and (M>0) and (N<=M), 'ConvC1DInv: incorrect N or M!');
     P := FTBaseFindSmooth(M);
@@ -350,7 +350,7 @@ var
     C1 : Complex;
     C2 : Complex;
     C3 : Complex;
-    T : Double;
+    T : AlglibFloat;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin
@@ -818,15 +818,15 @@ var
     J2 : AlglibInteger;
     BBuf : TComplex1DArray;
     V : Complex;
-    AX : Double;
-    AY : Double;
-    BX : Double;
-    BY : Double;
-    T : Double;
-    TX : Double;
-    TY : Double;
-    FlopCand : Double;
-    FlopBest : Double;
+    AX : AlglibFloat;
+    AY : AlglibFloat;
+    BX : AlglibFloat;
+    BY : AlglibFloat;
+    T : AlglibFloat;
+    TX : AlglibFloat;
+    TY : AlglibFloat;
+    FlopCand : AlglibFloat;
+    FlopBest : AlglibFloat;
     AlgBest : AlglibInteger;
     Plan : FTPlan;
     Buf : TReal1DArray;
@@ -1341,7 +1341,7 @@ procedure ConvR1DX(const A : TReal1DArray;
      Q : AlglibInteger;
      var R : TReal1DArray);
 var
-    V : Double;
+    V : AlglibFloat;
     I : AlglibInteger;
     J : AlglibInteger;
     P : AlglibInteger;
@@ -1350,14 +1350,14 @@ var
     I2 : AlglibInteger;
     J1 : AlglibInteger;
     J2 : AlglibInteger;
-    AX : Double;
-    AY : Double;
-    BX : Double;
-    BY : Double;
-    TX : Double;
-    TY : Double;
-    FlopCand : Double;
-    FlopBest : Double;
+    AX : AlglibFloat;
+    AY : AlglibFloat;
+    BX : AlglibFloat;
+    BY : AlglibFloat;
+    TX : AlglibFloat;
+    TY : AlglibFloat;
+    FlopCand : AlglibFloat;
+    FlopBest : AlglibFloat;
     AlgBest : AlglibInteger;
     Plan : FTPlan;
     Buf : TReal1DArray;

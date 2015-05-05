@@ -250,7 +250,7 @@ var
     I : AlglibInteger;
     J : AlglibInteger;
     K : AlglibInteger;
-    V : Double;
+    V : AlglibFloat;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin
@@ -404,7 +404,7 @@ var
     I : AlglibInteger;
     J : AlglibInteger;
     K : AlglibInteger;
-    V : Double;
+    V : AlglibFloat;
 begin
     if (M<=0) or (N<=0) then
     begin
@@ -827,7 +827,7 @@ var
     I : AlglibInteger;
     J : AlglibInteger;
     K : AlglibInteger;
-    V : Double;
+    V : AlglibFloat;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin
@@ -1029,7 +1029,7 @@ var
     I : AlglibInteger;
     J : AlglibInteger;
     K : AlglibInteger;
-    V : Double;
+    V : AlglibFloat;
 begin
     Assert(QRows<=N, 'RMatrixLQUnpackQ: QRows>N!');
     if (M<=0) or (N<=0) or (QRows<=0) then
@@ -1682,7 +1682,7 @@ var
     MinMN : AlglibInteger;
     MaxMN : AlglibInteger;
     I : AlglibInteger;
-    LTau : Double;
+    LTau : AlglibFloat;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin
@@ -2388,7 +2388,7 @@ procedure RMatrixHessenberg(var A : TReal2DArray;
      var Tau : TReal1DArray);
 var
     I : AlglibInteger;
-    V : Double;
+    V : AlglibFloat;
     T : TReal1DArray;
     WORK : TReal1DArray;
     i_ : AlglibInteger;
@@ -2643,9 +2643,9 @@ procedure SMatrixTD(var A : TReal2DArray;
      var E : TReal1DArray);
 var
     I : AlglibInteger;
-    ALPHA : Double;
-    TAUI : Double;
-    V : Double;
+    ALPHA : AlglibFloat;
+    TAUI : AlglibFloat;
+    V : AlglibFloat;
     T : TReal1DArray;
     T2 : TReal1DArray;
     T3 : TReal1DArray;
@@ -3363,7 +3363,7 @@ var
     I : AlglibInteger;
     K : AlglibInteger;
     MinMN : AlglibInteger;
-    Tmp : Double;
+    Tmp : AlglibFloat;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin
@@ -3426,7 +3426,7 @@ var
     I : AlglibInteger;
     K : AlglibInteger;
     MinMN : AlglibInteger;
-    Tmp : Double;
+    Tmp : AlglibFloat;
 begin
     MinMN := Min(M, N);
     K := Min(M, N);
@@ -3628,7 +3628,7 @@ var
     I : AlglibInteger;
     J : AlglibInteger;
     K : AlglibInteger;
-    V : Double;
+    V : AlglibFloat;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin

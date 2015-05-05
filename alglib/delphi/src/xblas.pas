@@ -6,23 +6,23 @@ procedure XDot(const A : TReal1DArray;
      const B : TReal1DArray;
      N : AlglibInteger;
      var Temp : TReal1DArray;
-     var R : Double;
-     var RErr : Double);
+     var R : AlglibFloat;
+     var RErr : AlglibFloat);
 procedure XCDot(const A : TComplex1DArray;
      const B : TComplex1DArray;
      N : AlglibInteger;
      var Temp : TReal1DArray;
      var R : Complex;
-     var RErr : Double);
+     var RErr : AlglibFloat);
 
 implementation
 
 procedure XSum(var W : TReal1DArray;
-     MX : Double;
+     MX : AlglibFloat;
      N : AlglibInteger;
-     var R : Double;
-     var RErr : Double);forward;
-function XFastPow(R : Double; N : AlglibInteger):Double;forward;
+     var R : AlglibFloat;
+     var RErr : AlglibFloat);forward;
+function XFastPow(R : AlglibFloat; N : AlglibInteger):AlglibFloat;forward;
 
 
 (*************************************************************************
@@ -41,7 +41,7 @@ OUTPUT PARAMETERS
     R       -   (A,B)
     RErr    -   estimate of error. This estimate accounts for both  errors
                 during  calculation  of  (A,B)  and  errors  introduced by
-                rounding of A and B to fit in double (about 1 ulp).
+                rounding of A and B to fit in AlglibFloat (about 1 ulp).
 
   -- ALGLIB --
      Copyright 24.08.2009 by Bochkanov Sergey
@@ -50,12 +50,12 @@ procedure XDot(const A : TReal1DArray;
      const B : TReal1DArray;
      N : AlglibInteger;
      var Temp : TReal1DArray;
-     var R : Double;
-     var RErr : Double);
+     var R : AlglibFloat;
+     var RErr : AlglibFloat);
 var
     I : AlglibInteger;
-    MX : Double;
-    V : Double;
+    MX : AlglibFloat;
+    V : AlglibFloat;
 begin
     
     //
@@ -103,7 +103,7 @@ OUTPUT PARAMETERS
     R       -   (A,B)
     RErr    -   estimate of error. This estimate accounts for both  errors
                 during  calculation  of  (A,B)  and  errors  introduced by
-                rounding of A and B to fit in double (about 1 ulp).
+                rounding of A and B to fit in AlglibFloat (about 1 ulp).
 
   -- ALGLIB --
      Copyright 27.01.2010 by Bochkanov Sergey
@@ -113,13 +113,13 @@ procedure XCDot(const A : TComplex1DArray;
      N : AlglibInteger;
      var Temp : TReal1DArray;
      var R : Complex;
-     var RErr : Double);
+     var RErr : AlglibFloat);
 var
     I : AlglibInteger;
-    MX : Double;
-    V : Double;
-    RErrX : Double;
-    RErrY : Double;
+    MX : AlglibFloat;
+    V : AlglibFloat;
+    RErrX : AlglibFloat;
+    RErrY : AlglibFloat;
 begin
     
     //
@@ -214,19 +214,19 @@ OUTPUT PARAMETERS:
      Copyright 24.08.2009 by Bochkanov Sergey
 *************************************************************************)
 procedure XSum(var W : TReal1DArray;
-     MX : Double;
+     MX : AlglibFloat;
      N : AlglibInteger;
-     var R : Double;
-     var RErr : Double);
+     var R : AlglibFloat;
+     var RErr : AlglibFloat);
 var
     I : AlglibInteger;
     K : AlglibInteger;
     KS : AlglibInteger;
-    V : Double;
-    S : Double;
-    LN2 : Double;
-    Chunk : Double;
-    InvChunk : Double;
+    V : AlglibFloat;
+    S : AlglibFloat;
+    LN2 : AlglibFloat;
+    Chunk : AlglibFloat;
+    InvChunk : AlglibFloat;
     AllZeros : Boolean;
 begin
     
@@ -332,7 +332,7 @@ Fast Pow
   -- ALGLIB --
      Copyright 24.08.2009 by Bochkanov Sergey
 *************************************************************************)
-function XFastPow(R : Double; N : AlglibInteger):Double;
+function XFastPow(R : AlglibFloat; N : AlglibInteger):AlglibFloat;
 begin
     if N>0 then
     begin

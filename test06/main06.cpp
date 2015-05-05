@@ -75,6 +75,8 @@ int _tmain(int argc, _TCHAR* argv[]) {
 		((float)lEndQPC.QuadPart - (float)lBeginQPC.QuadPart) / (float)
 		lFreq.QuadPart);
 
+	_multilayerperceptron_clear(&network);
+
 	getchar();
 
 	return 0;

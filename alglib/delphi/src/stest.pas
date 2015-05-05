@@ -23,10 +23,10 @@ uses Math, Sysutils, Ap, gammafunc, normaldistr, ibetaf, nearunityunit, binomial
 
 procedure OneSampleSignTest(const X : TReal1DArray;
      N : AlglibInteger;
-     Median : Double;
-     var BothTails : Double;
-     var LeftTail : Double;
-     var RightTail : Double);
+     Median : AlglibFloat;
+     var BothTails : AlglibFloat;
+     var LeftTail : AlglibFloat;
+     var RightTail : AlglibFloat);
 
 implementation
 
@@ -72,10 +72,10 @@ approximation is used, so significance levels have about 15 exact digits.
 *************************************************************************)
 procedure OneSampleSignTest(const X : TReal1DArray;
      N : AlglibInteger;
-     Median : Double;
-     var BothTails : Double;
-     var LeftTail : Double;
-     var RightTail : Double);
+     Median : AlglibFloat;
+     var BothTails : AlglibFloat;
+     var LeftTail : AlglibFloat;
+     var RightTail : AlglibFloat);
 var
     I : AlglibInteger;
     GTCnt : AlglibInteger;

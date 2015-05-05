@@ -50,7 +50,7 @@ procedure FTBaseFactorize(N : AlglibInteger;
 function FTBaseIsSmooth(N : AlglibInteger):Boolean;
 function FTBaseFindSmooth(N : AlglibInteger):AlglibInteger;
 function FTBaseFindSmoothEven(N : AlglibInteger):AlglibInteger;
-function FTBaseGetFLOPEstimate(N : AlglibInteger):Double;
+function FTBaseGetFLOPEstimate(N : AlglibInteger):AlglibFloat;
 
 implementation
 
@@ -283,60 +283,60 @@ var
     OffsA : AlglibInteger;
     OffsB : AlglibInteger;
     OffsP : AlglibInteger;
-    HK : Double;
-    HNK : Double;
-    X : Double;
-    Y : Double;
-    BX : Double;
-    BY : Double;
+    HK : AlglibFloat;
+    HNK : AlglibFloat;
+    X : AlglibFloat;
+    Y : AlglibFloat;
+    BX : AlglibFloat;
+    BY : AlglibFloat;
     EmptyArray : TReal1DArray;
-    A0X : Double;
-    A0Y : Double;
-    A1X : Double;
-    A1Y : Double;
-    A2X : Double;
-    A2Y : Double;
-    A3X : Double;
-    A3Y : Double;
-    V0 : Double;
-    V1 : Double;
-    V2 : Double;
-    V3 : Double;
-    T1X : Double;
-    T1Y : Double;
-    T2X : Double;
-    T2Y : Double;
-    T3X : Double;
-    T3Y : Double;
-    T4X : Double;
-    T4Y : Double;
-    T5X : Double;
-    T5Y : Double;
-    M1X : Double;
-    M1Y : Double;
-    M2X : Double;
-    M2Y : Double;
-    M3X : Double;
-    M3Y : Double;
-    M4X : Double;
-    M4Y : Double;
-    M5X : Double;
-    M5Y : Double;
-    S1X : Double;
-    S1Y : Double;
-    S2X : Double;
-    S2Y : Double;
-    S3X : Double;
-    S3Y : Double;
-    S4X : Double;
-    S4Y : Double;
-    S5X : Double;
-    S5Y : Double;
-    C1 : Double;
-    C2 : Double;
-    C3 : Double;
-    C4 : Double;
-    C5 : Double;
+    A0X : AlglibFloat;
+    A0Y : AlglibFloat;
+    A1X : AlglibFloat;
+    A1Y : AlglibFloat;
+    A2X : AlglibFloat;
+    A2Y : AlglibFloat;
+    A3X : AlglibFloat;
+    A3Y : AlglibFloat;
+    V0 : AlglibFloat;
+    V1 : AlglibFloat;
+    V2 : AlglibFloat;
+    V3 : AlglibFloat;
+    T1X : AlglibFloat;
+    T1Y : AlglibFloat;
+    T2X : AlglibFloat;
+    T2Y : AlglibFloat;
+    T3X : AlglibFloat;
+    T3Y : AlglibFloat;
+    T4X : AlglibFloat;
+    T4Y : AlglibFloat;
+    T5X : AlglibFloat;
+    T5Y : AlglibFloat;
+    M1X : AlglibFloat;
+    M1Y : AlglibFloat;
+    M2X : AlglibFloat;
+    M2Y : AlglibFloat;
+    M3X : AlglibFloat;
+    M3Y : AlglibFloat;
+    M4X : AlglibFloat;
+    M4Y : AlglibFloat;
+    M5X : AlglibFloat;
+    M5Y : AlglibFloat;
+    S1X : AlglibFloat;
+    S1Y : AlglibFloat;
+    S2X : AlglibFloat;
+    S2Y : AlglibFloat;
+    S3X : AlglibFloat;
+    S3Y : AlglibFloat;
+    S4X : AlglibFloat;
+    S4Y : AlglibFloat;
+    S5X : AlglibFloat;
+    S5Y : AlglibFloat;
+    C1 : AlglibFloat;
+    C2 : AlglibFloat;
+    C3 : AlglibFloat;
+    C4 : AlglibFloat;
+    C5 : AlglibFloat;
     Tmp : TReal1DArray;
 begin
     if Plan.Plan[EntryOffset+3]=FFTEmptyPlan then
@@ -996,7 +996,7 @@ N should be power of 2, estimates are badly wrong for non-power-of-2 N's.
   -- ALGLIB --
      Copyright 01.05.2009 by Bochkanov Sergey
 *************************************************************************)
-function FTBaseGetFLOPEstimate(N : AlglibInteger):Double;
+function FTBaseGetFLOPEstimate(N : AlglibInteger):AlglibFloat;
 begin
     Result := FTBaseInefficiencyFactor*(4*N*Ln(N)/Ln(2)-6*N+8);
 end;
@@ -1250,10 +1250,10 @@ var
     N : AlglibInteger;
     M : AlglibInteger;
     Offs : AlglibInteger;
-    V : Double;
+    V : AlglibFloat;
     EmptyArray : TReal1DArray;
-    BX : Double;
-    BY : Double;
+    BX : AlglibFloat;
+    BY : AlglibFloat;
 begin
     if (Plan.Plan[EntryOffset+3]=FFTCooleyTukeyPlan) or (Plan.Plan[EntryOffset+3]=FFTRealCooleyTukeyPlan) or (Plan.Plan[EntryOffset+3]=FHTCooleyTukeyPlan) then
     begin
@@ -1335,17 +1335,17 @@ var
     N : AlglibInteger;
     Idx : AlglibInteger;
     Offs : AlglibInteger;
-    X : Double;
-    Y : Double;
-    TwXM1 : Double;
-    TwY : Double;
-    TwBaseXM1 : Double;
-    TwBaseY : Double;
-    TwRowXM1 : Double;
-    TwRowY : Double;
-    TmpX : Double;
-    TmpY : Double;
-    V : Double;
+    X : AlglibFloat;
+    Y : AlglibFloat;
+    TwXM1 : AlglibFloat;
+    TwY : AlglibFloat;
+    TwBaseXM1 : AlglibFloat;
+    TwBaseY : AlglibFloat;
+    TwRowXM1 : AlglibFloat;
+    TwRowY : AlglibFloat;
+    TmpX : AlglibFloat;
+    TmpY : AlglibFloat;
+    V : AlglibFloat;
 begin
     N := N1*N2;
     V := -2*Pi/N;
@@ -1702,7 +1702,7 @@ var
     Buf : TReal1DArray;
     I : AlglibInteger;
     J : AlglibInteger;
-    V : Double;
+    V : AlglibFloat;
 begin
     Assert(N>0, 'RefFHTR1D: incorrect N!');
     SetLength(Buf, N);

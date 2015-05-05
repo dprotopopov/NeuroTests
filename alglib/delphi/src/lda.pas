@@ -136,7 +136,7 @@ var
     J : AlglibInteger;
     K : AlglibInteger;
     M : AlglibInteger;
-    V : Double;
+    V : AlglibFloat;
     C : TInteger1DArray;
     Mu : TReal1DArray;
     MuC : TReal2DArray;

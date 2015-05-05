@@ -32,16 +32,16 @@ end;
 
 
 DFReport = record
-    RelClsError : Double;
-    AvgCE : Double;
-    RMSError : Double;
-    AvgError : Double;
-    AvgRelError : Double;
-    OOBRelClsError : Double;
-    OOBAvgCE : Double;
-    OOBRMSError : Double;
-    OOBAvgError : Double;
-    OOBAvgRelError : Double;
+    RelClsError : AlglibFloat;
+    AvgCE : AlglibFloat;
+    RMSError : AlglibFloat;
+    AvgError : AlglibFloat;
+    AvgRelError : AlglibFloat;
+    OOBRelClsError : AlglibFloat;
+    OOBAvgCE : AlglibFloat;
+    OOBRMSError : AlglibFloat;
+    OOBAvgError : AlglibFloat;
+    OOBAvgRelError : AlglibFloat;
 end;
 
 
@@ -64,7 +64,7 @@ procedure DFBuildRandomDecisionForest(const XY : TReal2DArray;
      NVars : AlglibInteger;
      NClasses : AlglibInteger;
      NTrees : AlglibInteger;
-     R : Double;
+     R : AlglibFloat;
      var Info : AlglibInteger;
      var DF : DecisionForest;
      var Rep : DFReport);
@@ -84,19 +84,19 @@ procedure DFProcess(const DF : DecisionForest;
      var Y : TReal1DArray);
 function DFRelClsError(const DF : DecisionForest;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):AlglibFloat;
 function DFAvgCE(const DF : DecisionForest;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):AlglibFloat;
 function DFRMSError(const DF : DecisionForest;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):AlglibFloat;
 function DFAvgError(const DF : DecisionForest;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):AlglibFloat;
 function DFAvgRelError(const DF : DecisionForest;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):AlglibFloat;
 procedure DFCopy(const DF1 : DecisionForest; var DF2 : DecisionForest);
 procedure DFSerialize(const DF : DecisionForest;
      var RA : TReal1DArray;
@@ -143,8 +143,8 @@ procedure DFWeakSplitI(var X : TReal1DArray;
      N : AlglibInteger;
      NClasses : AlglibInteger;
      var Info : AlglibInteger;
-     var Threshold : Double;
-     var E : Double);forward;
+     var Threshold : AlglibFloat;
+     var E : AlglibFloat);forward;
 procedure DFSplitC(var X : TReal1DArray;
      var C : TInteger1DArray;
      var CntBuf : TInteger1DArray;
@@ -152,15 +152,15 @@ procedure DFSplitC(var X : TReal1DArray;
      NC : AlglibInteger;
      Flags : AlglibInteger;
      var Info : AlglibInteger;
-     var Threshold : Double;
-     var E : Double);forward;
+     var Threshold : AlglibFloat;
+     var E : AlglibFloat);forward;
 procedure DFSplitR(var X : TReal1DArray;
      var Y : TReal1DArray;
      N : AlglibInteger;
      Flags : AlglibInteger;
      var Info : AlglibInteger;
-     var Threshold : Double;
-     var E : Double);forward;
+     var Threshold : AlglibFloat;
+     var E : AlglibFloat);forward;
 
 
 (*************************************************************************
@@ -201,7 +201,7 @@ procedure DFBuildRandomDecisionForest(const XY : TReal2DArray;
      NVars : AlglibInteger;
      NClasses : AlglibInteger;
      NTrees : AlglibInteger;
-     R : Double;
+     R : AlglibFloat;
      var Info : AlglibInteger;
      var DF : DecisionForest;
      var Rep : DFReport);
@@ -249,9 +249,9 @@ var
     Y : TReal1DArray;
     OOBCnt : AlglibInteger;
     OOBRelCnt : AlglibInteger;
-    V : Double;
-    VMin : Double;
-    VMax : Double;
+    V : AlglibFloat;
+    VMin : AlglibFloat;
+    VMax : AlglibFloat;
     BFlag : Boolean;
 begin
     
@@ -621,7 +621,7 @@ procedure DFProcess(const DF : DecisionForest;
 var
     Offs : AlglibInteger;
     I : AlglibInteger;
-    V : Double;
+    V : AlglibFloat;
 begin
     
     //
@@ -671,7 +671,7 @@ RESULT:
 *************************************************************************)
 function DFRelClsError(const DF : DecisionForest;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):AlglibFloat;
 begin
     Result := AP_Double(DFClsError(DF, XY, NPoints))/NPoints;
 end;
@@ -694,7 +694,7 @@ RESULT:
 *************************************************************************)
 function DFAvgCE(const DF : DecisionForest;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):AlglibFloat;
 var
     X : TReal1DArray;
     Y : TReal1DArray;
@@ -762,7 +762,7 @@ RESULT:
 *************************************************************************)
 function DFRMSError(const DF : DecisionForest;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):AlglibFloat;
 var
     X : TReal1DArray;
     Y : TReal1DArray;
@@ -842,7 +842,7 @@ RESULT:
 *************************************************************************)
 function DFAvgError(const DF : DecisionForest;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):AlglibFloat;
 var
     X : TReal1DArray;
     Y : TReal1DArray;
@@ -911,7 +911,7 @@ RESULT:
 *************************************************************************)
 function DFAvgRelError(const DF : DecisionForest;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):AlglibFloat;
 var
     X : TReal1DArray;
     Y : TReal1DArray;
@@ -1207,20 +1207,20 @@ var
     I1 : AlglibInteger;
     I2 : AlglibInteger;
     Info : AlglibInteger;
-    SL : Double;
-    SR : Double;
-    W : Double;
+    SL : AlglibFloat;
+    SR : AlglibFloat;
+    W : AlglibFloat;
     IdxBest : AlglibInteger;
-    EBest : Double;
-    TBest : Double;
+    EBest : AlglibFloat;
+    TBest : AlglibFloat;
     VarCur : AlglibInteger;
-    S : Double;
-    V : Double;
-    V1 : Double;
-    V2 : Double;
-    Threshold : Double;
+    S : AlglibFloat;
+    V : AlglibFloat;
+    V1 : AlglibFloat;
+    V2 : AlglibFloat;
+    Threshold : AlglibFloat;
     OldNP : AlglibInteger;
-    CurRMS : Double;
+    CurRMS : AlglibFloat;
     UseEVS : Boolean;
 begin
     Assert(NPoints>0);
@@ -1595,8 +1595,8 @@ procedure DFWeakSplitI(var X : TReal1DArray;
      N : AlglibInteger;
      NClasses : AlglibInteger;
      var Info : AlglibInteger;
-     var Threshold : Double;
-     var E : Double);
+     var Threshold : AlglibFloat;
+     var E : AlglibFloat);
 var
     I : AlglibInteger;
     NEq : AlglibInteger;
@@ -1685,8 +1685,8 @@ procedure DFSplitC(var X : TReal1DArray;
      NC : AlglibInteger;
      Flags : AlglibInteger;
      var Info : AlglibInteger;
-     var Threshold : Double;
-     var E : Double);
+     var Threshold : AlglibFloat;
+     var E : AlglibFloat);
 var
     I : AlglibInteger;
     NEq : AlglibInteger;
@@ -1696,13 +1696,13 @@ var
     QMin : AlglibInteger;
     QMax : AlglibInteger;
     QCnt : AlglibInteger;
-    CurSplit : Double;
+    CurSplit : AlglibFloat;
     NLeft : AlglibInteger;
-    V : Double;
-    CurE : Double;
-    W : Double;
-    SL : Double;
-    SR : Double;
+    V : AlglibFloat;
+    CurE : AlglibFloat;
+    W : AlglibFloat;
+    SL : AlglibFloat;
+    SR : AlglibFloat;
 begin
     TagSortFastI(X, C, N);
     E := MaxRealNumber;
@@ -1840,8 +1840,8 @@ procedure DFSplitR(var X : TReal1DArray;
      N : AlglibInteger;
      Flags : AlglibInteger;
      var Info : AlglibInteger;
-     var Threshold : Double;
-     var E : Double);
+     var Threshold : AlglibFloat;
+     var E : AlglibFloat);
 var
     I : AlglibInteger;
     NEq : AlglibInteger;
@@ -1851,10 +1851,10 @@ var
     QMin : AlglibInteger;
     QMax : AlglibInteger;
     QCnt : AlglibInteger;
-    CurSplit : Double;
+    CurSplit : AlglibFloat;
     NLeft : AlglibInteger;
-    V : Double;
-    CurE : Double;
+    V : AlglibFloat;
+    CurE : AlglibFloat;
 begin
     TagSortFastR(X, Y, N);
     E := MaxRealNumber;

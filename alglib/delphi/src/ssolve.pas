@@ -93,13 +93,13 @@ var
     I : AlglibInteger;
     K : AlglibInteger;
     KP : AlglibInteger;
-    AK : Double;
-    AKM1 : Double;
-    AKM1K : Double;
-    BK : Double;
-    BKM1 : Double;
-    DENOM : Double;
-    V : Double;
+    AK : AlglibFloat;
+    AKM1 : AlglibFloat;
+    AKM1K : AlglibFloat;
+    BK : AlglibFloat;
+    BKM1 : AlglibFloat;
+    DENOM : AlglibFloat;
+    V : AlglibFloat;
     i_ : AlglibInteger;
 begin
     B := DynamicArrayCopy(B);
@@ -553,13 +553,13 @@ var
     KM2 : AlglibInteger;
     KP1 : AlglibInteger;
     KP2 : AlglibInteger;
-    AK : Double;
-    AKM1 : Double;
-    AKM1K : Double;
-    BK : Double;
-    BKM1 : Double;
-    DENOM : Double;
-    V : Double;
+    AK : AlglibFloat;
+    AKM1 : AlglibFloat;
+    AKM1K : AlglibFloat;
+    BK : AlglibFloat;
+    BKM1 : AlglibFloat;
+    DENOM : AlglibFloat;
+    V : AlglibFloat;
     i_ : AlglibInteger;
 begin
     B := DynamicArrayCopy(B);

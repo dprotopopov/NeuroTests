@@ -24,17 +24,17 @@ uses Math, Sysutils, Ap, ldlt;
 function SMatrixLDLTDet(const A : TReal2DArray;
      const Pivots : TInteger1DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Double;
+     IsUpper : Boolean):AlglibFloat;
 function SMatrixDet(A : TReal2DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Double;
+     IsUpper : Boolean):AlglibFloat;
 function DeterminantLDLT(const A : TReal2DArray;
      const Pivots : TInteger1DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Double;
+     IsUpper : Boolean):AlglibFloat;
 function DeterminantSymmetric(A : TReal2DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Double;
+     IsUpper : Boolean):AlglibFloat;
 
 implementation
 
@@ -59,7 +59,7 @@ Result:
 function SMatrixLDLTDet(const A : TReal2DArray;
      const Pivots : TInteger1DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Double;
+     IsUpper : Boolean):AlglibFloat;
 var
     K : AlglibInteger;
 begin
@@ -120,7 +120,7 @@ Result:
 *************************************************************************)
 function SMatrixDet(A : TReal2DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Double;
+     IsUpper : Boolean):AlglibFloat;
 var
     Pivots : TInteger1DArray;
 begin
@@ -133,7 +133,7 @@ end;
 function DeterminantLDLT(const A : TReal2DArray;
      const Pivots : TInteger1DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Double;
+     IsUpper : Boolean):AlglibFloat;
 var
     K : AlglibInteger;
 begin
@@ -177,7 +177,7 @@ end;
 
 function DeterminantSymmetric(A : TReal2DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Double;
+     IsUpper : Boolean):AlglibFloat;
 var
     Pivots : TInteger1DArray;
 begin

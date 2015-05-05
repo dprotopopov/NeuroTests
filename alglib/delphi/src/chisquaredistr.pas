@@ -28,9 +28,9 @@ unit chisquaredistr;
 interface
 uses Math, Sysutils, Ap, gammafunc, normaldistr, igammaf;
 
-function ChiSquareDistribution(v : Double; x : Double):Double;
-function ChiSquareCDistribution(v : Double; x : Double):Double;
-function InvChiSquareDistribution(v : Double; y : Double):Double;
+function ChiSquareDistribution(v : AlglibFloat; x : AlglibFloat):AlglibFloat;
+function ChiSquareCDistribution(v : AlglibFloat; x : AlglibFloat):AlglibFloat;
+function InvChiSquareDistribution(v : AlglibFloat; y : AlglibFloat):AlglibFloat;
 
 implementation
 
@@ -67,7 +67,7 @@ See incomplete gamma function
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-function ChiSquareDistribution(v : Double; x : Double):Double;
+function ChiSquareDistribution(v : AlglibFloat; x : AlglibFloat):AlglibFloat;
 begin
     Assert(AP_FP_Greater_Eq(x,0) and AP_FP_Greater_Eq(v,1), 'Domain error in ChiSquareDistribution');
     Result := IncompleteGamma(v/2.0, x/2.0);
@@ -105,7 +105,7 @@ See incomplete gamma function
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-function ChiSquareCDistribution(v : Double; x : Double):Double;
+function ChiSquareCDistribution(v : AlglibFloat; x : AlglibFloat):AlglibFloat;
 begin
     Assert(AP_FP_Greater_Eq(x,0) and AP_FP_Greater_Eq(v,1), 'Domain error in ChiSquareDistributionC');
     Result := IncompleteGammaC(v/2.0, x/2.0);
@@ -132,7 +132,7 @@ See inverse incomplete gamma function
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-function InvChiSquareDistribution(v : Double; y : Double):Double;
+function InvChiSquareDistribution(v : AlglibFloat; y : AlglibFloat):AlglibFloat;
 begin
     Assert(AP_FP_Greater_Eq(y,0) and AP_FP_Less_Eq(y,1) and AP_FP_Greater_Eq(v,1), 'Domain error in InvChiSquareDistribution');
     Result := 2*InvIncompleteGammaC(0.5*v, y);

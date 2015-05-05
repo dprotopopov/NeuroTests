@@ -35,12 +35,12 @@ procedure TagSortFast(var A : TReal1DArray; N : AlglibInteger);
 procedure TagHeapPushI(var A : TReal1DArray;
      var B : TInteger1DArray;
      var N : AlglibInteger;
-     VA : Double;
+     VA : AlglibFloat;
      VB : AlglibInteger);
 procedure TagHeapReplaceTopI(var A : TReal1DArray;
      var B : TInteger1DArray;
      N : AlglibInteger;
-     VA : Double;
+     VA : AlglibFloat;
      VB : AlglibInteger);
 procedure TagHeapPopI(var A : TReal1DArray;
      var B : TInteger1DArray;
@@ -152,7 +152,7 @@ var
     I : AlglibInteger;
     K : AlglibInteger;
     T : AlglibInteger;
-    Tmp : Double;
+    Tmp : AlglibFloat;
     TmpI : AlglibInteger;
 begin
     
@@ -243,8 +243,8 @@ var
     I : AlglibInteger;
     K : AlglibInteger;
     T : AlglibInteger;
-    Tmp : Double;
-    TmpR : Double;
+    Tmp : AlglibFloat;
+    TmpR : AlglibFloat;
 begin
     
     //
@@ -332,7 +332,7 @@ var
     I : AlglibInteger;
     K : AlglibInteger;
     T : AlglibInteger;
-    Tmp : Double;
+    Tmp : AlglibFloat;
 begin
     
     //
@@ -424,12 +424,12 @@ PARAMETERS:
 procedure TagHeapPushI(var A : TReal1DArray;
      var B : TInteger1DArray;
      var N : AlglibInteger;
-     VA : Double;
+     VA : AlglibFloat;
      VB : AlglibInteger);
 var
     J : AlglibInteger;
     K : AlglibInteger;
-    V : Double;
+    V : AlglibFloat;
 begin
     if N<0 then
     begin
@@ -503,15 +503,15 @@ PARAMETERS:
 procedure TagHeapReplaceTopI(var A : TReal1DArray;
      var B : TInteger1DArray;
      N : AlglibInteger;
-     VA : Double;
+     VA : AlglibFloat;
      VB : AlglibInteger);
 var
     J : AlglibInteger;
     K1 : AlglibInteger;
     K2 : AlglibInteger;
-    V : Double;
-    V1 : Double;
-    V2 : Double;
+    V : AlglibFloat;
+    V1 : AlglibFloat;
+    V2 : AlglibFloat;
 begin
     if N<1 then
     begin
@@ -623,7 +623,7 @@ procedure TagHeapPopI(var A : TReal1DArray;
      var B : TInteger1DArray;
      var N : AlglibInteger);
 var
-    VA : Double;
+    VA : AlglibFloat;
     VB : AlglibInteger;
 begin
     if N<1 then

@@ -312,8 +312,8 @@ var
     Tmp : TReal1DArray;
     I : AlglibInteger;
     J : AlglibInteger;
-    MX : Double;
-    V : Double;
+    MX : AlglibFloat;
+    V : AlglibFloat;
 begin
     
     //
@@ -373,8 +373,8 @@ var
     Tmp : TComplex1DArray;
     I : AlglibInteger;
     J : AlglibInteger;
-    MX : Double;
-    V : Double;
+    MX : AlglibFloat;
+    V : AlglibFloat;
     i_ : AlglibInteger;
 begin
     
@@ -441,8 +441,8 @@ var
     Tmp : TReal1DArray;
     I : AlglibInteger;
     J : AlglibInteger;
-    MX : Double;
-    V : Double;
+    MX : AlglibFloat;
+    V : AlglibFloat;
 begin
     
     //
@@ -502,7 +502,7 @@ var
     Tmp : TComplex1DArray;
     I : AlglibInteger;
     J : AlglibInteger;
-    MX : Double;
+    MX : AlglibFloat;
     V : Complex;
     i_ : AlglibInteger;
 begin
@@ -1140,7 +1140,7 @@ var
     I : AlglibInteger;
     J : AlglibInteger;
     JP : AlglibInteger;
-    S : Double;
+    S : AlglibFloat;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin
@@ -1338,7 +1338,7 @@ var
     I : AlglibInteger;
     J : AlglibInteger;
     JP : AlglibInteger;
-    S : Double;
+    S : AlglibFloat;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin
@@ -1594,9 +1594,9 @@ var
     K : AlglibInteger;
     J1 : AlglibInteger;
     J2 : AlglibInteger;
-    AJJ : Double;
+    AJJ : AlglibFloat;
     V : Complex;
-    R : Double;
+    R : AlglibFloat;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin
@@ -1753,9 +1753,9 @@ var
     K : AlglibInteger;
     J1 : AlglibInteger;
     J2 : AlglibInteger;
-    AJJ : Double;
-    V : Double;
-    R : Double;
+    AJJ : AlglibFloat;
+    V : AlglibFloat;
+    R : AlglibFloat;
     i_ : AlglibInteger;
     i1_ : AlglibInteger;
 begin

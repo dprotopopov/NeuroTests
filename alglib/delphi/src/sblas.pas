@@ -32,7 +32,7 @@ procedure SymmetricMatrixVectorMultiply(const A : TReal2DArray;
      I1 : AlglibInteger;
      I2 : AlglibInteger;
      const X : TReal1DArray;
-     Alpha : Double;
+     Alpha : AlglibFloat;
      var Y : TReal1DArray);
 procedure SymmetricRank2Update(var A : TReal2DArray;
      IsUpper : Boolean;
@@ -41,7 +41,7 @@ procedure SymmetricRank2Update(var A : TReal2DArray;
      const X : TReal1DArray;
      const Y : TReal1DArray;
      var T : TReal1DArray;
-     Alpha : Double);
+     Alpha : AlglibFloat);
 
 implementation
 
@@ -50,7 +50,7 @@ procedure SymmetricMatrixVectorMultiply(const A : TReal2DArray;
      I1 : AlglibInteger;
      I2 : AlglibInteger;
      const X : TReal1DArray;
-     Alpha : Double;
+     Alpha : AlglibFloat;
      var Y : TReal1DArray);
 var
     I : AlglibInteger;
@@ -61,7 +61,7 @@ var
     BX1 : AlglibInteger;
     BX2 : AlglibInteger;
     N : AlglibInteger;
-    V : Double;
+    V : AlglibFloat;
 begin
     N := I2-I1+1;
     if N<=0 then
@@ -156,12 +156,12 @@ procedure SymmetricRank2Update(var A : TReal2DArray;
      const X : TReal1DArray;
      const Y : TReal1DArray;
      var T : TReal1DArray;
-     Alpha : Double);
+     Alpha : AlglibFloat);
 var
     I : AlglibInteger;
     TP1 : AlglibInteger;
     TP2 : AlglibInteger;
-    V : Double;
+    V : AlglibFloat;
 begin
     if IsUpper then
     begin

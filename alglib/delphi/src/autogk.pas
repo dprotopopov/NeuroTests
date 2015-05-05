@@ -41,20 +41,20 @@ end;
 
 
 AutoGKInternalState = record
-    A : Double;
-    B : Double;
-    Eps : Double;
-    XWidth : Double;
-    X : Double;
-    F : Double;
+    A : AlglibFloat;
+    B : AlglibFloat;
+    Eps : AlglibFloat;
+    XWidth : AlglibFloat;
+    X : AlglibFloat;
+    F : AlglibFloat;
     Info : AlglibInteger;
-    R : Double;
+    R : AlglibFloat;
     Heap : TReal2DArray;
     HeapSize : AlglibInteger;
     HeapWidth : AlglibInteger;
     HeapUsed : AlglibInteger;
-    SumErr : Double;
-    SumAbs : Double;
+    SumErr : AlglibFloat;
+    SumAbs : AlglibFloat;
     QN : TReal1DArray;
     WG : TReal1DArray;
     WK : TReal1DArray;
@@ -69,19 +69,19 @@ This structure stores internal state of the integration algorithm  between
 subsequent calls of the AutoGKIteration() subroutine.
 *************************************************************************)
 AutoGKState = record
-    A : Double;
-    B : Double;
-    Alpha : Double;
-    Beta : Double;
-    XWidth : Double;
-    X : Double;
-    XMinusA : Double;
-    BMinusX : Double;
-    F : Double;
+    A : AlglibFloat;
+    B : AlglibFloat;
+    Alpha : AlglibFloat;
+    Beta : AlglibFloat;
+    XWidth : AlglibFloat;
+    X : AlglibFloat;
+    XMinusA : AlglibFloat;
+    BMinusX : AlglibFloat;
+    F : AlglibFloat;
     WrapperMode : AlglibInteger;
     InternalState : AutoGKInternalState;
     RState : RCommState;
-    V : Double;
+    V : AlglibFloat;
     TerminationType : AlglibInteger;
     NFEV : AlglibInteger;
     NIntervals : AlglibInteger;
@@ -89,27 +89,27 @@ end;
 
 
 
-procedure AutoGKSmooth(A : Double; B : Double; var State : AutoGKState);
-procedure AutoGKSmoothW(A : Double;
-     B : Double;
-     XWidth : Double;
+procedure AutoGKSmooth(A : AlglibFloat; B : AlglibFloat; var State : AutoGKState);
+procedure AutoGKSmoothW(A : AlglibFloat;
+     B : AlglibFloat;
+     XWidth : AlglibFloat;
      var State : AutoGKState);
-procedure AutoGKSingular(A : Double;
-     B : Double;
-     Alpha : Double;
-     Beta : Double;
+procedure AutoGKSingular(A : AlglibFloat;
+     B : AlglibFloat;
+     Alpha : AlglibFloat;
+     Beta : AlglibFloat;
      var State : AutoGKState);
 function AutoGKIteration(var State : AutoGKState):Boolean;
 procedure AutoGKResults(const State : AutoGKState;
-     var V : Double;
+     var V : AlglibFloat;
      var Rep : AutoGKReport);
 
 implementation
 
-procedure AutoGKInternalPrepare(A : Double;
-     B : Double;
-     Eps : Double;
-     XWidth : Double;
+procedure AutoGKInternalPrepare(A : AlglibFloat;
+     B : AlglibFloat;
+     Eps : AlglibFloat;
+     XWidth : AlglibFloat;
      var State : AutoGKInternalState);forward;
 function AutoGKInternalIteration(var State : AutoGKInternalState):Boolean;forward;
 procedure MHeapPop(var Heap : TReal2DArray;
@@ -153,7 +153,7 @@ SEE ALSO
   -- ALGLIB --
      Copyright 06.05.2009 by Bochkanov Sergey
 *************************************************************************)
-procedure AutoGKSmooth(A : Double; B : Double; var State : AutoGKState);
+procedure AutoGKSmooth(A : AlglibFloat; B : AlglibFloat; var State : AutoGKState);
 begin
     AutoGKSmoothW(A, B, 0.0, State);
 end;
@@ -185,9 +185,9 @@ SEE ALSO
   -- ALGLIB --
      Copyright 06.05.2009 by Bochkanov Sergey
 *************************************************************************)
-procedure AutoGKSmoothW(A : Double;
-     B : Double;
-     XWidth : Double;
+procedure AutoGKSmoothW(A : AlglibFloat;
+     B : AlglibFloat;
+     XWidth : AlglibFloat;
      var State : AutoGKState);
 begin
     State.WrapperMode := 0;
@@ -234,10 +234,10 @@ SEE ALSO
   -- ALGLIB --
      Copyright 06.05.2009 by Bochkanov Sergey
 *************************************************************************)
-procedure AutoGKSingular(A : Double;
-     B : Double;
-     Alpha : Double;
-     Beta : Double;
+procedure AutoGKSingular(A : AlglibFloat;
+     B : AlglibFloat;
+     Alpha : AlglibFloat;
+     Beta : AlglibFloat;
      var State : AutoGKState);
 begin
     State.WrapperMode := 1;
@@ -291,17 +291,17 @@ State.X
 *************************************************************************)
 function AutoGKIteration(var State : AutoGKState):Boolean;
 var
-    S : Double;
-    Tmp : Double;
-    Eps : Double;
-    A : Double;
-    B : Double;
-    X : Double;
-    T : Double;
-    Alpha : Double;
-    Beta : Double;
-    V1 : Double;
-    V2 : Double;
+    S : AlglibFloat;
+    Tmp : AlglibFloat;
+    Eps : AlglibFloat;
+    A : AlglibFloat;
+    B : AlglibFloat;
+    X : AlglibFloat;
+    T : AlglibFloat;
+    Alpha : AlglibFloat;
+    Beta : AlglibFloat;
+    V1 : AlglibFloat;
+    V2 : AlglibFloat;
 label
 lbl_5, lbl_0, lbl_6, lbl_3, lbl_9, lbl_1, lbl_10, lbl_11, lbl_2, lbl_12, lbl_7, lbl_rcomm;
 begin
@@ -603,7 +603,7 @@ Output parameters:
      Copyright 14.11.2007 by Bochkanov Sergey
 *************************************************************************)
 procedure AutoGKResults(const State : AutoGKState;
-     var V : Double;
+     var V : AlglibFloat;
      var Rep : AutoGKReport);
 begin
     V := State.V;
@@ -621,10 +621,10 @@ eps=0   - automatic eps selection
 width<0 -   error
 width=0 -   no width requirements
 *************************************************************************)
-procedure AutoGKInternalPrepare(A : Double;
-     B : Double;
-     Eps : Double;
-     XWidth : Double;
+procedure AutoGKInternalPrepare(A : AlglibFloat;
+     B : AlglibFloat;
+     Eps : AlglibFloat;
+     XWidth : AlglibFloat;
      var State : AutoGKInternalState);
 begin
     
@@ -650,18 +650,18 @@ Internal AutoGK subroutine
 *************************************************************************)
 function AutoGKInternalIteration(var State : AutoGKInternalState):Boolean;
 var
-    C1 : Double;
-    C2 : Double;
+    C1 : AlglibFloat;
+    C2 : AlglibFloat;
     I : AlglibInteger;
     J : AlglibInteger;
-    IntG : Double;
-    IntK : Double;
-    IntA : Double;
-    V : Double;
-    TA : Double;
-    TB : Double;
+    IntG : AlglibFloat;
+    IntK : AlglibFloat;
+    IntA : AlglibFloat;
+    V : AlglibFloat;
+    TA : AlglibFloat;
+    TB : AlglibFloat;
     NS : AlglibInteger;
-    QEps : Double;
+    QEps : AlglibFloat;
     Info : AlglibInteger;
 label
 lbl_5, lbl_0, lbl_7, lbl_3, lbl_8, lbl_11, lbl_1, lbl_13, lbl_10, lbl_4, lbl_14, lbl_16, lbl_19, lbl_2, lbl_21, lbl_18, lbl_15, lbl_rcomm;
@@ -1070,7 +1070,7 @@ procedure MHeapPop(var Heap : TReal2DArray;
 var
     I : AlglibInteger;
     P : AlglibInteger;
-    T : Double;
+    T : AlglibFloat;
     MaxCP : AlglibInteger;
 begin
     if HeapSize=1 then
@@ -1122,7 +1122,7 @@ procedure MHeapPush(var Heap : TReal2DArray;
 var
     I : AlglibInteger;
     P : AlglibInteger;
-    T : Double;
+    T : AlglibFloat;
     Parent : AlglibInteger;
 begin
     if HeapSize=0 then

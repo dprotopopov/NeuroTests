@@ -27,42 +27,42 @@ LINMINState = record
     BRACKT : Boolean;
     STAGE1 : Boolean;
     INFOC : AlglibInteger;
-    DG : Double;
-    DGM : Double;
-    DGINIT : Double;
-    DGTEST : Double;
-    DGX : Double;
-    DGXM : Double;
-    DGY : Double;
-    DGYM : Double;
-    FINIT : Double;
-    FTEST1 : Double;
-    FM : Double;
-    FX : Double;
-    FXM : Double;
-    FY : Double;
-    FYM : Double;
-    STX : Double;
-    STY : Double;
-    STMIN : Double;
-    STMAX : Double;
-    WIDTH : Double;
-    WIDTH1 : Double;
-    XTRAPF : Double;
+    DG : AlglibFloat;
+    DGM : AlglibFloat;
+    DGINIT : AlglibFloat;
+    DGTEST : AlglibFloat;
+    DGX : AlglibFloat;
+    DGXM : AlglibFloat;
+    DGY : AlglibFloat;
+    DGYM : AlglibFloat;
+    FINIT : AlglibFloat;
+    FTEST1 : AlglibFloat;
+    FM : AlglibFloat;
+    FX : AlglibFloat;
+    FXM : AlglibFloat;
+    FY : AlglibFloat;
+    FYM : AlglibFloat;
+    STX : AlglibFloat;
+    STY : AlglibFloat;
+    STMIN : AlglibFloat;
+    STMAX : AlglibFloat;
+    WIDTH : AlglibFloat;
+    WIDTH1 : AlglibFloat;
+    XTRAPF : AlglibFloat;
 end;
 
 
 
 procedure LinMinNormalizeD(var D : TReal1DArray;
-     var Stp : Double;
+     var Stp : AlglibFloat;
      N : AlglibInteger);
 procedure MCSRCH(const N : AlglibInteger;
      var X : TReal1DArray;
-     var F : Double;
+     var F : AlglibFloat;
      var G : TReal1DArray;
      const S : TReal1DArray;
-     var STP : Double;
-     STPMAX : Double;
+     var STP : AlglibFloat;
+     STPMAX : AlglibFloat;
      var INFO : AlglibInteger;
      var NFEV : AlglibInteger;
      var WA : TReal1DArray;
@@ -79,18 +79,18 @@ const
     STPMIN = 1.0E-50;
     DefSTPMAX = 1.0E+50;
 
-procedure MCSTEP(var STX : Double;
-     var FX : Double;
-     var DX : Double;
-     var STY : Double;
-     var FY : Double;
-     var DY : Double;
-     var STP : Double;
-     const FP : Double;
-     const DP : Double;
+procedure MCSTEP(var STX : AlglibFloat;
+     var FX : AlglibFloat;
+     var DX : AlglibFloat;
+     var STY : AlglibFloat;
+     var FY : AlglibFloat;
+     var DY : AlglibFloat;
+     var STP : AlglibFloat;
+     const FP : AlglibFloat;
+     const DP : AlglibFloat;
      var BRACKT : Boolean;
-     const STMIN : Double;
-     const STMAX : Double;
+     const STMIN : AlglibFloat;
+     const STMAX : AlglibFloat;
      var INFO : AlglibInteger);forward;
 
 
@@ -102,11 +102,11 @@ If |D|=0, it returns, leavind D/Stp unchanged.
      Copyright 01.04.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure LinMinNormalizeD(var D : TReal1DArray;
-     var Stp : Double;
+     var Stp : AlglibFloat;
      N : AlglibInteger);
 var
-    MX : Double;
-    S : Double;
+    MX : AlglibFloat;
+    S : AlglibFloat;
     I : AlglibInteger;
 begin
     
@@ -227,21 +227,21 @@ JORGE J. MORE', DAVID J. THUENTE
 *************************************************************************)
 procedure MCSRCH(const N : AlglibInteger;
      var X : TReal1DArray;
-     var F : Double;
+     var F : AlglibFloat;
      var G : TReal1DArray;
      const S : TReal1DArray;
-     var STP : Double;
-     STPMAX : Double;
+     var STP : AlglibFloat;
+     STPMAX : AlglibFloat;
      var INFO : AlglibInteger;
      var NFEV : AlglibInteger;
      var WA : TReal1DArray;
      var State : LINMINState;
      var Stage : AlglibInteger);
 var
-    V : Double;
-    P5 : Double;
-    P66 : Double;
-    ZERO : Double;
+    V : AlglibFloat;
+    P5 : AlglibFloat;
+    P66 : AlglibFloat;
+    ZERO : AlglibFloat;
 begin
     
     //
@@ -522,31 +522,31 @@ begin
 end;
 
 
-procedure MCSTEP(var STX : Double;
-     var FX : Double;
-     var DX : Double;
-     var STY : Double;
-     var FY : Double;
-     var DY : Double;
-     var STP : Double;
-     const FP : Double;
-     const DP : Double;
+procedure MCSTEP(var STX : AlglibFloat;
+     var FX : AlglibFloat;
+     var DX : AlglibFloat;
+     var STY : AlglibFloat;
+     var FY : AlglibFloat;
+     var DY : AlglibFloat;
+     var STP : AlglibFloat;
+     const FP : AlglibFloat;
+     const DP : AlglibFloat;
      var BRACKT : Boolean;
-     const STMIN : Double;
-     const STMAX : Double;
+     const STMIN : AlglibFloat;
+     const STMAX : AlglibFloat;
      var INFO : AlglibInteger);
 var
     BOUND : Boolean;
-    GAMMA : Double;
-    P : Double;
-    Q : Double;
-    R : Double;
-    S : Double;
-    SGND : Double;
-    STPC : Double;
-    STPF : Double;
-    STPQ : Double;
-    THETA : Double;
+    GAMMA : AlglibFloat;
+    P : AlglibFloat;
+    Q : AlglibFloat;
+    R : AlglibFloat;
+    S : AlglibFloat;
+    SGND : AlglibFloat;
+    STPC : AlglibFloat;
+    STPF : AlglibFloat;
+    STPQ : AlglibFloat;
+    THETA : AlglibFloat;
 begin
     INFO := 0;
     

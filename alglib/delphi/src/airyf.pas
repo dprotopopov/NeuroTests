@@ -28,11 +28,11 @@ unit airyf;
 interface
 uses Math, Sysutils, Ap;
 
-procedure Airy(x : Double;
-     var Ai : Double;
-     var Aip : Double;
-     var Bi : Double;
-     var Bip : Double);
+procedure Airy(x : AlglibFloat;
+     var Ai : AlglibFloat;
+     var Aip : AlglibFloat;
+     var Bi : AlglibFloat;
+     var Bip : AlglibFloat);
 
 implementation
 
@@ -68,43 +68,43 @@ IEEE        -10, 10    Bi'       30000       4.9e-15     7.3e-16
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1989, 2000 by Stephen L. Moshier
 *************************************************************************)
-procedure Airy(x : Double;
-     var Ai : Double;
-     var Aip : Double;
-     var Bi : Double;
-     var Bip : Double);
+procedure Airy(x : AlglibFloat;
+     var Ai : AlglibFloat;
+     var Aip : AlglibFloat;
+     var Bi : AlglibFloat;
+     var Bip : AlglibFloat);
 var
-    z : Double;
-    zz : Double;
-    t : Double;
-    f : Double;
-    g : Double;
-    uf : Double;
-    ug : Double;
-    k : Double;
-    zeta : Double;
-    theta : Double;
+    z : AlglibFloat;
+    zz : AlglibFloat;
+    t : AlglibFloat;
+    f : AlglibFloat;
+    g : AlglibFloat;
+    uf : AlglibFloat;
+    ug : AlglibFloat;
+    k : AlglibFloat;
+    zeta : AlglibFloat;
+    theta : AlglibFloat;
     domflg : AlglibInteger;
-    c1 : Double;
-    c2 : Double;
-    sqrt3 : Double;
-    sqpii : Double;
-    AFN : Double;
-    AFD : Double;
-    AGN : Double;
-    AGD : Double;
-    APFN : Double;
-    APFD : Double;
-    APGN : Double;
-    APGD : Double;
-    AN : Double;
-    AD : Double;
-    APN : Double;
-    APD : Double;
-    BN16 : Double;
-    BD16 : Double;
-    BPPN : Double;
-    BPPD : Double;
+    c1 : AlglibFloat;
+    c2 : AlglibFloat;
+    sqrt3 : AlglibFloat;
+    sqpii : AlglibFloat;
+    AFN : AlglibFloat;
+    AFD : AlglibFloat;
+    AGN : AlglibFloat;
+    AGD : AlglibFloat;
+    APFN : AlglibFloat;
+    APFD : AlglibFloat;
+    APGN : AlglibFloat;
+    APGD : AlglibFloat;
+    AN : AlglibFloat;
+    AD : AlglibFloat;
+    APN : AlglibFloat;
+    APD : AlglibFloat;
+    BN16 : AlglibFloat;
+    BD16 : AlglibFloat;
+    BPPN : AlglibFloat;
+    BPPD : AlglibFloat;
 begin
     sqpii := 5.64189583547756286948E-1;
     c1 := 0.35502805388781723926;

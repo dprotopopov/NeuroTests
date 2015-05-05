@@ -31,11 +31,11 @@ Polynomial fitting report:
     MaxError        maximum error
 *************************************************************************)
 PolynomialFitReport = record
-    TaskRCond : Double;
-    RMSError : Double;
-    AvgError : Double;
-    AvgRelError : Double;
-    MaxError : Double;
+    TaskRCond : AlglibFloat;
+    RMSError : AlglibFloat;
+    AvgError : AlglibFloat;
+    AvgRelError : AlglibFloat;
+    MaxError : AlglibFloat;
 end;
 
 
@@ -44,36 +44,36 @@ procedure PolynomialBuild(const X : TReal1DArray;
      const Y : TReal1DArray;
      N : AlglibInteger;
      var P : BarycentricInterpolant);
-procedure PolynomialBuildEqDist(A : Double;
-     B : Double;
+procedure PolynomialBuildEqDist(A : AlglibFloat;
+     B : AlglibFloat;
      const Y : TReal1DArray;
      N : AlglibInteger;
      var P : BarycentricInterpolant);
-procedure PolynomialBuildCheb1(A : Double;
-     B : Double;
+procedure PolynomialBuildCheb1(A : AlglibFloat;
+     B : AlglibFloat;
      const Y : TReal1DArray;
      N : AlglibInteger;
      var P : BarycentricInterpolant);
-procedure PolynomialBuildCheb2(A : Double;
-     B : Double;
+procedure PolynomialBuildCheb2(A : AlglibFloat;
+     B : AlglibFloat;
      const Y : TReal1DArray;
      N : AlglibInteger;
      var P : BarycentricInterpolant);
-function PolynomialCalcEqDist(A : Double;
-     B : Double;
+function PolynomialCalcEqDist(A : AlglibFloat;
+     B : AlglibFloat;
      const F : TReal1DArray;
      N : AlglibInteger;
-     T : Double):Double;
-function PolynomialCalcCheb1(A : Double;
-     B : Double;
+     T : AlglibFloat):AlglibFloat;
+function PolynomialCalcCheb1(A : AlglibFloat;
+     B : AlglibFloat;
      const F : TReal1DArray;
      N : AlglibInteger;
-     T : Double):Double;
-function PolynomialCalcCheb2(A : Double;
-     B : Double;
+     T : AlglibFloat):AlglibFloat;
+function PolynomialCalcCheb2(A : AlglibFloat;
+     B : AlglibFloat;
      const F : TReal1DArray;
      N : AlglibInteger;
-     T : Double):Double;
+     T : AlglibFloat):AlglibFloat;
 procedure PolynomialFit(const X : TReal1DArray;
      const Y : TReal1DArray;
      N : AlglibInteger;
@@ -121,10 +121,10 @@ var
     J : AlglibInteger;
     K : AlglibInteger;
     W : TReal1DArray;
-    B : Double;
-    A : Double;
-    V : Double;
-    MX : Double;
+    B : AlglibFloat;
+    A : AlglibFloat;
+    V : AlglibFloat;
+    MX : AlglibFloat;
 begin
     Assert(N>0, 'PolIntBuild: N<=0!');
     
@@ -198,8 +198,8 @@ OIYTPUT PARAMETERS
   -- ALGLIB --
      Copyright 03.12.2009 by Bochkanov Sergey
 *************************************************************************)
-procedure PolynomialBuildEqDist(A : Double;
-     B : Double;
+procedure PolynomialBuildEqDist(A : AlglibFloat;
+     B : AlglibFloat;
      const Y : TReal1DArray;
      N : AlglibInteger;
      var P : BarycentricInterpolant);
@@ -207,7 +207,7 @@ var
     I : AlglibInteger;
     W : TReal1DArray;
     X : TReal1DArray;
-    V : Double;
+    V : AlglibFloat;
 begin
     Assert(N>0, 'PolIntBuildEqDist: N<=0!');
     
@@ -263,8 +263,8 @@ OIYTPUT PARAMETERS
   -- ALGLIB --
      Copyright 03.12.2009 by Bochkanov Sergey
 *************************************************************************)
-procedure PolynomialBuildCheb1(A : Double;
-     B : Double;
+procedure PolynomialBuildCheb1(A : AlglibFloat;
+     B : AlglibFloat;
      const Y : TReal1DArray;
      N : AlglibInteger;
      var P : BarycentricInterpolant);
@@ -272,8 +272,8 @@ var
     I : AlglibInteger;
     W : TReal1DArray;
     X : TReal1DArray;
-    V : Double;
-    T : Double;
+    V : AlglibFloat;
+    T : AlglibFloat;
 begin
     Assert(N>0, 'PolIntBuildCheb1: N<=0!');
     
@@ -329,8 +329,8 @@ OIYTPUT PARAMETERS
   -- ALGLIB --
      Copyright 03.12.2009 by Bochkanov Sergey
 *************************************************************************)
-procedure PolynomialBuildCheb2(A : Double;
-     B : Double;
+procedure PolynomialBuildCheb2(A : AlglibFloat;
+     B : AlglibFloat;
      const Y : TReal1DArray;
      N : AlglibInteger;
      var P : BarycentricInterpolant);
@@ -338,7 +338,7 @@ var
     I : AlglibInteger;
     W : TReal1DArray;
     X : TReal1DArray;
-    V : Double;
+    V : AlglibFloat;
 begin
     Assert(N>0, 'PolIntBuildCheb2: N<=0!');
     
@@ -404,22 +404,22 @@ IMPORTANT
   -- ALGLIB --
      Copyright 02.12.2009 by Bochkanov Sergey
 *************************************************************************)
-function PolynomialCalcEqDist(A : Double;
-     B : Double;
+function PolynomialCalcEqDist(A : AlglibFloat;
+     B : AlglibFloat;
      const F : TReal1DArray;
      N : AlglibInteger;
-     T : Double):Double;
+     T : AlglibFloat):AlglibFloat;
 var
-    S1 : Double;
-    S2 : Double;
-    V : Double;
-    Threshold : Double;
-    S : Double;
-    H : Double;
+    S1 : AlglibFloat;
+    S2 : AlglibFloat;
+    V : AlglibFloat;
+    Threshold : AlglibFloat;
+    S : AlglibFloat;
+    H : AlglibFloat;
     I : AlglibInteger;
     J : AlglibInteger;
-    W : Double;
-    X : Double;
+    W : AlglibFloat;
+    X : AlglibFloat;
 begin
     Assert(N>0, 'PolIntEqDist: N<=0!');
     Threshold := Sqrt(MinRealNumber);
@@ -521,30 +521,30 @@ IMPORTANT
   -- ALGLIB --
      Copyright 02.12.2009 by Bochkanov Sergey
 *************************************************************************)
-function PolynomialCalcCheb1(A : Double;
-     B : Double;
+function PolynomialCalcCheb1(A : AlglibFloat;
+     B : AlglibFloat;
      const F : TReal1DArray;
      N : AlglibInteger;
-     T : Double):Double;
+     T : AlglibFloat):AlglibFloat;
 var
-    S1 : Double;
-    S2 : Double;
-    V : Double;
-    Threshold : Double;
-    S : Double;
+    S1 : AlglibFloat;
+    S2 : AlglibFloat;
+    V : AlglibFloat;
+    Threshold : AlglibFloat;
+    S : AlglibFloat;
     I : AlglibInteger;
     J : AlglibInteger;
-    A0 : Double;
-    Delta : Double;
-    Alpha : Double;
-    Beta : Double;
-    CA : Double;
-    SA : Double;
-    TempC : Double;
-    TempS : Double;
-    X : Double;
-    W : Double;
-    P1 : Double;
+    A0 : AlglibFloat;
+    Delta : AlglibFloat;
+    Alpha : AlglibFloat;
+    Beta : AlglibFloat;
+    CA : AlglibFloat;
+    SA : AlglibFloat;
+    TempC : AlglibFloat;
+    TempS : AlglibFloat;
+    X : AlglibFloat;
+    W : AlglibFloat;
+    P1 : AlglibFloat;
 begin
     Assert(N>0, 'PolIntCheb1: N<=0!');
     Threshold := Sqrt(MinRealNumber);
@@ -703,30 +703,30 @@ IMPORTANT
   -- ALGLIB --
      Copyright 02.12.2009 by Bochkanov Sergey
 *************************************************************************)
-function PolynomialCalcCheb2(A : Double;
-     B : Double;
+function PolynomialCalcCheb2(A : AlglibFloat;
+     B : AlglibFloat;
      const F : TReal1DArray;
      N : AlglibInteger;
-     T : Double):Double;
+     T : AlglibFloat):AlglibFloat;
 var
-    S1 : Double;
-    S2 : Double;
-    V : Double;
-    Threshold : Double;
-    S : Double;
+    S1 : AlglibFloat;
+    S2 : AlglibFloat;
+    V : AlglibFloat;
+    Threshold : AlglibFloat;
+    S : AlglibFloat;
     I : AlglibInteger;
     J : AlglibInteger;
-    A0 : Double;
-    Delta : Double;
-    Alpha : Double;
-    Beta : Double;
-    CA : Double;
-    SA : Double;
-    TempC : Double;
-    TempS : Double;
-    X : Double;
-    W : Double;
-    P1 : Double;
+    A0 : AlglibFloat;
+    Delta : AlglibFloat;
+    Alpha : AlglibFloat;
+    Beta : AlglibFloat;
+    CA : AlglibFloat;
+    SA : AlglibFloat;
+    TempC : AlglibFloat;
+    TempS : AlglibFloat;
+    X : AlglibFloat;
+    W : AlglibFloat;
+    P1 : AlglibFloat;
 begin
     Assert(N>0, 'PolIntCheb2: N<=0!');
     Threshold := Sqrt(MinRealNumber);
@@ -991,10 +991,10 @@ procedure PolynomialFitWC(X : TReal1DArray;
      var P : BarycentricInterpolant;
      var Rep : PolynomialFitReport);
 var
-    XA : Double;
-    XB : Double;
-    SA : Double;
-    SB : Double;
+    XA : AlglibFloat;
+    XB : AlglibFloat;
+    SA : AlglibFloat;
+    SB : AlglibFloat;
     XOriginal : TReal1DArray;
     YOriginal : TReal1DArray;
     Y2 : TReal1DArray;
@@ -1009,11 +1009,11 @@ var
     CMatrix : TReal2DArray;
     I : AlglibInteger;
     J : AlglibInteger;
-    MX : Double;
-    Decay : Double;
-    U : Double;
-    V : Double;
-    S : Double;
+    MX : AlglibFloat;
+    Decay : AlglibFloat;
+    U : AlglibFloat;
+    V : AlglibFloat;
+    S : AlglibFloat;
     RelCnt : AlglibInteger;
     LRep : LSFitReport;
 begin

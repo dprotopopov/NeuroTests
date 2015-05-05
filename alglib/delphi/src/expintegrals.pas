@@ -28,8 +28,8 @@ unit expintegrals;
 interface
 uses Math, Sysutils, Ap;
 
-function ExponentialIntegralEI(X : Double):Double;
-function ExponentialIntegralEN(X : Double; N : AlglibInteger):Double;
+function ExponentialIntegralEI(X : AlglibFloat):AlglibFloat;
+function ExponentialIntegralEN(X : AlglibFloat; N : AlglibInteger):AlglibFloat;
 
 implementation
 
@@ -58,13 +58,13 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  May, 1999
 Copyright 1999 by Stephen L. Moshier
 *************************************************************************)
-function ExponentialIntegralEI(X : Double):Double;
+function ExponentialIntegralEI(X : AlglibFloat):AlglibFloat;
 var
-    EUL : Double;
-    f : Double;
-    f1 : Double;
-    f2 : Double;
-    w : Double;
+    EUL : AlglibFloat;
+    f : AlglibFloat;
+    f1 : AlglibFloat;
+    f2 : AlglibFloat;
+    w : AlglibFloat;
 begin
     EUL := 0.5772156649015328606065;
     if AP_FP_Less_Eq(X,0) then
@@ -264,24 +264,24 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1985, 2000 by Stephen L. Moshier
 *************************************************************************)
-function ExponentialIntegralEN(X : Double; N : AlglibInteger):Double;
+function ExponentialIntegralEN(X : AlglibFloat; N : AlglibInteger):AlglibFloat;
 var
-    r : Double;
-    t : Double;
-    yk : Double;
-    xk : Double;
-    pk : Double;
-    pkm1 : Double;
-    pkm2 : Double;
-    qk : Double;
-    qkm1 : Double;
-    qkm2 : Double;
-    psi : Double;
-    z : Double;
+    r : AlglibFloat;
+    t : AlglibFloat;
+    yk : AlglibFloat;
+    xk : AlglibFloat;
+    pk : AlglibFloat;
+    pkm1 : AlglibFloat;
+    pkm2 : AlglibFloat;
+    qk : AlglibFloat;
+    qkm1 : AlglibFloat;
+    qkm2 : AlglibFloat;
+    psi : AlglibFloat;
+    z : AlglibFloat;
     i : AlglibInteger;
     k : AlglibInteger;
-    big : Double;
-    EUL : Double;
+    big : AlglibFloat;
+    EUL : AlglibFloat;
 begin
     EUL := 0.57721566490153286060;
     big := 1.44115188075855872*Power(10, 17);

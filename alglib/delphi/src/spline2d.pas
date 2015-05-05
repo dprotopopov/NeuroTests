@@ -45,27 +45,27 @@ procedure Spline2DBuildBicubic(X : TReal1DArray;
      N : AlglibInteger;
      var C : Spline2DInterpolant);
 function Spline2DCalc(const C : Spline2DInterpolant;
-     X : Double;
-     Y : Double):Double;
+     X : AlglibFloat;
+     Y : AlglibFloat):AlglibFloat;
 procedure Spline2DDiff(const C : Spline2DInterpolant;
-     X : Double;
-     Y : Double;
-     var F : Double;
-     var FX : Double;
-     var FY : Double;
-     var FXY : Double);
+     X : AlglibFloat;
+     Y : AlglibFloat;
+     var F : AlglibFloat;
+     var FX : AlglibFloat;
+     var FY : AlglibFloat;
+     var FXY : AlglibFloat);
 procedure Spline2DUnpack(const C : Spline2DInterpolant;
      var M : AlglibInteger;
      var N : AlglibInteger;
      var Tbl : TReal2DArray);
 procedure Spline2DLinTransXY(var C : Spline2DInterpolant;
-     AX : Double;
-     BX : Double;
-     AY : Double;
-     BY : Double);
+     AX : AlglibFloat;
+     BX : AlglibFloat;
+     AY : AlglibFloat;
+     BY : AlglibFloat);
 procedure Spline2DLinTransF(var C : Spline2DInterpolant;
-     A : Double;
-     B : Double);
+     A : AlglibFloat;
+     B : AlglibFloat);
 procedure Spline2DCopy(const C : Spline2DInterpolant;
      var CC : Spline2DInterpolant);
 procedure Spline2DSerialize(const C : Spline2DInterpolant;
@@ -128,7 +128,7 @@ var
     K : AlglibInteger;
     TblSize : AlglibInteger;
     Shift : AlglibInteger;
-    T : Double;
+    T : AlglibFloat;
     DX : TReal2DArray;
     DY : TReal2DArray;
     DXY : TReal2DArray;
@@ -279,7 +279,7 @@ var
     K : AlglibInteger;
     TblSize : AlglibInteger;
     Shift : AlglibInteger;
-    T : Double;
+    T : AlglibFloat;
     DX : TReal2DArray;
     DY : TReal2DArray;
     DXY : TReal2DArray;
@@ -429,13 +429,13 @@ Result:
      Copyright 05.07.2007 by Bochkanov Sergey
 *************************************************************************)
 function Spline2DCalc(const C : Spline2DInterpolant;
-     X : Double;
-     Y : Double):Double;
+     X : AlglibFloat;
+     Y : AlglibFloat):AlglibFloat;
 var
-    V : Double;
-    VX : Double;
-    VY : Double;
-    VXY : Double;
+    V : AlglibFloat;
+    VX : AlglibFloat;
+    VY : AlglibFloat;
+    VXY : AlglibFloat;
 begin
     Spline2DDiff(C, X, Y, V, VX, VY, VXY);
     Result := V;
@@ -460,19 +460,19 @@ Output parameters:
      Copyright 05.07.2007 by Bochkanov Sergey
 *************************************************************************)
 procedure Spline2DDiff(const C : Spline2DInterpolant;
-     X : Double;
-     Y : Double;
-     var F : Double;
-     var FX : Double;
-     var FY : Double;
-     var FXY : Double);
+     X : AlglibFloat;
+     Y : AlglibFloat;
+     var F : AlglibFloat;
+     var FX : AlglibFloat;
+     var FY : AlglibFloat;
+     var FXY : AlglibFloat);
 var
     N : AlglibInteger;
     M : AlglibInteger;
-    T : Double;
-    DT : Double;
-    U : Double;
-    DU : Double;
+    T : AlglibFloat;
+    DT : AlglibFloat;
+    U : AlglibFloat;
+    DU : AlglibFloat;
     IX : AlglibInteger;
     IY : AlglibInteger;
     L : AlglibInteger;
@@ -487,19 +487,19 @@ var
     SFX : AlglibInteger;
     SFY : AlglibInteger;
     SFXY : AlglibInteger;
-    Y1 : Double;
-    Y2 : Double;
-    Y3 : Double;
-    Y4 : Double;
-    V : Double;
-    T0 : Double;
-    T1 : Double;
-    T2 : Double;
-    T3 : Double;
-    U0 : Double;
-    U1 : Double;
-    U2 : Double;
-    U3 : Double;
+    Y1 : AlglibFloat;
+    Y2 : AlglibFloat;
+    Y3 : AlglibFloat;
+    Y4 : AlglibFloat;
+    V : AlglibFloat;
+    T0 : AlglibFloat;
+    T1 : AlglibFloat;
+    T2 : AlglibFloat;
+    T3 : AlglibFloat;
+    U0 : AlglibFloat;
+    U1 : AlglibFloat;
+    U2 : AlglibFloat;
+    U3 : AlglibFloat;
 begin
     Assert((Round(C.C[1])=-1) or (Round(C.C[1])=-3), 'Spline2DDiff: incorrect C!');
     N := Round(C.C[2]);
@@ -723,12 +723,12 @@ var
     SFX : AlglibInteger;
     SFY : AlglibInteger;
     SFXY : AlglibInteger;
-    Y1 : Double;
-    Y2 : Double;
-    Y3 : Double;
-    Y4 : Double;
-    DT : Double;
-    DU : Double;
+    Y1 : AlglibFloat;
+    Y2 : AlglibFloat;
+    Y3 : AlglibFloat;
+    Y4 : AlglibFloat;
+    DT : AlglibFloat;
+    DU : AlglibFloat;
 begin
     Assert((Round(C.C[1])=-3) or (Round(C.C[1])=-1), 'SplineUnpack2D: incorrect C!');
     N := Round(C.C[2]);
@@ -840,16 +840,16 @@ Result:
      Copyright 30.06.2007 by Bochkanov Sergey
 *************************************************************************)
 procedure Spline2DLinTransXY(var C : Spline2DInterpolant;
-     AX : Double;
-     BX : Double;
-     AY : Double;
-     BY : Double);
+     AX : AlglibFloat;
+     BX : AlglibFloat;
+     AY : AlglibFloat;
+     BY : AlglibFloat);
 var
     I : AlglibInteger;
     J : AlglibInteger;
     N : AlglibInteger;
     M : AlglibInteger;
-    V : Double;
+    V : AlglibFloat;
     X : TReal1DArray;
     Y : TReal1DArray;
     F : TReal2DArray;
@@ -981,8 +981,8 @@ Output parameters:
      Copyright 30.06.2007 by Bochkanov Sergey
 *************************************************************************)
 procedure Spline2DLinTransF(var C : Spline2DInterpolant;
-     A : Double;
-     B : Double);
+     A : AlglibFloat;
+     B : AlglibFloat);
 var
     I : AlglibInteger;
     J : AlglibInteger;
@@ -1257,8 +1257,8 @@ var
     J : AlglibInteger;
     L : AlglibInteger;
     C : AlglibInteger;
-    T : Double;
-    U : Double;
+    T : AlglibFloat;
+    U : AlglibFloat;
 begin
     SetLength(B, NewHeight-1+1, NewWidth-1+1);
     I:=0;
@@ -1305,9 +1305,9 @@ var
     XT : TReal1DArray;
     FT : TReal1DArray;
     C : TReal1DArray;
-    S : Double;
-    DS : Double;
-    D2S : Double;
+    S : AlglibFloat;
+    DS : AlglibFloat;
+    D2S : AlglibFloat;
 begin
     SetLength(DX, M-1+1, N-1+1);
     SetLength(DY, M-1+1, N-1+1);

@@ -30,13 +30,13 @@ uses Math, Sysutils, Ap, gammafunc, normaldistr, ibetaf;
 
 function FDistribution(a : AlglibInteger;
      b : AlglibInteger;
-     x : Double):Double;
+     x : AlglibFloat):AlglibFloat;
 function FCDistribution(a : AlglibInteger;
      b : AlglibInteger;
-     x : Double):Double;
+     x : AlglibFloat):AlglibFloat;
 function InvFDistribution(a : AlglibInteger;
      b : AlglibInteger;
-     y : Double):Double;
+     y : AlglibFloat):AlglibFloat;
 
 implementation
 
@@ -74,9 +74,9 @@ Copyright 1984, 1987, 1995, 2000 by Stephen L. Moshier
 *************************************************************************)
 function FDistribution(a : AlglibInteger;
      b : AlglibInteger;
-     x : Double):Double;
+     x : AlglibFloat):AlglibFloat;
 var
-    w : Double;
+    w : AlglibFloat;
 begin
     Assert((a>=1) and (b>=1) and AP_FP_Greater_Eq(x,0), 'Domain error in FDistribution');
     w := a*x;
@@ -123,9 +123,9 @@ Copyright 1984, 1987, 1995, 2000 by Stephen L. Moshier
 *************************************************************************)
 function FCDistribution(a : AlglibInteger;
      b : AlglibInteger;
-     x : Double):Double;
+     x : AlglibFloat):AlglibFloat;
 var
-    w : Double;
+    w : AlglibFloat;
 begin
     Assert((a>=1) and (b>=1) and AP_FP_Greater_Eq(x,0), 'Domain error in FCDistribution');
     w := b/(b+a*x);
@@ -170,9 +170,9 @@ Copyright 1984, 1987, 1995, 2000 by Stephen L. Moshier
 *************************************************************************)
 function InvFDistribution(a : AlglibInteger;
      b : AlglibInteger;
-     y : Double):Double;
+     y : AlglibFloat):AlglibFloat;
 var
-    w : Double;
+    w : AlglibFloat;
 begin
     Assert((a>=1) and (b>=1) and AP_FP_Greater(y,0) and AP_FP_Less_Eq(y,1), 'Domain error in InvFDistribution');
     

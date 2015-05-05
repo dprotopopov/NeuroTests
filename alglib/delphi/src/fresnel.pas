@@ -28,7 +28,7 @@ unit fresnel;
 interface
 uses Math, Sysutils, Ap;
 
-procedure FresnelIntegral(X : Double; var C : Double; var S : Double);
+procedure FresnelIntegral(X : AlglibFloat; var C : AlglibFloat; var S : AlglibFloat);
 
 implementation
 
@@ -74,26 +74,26 @@ Arithmetic  function   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1989, 2000 by Stephen L. Moshier
 *************************************************************************)
-procedure FresnelIntegral(X : Double; var C : Double; var S : Double);
+procedure FresnelIntegral(X : AlglibFloat; var C : AlglibFloat; var S : AlglibFloat);
 var
-    XXA : Double;
-    F : Double;
-    G : Double;
-    CC : Double;
-    SS : Double;
-    T : Double;
-    U : Double;
-    X2 : Double;
-    SN : Double;
-    SD : Double;
-    CN : Double;
-    CD : Double;
-    FN : Double;
-    FD : Double;
-    GN : Double;
-    GD : Double;
-    MPI : Double;
-    MPIO2 : Double;
+    XXA : AlglibFloat;
+    F : AlglibFloat;
+    G : AlglibFloat;
+    CC : AlglibFloat;
+    SS : AlglibFloat;
+    T : AlglibFloat;
+    U : AlglibFloat;
+    X2 : AlglibFloat;
+    SN : AlglibFloat;
+    SD : AlglibFloat;
+    CN : AlglibFloat;
+    CD : AlglibFloat;
+    FN : AlglibFloat;
+    FD : AlglibFloat;
+    GN : AlglibFloat;
+    GD : AlglibFloat;
+    MPI : AlglibFloat;
+    MPIO2 : AlglibFloat;
 begin
     MPI := 3.14159265358979323846;
     MPIO2 := 1.57079632679489661923;

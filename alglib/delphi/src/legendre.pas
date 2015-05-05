@@ -19,10 +19,10 @@ unit legendre;
 interface
 uses Math, Sysutils, Ap;
 
-function LegendreCalculate(const n : AlglibInteger; const x : Double):Double;
+function LegendreCalculate(const n : AlglibInteger; const x : AlglibFloat):AlglibFloat;
 function LegendreSum(const C : TReal1DArray;
      const n : AlglibInteger;
-     const x : Double):Double;
+     const x : AlglibFloat):AlglibFloat;
 procedure LegendreCoefficients(const N : AlglibInteger; var C : TReal1DArray);
 
 implementation
@@ -37,10 +37,10 @@ Parameters:
 Result:
     the value of the Legendre polynomial Pn at x
 *************************************************************************)
-function LegendreCalculate(const n : AlglibInteger; const x : Double):Double;
+function LegendreCalculate(const n : AlglibInteger; const x : AlglibFloat):AlglibFloat;
 var
-    a : Double;
-    b : Double;
+    a : AlglibFloat;
+    b : AlglibFloat;
     i : AlglibInteger;
 begin
     Result := 1;
@@ -82,10 +82,10 @@ Result:
 *************************************************************************)
 function LegendreSum(const C : TReal1DArray;
      const n : AlglibInteger;
-     const x : Double):Double;
+     const x : AlglibFloat):AlglibFloat;
 var
-    b1 : Double;
-    b2 : Double;
+    b1 : AlglibFloat;
+    b2 : AlglibFloat;
     i : AlglibInteger;
 begin
     b1 := 0;

@@ -24,11 +24,11 @@ uses Math, Sysutils, Ap, linmin;
 type
 MinCGState = record
     N : AlglibInteger;
-    EpsG : Double;
-    EpsF : Double;
-    EpsX : Double;
+    EpsG : AlglibFloat;
+    EpsF : AlglibFloat;
+    EpsX : AlglibFloat;
     MaxIts : AlglibInteger;
-    StpMax : Double;
+    StpMax : AlglibFloat;
     XRep : Boolean;
     CGType : AlglibInteger;
     NFEV : AlglibInteger;
@@ -39,12 +39,12 @@ MinCGState = record
     XN : TReal1DArray;
     DN : TReal1DArray;
     D : TReal1DArray;
-    FOld : Double;
-    Stp : Double;
+    FOld : AlglibFloat;
+    Stp : AlglibFloat;
     WORK : TReal1DArray;
     YK : TReal1DArray;
     X : TReal1DArray;
-    F : Double;
+    F : AlglibFloat;
     G : TReal1DArray;
     NeedFG : Boolean;
     XUpdated : Boolean;
@@ -54,8 +54,8 @@ MinCGState = record
     RepTerminationType : AlglibInteger;
     DebugRestartsCount : AlglibInteger;
     LState : LINMINState;
-    BetaHS : Double;
-    BetaDY : Double;
+    BetaHS : AlglibFloat;
+    BetaDY : AlglibFloat;
 end;
 
 
@@ -71,13 +71,13 @@ procedure MinCGCreate(N : AlglibInteger;
      const X : TReal1DArray;
      var State : MinCGState);
 procedure MinCGSetCond(var State : MinCGState;
-     EpsG : Double;
-     EpsF : Double;
-     EpsX : Double;
+     EpsG : AlglibFloat;
+     EpsF : AlglibFloat;
+     EpsX : AlglibFloat;
      MaxIts : AlglibInteger);
 procedure MinCGSetXRep(var State : MinCGState; NeedXRep : Boolean);
 procedure MinCGSetCGType(var State : MinCGState; CGType : AlglibInteger);
-procedure MinCGSetStpMax(var State : MinCGState; StpMax : Double);
+procedure MinCGSetStpMax(var State : MinCGState; StpMax : AlglibFloat);
 function MinCGIteration(var State : MinCGState):Boolean;
 procedure MinCGResults(const State : MinCGState;
      var X : TReal1DArray;
@@ -190,9 +190,9 @@ automatic stopping criterion selection (small EpsX).
      Copyright 02.04.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure MinCGSetCond(var State : MinCGState;
-     EpsG : Double;
-     EpsF : Double;
-     EpsX : Double;
+     EpsG : AlglibFloat;
+     EpsF : AlglibFloat;
+     EpsX : AlglibFloat;
      MaxIts : AlglibInteger);
 begin
     Assert(AP_FP_Greater_Eq(EpsG,0), 'MinCGSetCond: negative EpsG!');
@@ -278,7 +278,7 @@ overflow) without actually calculating function value at the x+stp*d.
   -- ALGLIB --
      Copyright 02.04.2010 by Bochkanov Sergey
 *************************************************************************)
-procedure MinCGSetStpMax(var State : MinCGState; StpMax : Double);
+procedure MinCGSetStpMax(var State : MinCGState; StpMax : AlglibFloat);
 begin
     Assert(AP_FP_Greater_Eq(StpMax,0), 'MinCGSetStpMax: StpMax<0!');
     State.StpMax := StpMax;
@@ -327,9 +327,9 @@ function MinCGIteration(var State : MinCGState):Boolean;
 var
     N : AlglibInteger;
     I : AlglibInteger;
-    BetaK : Double;
-    V : Double;
-    VV : Double;
+    BetaK : AlglibFloat;
+    V : AlglibFloat;
+    VV : AlglibFloat;
     MCINFO : AlglibInteger;
 label
 lbl_0, lbl_1, lbl_4, lbl_6, lbl_8, lbl_2, lbl_9, lbl_3, lbl_10, lbl_7, lbl_rcomm;

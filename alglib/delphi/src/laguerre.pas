@@ -19,10 +19,10 @@ unit laguerre;
 interface
 uses Math, Sysutils, Ap;
 
-function LaguerreCalculate(const n : AlglibInteger; const x : Double):Double;
+function LaguerreCalculate(const n : AlglibInteger; const x : AlglibFloat):AlglibFloat;
 function LaguerreSum(const C : TReal1DArray;
      const n : AlglibInteger;
-     const x : Double):Double;
+     const x : AlglibFloat):AlglibFloat;
 procedure LaguerreCoefficients(const N : AlglibInteger; var C : TReal1DArray);
 
 implementation
@@ -37,11 +37,11 @@ Parameters:
 Result:
     the value of the Laguerre polynomial Ln at x
 *************************************************************************)
-function LaguerreCalculate(const n : AlglibInteger; const x : Double):Double;
+function LaguerreCalculate(const n : AlglibInteger; const x : AlglibFloat):AlglibFloat;
 var
-    a : Double;
-    b : Double;
-    i : Double;
+    a : AlglibFloat;
+    b : AlglibFloat;
+    i : AlglibFloat;
 begin
     Result := 1;
     a := 1;
@@ -75,10 +75,10 @@ Result:
 *************************************************************************)
 function LaguerreSum(const C : TReal1DArray;
      const n : AlglibInteger;
-     const x : Double):Double;
+     const x : AlglibFloat):AlglibFloat;
 var
-    b1 : Double;
-    b2 : Double;
+    b1 : AlglibFloat;
+    b2 : AlglibFloat;
     i : AlglibInteger;
 begin
     b1 := 0;

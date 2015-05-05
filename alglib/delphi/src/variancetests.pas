@@ -25,15 +25,15 @@ procedure FTest(const X : TReal1DArray;
      N : AlglibInteger;
      const Y : TReal1DArray;
      M : AlglibInteger;
-     var BothTails : Double;
-     var LeftTail : Double;
-     var RightTail : Double);
+     var BothTails : AlglibFloat;
+     var LeftTail : AlglibFloat;
+     var RightTail : AlglibFloat);
 procedure OneSampleVarianceTest(const X : TReal1DArray;
      N : AlglibInteger;
-     Variance : Double;
-     var BothTails : Double;
-     var LeftTail : Double;
-     var RightTail : Double);
+     Variance : AlglibFloat;
+     var BothTails : AlglibFloat;
+     var LeftTail : AlglibFloat;
+     var RightTail : AlglibFloat);
 
 implementation
 
@@ -77,18 +77,18 @@ procedure FTest(const X : TReal1DArray;
      N : AlglibInteger;
      const Y : TReal1DArray;
      M : AlglibInteger;
-     var BothTails : Double;
-     var LeftTail : Double;
-     var RightTail : Double);
+     var BothTails : AlglibFloat;
+     var LeftTail : AlglibFloat;
+     var RightTail : AlglibFloat);
 var
     I : AlglibInteger;
-    XMean : Double;
-    YMean : Double;
-    XVar : Double;
-    YVar : Double;
+    XMean : AlglibFloat;
+    YMean : AlglibFloat;
+    XVar : AlglibFloat;
+    YVar : AlglibFloat;
     DF1 : AlglibInteger;
     DF2 : AlglibInteger;
-    Stat : Double;
+    Stat : AlglibFloat;
 begin
     if (N<=2) or (M<=2) then
     begin
@@ -193,16 +193,16 @@ Output parameters:
 *************************************************************************)
 procedure OneSampleVarianceTest(const X : TReal1DArray;
      N : AlglibInteger;
-     Variance : Double;
-     var BothTails : Double;
-     var LeftTail : Double;
-     var RightTail : Double);
+     Variance : AlglibFloat;
+     var BothTails : AlglibFloat;
+     var LeftTail : AlglibFloat;
+     var RightTail : AlglibFloat);
 var
     I : AlglibInteger;
-    XMean : Double;
-    XVar : Double;
-    S : Double;
-    Stat : Double;
+    XMean : AlglibFloat;
+    XVar : AlglibFloat;
+    S : AlglibFloat;
+    Stat : AlglibFloat;
 begin
     if N<=1 then
     begin

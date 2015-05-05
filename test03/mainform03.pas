@@ -45,7 +45,7 @@ begin
 end;
 
 const
-  CSubLineWidth = 100;
+  CSubLineWidth = 25;
 
 procedure TForm1.FormShow(Sender: TObject);
 var
@@ -60,13 +60,13 @@ begin
   SetLength(lX, 1000);
   try
     for i := Low(lX) to High(lX) do
-      lX[i] := sqr(sin(2 * Pi * 0.01 * i)) * 100;
+      lX[i] := sin(2 * Pi * 0.01 * i) * 0.5 + 0.5;
       // lX[i] := round(sin(2 * Pi * 0.01 * i) * 20);
       //lX[i] := (i mod 50);
     DrawDataOnChart(Chart1, SeriesSrc, lX);
 
-    ConstructMatrixFromLine(lX, CSubLineWidth, 10, lXY);
-    CalcNeuroMatrix(false, 1, CSubLineWidth, 1, lXY, lNetwork);
+    ConstructMatrixFromLine(lX, CSubLineWidth, 1, 50, lXY);
+    CalcNeuroMatrix(false, 3, CSubLineWidth, 1, lXY, lNetwork);
 
     SetLength(lXsub, CSubLineWidth);
     SetLength(lXfiltered, Length(lX));
@@ -84,6 +84,7 @@ begin
     Screen.Cursor := crDefault;
     SetLength(lX, 0);
     SetLength(lXY, 0);
+    MLPFree(lNetwork);
     Winapi.Windows.Beep(500, 1000);
   end;
 end;

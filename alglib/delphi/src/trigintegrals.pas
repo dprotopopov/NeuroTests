@@ -28,18 +28,18 @@ unit trigintegrals;
 interface
 uses Math, Sysutils, Ap;
 
-procedure SineCosineIntegrals(X : Double; var SI : Double; var CI : Double);
-procedure HyperbolicSineCosineIntegrals(X : Double;
-     var Shi : Double;
-     var Chi : Double);
+procedure SineCosineIntegrals(X : AlglibFloat; var SI : AlglibFloat; var CI : AlglibFloat);
+procedure HyperbolicSineCosineIntegrals(X : AlglibFloat;
+     var Shi : AlglibFloat;
+     var Chi : AlglibFloat);
 
 implementation
 
-procedure ChebIterationShiChi(x : Double;
-     c : Double;
-     var b0 : Double;
-     var b1 : Double;
-     var b2 : Double);forward;
+procedure ChebIterationShiChi(x : AlglibFloat;
+     c : AlglibFloat;
+     var b0 : AlglibFloat;
+     var b1 : AlglibFloat;
+     var b2 : AlglibFloat);forward;
 
 
 (*************************************************************************
@@ -81,22 +81,22 @@ arithmetic   function   # trials      peak         rms
 Cephes Math Library Release 2.1:  January, 1989
 Copyright 1984, 1987, 1989 by Stephen L. Moshier
 *************************************************************************)
-procedure SineCosineIntegrals(X : Double; var SI : Double; var CI : Double);
+procedure SineCosineIntegrals(X : AlglibFloat; var SI : AlglibFloat; var CI : AlglibFloat);
 var
-    Z : Double;
-    C : Double;
-    S : Double;
-    F : Double;
-    G : Double;
+    Z : AlglibFloat;
+    C : AlglibFloat;
+    S : AlglibFloat;
+    F : AlglibFloat;
+    G : AlglibFloat;
     Sg : AlglibInteger;
-    SN : Double;
-    SD : Double;
-    CN : Double;
-    CD : Double;
-    FN : Double;
-    FD : Double;
-    GN : Double;
-    GD : Double;
+    SN : AlglibFloat;
+    SD : AlglibFloat;
+    CN : AlglibFloat;
+    CD : AlglibFloat;
+    FN : AlglibFloat;
+    FD : AlglibFloat;
+    GN : AlglibFloat;
+    GD : AlglibFloat;
 begin
     if AP_FP_Less(x,0) then
     begin
@@ -286,19 +286,19 @@ arithmetic   function  # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-procedure HyperbolicSineCosineIntegrals(X : Double;
-     var Shi : Double;
-     var Chi : Double);
+procedure HyperbolicSineCosineIntegrals(X : AlglibFloat;
+     var Shi : AlglibFloat;
+     var Chi : AlglibFloat);
 var
-    k : Double;
-    z : Double;
-    c : Double;
-    s : Double;
-    a : Double;
+    k : AlglibFloat;
+    z : AlglibFloat;
+    c : AlglibFloat;
+    s : AlglibFloat;
+    a : AlglibFloat;
     sg : AlglibInteger;
-    b0 : Double;
-    b1 : Double;
-    b2 : Double;
+    b0 : AlglibFloat;
+    b1 : AlglibFloat;
+    b2 : AlglibFloat;
 begin
     if AP_FP_Less(x,0) then
     begin
@@ -470,11 +470,11 @@ begin
 end;
 
 
-procedure ChebIterationShiChi(x : Double;
-     c : Double;
-     var b0 : Double;
-     var b1 : Double;
-     var b2 : Double);
+procedure ChebIterationShiChi(x : AlglibFloat;
+     c : AlglibFloat;
+     var b0 : AlglibFloat;
+     var b1 : AlglibFloat;
+     var b2 : AlglibFloat);
 begin
     b2 := b1;
     b1 := b0;

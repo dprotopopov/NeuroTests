@@ -46,12 +46,12 @@ not be used outside ALGLIB.
 *************************************************************************)
 LRReport = record
     C : TReal2DArray;
-    RMSError : Double;
-    AvgError : Double;
-    AvgRelError : Double;
-    CVRMSError : Double;
-    CVAvgError : Double;
-    CVAvgRelError : Double;
+    RMSError : AlglibFloat;
+    AvgError : AlglibFloat;
+    AvgRelError : AlglibFloat;
+    CVRMSError : AlglibFloat;
+    CVAvgError : AlglibFloat;
+    CVAvgRelError : AlglibFloat;
     NCVDefects : AlglibInteger;
     CVDefects : TInteger1DArray;
 end;
@@ -90,16 +90,16 @@ procedure LRUnpack(const LM : LinearModel;
 procedure LRPack(const V : TReal1DArray;
      NVars : AlglibInteger;
      var LM : LinearModel);
-function LRProcess(const LM : LinearModel; const X : TReal1DArray):Double;
+function LRProcess(const LM : LinearModel; const X : TReal1DArray):AlglibFloat;
 function LRRMSError(const LM : LinearModel;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):AlglibFloat;
 function LRAvgError(const LM : LinearModel;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):AlglibFloat;
 function LRAvgRelError(const LM : LinearModel;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):AlglibFloat;
 procedure LRCopy(const LM1 : LinearModel; var LM2 : LinearModel);
 procedure LRSerialize(const LM : LinearModel;
      var RA : TReal1DArray;
@@ -109,18 +109,18 @@ procedure LRLineS(const XY : TReal2DArray;
      const S : TReal1DArray;
      N : AlglibInteger;
      var Info : AlglibInteger;
-     var A : Double;
-     var B : Double;
-     var VarA : Double;
-     var VarB : Double;
-     var CovAB : Double;
-     var CorrAB : Double;
-     var P : Double);
+     var A : AlglibFloat;
+     var B : AlglibFloat;
+     var VarA : AlglibFloat;
+     var VarB : AlglibFloat;
+     var CovAB : AlglibFloat;
+     var CorrAB : AlglibFloat;
+     var P : AlglibFloat);
 procedure LRLine(const XY : TReal2DArray;
      N : AlglibInteger;
      var Info : AlglibInteger;
-     var A : Double;
-     var B : Double);
+     var A : AlglibFloat;
+     var B : AlglibFloat);
 
 implementation
 
@@ -181,7 +181,7 @@ procedure LRBuild(const XY : TReal2DArray;
 var
     S : TReal1DArray;
     I : AlglibInteger;
-    Sigma2 : Double;
+    Sigma2 : AlglibFloat;
 begin
     if (NPoints<=NVars+1) or (NVars<1) then
     begin
@@ -254,12 +254,12 @@ var
     Sigmas : TReal1DArray;
     I : AlglibInteger;
     J : AlglibInteger;
-    V : Double;
+    V : AlglibFloat;
     Offs : AlglibInteger;
-    Mean : Double;
-    Variance : Double;
-    Skewness : Double;
-    Kurtosis : Double;
+    Mean : AlglibFloat;
+    Variance : AlglibFloat;
+    Skewness : AlglibFloat;
+    Kurtosis : AlglibFloat;
     i_ : AlglibInteger;
 begin
     
@@ -381,12 +381,12 @@ var
     C : TReal1DArray;
     I : AlglibInteger;
     J : AlglibInteger;
-    V : Double;
+    V : AlglibFloat;
     Offs : AlglibInteger;
-    Mean : Double;
-    Variance : Double;
-    Skewness : Double;
-    Kurtosis : Double;
+    Mean : AlglibFloat;
+    Variance : AlglibFloat;
+    Skewness : AlglibFloat;
+    Kurtosis : AlglibFloat;
     i_ : AlglibInteger;
 begin
     
@@ -506,7 +506,7 @@ procedure LRBuildZ(const XY : TReal2DArray;
 var
     S : TReal1DArray;
     I : AlglibInteger;
-    Sigma2 : Double;
+    Sigma2 : AlglibFloat;
 begin
     if (NPoints<=NVars+1) or (NVars<1) then
     begin
@@ -606,9 +606,9 @@ Result:
   -- ALGLIB --
      Copyright 03.09.2008 by Bochkanov Sergey
 *************************************************************************)
-function LRProcess(const LM : LinearModel; const X : TReal1DArray):Double;
+function LRProcess(const LM : LinearModel; const X : TReal1DArray):AlglibFloat;
 var
-    V : Double;
+    V : AlglibFloat;
     Offs : AlglibInteger;
     NVars : AlglibInteger;
 begin
@@ -636,10 +636,10 @@ RESULT:
 *************************************************************************)
 function LRRMSError(const LM : LinearModel;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):AlglibFloat;
 var
     I : AlglibInteger;
-    V : Double;
+    V : AlglibFloat;
     Offs : AlglibInteger;
     NVars : AlglibInteger;
 begin
@@ -675,10 +675,10 @@ RESULT:
 *************************************************************************)
 function LRAvgError(const LM : LinearModel;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):AlglibFloat;
 var
     I : AlglibInteger;
-    V : Double;
+    V : AlglibFloat;
     Offs : AlglibInteger;
     NVars : AlglibInteger;
 begin
@@ -714,11 +714,11 @@ RESULT:
 *************************************************************************)
 function LRAvgRelError(const LM : LinearModel;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):AlglibFloat;
 var
     I : AlglibInteger;
     K : AlglibInteger;
-    V : Double;
+    V : AlglibFloat;
     Offs : AlglibInteger;
     NVars : AlglibInteger;
 begin
@@ -817,24 +817,24 @@ procedure LRLineS(const XY : TReal2DArray;
      const S : TReal1DArray;
      N : AlglibInteger;
      var Info : AlglibInteger;
-     var A : Double;
-     var B : Double;
-     var VarA : Double;
-     var VarB : Double;
-     var CovAB : Double;
-     var CorrAB : Double;
-     var P : Double);
+     var A : AlglibFloat;
+     var B : AlglibFloat;
+     var VarA : AlglibFloat;
+     var VarB : AlglibFloat;
+     var CovAB : AlglibFloat;
+     var CorrAB : AlglibFloat;
+     var P : AlglibFloat);
 var
     I : AlglibInteger;
-    SS : Double;
-    SX : Double;
-    SXX : Double;
-    SY : Double;
-    STT : Double;
-    E1 : Double;
-    E2 : Double;
-    T : Double;
-    Chi2 : Double;
+    SS : AlglibFloat;
+    SX : AlglibFloat;
+    SXX : AlglibFloat;
+    SY : AlglibFloat;
+    STT : AlglibFloat;
+    E1 : AlglibFloat;
+    E2 : AlglibFloat;
+    T : AlglibFloat;
+    Chi2 : AlglibFloat;
 begin
     if N<2 then
     begin
@@ -932,16 +932,16 @@ end;
 procedure LRLine(const XY : TReal2DArray;
      N : AlglibInteger;
      var Info : AlglibInteger;
-     var A : Double;
-     var B : Double);
+     var A : AlglibFloat;
+     var B : AlglibFloat);
 var
     S : TReal1DArray;
     I : AlglibInteger;
-    VarA : Double;
-    VarB : Double;
-    CovAB : Double;
-    CorrAB : Double;
-    P : Double;
+    VarA : AlglibFloat;
+    VarB : AlglibFloat;
+    CovAB : AlglibFloat;
+    CorrAB : AlglibFloat;
+    P : AlglibFloat;
 begin
     if N<2 then
     begin
@@ -986,9 +986,9 @@ var
     NCV : AlglibInteger;
     NA : AlglibInteger;
     NACV : AlglibInteger;
-    R : Double;
-    P : Double;
-    EpsTol : Double;
+    R : AlglibFloat;
+    P : AlglibFloat;
+    EpsTol : AlglibFloat;
     AR2 : LRReport;
     Offs : AlglibInteger;
     TLM : LinearModel;

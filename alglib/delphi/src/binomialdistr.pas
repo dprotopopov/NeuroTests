@@ -30,13 +30,13 @@ uses Math, Sysutils, Ap, gammafunc, normaldistr, ibetaf, nearunityunit;
 
 function BinomialDistribution(k : AlglibInteger;
      n : AlglibInteger;
-     p : Double):Double;
+     p : AlglibFloat):AlglibFloat;
 function BinomialCDistribution(k : AlglibInteger;
      n : AlglibInteger;
-     p : Double):Double;
+     p : AlglibFloat):AlglibFloat;
 function InvBinomialDistribution(k : AlglibInteger;
      n : AlglibInteger;
-     y : Double):Double;
+     y : AlglibFloat):AlglibFloat;
 
 implementation
 
@@ -73,10 +73,10 @@ Copyright 1984, 1987, 1995, 2000 by Stephen L. Moshier
 *************************************************************************)
 function BinomialDistribution(k : AlglibInteger;
      n : AlglibInteger;
-     p : Double):Double;
+     p : AlglibFloat):AlglibFloat;
 var
-    dk : Double;
-    dn : Double;
+    dk : AlglibFloat;
+    dn : AlglibFloat;
 begin
     Assert(AP_FP_Greater_Eq(p,0) and AP_FP_Less_Eq(p,1), 'Domain error in BinomialDistribution');
     Assert((k>=-1) and (k<=n), 'Domain error in BinomialDistribution');
@@ -139,10 +139,10 @@ Copyright 1984, 1987, 1995, 2000 by Stephen L. Moshier
 *************************************************************************)
 function BinomialCDistribution(k : AlglibInteger;
      n : AlglibInteger;
-     p : Double):Double;
+     p : AlglibFloat):AlglibFloat;
 var
-    dk : Double;
-    dn : Double;
+    dk : AlglibFloat;
+    dn : AlglibFloat;
 begin
     Assert(AP_FP_Greater_Eq(p,0) and AP_FP_Less_Eq(p,1), 'Domain error in BinomialDistributionC');
     Assert((k>=-1) and (k<=n), 'Domain error in BinomialDistributionC');
@@ -207,11 +207,11 @@ Copyright 1984, 1987, 1995, 2000 by Stephen L. Moshier
 *************************************************************************)
 function InvBinomialDistribution(k : AlglibInteger;
      n : AlglibInteger;
-     y : Double):Double;
+     y : AlglibFloat):AlglibFloat;
 var
-    dk : Double;
-    dn : Double;
-    p : Double;
+    dk : AlglibFloat;
+    dn : AlglibFloat;
+    p : AlglibFloat;
 begin
     Assert((k>=0) and (k<n), 'Domain error in InvBinomialDistribution');
     dn := n-k;

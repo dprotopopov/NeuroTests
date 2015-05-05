@@ -23,45 +23,45 @@ uses Math, Sysutils, Ap;
 
 procedure JarqueBeraTest(const X : TReal1DArray;
      N : AlglibInteger;
-     var P : Double);
+     var P : AlglibFloat);
 
 implementation
 
 procedure JarqueBeraStatistic(const X : TReal1DArray;
      N : AlglibInteger;
-     var S : Double);forward;
-function JarqueBeraApprox(N : AlglibInteger; S : Double):Double;forward;
-function JBTbl5(S : Double):Double;forward;
-function JBTbl6(S : Double):Double;forward;
-function JBTbl7(S : Double):Double;forward;
-function JBTbl8(S : Double):Double;forward;
-function JBTbl9(S : Double):Double;forward;
-function JBTbl10(S : Double):Double;forward;
-function JBTbl11(S : Double):Double;forward;
-function JBTbl12(S : Double):Double;forward;
-function JBTbl13(S : Double):Double;forward;
-function JBTbl14(S : Double):Double;forward;
-function JBTbl15(S : Double):Double;forward;
-function JBTbl16(S : Double):Double;forward;
-function JBTbl17(S : Double):Double;forward;
-function JBTbl18(S : Double):Double;forward;
-function JBTbl19(S : Double):Double;forward;
-function JBTbl20(S : Double):Double;forward;
-function JBTbl30(S : Double):Double;forward;
-function JBTbl50(S : Double):Double;forward;
-function JBTbl65(S : Double):Double;forward;
-function JBTbl100(S : Double):Double;forward;
-function JBTbl130(S : Double):Double;forward;
-function JBTbl200(S : Double):Double;forward;
-function JBTbl301(S : Double):Double;forward;
-function JBTbl501(S : Double):Double;forward;
-function JBTbl701(S : Double):Double;forward;
-function JBTbl1401(S : Double):Double;forward;
-procedure JBCheb(X : Double;
-     C : Double;
-     var TJ : Double;
-     var TJ1 : Double;
-     var R : Double);forward;
+     var S : AlglibFloat);forward;
+function JarqueBeraApprox(N : AlglibInteger; S : AlglibFloat):AlglibFloat;forward;
+function JBTbl5(S : AlglibFloat):AlglibFloat;forward;
+function JBTbl6(S : AlglibFloat):AlglibFloat;forward;
+function JBTbl7(S : AlglibFloat):AlglibFloat;forward;
+function JBTbl8(S : AlglibFloat):AlglibFloat;forward;
+function JBTbl9(S : AlglibFloat):AlglibFloat;forward;
+function JBTbl10(S : AlglibFloat):AlglibFloat;forward;
+function JBTbl11(S : AlglibFloat):AlglibFloat;forward;
+function JBTbl12(S : AlglibFloat):AlglibFloat;forward;
+function JBTbl13(S : AlglibFloat):AlglibFloat;forward;
+function JBTbl14(S : AlglibFloat):AlglibFloat;forward;
+function JBTbl15(S : AlglibFloat):AlglibFloat;forward;
+function JBTbl16(S : AlglibFloat):AlglibFloat;forward;
+function JBTbl17(S : AlglibFloat):AlglibFloat;forward;
+function JBTbl18(S : AlglibFloat):AlglibFloat;forward;
+function JBTbl19(S : AlglibFloat):AlglibFloat;forward;
+function JBTbl20(S : AlglibFloat):AlglibFloat;forward;
+function JBTbl30(S : AlglibFloat):AlglibFloat;forward;
+function JBTbl50(S : AlglibFloat):AlglibFloat;forward;
+function JBTbl65(S : AlglibFloat):AlglibFloat;forward;
+function JBTbl100(S : AlglibFloat):AlglibFloat;forward;
+function JBTbl130(S : AlglibFloat):AlglibFloat;forward;
+function JBTbl200(S : AlglibFloat):AlglibFloat;forward;
+function JBTbl301(S : AlglibFloat):AlglibFloat;forward;
+function JBTbl501(S : AlglibFloat):AlglibFloat;forward;
+function JBTbl701(S : AlglibFloat):AlglibFloat;forward;
+function JBTbl1401(S : AlglibFloat):AlglibFloat;forward;
+procedure JBCheb(X : AlglibFloat;
+     C : AlglibFloat;
+     var TJ : AlglibFloat;
+     var TJ1 : AlglibFloat;
+     var R : AlglibFloat);forward;
 
 
 (*************************************************************************
@@ -104,9 +104,9 @@ from table values.
 *************************************************************************)
 procedure JarqueBeraTest(const X : TReal1DArray;
      N : AlglibInteger;
-     var P : Double);
+     var P : AlglibFloat);
 var
-    S : Double;
+    S : AlglibFloat;
 begin
     
     //
@@ -128,17 +128,17 @@ end;
 
 procedure JarqueBeraStatistic(const X : TReal1DArray;
      N : AlglibInteger;
-     var S : Double);
+     var S : AlglibFloat);
 var
     I : AlglibInteger;
-    V : Double;
-    V1 : Double;
-    V2 : Double;
-    StdDev : Double;
-    Mean : Double;
-    Variance : Double;
-    Skewness : Double;
-    Kurtosis : Double;
+    V : AlglibFloat;
+    V1 : AlglibFloat;
+    V2 : AlglibFloat;
+    StdDev : AlglibFloat;
+    Mean : AlglibFloat;
+    Variance : AlglibFloat;
+    Skewness : AlglibFloat;
+    Kurtosis : AlglibFloat;
 begin
     Mean := 0;
     Variance := 0;
@@ -211,21 +211,21 @@ begin
 end;
 
 
-function JarqueBeraApprox(N : AlglibInteger; S : Double):Double;
+function JarqueBeraApprox(N : AlglibInteger; S : AlglibFloat):AlglibFloat;
 var
     VX : TReal1DArray;
     VY : TReal1DArray;
     CTbl : TReal2DArray;
-    T1 : Double;
-    T2 : Double;
-    T3 : Double;
-    T : Double;
-    F1 : Double;
-    F2 : Double;
-    F3 : Double;
-    F12 : Double;
-    F23 : Double;
-    X : Double;
+    T1 : AlglibFloat;
+    T2 : AlglibFloat;
+    T3 : AlglibFloat;
+    T : AlglibFloat;
+    F1 : AlglibFloat;
+    F2 : AlglibFloat;
+    F3 : AlglibFloat;
+    F12 : AlglibFloat;
+    F23 : AlglibFloat;
+    X : AlglibFloat;
 begin
     Result := 1;
     X := S;
@@ -447,11 +447,11 @@ begin
 end;
 
 
-function JBTbl5(S : Double):Double;
+function JBTbl5(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,0.4000) then
@@ -499,11 +499,11 @@ begin
 end;
 
 
-function JBTbl6(S : Double):Double;
+function JBTbl6(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,0.2500) then
@@ -570,11 +570,11 @@ begin
 end;
 
 
-function JBTbl7(S : Double):Double;
+function JBTbl7(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,1.4000) then
@@ -649,11 +649,11 @@ begin
 end;
 
 
-function JBTbl8(S : Double):Double;
+function JBTbl8(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,1.3000) then
@@ -722,11 +722,11 @@ begin
 end;
 
 
-function JBTbl9(S : Double):Double;
+function JBTbl9(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,1.3000) then
@@ -795,11 +795,11 @@ begin
 end;
 
 
-function JBTbl10(S : Double):Double;
+function JBTbl10(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,1.2000) then
@@ -863,11 +863,11 @@ begin
 end;
 
 
-function JBTbl11(S : Double):Double;
+function JBTbl11(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,1.2000) then
@@ -931,11 +931,11 @@ begin
 end;
 
 
-function JBTbl12(S : Double):Double;
+function JBTbl12(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,1.0000) then
@@ -1006,11 +1006,11 @@ begin
 end;
 
 
-function JBTbl13(S : Double):Double;
+function JBTbl13(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,1.0000) then
@@ -1081,11 +1081,11 @@ begin
 end;
 
 
-function JBTbl14(S : Double):Double;
+function JBTbl14(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,1.0000) then
@@ -1156,11 +1156,11 @@ begin
 end;
 
 
-function JBTbl15(S : Double):Double;
+function JBTbl15(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,2.0000) then
@@ -1225,11 +1225,11 @@ begin
 end;
 
 
-function JBTbl16(S : Double):Double;
+function JBTbl16(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,2.0000) then
@@ -1294,11 +1294,11 @@ begin
 end;
 
 
-function JBTbl17(S : Double):Double;
+function JBTbl17(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,3.0000) then
@@ -1367,11 +1367,11 @@ begin
 end;
 
 
-function JBTbl18(S : Double):Double;
+function JBTbl18(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,3.0000) then
@@ -1440,11 +1440,11 @@ begin
 end;
 
 
-function JBTbl19(S : Double):Double;
+function JBTbl19(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,3.0000) then
@@ -1513,11 +1513,11 @@ begin
 end;
 
 
-function JBTbl20(S : Double):Double;
+function JBTbl20(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,4.0000) then
@@ -1592,11 +1592,11 @@ begin
 end;
 
 
-function JBTbl30(S : Double):Double;
+function JBTbl30(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,4.0000) then
@@ -1666,11 +1666,11 @@ begin
 end;
 
 
-function JBTbl50(S : Double):Double;
+function JBTbl50(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,4.0000) then
@@ -1735,11 +1735,11 @@ begin
 end;
 
 
-function JBTbl65(S : Double):Double;
+function JBTbl65(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,4.0000) then
@@ -1800,11 +1800,11 @@ begin
 end;
 
 
-function JBTbl100(S : Double):Double;
+function JBTbl100(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,4.0000) then
@@ -1861,11 +1861,11 @@ begin
 end;
 
 
-function JBTbl130(S : Double):Double;
+function JBTbl130(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,4.0000) then
@@ -1922,11 +1922,11 @@ begin
 end;
 
 
-function JBTbl200(S : Double):Double;
+function JBTbl200(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,4.0000) then
@@ -1983,11 +1983,11 @@ begin
 end;
 
 
-function JBTbl301(S : Double):Double;
+function JBTbl301(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,4.0000) then
@@ -2044,11 +2044,11 @@ begin
 end;
 
 
-function JBTbl501(S : Double):Double;
+function JBTbl501(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,4.0000) then
@@ -2101,11 +2101,11 @@ begin
 end;
 
 
-function JBTbl701(S : Double):Double;
+function JBTbl701(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,4.0000) then
@@ -2158,11 +2158,11 @@ begin
 end;
 
 
-function JBTbl1401(S : Double):Double;
+function JBTbl1401(S : AlglibFloat):AlglibFloat;
 var
-    X : Double;
-    TJ : Double;
-    TJ1 : Double;
+    X : AlglibFloat;
+    TJ : AlglibFloat;
+    TJ1 : AlglibFloat;
 begin
     Result := 0;
     if AP_FP_Less_Eq(S,4.0000) then
@@ -2215,13 +2215,13 @@ begin
 end;
 
 
-procedure JBCheb(X : Double;
-     C : Double;
-     var TJ : Double;
-     var TJ1 : Double;
-     var R : Double);
+procedure JBCheb(X : AlglibFloat;
+     C : AlglibFloat;
+     var TJ : AlglibFloat;
+     var TJ1 : AlglibFloat;
+     var R : AlglibFloat);
 var
-    T : Double;
+    T : AlglibFloat;
 begin
     R := R+C*TJ;
     T := 2*X*TJ1-TJ;

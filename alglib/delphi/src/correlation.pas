@@ -23,10 +23,10 @@ uses Math, Sysutils, Ap;
 
 function PearsonCorrelation(const X : TReal1DArray;
      const Y : TReal1DArray;
-     N : AlglibInteger):Double;
+     N : AlglibInteger):AlglibFloat;
 function SpearmanRankCorrelation(X : TReal1DArray;
      Y : TReal1DArray;
-     N : AlglibInteger):Double;
+     N : AlglibInteger):AlglibFloat;
 
 implementation
 
@@ -49,16 +49,16 @@ Result:
 *************************************************************************)
 function PearsonCorrelation(const X : TReal1DArray;
      const Y : TReal1DArray;
-     N : AlglibInteger):Double;
+     N : AlglibInteger):AlglibFloat;
 var
     I : AlglibInteger;
-    XMean : Double;
-    YMean : Double;
-    S : Double;
-    XV : Double;
-    YV : Double;
-    T1 : Double;
-    T2 : Double;
+    XMean : AlglibFloat;
+    YMean : AlglibFloat;
+    S : AlglibFloat;
+    XV : AlglibFloat;
+    YV : AlglibFloat;
+    T1 : AlglibFloat;
+    T2 : AlglibFloat;
 begin
     XV := 0;
     YV := 0;
@@ -126,7 +126,7 @@ Result:
 *************************************************************************)
 function SpearmanRankCorrelation(X : TReal1DArray;
      Y : TReal1DArray;
-     N : AlglibInteger):Double;
+     N : AlglibInteger):AlglibFloat;
 begin
     X := DynamicArrayCopy(X);
     Y := DynamicArrayCopy(Y);
@@ -145,7 +145,7 @@ var
     J : AlglibInteger;
     K : AlglibInteger;
     T : AlglibInteger;
-    Tmp : Double;
+    Tmp : AlglibFloat;
     TmpI : AlglibInteger;
     R : TReal1DArray;
     C : TInteger1DArray;

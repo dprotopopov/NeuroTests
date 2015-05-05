@@ -31,11 +31,11 @@ Least squares fitting report:
     MaxError        maximum error
 *************************************************************************)
 LSFitReport = record
-    TaskRCond : Double;
-    RMSError : Double;
-    AvgError : Double;
-    AvgRelError : Double;
-    MaxError : Double;
+    TaskRCond : AlglibFloat;
+    RMSError : AlglibFloat;
+    AvgError : AlglibFloat;
+    AvgRelError : AlglibFloat;
+    MaxError : AlglibFloat;
 end;
 
 
@@ -43,10 +43,10 @@ LSFitState = record
     N : AlglibInteger;
     M : AlglibInteger;
     K : AlglibInteger;
-    EpsF : Double;
-    EpsX : Double;
+    EpsF : AlglibFloat;
+    EpsX : AlglibFloat;
     MaxIts : AlglibInteger;
-    StpMax : Double;
+    StpMax : AlglibFloat;
     TaskX : TReal2DArray;
     TaskY : TReal1DArray;
     W : TReal1DArray;
@@ -58,14 +58,14 @@ LSFitState = record
     PointIndex : AlglibInteger;
     X : TReal1DArray;
     C : TReal1DArray;
-    F : Double;
+    F : AlglibFloat;
     G : TReal1DArray;
     H : TReal2DArray;
     RepTerminationType : AlglibInteger;
-    RepRMSError : Double;
-    RepAvgError : Double;
-    RepAvgRelError : Double;
-    RepMaxError : Double;
+    RepRMSError : AlglibFloat;
+    RepAvgError : AlglibFloat;
+    RepAvgRelError : AlglibFloat;
+    RepMaxError : AlglibFloat;
     OptState : MinLMState;
     OptRep : MinLMReport;
     RState : RCommState;
@@ -140,10 +140,10 @@ procedure LSFitNonlinearFGH(const X : TReal2DArray;
      K : AlglibInteger;
      var State : LSFitState);
 procedure LSFitNonlinearSetCond(var State : LSFitState;
-     EpsF : Double;
-     EpsX : Double;
+     EpsF : AlglibFloat;
+     EpsX : AlglibFloat;
      MaxIts : AlglibInteger);
-procedure LSFitNonlinearSetStpMax(var State : LSFitState; StpMax : Double);
+procedure LSFitNonlinearSetStpMax(var State : LSFitState; StpMax : AlglibFloat);
 function LSFitNonlinearIteration(var State : LSFitState):Boolean;
 procedure LSFitNonlinearResults(const State : LSFitState;
      var Info : AlglibInteger;
@@ -156,10 +156,10 @@ procedure LSFitScaleXY(var X : TReal1DArray;
      var YC : TReal1DArray;
      const DC : TInteger1DArray;
      K : AlglibInteger;
-     var XA : Double;
-     var XB : Double;
-     var SA : Double;
-     var SB : Double;
+     var XA : AlglibFloat;
+     var XB : AlglibFloat;
+     var SA : AlglibFloat;
+     var SB : AlglibFloat;
      var XOriginal : TReal1DArray;
      var YOriginal : TReal1DArray);
 
@@ -301,7 +301,7 @@ var
     F2 : TReal2DArray;
     Tmp : TReal1DArray;
     C0 : TReal1DArray;
-    V : Double;
+    V : AlglibFloat;
 begin
     Y := DynamicArrayCopy(Y);
     CMatrix := DynamicArrayCopy(CMatrix);
@@ -754,8 +754,8 @@ stopping criterion selection (according to the scheme used by MINLM unit).
      Copyright 17.08.2009 by Bochkanov Sergey
 *************************************************************************)
 procedure LSFitNonlinearSetCond(var State : LSFitState;
-     EpsF : Double;
-     EpsX : Double;
+     EpsF : AlglibFloat;
+     EpsX : AlglibFloat;
      MaxIts : AlglibInteger);
 begin
     Assert(AP_FP_Greater_Eq(EpsF,0), 'LSFitNonlinearSetCond: negative EpsF!');
@@ -790,7 +790,7 @@ with limits on step size.
   -- ALGLIB --
      Copyright 02.04.2010 by Bochkanov Sergey
 *************************************************************************)
-procedure LSFitNonlinearSetStpMax(var State : LSFitState; StpMax : Double);
+procedure LSFitNonlinearSetStpMax(var State : LSFitState; StpMax : AlglibFloat);
 begin
     Assert(AP_FP_Greater_Eq(StpMax,0), 'LSFitNonlinearSetStpMax: StpMax<0!');
     State.StpMax := StpMax;
@@ -837,8 +837,8 @@ var
     K : AlglibInteger;
     I : AlglibInteger;
     J : AlglibInteger;
-    V : Double;
-    RelCnt : Double;
+    V : AlglibFloat;
+    RelCnt : AlglibFloat;
 label
 lbl_5, lbl_9, lbl_0, lbl_11, lbl_7, lbl_14, lbl_1, lbl_16, lbl_12, lbl_19, lbl_2, lbl_21, lbl_17, lbl_24, lbl_3, lbl_26, lbl_22, lbl_6, lbl_29, lbl_4, lbl_31, lbl_27, lbl_rcomm;
 begin
@@ -1235,15 +1235,15 @@ procedure LSFitScaleXY(var X : TReal1DArray;
      var YC : TReal1DArray;
      const DC : TInteger1DArray;
      K : AlglibInteger;
-     var XA : Double;
-     var XB : Double;
-     var SA : Double;
-     var SB : Double;
+     var XA : AlglibFloat;
+     var XB : AlglibFloat;
+     var SA : AlglibFloat;
+     var SB : AlglibFloat;
      var XOriginal : TReal1DArray;
      var YOriginal : TReal1DArray);
 var
-    XMin : Double;
-    XMax : Double;
+    XMin : AlglibFloat;
+    XMax : AlglibFloat;
     I : AlglibInteger;
 begin
     Assert(N>=1, 'LSFitScaleXY: incorrect N');
@@ -1375,7 +1375,7 @@ procedure LSFitLinearInternal(const Y : TReal1DArray;
      var C : TReal1DArray;
      var Rep : LSFitReport);
 var
-    Threshold : Double;
+    Threshold : AlglibFloat;
     FT : TReal2DArray;
     Q : TReal2DArray;
     L : TReal2DArray;
@@ -1385,7 +1385,7 @@ var
     Tau : TReal1DArray;
     I : AlglibInteger;
     J : AlglibInteger;
-    V : Double;
+    V : AlglibFloat;
     SV : TReal1DArray;
     U : TReal2DArray;
     VT : TReal2DArray;

@@ -29,25 +29,25 @@ uses Math, Sysutils, Ap, ldlt, ssolve, estnorm;
 
 function SMatrixRCond(const A : TReal2DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Double;
+     IsUpper : Boolean):AlglibFloat;
 function SMatrixLDLTRCond(const L : TReal2DArray;
      const Pivots : TInteger1DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Double;
+     IsUpper : Boolean):AlglibFloat;
 function RCondSymmetric(A : TReal2DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Double;
+     IsUpper : Boolean):AlglibFloat;
 function RCondLDLT(const L : TReal2DArray;
      const Pivots : TInteger1DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Double;
+     IsUpper : Boolean):AlglibFloat;
 procedure InternalLDLTRCond(const L : TReal2DArray;
      const Pivots : TInteger1DArray;
      N : AlglibInteger;
      IsUpper : Boolean;
      IsNormProvided : Boolean;
-     ANORM : Double;
-     var RCOND : Double);
+     ANORM : AlglibFloat;
+     var RCOND : AlglibFloat);
 
 implementation
 
@@ -74,7 +74,7 @@ Result:
 *************************************************************************)
 function SMatrixRCond(const A : TReal2DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Double;
+     IsUpper : Boolean):AlglibFloat;
 var
     I : AlglibInteger;
     J : AlglibInteger;
@@ -134,7 +134,7 @@ Result:
 function SMatrixLDLTRCond(const L : TReal2DArray;
      const Pivots : TInteger1DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Double;
+     IsUpper : Boolean):AlglibFloat;
 var
     I : AlglibInteger;
     J : AlglibInteger;
@@ -185,14 +185,14 @@ end;
 
 function RCondSymmetric(A : TReal2DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Double;
+     IsUpper : Boolean):AlglibFloat;
 var
     I : AlglibInteger;
     J : AlglibInteger;
     IM : AlglibInteger;
     JM : AlglibInteger;
-    V : Double;
-    Nrm : Double;
+    V : AlglibFloat;
+    Nrm : AlglibFloat;
     Pivots : TInteger1DArray;
 begin
     A := DynamicArrayCopy(A);
@@ -231,9 +231,9 @@ end;
 function RCondLDLT(const L : TReal2DArray;
      const Pivots : TInteger1DArray;
      N : AlglibInteger;
-     IsUpper : Boolean):Double;
+     IsUpper : Boolean):AlglibFloat;
 var
-    V : Double;
+    V : AlglibFloat;
 begin
     InternalLDLTRCond(L, Pivots, N, IsUpper, False, 0, V);
     Result := V;
@@ -245,8 +245,8 @@ procedure InternalLDLTRCond(const L : TReal2DArray;
      N : AlglibInteger;
      IsUpper : Boolean;
      IsNormProvided : Boolean;
-     ANORM : Double;
-     var RCOND : Double);
+     ANORM : AlglibFloat;
+     var RCOND : AlglibFloat);
 var
     I : AlglibInteger;
     KASE : AlglibInteger;
@@ -255,12 +255,12 @@ var
     KM2 : AlglibInteger;
     KP1 : AlglibInteger;
     KP2 : AlglibInteger;
-    AINVNM : Double;
+    AINVNM : AlglibFloat;
     WORK0 : TReal1DArray;
     WORK1 : TReal1DArray;
     WORK2 : TReal1DArray;
     IWORK : TInteger1DArray;
-    V : Double;
+    V : AlglibFloat;
     i_ : AlglibInteger;
 begin
     Assert(N>=0);

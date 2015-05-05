@@ -52,39 +52,39 @@ procedure MLPCreate2(NIn : AlglibInteger;
      var Network : MultiLayerPerceptron);
 procedure MLPCreateB0(NIn : AlglibInteger;
      NOut : AlglibInteger;
-     B : Double;
-     D : Double;
+     B : AlglibFloat;
+     D : AlglibFloat;
      var Network : MultiLayerPerceptron);
 procedure MLPCreateB1(NIn : AlglibInteger;
      NHid : AlglibInteger;
      NOut : AlglibInteger;
-     B : Double;
-     D : Double;
+     B : AlglibFloat;
+     D : AlglibFloat;
      var Network : MultiLayerPerceptron);
 procedure MLPCreateB2(NIn : AlglibInteger;
      NHid1 : AlglibInteger;
      NHid2 : AlglibInteger;
      NOut : AlglibInteger;
-     B : Double;
-     D : Double;
+     B : AlglibFloat;
+     D : AlglibFloat;
      var Network : MultiLayerPerceptron);
 procedure MLPCreateR0(NIn : AlglibInteger;
      NOut : AlglibInteger;
-     A : Double;
-     B : Double;
+     A : AlglibFloat;
+     B : AlglibFloat;
      var Network : MultiLayerPerceptron);
 procedure MLPCreateR1(NIn : AlglibInteger;
      NHid : AlglibInteger;
      NOut : AlglibInteger;
-     A : Double;
-     B : Double;
+     A : AlglibFloat;
+     B : AlglibFloat;
      var Network : MultiLayerPerceptron);
 procedure MLPCreateR2(NIn : AlglibInteger;
      NHid1 : AlglibInteger;
      NHid2 : AlglibInteger;
      NOut : AlglibInteger;
-     A : Double;
-     B : Double;
+     A : AlglibFloat;
+     B : AlglibFloat;
      var Network : MultiLayerPerceptron);
 procedure MLPCreateC0(NIn : AlglibInteger;
      NOut : AlglibInteger;
@@ -98,6 +98,7 @@ procedure MLPCreateC2(NIn : AlglibInteger;
      NHid2 : AlglibInteger;
      NOut : AlglibInteger;
      var Network : MultiLayerPerceptron);
+procedure MLPFree(var Network : MultiLayerPerceptron);
 procedure MLPCopy(const Network1 : MultiLayerPerceptron;
      var Network2 : MultiLayerPerceptron);
 procedure MLPSerialize(const Network : MultiLayerPerceptron;
@@ -120,58 +121,58 @@ procedure MLPProcess(var Network : MultiLayerPerceptron;
      var Y : TReal1DArray);
 function MLPError(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     SSize : AlglibInteger):Double;
+     SSize : AlglibInteger):AlglibFloat;
 function MLPErrorN(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     SSize : AlglibInteger):Double;
+     SSize : AlglibInteger):AlglibFloat;
 function MLPClsError(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      SSize : AlglibInteger):AlglibInteger;
 function MLPRelClsError(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):AlglibFloat;
 function MLPAvgCE(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):AlglibFloat;
 function MLPRMSError(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):AlglibFloat;
 function MLPAvgError(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):AlglibFloat;
 function MLPAvgRelError(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):AlglibFloat;
 procedure MLPGrad(var Network : MultiLayerPerceptron;
      const X : TReal1DArray;
      const DesiredY : TReal1DArray;
-     var E : Double;
+     var E : AlglibFloat;
      var Grad : TReal1DArray);
 procedure MLPGradN(var Network : MultiLayerPerceptron;
      const X : TReal1DArray;
      const DesiredY : TReal1DArray;
-     var E : Double;
+     var E : AlglibFloat;
      var Grad : TReal1DArray);
 procedure MLPGradBatch(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      SSize : AlglibInteger;
-     var E : Double;
+     var E : AlglibFloat;
      var Grad : TReal1DArray);
 procedure MLPGradNBatch(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      SSize : AlglibInteger;
-     var E : Double;
+     var E : AlglibFloat;
      var Grad : TReal1DArray);
 procedure MLPHessianNBatch(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      SSize : AlglibInteger;
-     var E : Double;
+     var E : AlglibFloat;
      var Grad : TReal1DArray;
      var H : TReal2DArray);
 procedure MLPHessianBatch(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      SSize : AlglibInteger;
-     var E : Double;
+     var E : AlglibFloat;
      var Grad : TReal1DArray;
      var H : TReal2DArray);
 procedure MLPInternalProcessVector(const StructInfo : TInteger1DArray;
@@ -222,16 +223,16 @@ procedure MLPCreate(NIn : AlglibInteger;
      LayersCount : AlglibInteger;
      IsClsNet : Boolean;
      var Network : MultiLayerPerceptron);forward;
-procedure MLPActivationFunction(NET : Double;
+procedure MLPActivationFunction(NET : AlglibFloat;
      K : AlglibInteger;
-     var F : Double;
-     var DF : Double;
-     var D2F : Double);forward;
+     var F : AlglibFloat;
+     var DF : AlglibFloat;
+     var D2F : AlglibFloat);forward;
 procedure MLPHessianBatchInternal(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      SSize : AlglibInteger;
      NaturalErr : Boolean;
-     var E : Double;
+     var E : AlglibFloat;
      var Grad : TReal1DArray;
      var H : TReal2DArray);forward;
 procedure MLPInternalCalculateGradient(var Network : MultiLayerPerceptron;
@@ -244,10 +245,10 @@ procedure MLPChunkedGradient(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      CStart : AlglibInteger;
      CSize : AlglibInteger;
-     var E : Double;
+     var E : AlglibFloat;
      var Grad : TReal1DArray;
      NaturalErrorFunc : Boolean);forward;
-function SafeCrossEntropy(T : Double; Z : Double):Double;forward;
+function SafeCrossEntropy(T : AlglibFloat; Z : AlglibFloat):AlglibFloat;forward;
 
 
 (*************************************************************************
@@ -403,8 +404,8 @@ or
 *************************************************************************)
 procedure MLPCreateB0(NIn : AlglibInteger;
      NOut : AlglibInteger;
-     B : Double;
-     D : Double;
+     B : AlglibFloat;
+     D : AlglibFloat;
      var Network : MultiLayerPerceptron);
 var
     LSizes : TInteger1DArray;
@@ -467,8 +468,8 @@ Same as MLPCreateB0 but with non-linear hidden layer.
 procedure MLPCreateB1(NIn : AlglibInteger;
      NHid : AlglibInteger;
      NOut : AlglibInteger;
-     B : Double;
-     D : Double;
+     B : AlglibFloat;
+     D : AlglibFloat;
      var Network : MultiLayerPerceptron);
 var
     LSizes : TInteger1DArray;
@@ -534,8 +535,8 @@ procedure MLPCreateB2(NIn : AlglibInteger;
      NHid1 : AlglibInteger;
      NHid2 : AlglibInteger;
      NOut : AlglibInteger;
-     B : Double;
-     D : Double;
+     B : AlglibFloat;
+     D : AlglibFloat;
      var Network : MultiLayerPerceptron);
 var
     LSizes : TInteger1DArray;
@@ -603,8 +604,8 @@ random values. Activation function of the output layer takes values [A,B].
 *************************************************************************)
 procedure MLPCreateR0(NIn : AlglibInteger;
      NOut : AlglibInteger;
-     A : Double;
-     B : Double;
+     A : AlglibFloat;
+     B : AlglibFloat;
      var Network : MultiLayerPerceptron);
 var
     LSizes : TInteger1DArray;
@@ -659,8 +660,8 @@ Same as MLPCreateR0, but with non-linear hidden layer.
 procedure MLPCreateR1(NIn : AlglibInteger;
      NHid : AlglibInteger;
      NOut : AlglibInteger;
-     A : Double;
-     B : Double;
+     A : AlglibFloat;
+     B : AlglibFloat;
      var Network : MultiLayerPerceptron);
 var
     LSizes : TInteger1DArray;
@@ -718,8 +719,8 @@ procedure MLPCreateR2(NIn : AlglibInteger;
      NHid1 : AlglibInteger;
      NHid2 : AlglibInteger;
      NOut : AlglibInteger;
-     A : Double;
-     B : Double;
+     A : AlglibFloat;
+     B : AlglibFloat;
      var Network : MultiLayerPerceptron);
 var
     LSizes : TInteger1DArray;
@@ -906,6 +907,21 @@ begin
     MLPCreate(NIn, NOut, LSizes, LTypes, LConnFirst, LConnLast, LayersCount, True, Network);
 end;
 
+
+procedure MLPFree(var Network : MultiLayerPerceptron);
+begin
+  SetLength(Network.StructInfo, 0);
+  SetLength(Network.Weights, 0);
+  SetLength(Network.ColumnMeans, 0);
+  SetLength(Network.ColumnSigmas, 0);
+  SetLength(Network.Neurons, 0);
+  SetLength(Network.DFDNET, 0);
+  SetLength(Network.DError, 0);
+  SetLength(Network.X, 0);
+  SetLength(Network.Y, 0);
+  SetLength(Network.Chunks, 0);
+  SetLength(Network.NWBuf, 0);
+end;
 
 (*************************************************************************
 Copying of neural network
@@ -1263,7 +1279,7 @@ var
     NType : AlglibInteger;
     Means : TReal1DArray;
     Sigmas : TReal1DArray;
-    S : Double;
+    S : AlglibFloat;
 begin
     MLPProperties(Network, NIn, NOut, WCount);
     NTotal := Network.StructInfo[3];
@@ -1432,14 +1448,14 @@ Error function for neural network, internal subroutine.
 *************************************************************************)
 function MLPError(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     SSize : AlglibInteger):Double;
+     SSize : AlglibInteger):AlglibFloat;
 var
     I : AlglibInteger;
     K : AlglibInteger;
     NIn : AlglibInteger;
     NOut : AlglibInteger;
     WCount : AlglibInteger;
-    E : Double;
+    E : AlglibFloat;
 begin
     MLPProperties(Network, NIn, NOut, WCount);
     Result := 0;
@@ -1483,14 +1499,14 @@ Natural error function for neural network, internal subroutine.
 *************************************************************************)
 function MLPErrorN(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     SSize : AlglibInteger):Double;
+     SSize : AlglibInteger):AlglibFloat;
 var
     I : AlglibInteger;
     K : AlglibInteger;
     NIn : AlglibInteger;
     NOut : AlglibInteger;
     WCount : AlglibInteger;
-    E : Double;
+    E : AlglibFloat;
 begin
     MLPProperties(Network, NIn, NOut, WCount);
     Result := 0;
@@ -1636,7 +1652,7 @@ RESULT:
 *************************************************************************)
 function MLPRelClsError(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):AlglibFloat;
 begin
     Result := AP_Double(MLPClsError(Network, XY, NPoints))/NPoints;
 end;
@@ -1659,7 +1675,7 @@ RESULT:
 *************************************************************************)
 function MLPAvgCE(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):AlglibFloat;
 var
     NIn : AlglibInteger;
     NOut : AlglibInteger;
@@ -1696,7 +1712,7 @@ RESULT:
 *************************************************************************)
 function MLPRMSError(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):AlglibFloat;
 var
     NIn : AlglibInteger;
     NOut : AlglibInteger;
@@ -1725,7 +1741,7 @@ RESULT:
 *************************************************************************)
 function MLPAvgError(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):AlglibFloat;
 var
     I : AlglibInteger;
     J : AlglibInteger;
@@ -1799,7 +1815,7 @@ RESULT:
 *************************************************************************)
 function MLPAvgRelError(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
-     NPoints : AlglibInteger):Double;
+     NPoints : AlglibInteger):AlglibFloat;
 var
     I : AlglibInteger;
     J : AlglibInteger;
@@ -1870,7 +1886,7 @@ Gradient calculation. Internal subroutine.
 procedure MLPGrad(var Network : MultiLayerPerceptron;
      const X : TReal1DArray;
      const DesiredY : TReal1DArray;
-     var E : Double;
+     var E : AlglibFloat;
      var Grad : TReal1DArray);
 var
     I : AlglibInteger;
@@ -1915,10 +1931,10 @@ Gradient calculation (natural error function). Internal subroutine.
 procedure MLPGradN(var Network : MultiLayerPerceptron;
      const X : TReal1DArray;
      const DesiredY : TReal1DArray;
-     var E : Double;
+     var E : AlglibFloat;
      var Grad : TReal1DArray);
 var
-    S : Double;
+    S : AlglibFloat;
     I : AlglibInteger;
     NOut : AlglibInteger;
     NTotal : AlglibInteger;
@@ -1989,7 +2005,7 @@ Batch gradient calculation. Internal subroutine.
 procedure MLPGradBatch(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      SSize : AlglibInteger;
-     var E : Double;
+     var E : AlglibFloat;
      var Grad : TReal1DArray);
 var
     I : AlglibInteger;
@@ -2023,7 +2039,7 @@ Batch gradient calculation (natural error function). Internal subroutine.
 procedure MLPGradNBatch(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      SSize : AlglibInteger;
-     var E : Double;
+     var E : AlglibFloat;
      var Grad : TReal1DArray);
 var
     I : AlglibInteger;
@@ -2063,7 +2079,7 @@ Internal subroutine.
 procedure MLPHessianNBatch(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      SSize : AlglibInteger;
-     var E : Double;
+     var E : AlglibFloat;
      var Grad : TReal1DArray;
      var H : TReal2DArray);
 begin
@@ -2086,7 +2102,7 @@ Internal subroutine.
 procedure MLPHessianBatch(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      SSize : AlglibInteger;
-     var E : Double;
+     var E : AlglibFloat;
      var Grad : TReal1DArray;
      var H : TReal2DArray);
 begin
@@ -2116,11 +2132,11 @@ var
     NOut : AlglibInteger;
     IStart : AlglibInteger;
     Offs : AlglibInteger;
-    NET : Double;
-    F : Double;
-    DF : Double;
-    D2F : Double;
-    MX : Double;
+    NET : AlglibFloat;
+    F : AlglibFloat;
+    DF : AlglibFloat;
+    D2F : AlglibFloat;
+    MX : AlglibFloat;
     PErr : Boolean;
 begin
     
@@ -2561,16 +2577,16 @@ Internal subroutine
   -- ALGLIB --
      Copyright 04.11.2007 by Bochkanov Sergey
 *************************************************************************)
-procedure MLPActivationFunction(NET : Double;
+procedure MLPActivationFunction(NET : AlglibFloat;
      K : AlglibInteger;
-     var F : Double;
-     var DF : Double;
-     var D2F : Double);
+     var F : AlglibFloat;
+     var DF : AlglibFloat;
+     var D2F : AlglibFloat);
 var
-    NET2 : Double;
-    ARG : Double;
-    ROOT : Double;
-    R : Double;
+    NET2 : AlglibFloat;
+    ARG : AlglibFloat;
+    ROOT : AlglibFloat;
+    R : AlglibFloat;
 begin
     F := 0;
     DF := 0;
@@ -2635,7 +2651,7 @@ procedure MLPHessianBatchInternal(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      SSize : AlglibInteger;
      NaturalErr : Boolean;
-     var E : Double;
+     var E : AlglibFloat;
      var Grad : TReal1DArray;
      var H : TReal2DArray);
 var
@@ -2653,21 +2669,21 @@ var
     N2 : AlglibInteger;
     W1 : AlglibInteger;
     W2 : AlglibInteger;
-    S : Double;
-    T : Double;
-    V : Double;
-    ET : Double;
+    S : AlglibFloat;
+    T : AlglibFloat;
+    V : AlglibFloat;
+    ET : AlglibFloat;
     BFlag : Boolean;
-    F : Double;
-    DF : Double;
-    D2F : Double;
-    dEIdYJ : Double;
-    MX : Double;
-    Q : Double;
-    Z : Double;
-    S2 : Double;
-    ExpI : Double;
-    ExpJ : Double;
+    F : AlglibFloat;
+    DF : AlglibFloat;
+    D2F : AlglibFloat;
+    dEIdYJ : AlglibFloat;
+    MX : AlglibFloat;
+    Q : AlglibFloat;
+    Z : AlglibFloat;
+    S2 : AlglibFloat;
+    ExpI : AlglibFloat;
+    ExpJ : AlglibFloat;
     X : TReal1DArray;
     DesiredY : TReal1DArray;
     GT : TReal1DArray;
@@ -3142,13 +3158,13 @@ var
     NIn : AlglibInteger;
     NOut : AlglibInteger;
     Offs : AlglibInteger;
-    dEdF : Double;
-    dFdNET : Double;
-    V : Double;
-    FOwn : Double;
-    DEOwn : Double;
-    NET : Double;
-    MX : Double;
+    dEdF : AlglibFloat;
+    dFdNET : AlglibFloat;
+    V : AlglibFloat;
+    FOwn : AlglibFloat;
+    DEOwn : AlglibFloat;
+    NET : AlglibFloat;
+    MX : AlglibFloat;
     BFlag : Boolean;
 begin
     
@@ -3281,7 +3297,7 @@ procedure MLPChunkedGradient(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
      CStart : AlglibInteger;
      CSize : AlglibInteger;
-     var E : Double;
+     var E : AlglibFloat;
      var Grad : TReal1DArray;
      NaturalErrorFunc : Boolean);
 var
@@ -3299,16 +3315,16 @@ var
     NIn : AlglibInteger;
     NOut : AlglibInteger;
     Offs : AlglibInteger;
-    F : Double;
-    DF : Double;
-    D2F : Double;
-    V : Double;
-    S : Double;
-    FOwn : Double;
-    DEOwn : Double;
-    NET : Double;
-    LnNET : Double;
-    MX : Double;
+    F : AlglibFloat;
+    DF : AlglibFloat;
+    D2F : AlglibFloat;
+    V : AlglibFloat;
+    S : AlglibFloat;
+    FOwn : AlglibFloat;
+    DEOwn : AlglibFloat;
+    NET : AlglibFloat;
+    LnNET : AlglibFloat;
+    MX : AlglibFloat;
     BFlag : Boolean;
     IStart : AlglibInteger;
     INeurons : AlglibInteger;
@@ -3656,9 +3672,9 @@ end;
 Returns T*Ln(T/Z), guarded against overflow/underflow.
 Internal subroutine.
 *************************************************************************)
-function SafeCrossEntropy(T : Double; Z : Double):Double;
+function SafeCrossEntropy(T : AlglibFloat; Z : AlglibFloat):AlglibFloat;
 var
-    R : Double;
+    R : AlglibFloat;
 begin
     if AP_FP_Eq(T,0) then
     begin

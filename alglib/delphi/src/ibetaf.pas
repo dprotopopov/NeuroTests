@@ -28,25 +28,25 @@ unit ibetaf;
 interface
 uses Math, Sysutils, Ap, gammafunc, normaldistr;
 
-function IncompleteBeta(a : Double; b : Double; x : Double):Double;
-function InvIncompleteBeta(a : Double; b : Double; y : Double):Double;
+function IncompleteBeta(a : AlglibFloat; b : AlglibFloat; x : AlglibFloat):AlglibFloat;
+function InvIncompleteBeta(a : AlglibFloat; b : AlglibFloat; y : AlglibFloat):AlglibFloat;
 
 implementation
 
-function IncompleteBetaFE(a : Double;
-     b : Double;
-     x : Double;
-     big : Double;
-     biginv : Double):Double;forward;
-function IncompleteBetaFE2(a : Double;
-     b : Double;
-     x : Double;
-     big : Double;
-     biginv : Double):Double;forward;
-function IncompleteBetaPS(a : Double;
-     b : Double;
-     x : Double;
-     MAXGAM : Double):Double;forward;
+function IncompleteBetaFE(a : AlglibFloat;
+     b : AlglibFloat;
+     x : AlglibFloat;
+     big : AlglibFloat;
+     biginv : AlglibFloat):AlglibFloat;forward;
+function IncompleteBetaFE2(a : AlglibFloat;
+     b : AlglibFloat;
+     x : AlglibFloat;
+     big : AlglibFloat;
+     biginv : AlglibFloat):AlglibFloat;forward;
+function IncompleteBetaPS(a : AlglibFloat;
+     b : AlglibFloat;
+     x : AlglibFloat;
+     MAXGAM : AlglibFloat):AlglibFloat;forward;
 
 
 (*************************************************************************
@@ -90,19 +90,19 @@ were excluded from these statistics.
 Cephes Math Library, Release 2.8:  June, 2000
 Copyright 1984, 1995, 2000 by Stephen L. Moshier
 *************************************************************************)
-function IncompleteBeta(a : Double; b : Double; x : Double):Double;
+function IncompleteBeta(a : AlglibFloat; b : AlglibFloat; x : AlglibFloat):AlglibFloat;
 var
-    t : Double;
-    xc : Double;
-    w : Double;
-    y : Double;
+    t : AlglibFloat;
+    xc : AlglibFloat;
+    w : AlglibFloat;
+    y : AlglibFloat;
     flag : AlglibInteger;
-    sg : Double;
-    big : Double;
-    biginv : Double;
-    MAXGAM : Double;
-    MINLOG : Double;
-    MAXLOG : Double;
+    sg : AlglibFloat;
+    big : AlglibFloat;
+    biginv : AlglibFloat;
+    MAXGAM : AlglibFloat;
+    MINLOG : AlglibFloat;
+    MAXLOG : AlglibFloat;
 begin
     big := 4.503599627370496e15;
     biginv := 2.22044604925031308085e-16;
@@ -242,28 +242,28 @@ With a = .5, b constrained to half-integer or integer values:
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1996, 2000 by Stephen L. Moshier
 *************************************************************************)
-function InvIncompleteBeta(a : Double; b : Double; y : Double):Double;
+function InvIncompleteBeta(a : AlglibFloat; b : AlglibFloat; y : AlglibFloat):AlglibFloat;
 var
-    aaa : Double;
-    bbb : Double;
-    y0 : Double;
-    d : Double;
-    yyy : Double;
-    x : Double;
-    x0 : Double;
-    x1 : Double;
-    lgm : Double;
-    yp : Double;
-    di : Double;
-    dithresh : Double;
-    yl : Double;
-    yh : Double;
-    xt : Double;
+    aaa : AlglibFloat;
+    bbb : AlglibFloat;
+    y0 : AlglibFloat;
+    d : AlglibFloat;
+    yyy : AlglibFloat;
+    x : AlglibFloat;
+    x0 : AlglibFloat;
+    x1 : AlglibFloat;
+    lgm : AlglibFloat;
+    yp : AlglibFloat;
+    di : AlglibFloat;
+    dithresh : AlglibFloat;
+    yl : AlglibFloat;
+    yh : AlglibFloat;
+    xt : AlglibFloat;
     i : AlglibInteger;
     rflg : AlglibInteger;
     dir : AlglibInteger;
     nflg : AlglibInteger;
-    s : Double;
+    s : AlglibFloat;
     MainLoopPos : AlglibInteger;
     ihalve : AlglibInteger;
     ihalvecycle : AlglibInteger;
@@ -666,31 +666,31 @@ Continued fraction expansion #1 for incomplete beta integral
 Cephes Math Library, Release 2.8:  June, 2000
 Copyright 1984, 1995, 2000 by Stephen L. Moshier
 *************************************************************************)
-function IncompleteBetaFE(a : Double;
-     b : Double;
-     x : Double;
-     big : Double;
-     biginv : Double):Double;
+function IncompleteBetaFE(a : AlglibFloat;
+     b : AlglibFloat;
+     x : AlglibFloat;
+     big : AlglibFloat;
+     biginv : AlglibFloat):AlglibFloat;
 var
-    xk : Double;
-    pk : Double;
-    pkm1 : Double;
-    pkm2 : Double;
-    qk : Double;
-    qkm1 : Double;
-    qkm2 : Double;
-    k1 : Double;
-    k2 : Double;
-    k3 : Double;
-    k4 : Double;
-    k5 : Double;
-    k6 : Double;
-    k7 : Double;
-    k8 : Double;
-    r : Double;
-    t : Double;
-    ans : Double;
-    thresh : Double;
+    xk : AlglibFloat;
+    pk : AlglibFloat;
+    pkm1 : AlglibFloat;
+    pkm2 : AlglibFloat;
+    qk : AlglibFloat;
+    qkm1 : AlglibFloat;
+    qkm2 : AlglibFloat;
+    k1 : AlglibFloat;
+    k2 : AlglibFloat;
+    k3 : AlglibFloat;
+    k4 : AlglibFloat;
+    k5 : AlglibFloat;
+    k6 : AlglibFloat;
+    k7 : AlglibFloat;
+    k8 : AlglibFloat;
+    r : AlglibFloat;
+    t : AlglibFloat;
+    ans : AlglibFloat;
+    thresh : AlglibFloat;
     n : AlglibInteger;
 begin
     k1 := a;
@@ -776,32 +776,32 @@ for incomplete beta integral
 Cephes Math Library, Release 2.8:  June, 2000
 Copyright 1984, 1995, 2000 by Stephen L. Moshier
 *************************************************************************)
-function IncompleteBetaFE2(a : Double;
-     b : Double;
-     x : Double;
-     big : Double;
-     biginv : Double):Double;
+function IncompleteBetaFE2(a : AlglibFloat;
+     b : AlglibFloat;
+     x : AlglibFloat;
+     big : AlglibFloat;
+     biginv : AlglibFloat):AlglibFloat;
 var
-    xk : Double;
-    pk : Double;
-    pkm1 : Double;
-    pkm2 : Double;
-    qk : Double;
-    qkm1 : Double;
-    qkm2 : Double;
-    k1 : Double;
-    k2 : Double;
-    k3 : Double;
-    k4 : Double;
-    k5 : Double;
-    k6 : Double;
-    k7 : Double;
-    k8 : Double;
-    r : Double;
-    t : Double;
-    ans : Double;
-    z : Double;
-    thresh : Double;
+    xk : AlglibFloat;
+    pk : AlglibFloat;
+    pkm1 : AlglibFloat;
+    pkm2 : AlglibFloat;
+    qk : AlglibFloat;
+    qkm1 : AlglibFloat;
+    qkm2 : AlglibFloat;
+    k1 : AlglibFloat;
+    k2 : AlglibFloat;
+    k3 : AlglibFloat;
+    k4 : AlglibFloat;
+    k5 : AlglibFloat;
+    k6 : AlglibFloat;
+    k7 : AlglibFloat;
+    k8 : AlglibFloat;
+    r : AlglibFloat;
+    t : AlglibFloat;
+    ans : AlglibFloat;
+    z : AlglibFloat;
+    thresh : AlglibFloat;
     n : AlglibInteger;
 begin
     k1 := a;
@@ -888,20 +888,20 @@ Use when b*x is small and x not too close to 1.
 Cephes Math Library, Release 2.8:  June, 2000
 Copyright 1984, 1995, 2000 by Stephen L. Moshier
 *************************************************************************)
-function IncompleteBetaPS(a : Double;
-     b : Double;
-     x : Double;
-     MAXGAM : Double):Double;
+function IncompleteBetaPS(a : AlglibFloat;
+     b : AlglibFloat;
+     x : AlglibFloat;
+     MAXGAM : AlglibFloat):AlglibFloat;
 var
-    s : Double;
-    t : Double;
-    u : Double;
-    v : Double;
-    n : Double;
-    t1 : Double;
-    z : Double;
-    ai : Double;
-    sg : Double;
+    s : AlglibFloat;
+    t : AlglibFloat;
+    u : AlglibFloat;
+    v : AlglibFloat;
+    n : AlglibFloat;
+    t1 : AlglibFloat;
+    z : AlglibFloat;
+    ai : AlglibFloat;
+    sg : AlglibFloat;
 begin
     ai := 1.0/a;
     u := (1.0-b)*x;

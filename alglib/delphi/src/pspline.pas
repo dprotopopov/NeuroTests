@@ -81,62 +81,62 @@ procedure PSpline3ParameterValues(const P : PSpline3Interpolant;
      var N : AlglibInteger;
      var T : TReal1DArray);
 procedure PSpline2Calc(const P : PSpline2Interpolant;
-     T : Double;
-     var X : Double;
-     var Y : Double);
+     T : AlglibFloat;
+     var X : AlglibFloat;
+     var Y : AlglibFloat);
 procedure PSpline3Calc(const P : PSpline3Interpolant;
-     T : Double;
-     var X : Double;
-     var Y : Double;
-     var Z : Double);
+     T : AlglibFloat;
+     var X : AlglibFloat;
+     var Y : AlglibFloat;
+     var Z : AlglibFloat);
 procedure PSpline2Tangent(const P : PSpline2Interpolant;
-     T : Double;
-     var X : Double;
-     var Y : Double);
+     T : AlglibFloat;
+     var X : AlglibFloat;
+     var Y : AlglibFloat);
 procedure PSpline3Tangent(const P : PSpline3Interpolant;
-     T : Double;
-     var X : Double;
-     var Y : Double;
-     var Z : Double);
+     T : AlglibFloat;
+     var X : AlglibFloat;
+     var Y : AlglibFloat;
+     var Z : AlglibFloat);
 procedure PSpline2Diff(const P : PSpline2Interpolant;
-     T : Double;
-     var X : Double;
-     var DX : Double;
-     var Y : Double;
-     var DY : Double);
+     T : AlglibFloat;
+     var X : AlglibFloat;
+     var DX : AlglibFloat;
+     var Y : AlglibFloat;
+     var DY : AlglibFloat);
 procedure PSpline3Diff(const P : PSpline3Interpolant;
-     T : Double;
-     var X : Double;
-     var DX : Double;
-     var Y : Double;
-     var DY : Double;
-     var Z : Double;
-     var DZ : Double);
+     T : AlglibFloat;
+     var X : AlglibFloat;
+     var DX : AlglibFloat;
+     var Y : AlglibFloat;
+     var DY : AlglibFloat;
+     var Z : AlglibFloat;
+     var DZ : AlglibFloat);
 procedure PSpline2Diff2(const P : PSpline2Interpolant;
-     T : Double;
-     var X : Double;
-     var DX : Double;
-     var D2X : Double;
-     var Y : Double;
-     var DY : Double;
-     var D2Y : Double);
+     T : AlglibFloat;
+     var X : AlglibFloat;
+     var DX : AlglibFloat;
+     var D2X : AlglibFloat;
+     var Y : AlglibFloat;
+     var DY : AlglibFloat;
+     var D2Y : AlglibFloat);
 procedure PSpline3Diff2(const P : PSpline3Interpolant;
-     T : Double;
-     var X : Double;
-     var DX : Double;
-     var D2X : Double;
-     var Y : Double;
-     var DY : Double;
-     var D2Y : Double;
-     var Z : Double;
-     var DZ : Double;
-     var D2Z : Double);
+     T : AlglibFloat;
+     var X : AlglibFloat;
+     var DX : AlglibFloat;
+     var D2X : AlglibFloat;
+     var Y : AlglibFloat;
+     var DY : AlglibFloat;
+     var D2Y : AlglibFloat;
+     var Z : AlglibFloat;
+     var DZ : AlglibFloat;
+     var D2Z : AlglibFloat);
 function PSpline2ArcLength(const P : PSpline2Interpolant;
-     A : Double;
-     B : Double):Double;
+     A : AlglibFloat;
+     B : AlglibFloat):AlglibFloat;
 function PSpline3ArcLength(const P : PSpline3Interpolant;
-     A : Double;
-     B : Double):Double;
+     A : AlglibFloat;
+     B : AlglibFloat):AlglibFloat;
 
 implementation
 
@@ -189,7 +189,7 @@ procedure PSpline2Build(XY : TReal2DArray;
      var P : PSpline2Interpolant);
 var
     Tmp : TReal1DArray;
-    V : Double;
+    V : AlglibFloat;
     I : AlglibInteger;
     i_ : AlglibInteger;
 begin
@@ -280,7 +280,7 @@ procedure PSpline3Build(XY : TReal2DArray;
      var P : PSpline3Interpolant);
 var
     Tmp : TReal1DArray;
-    V : Double;
+    V : AlglibFloat;
     I : AlglibInteger;
     i_ : AlglibInteger;
 begin
@@ -411,7 +411,7 @@ procedure PSpline2BuildPeriodic(XY : TReal2DArray;
 var
     XYP : TReal2DArray;
     Tmp : TReal1DArray;
-    V : Double;
+    V : AlglibFloat;
     I : AlglibInteger;
     i_ : AlglibInteger;
 begin
@@ -494,7 +494,7 @@ procedure PSpline3BuildPeriodic(XY : TReal2DArray;
 var
     XYP : TReal2DArray;
     Tmp : TReal1DArray;
-    V : Double;
+    V : AlglibFloat;
     I : AlglibInteger;
     i_ : AlglibInteger;
 begin
@@ -659,9 +659,9 @@ OUTPUT PARAMETERS:
      Copyright 28.05.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure PSpline2Calc(const P : PSpline2Interpolant;
-     T : Double;
-     var X : Double;
-     var Y : Double);
+     T : AlglibFloat;
+     var X : AlglibFloat;
+     var Y : AlglibFloat);
 begin
     if P.Periodic then
     begin
@@ -695,10 +695,10 @@ OUTPUT PARAMETERS:
      Copyright 28.05.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure PSpline3Calc(const P : PSpline3Interpolant;
-     T : Double;
-     var X : Double;
-     var Y : Double;
-     var Z : Double);
+     T : AlglibFloat;
+     var X : AlglibFloat;
+     var Y : AlglibFloat;
+     var Z : AlglibFloat);
 begin
     if P.Periodic then
     begin
@@ -734,13 +734,13 @@ NOTE:
      Copyright 28.05.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure PSpline2Tangent(const P : PSpline2Interpolant;
-     T : Double;
-     var X : Double;
-     var Y : Double);
+     T : AlglibFloat;
+     var X : AlglibFloat;
+     var Y : AlglibFloat);
 var
-    V : Double;
-    V0 : Double;
-    V1 : Double;
+    V : AlglibFloat;
+    V0 : AlglibFloat;
+    V1 : AlglibFloat;
 begin
     if P.Periodic then
     begin
@@ -786,15 +786,15 @@ NOTE:
      Copyright 28.05.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure PSpline3Tangent(const P : PSpline3Interpolant;
-     T : Double;
-     var X : Double;
-     var Y : Double;
-     var Z : Double);
+     T : AlglibFloat;
+     var X : AlglibFloat;
+     var Y : AlglibFloat;
+     var Z : AlglibFloat);
 var
-    V : Double;
-    V0 : Double;
-    V1 : Double;
-    V2 : Double;
+    V : AlglibFloat;
+    V0 : AlglibFloat;
+    V1 : AlglibFloat;
+    V2 : AlglibFloat;
 begin
     if P.Periodic then
     begin
@@ -834,13 +834,13 @@ OUTPUT PARAMETERS:
      Copyright 28.05.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure PSpline2Diff(const P : PSpline2Interpolant;
-     T : Double;
-     var X : Double;
-     var DX : Double;
-     var Y : Double;
-     var DY : Double);
+     T : AlglibFloat;
+     var X : AlglibFloat;
+     var DX : AlglibFloat;
+     var Y : AlglibFloat;
+     var DY : AlglibFloat);
 var
-    D2S : Double;
+    D2S : AlglibFloat;
 begin
     if P.Periodic then
     begin
@@ -876,15 +876,15 @@ OUTPUT PARAMETERS:
      Copyright 28.05.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure PSpline3Diff(const P : PSpline3Interpolant;
-     T : Double;
-     var X : Double;
-     var DX : Double;
-     var Y : Double;
-     var DY : Double;
-     var Z : Double;
-     var DZ : Double);
+     T : AlglibFloat;
+     var X : AlglibFloat;
+     var DX : AlglibFloat;
+     var Y : AlglibFloat;
+     var DY : AlglibFloat;
+     var Z : AlglibFloat;
+     var DZ : AlglibFloat);
 var
-    D2S : Double;
+    D2S : AlglibFloat;
 begin
     if P.Periodic then
     begin
@@ -921,13 +921,13 @@ OUTPUT PARAMETERS:
      Copyright 28.05.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure PSpline2Diff2(const P : PSpline2Interpolant;
-     T : Double;
-     var X : Double;
-     var DX : Double;
-     var D2X : Double;
-     var Y : Double;
-     var DY : Double;
-     var D2Y : Double);
+     T : AlglibFloat;
+     var X : AlglibFloat;
+     var DX : AlglibFloat;
+     var D2X : AlglibFloat;
+     var Y : AlglibFloat;
+     var DY : AlglibFloat;
+     var D2Y : AlglibFloat);
 begin
     if P.Periodic then
     begin
@@ -966,16 +966,16 @@ OUTPUT PARAMETERS:
      Copyright 28.05.2010 by Bochkanov Sergey
 *************************************************************************)
 procedure PSpline3Diff2(const P : PSpline3Interpolant;
-     T : Double;
-     var X : Double;
-     var DX : Double;
-     var D2X : Double;
-     var Y : Double;
-     var DY : Double;
-     var D2Y : Double;
-     var Z : Double;
-     var DZ : Double;
-     var D2Z : Double);
+     T : AlglibFloat;
+     var X : AlglibFloat;
+     var DX : AlglibFloat;
+     var D2X : AlglibFloat;
+     var Y : AlglibFloat;
+     var DY : AlglibFloat;
+     var D2Y : AlglibFloat;
+     var Z : AlglibFloat;
+     var DZ : AlglibFloat;
+     var D2Z : AlglibFloat);
 begin
     if P.Periodic then
     begin
@@ -1005,17 +1005,17 @@ RESULT:
      Copyright 30.05.2010 by Bochkanov Sergey
 *************************************************************************)
 function PSpline2ArcLength(const P : PSpline2Interpolant;
-     A : Double;
-     B : Double):Double;
+     A : AlglibFloat;
+     B : AlglibFloat):AlglibFloat;
 var
     State : AutoGKState;
     Rep : AutoGKReport;
-    SX : Double;
-    DSX : Double;
-    D2SX : Double;
-    SY : Double;
-    DSY : Double;
-    D2SY : Double;
+    SX : AlglibFloat;
+    DSX : AlglibFloat;
+    D2SX : AlglibFloat;
+    SY : AlglibFloat;
+    DSY : AlglibFloat;
+    D2SY : AlglibFloat;
 begin
     AutoGKSmooth(A, B, State);
     while AutoGKIteration(State) do
@@ -1047,20 +1047,20 @@ RESULT:
      Copyright 30.05.2010 by Bochkanov Sergey
 *************************************************************************)
 function PSpline3ArcLength(const P : PSpline3Interpolant;
-     A : Double;
-     B : Double):Double;
+     A : AlglibFloat;
+     B : AlglibFloat):AlglibFloat;
 var
     State : AutoGKState;
     Rep : AutoGKReport;
-    SX : Double;
-    DSX : Double;
-    D2SX : Double;
-    SY : Double;
-    DSY : Double;
-    D2SY : Double;
-    SZ : Double;
-    DSZ : Double;
-    D2SZ : Double;
+    SX : AlglibFloat;
+    DSX : AlglibFloat;
+    D2SX : AlglibFloat;
+    SY : AlglibFloat;
+    DSY : AlglibFloat;
+    D2SY : AlglibFloat;
+    SZ : AlglibFloat;
+    DSZ : AlglibFloat;
+    D2SZ : AlglibFloat;
 begin
     AutoGKSmooth(A, B, State);
     while AutoGKIteration(State) do
@@ -1083,7 +1083,7 @@ procedure PSpline2Par(const XY : TReal2DArray;
      PT : AlglibInteger;
      var P : TReal1DArray);
 var
-    V : Double;
+    V : AlglibFloat;
     I : AlglibInteger;
 begin
     Assert((PT>=0) and (PT<=2), 'PSpline2Par: internal error!');
@@ -1136,7 +1136,7 @@ procedure PSpline3Par(const XY : TReal2DArray;
      PT : AlglibInteger;
      var P : TReal1DArray);
 var
-    V : Double;
+    V : AlglibFloat;
     I : AlglibInteger;
 begin
     Assert((PT>=0) and (PT<=2), 'PSpline3Par: internal error!');

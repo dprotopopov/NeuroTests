@@ -1,0 +1,60 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{95E1C4A6-3C2F-48D5-A886-CE31C87B8563}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="test05\Test05Proj.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="test06\test06project.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="test07\test07proj.cbproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="Test05Proj">
+        <MSBuild Projects="test05\Test05Proj.cbproj"/>
+    </Target>
+    <Target Name="Test05Proj:Clean">
+        <MSBuild Projects="test05\Test05Proj.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Test05Proj:Make">
+        <MSBuild Projects="test05\Test05Proj.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="test06project">
+        <MSBuild Projects="test06\test06project.cbproj"/>
+    </Target>
+    <Target Name="test06project:Clean">
+        <MSBuild Projects="test06\test06project.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="test06project:Make">
+        <MSBuild Projects="test06\test06project.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="test07proj">
+        <MSBuild Projects="test07\test07proj.cbproj"/>
+    </Target>
+    <Target Name="test07proj:Clean">
+        <MSBuild Projects="test07\test07proj.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="test07proj:Make">
+        <MSBuild Projects="test07\test07proj.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="Test05Proj;test06project;test07proj"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="Test05Proj:Clean;test06project:Clean;test07proj:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="Test05Proj:Make;test06project:Make;test07proj:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

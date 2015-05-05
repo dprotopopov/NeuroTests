@@ -28,12 +28,12 @@ unit gammafunc;
 interface
 uses Math, Sysutils, Ap;
 
-function Gamma(x : Double):Double;
-function LnGamma(x : Double; var SgnGam : Double):Double;
+function Gamma(x : AlglibFloat):AlglibFloat;
+function LnGamma(x : AlglibFloat; var SgnGam : AlglibFloat):AlglibFloat;
 
 implementation
 
-function GammaStirF(X : Double):Double;forward;
+function GammaStirF(X : AlglibFloat):AlglibFloat;forward;
 
 
 (*************************************************************************
@@ -56,15 +56,15 @@ Cephes Math Library Release 2.8:  June, 2000
 Original copyright 1984, 1987, 1989, 1992, 2000 by Stephen L. Moshier
 Translated to AlgoPascal by Bochkanov Sergey (2005, 2006, 2007).
 *************************************************************************)
-function Gamma(x : Double):Double;
+function Gamma(x : AlglibFloat):AlglibFloat;
 var
-    p : Double;
-    PP : Double;
-    q : Double;
-    QQ : Double;
-    z : Double;
+    p : AlglibFloat;
+    PP : AlglibFloat;
+    q : AlglibFloat;
+    QQ : AlglibFloat;
+    z : AlglibFloat;
     i : AlglibInteger;
-    SgnGam : Double;
+    SgnGam : AlglibFloat;
 begin
     SgnGam := 1;
     q := AbsReal(x);
@@ -179,20 +179,20 @@ Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1989, 1992, 2000 by Stephen L. Moshier
 Translated to AlgoPascal by Bochkanov Sergey (2005, 2006, 2007).
 *************************************************************************)
-function LnGamma(x : Double; var SgnGam : Double):Double;
+function LnGamma(x : AlglibFloat; var SgnGam : AlglibFloat):AlglibFloat;
 var
-    A : Double;
-    B : Double;
-    C : Double;
-    p : Double;
-    q : Double;
-    u : Double;
-    w : Double;
-    z : Double;
+    A : AlglibFloat;
+    B : AlglibFloat;
+    C : AlglibFloat;
+    p : AlglibFloat;
+    q : AlglibFloat;
+    u : AlglibFloat;
+    w : AlglibFloat;
+    z : AlglibFloat;
     i : AlglibInteger;
-    LogPi : Double;
-    LS2PI : Double;
-    Tmp : Double;
+    LogPi : AlglibFloat;
+    LS2PI : AlglibFloat;
+    Tmp : AlglibFloat;
 begin
     SgnGam := 1;
     LogPi := 1.14472988584940017414;
@@ -295,12 +295,12 @@ begin
 end;
 
 
-function GammaStirF(X : Double):Double;
+function GammaStirF(X : AlglibFloat):AlglibFloat;
 var
-    y : Double;
-    w : Double;
-    v : Double;
-    Stir : Double;
+    y : AlglibFloat;
+    w : AlglibFloat;
+    v : AlglibFloat;
+    Stir : AlglibFloat;
 begin
     w := 1/x;
     Stir := 7.87311395793093628397E-4;

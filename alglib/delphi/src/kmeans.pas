@@ -81,17 +81,17 @@ var
     CT : TReal2DArray;
     CTBest : TReal2DArray;
     XYCBest : TInteger1DArray;
-    E : Double;
-    EBest : Double;
+    E : AlglibFloat;
+    EBest : AlglibFloat;
     X : TReal1DArray;
     Tmp : TReal1DArray;
     D2 : TReal1DArray;
     P : TReal1DArray;
     CSizes : TInteger1DArray;
     CBusy : TBoolean1DArray;
-    V : Double;
+    V : AlglibFloat;
     CClosest : AlglibInteger;
-    DClosest : Double;
+    DClosest : AlglibFloat;
     WORK : TReal1DArray;
     WasChanges : Boolean;
     ZeroSizeClusters : Boolean;
@@ -318,8 +318,8 @@ var
     I : AlglibInteger;
     J : AlglibInteger;
     CC : AlglibInteger;
-    V : Double;
-    S : Double;
+    V : AlglibFloat;
+    S : AlglibFloat;
 begin
     BusyCenters := DynamicArrayCopy(BusyCenters);
     Result := True;

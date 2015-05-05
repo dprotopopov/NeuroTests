@@ -28,7 +28,7 @@ unit dawson;
 interface
 uses Math, Sysutils, Ap;
 
-function DawsonIntegral(X : Double):Double;
+function DawsonIntegral(X : AlglibFloat):AlglibFloat;
 
 implementation
 
@@ -57,17 +57,17 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1989, 2000 by Stephen L. Moshier
 *************************************************************************)
-function DawsonIntegral(X : Double):Double;
+function DawsonIntegral(X : AlglibFloat):AlglibFloat;
 var
-    X2 : Double;
-    Y : Double;
+    X2 : AlglibFloat;
+    Y : AlglibFloat;
     Sg : AlglibInteger;
-    AN : Double;
-    AD : Double;
-    BN : Double;
-    BD : Double;
-    CN : Double;
-    CD : Double;
+    AN : AlglibFloat;
+    AD : AlglibFloat;
+    BN : AlglibFloat;
+    BD : AlglibFloat;
+    CN : AlglibFloat;
+    CD : AlglibFloat;
 begin
     Sg := 1;
     if AP_FP_Less(X,0) then

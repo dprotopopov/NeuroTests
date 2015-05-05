@@ -19,10 +19,10 @@ unit hermite;
 interface
 uses Math, Sysutils, Ap;
 
-function HermiteCalculate(const N : AlglibInteger; const X : Double):Double;
+function HermiteCalculate(const N : AlglibInteger; const X : AlglibFloat):AlglibFloat;
 function HermiteSum(const C : TReal1DArray;
      const n : AlglibInteger;
-     const x : Double):Double;
+     const x : AlglibFloat):AlglibFloat;
 procedure HermiteCoefficients(const N : AlglibInteger; var C : TReal1DArray);
 
 implementation
@@ -37,11 +37,11 @@ Parameters:
 Result:
     the value of the Hermite polynomial Hn at x
 *************************************************************************)
-function HermiteCalculate(const N : AlglibInteger; const X : Double):Double;
+function HermiteCalculate(const N : AlglibInteger; const X : AlglibFloat):AlglibFloat;
 var
     I : AlglibInteger;
-    a : Double;
-    b : Double;
+    a : AlglibFloat;
+    b : AlglibFloat;
 begin
     
     //
@@ -93,10 +93,10 @@ Result:
 *************************************************************************)
 function HermiteSum(const C : TReal1DArray;
      const n : AlglibInteger;
-     const x : Double):Double;
+     const x : AlglibFloat):AlglibFloat;
 var
-    b1 : Double;
-    b2 : Double;
+    b1 : AlglibFloat;
+    b2 : AlglibFloat;
     i : AlglibInteger;
 begin
     b1 := 0;

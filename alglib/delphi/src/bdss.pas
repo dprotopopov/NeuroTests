@@ -23,11 +23,11 @@ uses Math, Sysutils, Ap, tsort, descriptivestatistics;
 
 type
 CVReport = record
-    RelCLSError : Double;
-    AvgCE : Double;
-    RMSError : Double;
-    AvgError : Double;
-    AvgRelError : Double;
+    RelCLSError : AlglibFloat;
+    AvgCE : AlglibFloat;
+    RMSError : AlglibFloat;
+    AvgError : AlglibFloat;
+    AvgRelError : AlglibFloat;
 end;
 
 
@@ -51,7 +51,7 @@ procedure DSNormalizeC(const XY : TReal2DArray;
      var Sigmas : TReal1DArray);
 function DSGetMeanMinDistance(const XY : TReal2DArray;
      NPoints : AlglibInteger;
-     NVars : AlglibInteger):Double;
+     NVars : AlglibInteger):AlglibFloat;
 procedure DSTie(var A : TReal1DArray;
      N : AlglibInteger;
      var Ties : TInteger1DArray;
@@ -67,23 +67,23 @@ procedure DSOptimalSplit2(A : TReal1DArray;
      C : TInteger1DArray;
      N : AlglibInteger;
      var Info : AlglibInteger;
-     var Threshold : Double;
-     var PAL : Double;
-     var PBL : Double;
-     var PAR : Double;
-     var PBR : Double;
-     var CVE : Double);
+     var Threshold : AlglibFloat;
+     var PAL : AlglibFloat;
+     var PBL : AlglibFloat;
+     var PAR : AlglibFloat;
+     var PBR : AlglibFloat;
+     var CVE : AlglibFloat);
 procedure DSOptimalSplit2Fast(var A : TReal1DArray;
      var C : TInteger1DArray;
      var TiesBuf : TInteger1DArray;
      var CntBuf : TInteger1DArray;
      N : AlglibInteger;
      NC : AlglibInteger;
-     Alpha : Double;
+     Alpha : AlglibFloat;
      var Info : AlglibInteger;
-     var Threshold : Double;
-     var RMS : Double;
-     var CVRMS : Double);
+     var Threshold : AlglibFloat;
+     var RMS : AlglibFloat;
+     var CVRMS : AlglibFloat);
 procedure DSSplitK(A : TReal1DArray;
      C : TInteger1DArray;
      N : AlglibInteger;
@@ -92,7 +92,7 @@ procedure DSSplitK(A : TReal1DArray;
      var Info : AlglibInteger;
      var Thresholds : TReal1DArray;
      var NI : AlglibInteger;
-     var CVE : Double);
+     var CVE : AlglibFloat);
 procedure DSOptimalSplitK(A : TReal1DArray;
      C : TInteger1DArray;
      N : AlglibInteger;
@@ -101,7 +101,7 @@ procedure DSOptimalSplitK(A : TReal1DArray;
      var Info : AlglibInteger;
      var Thresholds : TReal1DArray;
      var NI : AlglibInteger;
-     var CVE : Double);
+     var CVE : AlglibFloat);
 
 implementation
 
@@ -111,8 +111,8 @@ procedure DSKFoldSplit(const XY : TReal2DArray;
      FoldsCount : AlglibInteger;
      StratifiedSplits : Boolean;
      var Folds : TInteger1DArray);forward;
-function XLNY(X : Double; Y : Double):Double;forward;
-function GetCV(const Cnt : TInteger1DArray; NC : AlglibInteger):Double;forward;
+function XLNY(X : AlglibFloat; Y : AlglibFloat):AlglibFloat;forward;
+function GetCV(const Cnt : TInteger1DArray; NC : AlglibInteger):AlglibFloat;forward;
 procedure TieAddC(const C : TInteger1DArray;
      const Ties : TInteger1DArray;
      NTie : AlglibInteger;
@@ -188,8 +188,8 @@ var
     MMax : AlglibInteger;
     RMax : AlglibInteger;
     J : AlglibInteger;
-    V : Double;
-    EV : Double;
+    V : AlglibFloat;
+    EV : AlglibFloat;
 begin
     Offs := 5;
     NClasses := Round(Buf[Offs]);
@@ -337,10 +337,10 @@ var
     I : AlglibInteger;
     J : AlglibInteger;
     Tmp : TReal1DArray;
-    Mean : Double;
-    Variance : Double;
-    Skewness : Double;
-    Kurtosis : Double;
+    Mean : AlglibFloat;
+    Variance : AlglibFloat;
+    Skewness : AlglibFloat;
+    Kurtosis : AlglibFloat;
     i_ : AlglibInteger;
 begin
     
@@ -399,10 +399,10 @@ procedure DSNormalizeC(const XY : TReal2DArray;
 var
     J : AlglibInteger;
     Tmp : TReal1DArray;
-    Mean : Double;
-    Variance : Double;
-    Skewness : Double;
-    Kurtosis : Double;
+    Mean : AlglibFloat;
+    Variance : AlglibFloat;
+    Skewness : AlglibFloat;
+    Kurtosis : AlglibFloat;
     i_ : AlglibInteger;
 begin
     
@@ -448,13 +448,13 @@ end;
 *************************************************************************)
 function DSGetMeanMinDistance(const XY : TReal2DArray;
      NPoints : AlglibInteger;
-     NVars : AlglibInteger):Double;
+     NVars : AlglibInteger):AlglibFloat;
 var
     I : AlglibInteger;
     J : AlglibInteger;
     Tmp : TReal1DArray;
     Tmp2 : TReal1DArray;
-    V : Double;
+    V : AlglibFloat;
 begin
     
     //
@@ -624,26 +624,26 @@ procedure DSOptimalSplit2(A : TReal1DArray;
      C : TInteger1DArray;
      N : AlglibInteger;
      var Info : AlglibInteger;
-     var Threshold : Double;
-     var PAL : Double;
-     var PBL : Double;
-     var PAR : Double;
-     var PBR : Double;
-     var CVE : Double);
+     var Threshold : AlglibFloat;
+     var PAL : AlglibFloat;
+     var PBL : AlglibFloat;
+     var PAR : AlglibFloat;
+     var PBR : AlglibFloat;
+     var CVE : AlglibFloat);
 var
     I : AlglibInteger;
     T : AlglibInteger;
-    S : Double;
+    S : AlglibFloat;
     Ties : TInteger1DArray;
     TieCount : AlglibInteger;
     P1 : TInteger1DArray;
     P2 : TInteger1DArray;
     K : AlglibInteger;
     KOptimal : AlglibInteger;
-    PAK : Double;
-    PBK : Double;
-    CVOptimal : Double;
-    CV : Double;
+    PAK : AlglibFloat;
+    PBK : AlglibFloat;
+    CVOptimal : AlglibFloat;
+    CV : AlglibFloat;
 begin
     A := DynamicArrayCopy(A);
     C := DynamicArrayCopy(C);
@@ -841,24 +841,24 @@ procedure DSOptimalSplit2Fast(var A : TReal1DArray;
      var CntBuf : TInteger1DArray;
      N : AlglibInteger;
      NC : AlglibInteger;
-     Alpha : Double;
+     Alpha : AlglibFloat;
      var Info : AlglibInteger;
-     var Threshold : Double;
-     var RMS : Double;
-     var CVRMS : Double);
+     var Threshold : AlglibFloat;
+     var RMS : AlglibFloat;
+     var CVRMS : AlglibFloat);
 var
     I : AlglibInteger;
     K : AlglibInteger;
     CL : AlglibInteger;
     TieCount : AlglibInteger;
-    CBest : Double;
-    CC : Double;
+    CBest : AlglibFloat;
+    CC : AlglibFloat;
     KOptimal : AlglibInteger;
     SL : AlglibInteger;
     SR : AlglibInteger;
-    V : Double;
-    W : Double;
-    X : Double;
+    V : AlglibFloat;
+    W : AlglibFloat;
+    X : AlglibFloat;
 begin
     
     //
@@ -1030,7 +1030,7 @@ procedure DSSplitK(A : TReal1DArray;
      var Info : AlglibInteger;
      var Thresholds : TReal1DArray;
      var NI : AlglibInteger;
-     var CVE : Double);
+     var CVE : AlglibFloat);
 var
     I : AlglibInteger;
     J : AlglibInteger;
@@ -1041,11 +1041,11 @@ var
     P1 : TInteger1DArray;
     P2 : TInteger1DArray;
     Cnt : TInteger1DArray;
-    V2 : Double;
+    V2 : AlglibFloat;
     BestK : AlglibInteger;
-    BestCVE : Double;
+    BestCVE : AlglibFloat;
     BestSizes : TInteger1DArray;
-    CurCVE : Double;
+    CurCVE : AlglibFloat;
     CurSizes : TInteger1DArray;
 begin
     A := DynamicArrayCopy(A);
@@ -1292,26 +1292,26 @@ procedure DSOptimalSplitK(A : TReal1DArray;
      var Info : AlglibInteger;
      var Thresholds : TReal1DArray;
      var NI : AlglibInteger;
-     var CVE : Double);
+     var CVE : AlglibFloat);
 var
     I : AlglibInteger;
     J : AlglibInteger;
     S : AlglibInteger;
     JL : AlglibInteger;
     JR : AlglibInteger;
-    V2 : Double;
+    V2 : AlglibFloat;
     Ties : TInteger1DArray;
     TieCount : AlglibInteger;
     P1 : TInteger1DArray;
     P2 : TInteger1DArray;
-    CVTemp : Double;
+    CVTemp : AlglibFloat;
     Cnt : TInteger1DArray;
     Cnt2 : TInteger1DArray;
     CV : TReal2DArray;
     Splits : TInteger2DArray;
     K : AlglibInteger;
     KOptimal : AlglibInteger;
-    CVOptimal : Double;
+    CVOptimal : AlglibFloat;
 begin
     A := DynamicArrayCopy(A);
     C := DynamicArrayCopy(C);
@@ -1594,7 +1594,7 @@ end;
 (*************************************************************************
 Internal function
 *************************************************************************)
-function XLNY(X : Double; Y : Double):Double;
+function XLNY(X : AlglibFloat; Y : AlglibFloat):AlglibFloat;
 begin
     if AP_FP_Eq(X,0) then
     begin
@@ -1611,10 +1611,10 @@ end;
 Internal function,
 returns number of samples of class I in Cnt[I]
 *************************************************************************)
-function GetCV(const Cnt : TInteger1DArray; NC : AlglibInteger):Double;
+function GetCV(const Cnt : TInteger1DArray; NC : AlglibInteger):AlglibFloat;
 var
     I : AlglibInteger;
-    S : Double;
+    S : AlglibFloat;
 begin
     S := 0;
     I:=0;

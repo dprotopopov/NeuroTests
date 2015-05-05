@@ -28,11 +28,11 @@ unit elliptic;
 interface
 uses Math, Sysutils, Ap;
 
-function EllipticIntegralK(m : Double):Double;
-function EllipticIntegralKHighPrecision(m1 : Double):Double;
-function IncompleteEllipticIntegralK(phi : Double; m : Double):Double;
-function EllipticIntegralE(m : Double):Double;
-function IncompleteEllipticIntegralE(phi : Double; m : Double):Double;
+function EllipticIntegralK(m : AlglibFloat):AlglibFloat;
+function EllipticIntegralKHighPrecision(m1 : AlglibFloat):AlglibFloat;
+function IncompleteEllipticIntegralK(phi : AlglibFloat; m : AlglibFloat):AlglibFloat;
+function EllipticIntegralE(m : AlglibFloat):AlglibFloat;
+function IncompleteEllipticIntegralE(phi : AlglibFloat; m : AlglibFloat):AlglibFloat;
 
 implementation
 
@@ -66,7 +66,7 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library, Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-function EllipticIntegralK(m : Double):Double;
+function EllipticIntegralK(m : AlglibFloat):AlglibFloat;
 begin
     Result := EllipticIntegralKHighPrecision(1.0-m);
 end;
@@ -107,10 +107,10 @@ arithmetic   domain     # trials      peak         rms
 
 Алгоритм взят из библиотеки Cephes
 *************************************************************************)
-function EllipticIntegralKHighPrecision(m1 : Double):Double;
+function EllipticIntegralKHighPrecision(m1 : AlglibFloat):AlglibFloat;
 var
-    P : Double;
-    Q : Double;
+    P : AlglibFloat;
+    Q : AlglibFloat;
 begin
     if AP_FP_Less_Eq(m1,MachineEpsilon) then
     begin
@@ -179,16 +179,16 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
 *************************************************************************)
-function IncompleteEllipticIntegralK(phi : Double; m : Double):Double;
+function IncompleteEllipticIntegralK(phi : AlglibFloat; m : AlglibFloat):AlglibFloat;
 var
-    a : Double;
-    b : Double;
-    c : Double;
-    e : Double;
-    temp : Double;
-    PIO2 : Double;
-    t : Double;
-    K : Double;
+    a : AlglibFloat;
+    b : AlglibFloat;
+    c : AlglibFloat;
+    e : AlglibFloat;
+    temp : AlglibFloat;
+    PIO2 : AlglibFloat;
+    t : AlglibFloat;
+    K : AlglibFloat;
     d : AlglibInteger;
     md : AlglibInteger;
     s : AlglibInteger;
@@ -302,10 +302,10 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library, Release 2.8: June, 2000
 Copyright 1984, 1987, 1989, 2000 by Stephen L. Moshier
 *************************************************************************)
-function EllipticIntegralE(m : Double):Double;
+function EllipticIntegralE(m : AlglibFloat):AlglibFloat;
 var
-    P : Double;
-    Q : Double;
+    P : AlglibFloat;
+    Q : AlglibFloat;
 begin
     Assert(AP_FP_Greater_Eq(m,0) and AP_FP_Less_Eq(m,1), 'Domain error in EllipticIntegralE: m<0 or m>1');
     m := 1-m;
@@ -369,17 +369,17 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1993, 2000 by Stephen L. Moshier
 *************************************************************************)
-function IncompleteEllipticIntegralE(phi : Double; m : Double):Double;
+function IncompleteEllipticIntegralE(phi : AlglibFloat; m : AlglibFloat):AlglibFloat;
 var
-    PIO2 : Double;
-    a : Double;
-    b : Double;
-    c : Double;
-    e : Double;
-    temp : Double;
-    lphi : Double;
-    t : Double;
-    EBig : Double;
+    PIO2 : AlglibFloat;
+    a : AlglibFloat;
+    b : AlglibFloat;
+    c : AlglibFloat;
+    e : AlglibFloat;
+    temp : AlglibFloat;
+    lphi : AlglibFloat;
+    t : AlglibFloat;
+    EBig : AlglibFloat;
     d : AlglibInteger;
     md : AlglibInteger;
     npio2 : AlglibInteger;

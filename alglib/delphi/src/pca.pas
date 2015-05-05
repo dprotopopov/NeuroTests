@@ -73,10 +73,10 @@ var
     T : TReal1DArray;
     I : AlglibInteger;
     J : AlglibInteger;
-    Mean : Double;
-    Variance : Double;
-    Skewness : Double;
-    Kurtosis : Double;
+    Mean : AlglibFloat;
+    Variance : AlglibFloat;
+    Skewness : AlglibFloat;
+    Kurtosis : AlglibFloat;
     i_ : AlglibInteger;
 begin
     

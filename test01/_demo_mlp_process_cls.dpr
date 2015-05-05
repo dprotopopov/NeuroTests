@@ -53,7 +53,7 @@ begin
   lMaxIts := 500; // количество итераций обучения (внутреннее)
   lMaxStep := 0.001; // внутренний параметр обучения нейросети
   lRestarts := 500; // внутренний параметр обучения нейросети
-  lDecay := 0.001; // затухание.  внутренний параметр обучения нейросети
+  lDecay := 0.0001; // затухание.  внутренний параметр обучения нейросети
   lPoints := 20; // количество обучающих выборок
 
   lNHid1 := lInCount; // количество узлов в 1-ом скрытом слое
@@ -81,8 +81,8 @@ begin
   QueryPerformanceCounter(lBeginQPC);
 
   // один из методов обучения. Можно использовать любой другой
-  //MLPTrainLBFGS(lNetwork, lXY, lPoints, lDecay, lRestarts, lMaxStep, lMaxIts, lInfo, lReport);
-  MLPTrainLM(lNetwork, lXY, lPoints, lDecay, lRestarts, lInfo, lReport);
+  MLPTrainLBFGS(lNetwork, lXY, lPoints, lDecay, lRestarts, lMaxStep, lMaxIts, lInfo, lReport);
+  //MLPTrainLM(lNetwork, lXY, lPoints, lDecay, lRestarts, lInfo, lReport);
 
   QueryPerformanceCounter(lEndQPC);
 

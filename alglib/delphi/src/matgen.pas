@@ -22,20 +22,20 @@ interface
 uses Math, Sysutils, Ap, reflections, creflections, hqrnd;
 
 procedure RMatrixRndOrthogonal(N : AlglibInteger; var A : TReal2DArray);
-procedure RMatrixRndCond(N : AlglibInteger; C : Double; var A : TReal2DArray);
+procedure RMatrixRndCond(N : AlglibInteger; C : AlglibFloat; var A : TReal2DArray);
 procedure CMatrixRndOrthogonal(N : AlglibInteger; var A : TComplex2DArray);
 procedure CMatrixRndCond(N : AlglibInteger;
-     C : Double;
+     C : AlglibFloat;
      var A : TComplex2DArray);
-procedure SMatrixRndCond(N : AlglibInteger; C : Double; var A : TReal2DArray);
+procedure SMatrixRndCond(N : AlglibInteger; C : AlglibFloat; var A : TReal2DArray);
 procedure SPDMatrixRndCond(N : AlglibInteger;
-     C : Double;
+     C : AlglibFloat;
      var A : TReal2DArray);
 procedure HMatrixRndCond(N : AlglibInteger;
-     C : Double;
+     C : AlglibFloat;
      var A : TComplex2DArray);
 procedure HPDMatrixRndCond(N : AlglibInteger;
-     C : Double;
+     C : AlglibFloat;
      var A : TComplex2DArray);
 procedure RMatrixRndOrthogonalFromTheRight(var A : TReal2DArray;
      M : AlglibInteger;
@@ -110,12 +110,12 @@ OUTPUT PARAMETERS:
      04.12.2009
      Bochkanov Sergey
 *************************************************************************)
-procedure RMatrixRndCond(N : AlglibInteger; C : Double; var A : TReal2DArray);
+procedure RMatrixRndCond(N : AlglibInteger; C : AlglibFloat; var A : TReal2DArray);
 var
     I : AlglibInteger;
     J : AlglibInteger;
-    L1 : Double;
-    L2 : Double;
+    L1 : AlglibFloat;
+    L2 : AlglibFloat;
 begin
     Assert((N>=1) and AP_FP_Greater_Eq(C,1), 'RMatrixRndCond: N<1 or C<1!');
     SetLength(A, N-1+1, N-1+1);
@@ -212,13 +212,13 @@ OUTPUT PARAMETERS:
      Bochkanov Sergey
 *************************************************************************)
 procedure CMatrixRndCond(N : AlglibInteger;
-     C : Double;
+     C : AlglibFloat;
      var A : TComplex2DArray);
 var
     I : AlglibInteger;
     J : AlglibInteger;
-    L1 : Double;
-    L2 : Double;
+    L1 : AlglibFloat;
+    L2 : AlglibFloat;
     State : HQRNDState;
     V : Complex;
 begin
@@ -276,12 +276,12 @@ OUTPUT PARAMETERS:
      04.12.2009
      Bochkanov Sergey
 *************************************************************************)
-procedure SMatrixRndCond(N : AlglibInteger; C : Double; var A : TReal2DArray);
+procedure SMatrixRndCond(N : AlglibInteger; C : AlglibFloat; var A : TReal2DArray);
 var
     I : AlglibInteger;
     J : AlglibInteger;
-    L1 : Double;
-    L2 : Double;
+    L1 : AlglibFloat;
+    L2 : AlglibFloat;
 begin
     Assert((N>=1) and AP_FP_Greater_Eq(C,1), 'SMatrixRndCond: N<1 or C<1!');
     SetLength(A, N-1+1, N-1+1);
@@ -343,13 +343,13 @@ OUTPUT PARAMETERS:
      Bochkanov Sergey
 *************************************************************************)
 procedure SPDMatrixRndCond(N : AlglibInteger;
-     C : Double;
+     C : AlglibFloat;
      var A : TReal2DArray);
 var
     I : AlglibInteger;
     J : AlglibInteger;
-    L1 : Double;
-    L2 : Double;
+    L1 : AlglibFloat;
+    L2 : AlglibFloat;
 begin
     
     //
@@ -414,13 +414,13 @@ OUTPUT PARAMETERS:
      Bochkanov Sergey
 *************************************************************************)
 procedure HMatrixRndCond(N : AlglibInteger;
-     C : Double;
+     C : AlglibFloat;
      var A : TComplex2DArray);
 var
     I : AlglibInteger;
     J : AlglibInteger;
-    L1 : Double;
-    L2 : Double;
+    L1 : AlglibFloat;
+    L2 : AlglibFloat;
 begin
     Assert((N>=1) and AP_FP_Greater_Eq(C,1), 'HMatrixRndCond: N<1 or C<1!');
     SetLength(A, N-1+1, N-1+1);
@@ -492,13 +492,13 @@ OUTPUT PARAMETERS:
      Bochkanov Sergey
 *************************************************************************)
 procedure HPDMatrixRndCond(N : AlglibInteger;
-     C : Double;
+     C : AlglibFloat;
      var A : TComplex2DArray);
 var
     I : AlglibInteger;
     J : AlglibInteger;
-    L1 : Double;
-    L2 : Double;
+    L1 : AlglibFloat;
+    L2 : AlglibFloat;
 begin
     
     //
@@ -575,12 +575,12 @@ procedure RMatrixRndOrthogonalFromTheRight(var A : TReal2DArray;
      M : AlglibInteger;
      N : AlglibInteger);
 var
-    Tau : Double;
-    Lambda : Double;
+    Tau : AlglibFloat;
+    Lambda : AlglibFloat;
     S : AlglibInteger;
     I : AlglibInteger;
-    U1 : Double;
-    U2 : Double;
+    U1 : AlglibFloat;
+    U2 : AlglibFloat;
     W : TReal1DArray;
     V : TReal1DArray;
     State : HQRNDState;
@@ -675,13 +675,13 @@ procedure RMatrixRndOrthogonalFromTheLeft(var A : TReal2DArray;
      M : AlglibInteger;
      N : AlglibInteger);
 var
-    Tau : Double;
-    Lambda : Double;
+    Tau : AlglibFloat;
+    Lambda : AlglibFloat;
     S : AlglibInteger;
     I : AlglibInteger;
     J : AlglibInteger;
-    U1 : Double;
-    U2 : Double;
+    U1 : AlglibFloat;
+    U2 : AlglibFloat;
     W : TReal1DArray;
     V : TReal1DArray;
     State : HQRNDState;
@@ -972,12 +972,12 @@ OUTPUT PARAMETERS:
 *************************************************************************)
 procedure SMatrixRndMultiply(var A : TReal2DArray; N : AlglibInteger);
 var
-    Tau : Double;
-    Lambda : Double;
+    Tau : AlglibFloat;
+    Lambda : AlglibFloat;
     S : AlglibInteger;
     I : AlglibInteger;
-    U1 : Double;
-    U2 : Double;
+    U1 : AlglibFloat;
+    U2 : AlglibFloat;
     W : TReal1DArray;
     V : TReal1DArray;
     State : HQRNDState;
