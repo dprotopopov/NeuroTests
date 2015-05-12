@@ -126,17 +126,20 @@ procedure APVAdd(
 procedure APVAdd(
    VDst: PDouble; I11, I12: AlglibInteger;
    VSrc: PDouble; I21, I22: AlglibInteger;
-   S: Real);overload;
+   S: AlglibFloat);overload;
 procedure APVSub(
    VDst: PDouble; I11, I12: AlglibInteger;
    VSrc: PDouble; I21, I22: AlglibInteger);overload;
 procedure APVSub(
    VDst: PDouble; I11, I12: AlglibInteger;
    VSrc: PDouble; I21, I22: AlglibInteger;
-   S: Real);overload;
+   S: AlglibFloat);overload;
 procedure APVMul(
    VOp: PDouble; I1, I2: AlglibInteger;
-   S: Real);
+   S: AlglibFloat);
+procedure APVFillValue(
+   VOp: PDouble; I1, I2: AlglibInteger;
+   S: AlglibFloat);
 
 /////////////////////////////////////////////////////////////////////////
 // IEEE-compliant functions, placed at the end, under 'non-optimization'
@@ -650,7 +653,7 @@ end;
 procedure APVAdd(
    VDst: PDouble; I11, I12: AlglibInteger;
    VSrc: PDouble; I21, I22: AlglibInteger;
-   S: Real);overload;
+   S: AlglibFloat);overload;
 var
     I, C: LongInt;
 begin
@@ -697,7 +700,7 @@ end;
 procedure APVSub(
    VDst: PDouble; I11, I12: AlglibInteger;
    VSrc: PDouble; I21, I22: AlglibInteger;
-   S: Real);overload;
+   S: AlglibFloat);overload;
 begin
     Assert(I12-I11=I22-I21, 'APVSub: arrays of different size!');
     APVAdd(VDst, I11, I12, VSrc, I21, I22, -S);
@@ -706,7 +709,7 @@ end;
 
 procedure APVMul(
    VOp: PDouble; I1, I2: AlglibInteger;
-   S: Real);
+   S: AlglibFloat);
 var
     I, C: LongInt;
 begin
@@ -715,6 +718,21 @@ begin
     for I:=0 to C do
     begin
         VOp^:=S*VOp^;
+        Inc(VOp);
+    end;
+end;
+
+procedure APVFillValue(
+   VOp: PDouble; I1, I2: AlglibInteger;
+   S: AlglibFloat);
+var
+    I, C: LongInt;
+begin
+    Inc(VOp, I1);
+    C:=I2-I1;
+    for I:=0 to C do
+    begin
+        VOp^:=S;
         Inc(VOp);
     end;
 end;

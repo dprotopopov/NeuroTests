@@ -53,7 +53,7 @@ begin
   lOutCount := 1; // кличество точек - заведомо корректных результатов
   lMaxIts := 500; // количество итераций обучения (внутреннее)
   lMaxStep := 0.001; // внутренний параметр обучения нейросети
-  lRestarts := 500; // внутренний параметр обучения нейросети
+  lRestarts := 50000; // внутренний параметр обучения нейросети
   lDecay := 0.001; // затухание.  внутренний параметр обучения нейросети
   lPoints := 400;//40; // количество обучающих выборок (в нашем лучае можно и поменьше)
 
@@ -61,11 +61,13 @@ begin
   lNHid2 := lInCount; // количество узлов во 2-ом скрытом слое
 
   // здесь можно использовать любую из функций MLPCreate
-  MLPCreate2(lInCount, lNHid1, lNHid2, lOutCount, lNetwork);
+  MLPCreate0(lInCount, {lNHid1, lNHid2, }lOutCount, lNetwork);
 
   SetLength(lXY, lPoints, lInCount + lOutCount);
   SetLength(lX, lInCount);
   SetLength(lY, lOutCount);
+  APVFillValue(@lX[0], 0, lInCount - 1, 0);
+  APVFillValue(@lY[0], 0, lOutCount - 1, 0);
 
   // заполним линейной прогрессией (для простоты изучения)
   for zRow := 0 to lPoints - 1 do
@@ -78,10 +80,11 @@ begin
   end;
 
   // один из методов обучения. Можно использовать любой другой
-  MLPTrainLBFGS(lNetwork, lXY, lPoints, lDecay, lRestarts, lMaxStep, lMaxIts, lInfo, lReport);
+  //MLPTrainLBFGS_MT(lNetwork, lXY, lPoints, lDecay, lRestarts, lMaxStep, lMaxIts, lInfo, lReport);
   //MLPTrainLM(lNetwork, lXY, lPoints, lDecay, lRestarts, lInfo, lReport);
+  MLPTrainMonteCarlo(lNetwork, lXY, lPoints, 10, lRestarts, 0, 10, lInfo, lReport);
 
-  for i := 0 to 20 do
+  for i := lPoints - 5 to lPoints + 15 do
   begin
     Write(Format('Classification task'#13#10'', []));
     DoProcess(1 + i, 2 + i, lNetwork, lX, lY);

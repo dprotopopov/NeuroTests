@@ -49,14 +49,23 @@ type
     AvgRelError: AlglibFloat;
   end;
 
-procedure MLPTrainLM(var Network: MultiLayerPerceptron; const XY: TReal2DArray; NPoints: AlglibInteger; Decay: AlglibFloat;
-  Restarts: AlglibInteger; var Info: AlglibInteger; var Rep: MLPReport);
+procedure MLPTrainLM(var Network: MultiLayerPerceptron; const XY: TReal2DArray; NPoints: AlglibInteger;
+  Decay: AlglibFloat; Restarts: AlglibInteger; var Info: AlglibInteger; var Rep: MLPReport);
 procedure MLPTrainLBFGS(var Network: MultiLayerPerceptron; const XY: TReal2DArray; NPoints: AlglibInteger;
   Decay: AlglibFloat; Restarts: AlglibInteger; WStep: AlglibFloat; MaxIts: AlglibInteger; var Info: AlglibInteger;
   var Rep: MLPReport);
-procedure MLPTrainES(var Network: MultiLayerPerceptron; const TrnXY: TReal2DArray; TrnSize: AlglibInteger;
-  const ValXY: TReal2DArray; ValSize: AlglibInteger; Decay: AlglibFloat; Restarts: AlglibInteger; var Info: AlglibInteger;
+procedure MLPTrainLBFGS_MT(var Network: MultiLayerPerceptron; const XY: TReal2DArray; NPoints: AlglibInteger;
+  Decay: AlglibFloat; Restarts: AlglibInteger; WStep: AlglibFloat; MaxIts: AlglibInteger; var Info: AlglibInteger;
   var Rep: MLPReport);
+procedure MLPTrainLBFGS_MT_Mod(var Network: MultiLayerPerceptron; const XY: TReal2DArray; NPoints: AlglibInteger;
+  Decay: AlglibFloat; Restarts: AlglibInteger; WStep, Diameter: AlglibFloat; MaxIts: AlglibInteger; var Info: AlglibInteger;
+  var Rep: MLPReport);
+procedure MLPTrainMonteCarlo(var Network: MultiLayerPerceptron; const XY: TReal2DArray; NPoints: AlglibInteger;
+  MainRestarts, SubRestarts: AlglibInteger; MinError: AlglibFloat; Diameter: AlglibFloat; var Info: AlglibInteger;
+  var Rep: MLPReport);
+procedure MLPTrainES(var Network: MultiLayerPerceptron; const TrnXY: TReal2DArray; TrnSize: AlglibInteger;
+  const ValXY: TReal2DArray; ValSize: AlglibInteger; Decay: AlglibFloat; Restarts: AlglibInteger;
+  var Info: AlglibInteger; var Rep: MLPReport);
 procedure MLPKFoldCVLBFGS(const Network: MultiLayerPerceptron; const XY: TReal2DArray; NPoints: AlglibInteger;
   Decay: AlglibFloat; Restarts: AlglibInteger; WStep: AlglibFloat; MaxIts: AlglibInteger; FoldsCount: AlglibInteger;
   var Info: AlglibInteger; var Rep: MLPReport; var CVRep: MLPCVReport);
@@ -106,23 +115,23 @@ procedure MLPKFoldSplit(const XY: TReal2DArray; NPoints: AlglibInteger; NClasses
   -- ALGLIB --
   Copyright 10.03.2009 by Bochkanov Sergey
   ************************************************************************ *)
-procedure MLPTrainLM(var Network: MultiLayerPerceptron; const XY: TReal2DArray; NPoints: AlglibInteger; Decay: AlglibFloat;
-  Restarts: AlglibInteger; var Info: AlglibInteger; var Rep: MLPReport);
+procedure MLPTrainLM(var Network: MultiLayerPerceptron; const XY: TReal2DArray; NPoints: AlglibInteger;
+  Decay: AlglibFloat; Restarts: AlglibInteger; var Info: AlglibInteger; var Rep: MLPReport);
 var
   I: AlglibInteger;
   NIn: AlglibInteger;
   NOut: AlglibInteger;
   WCount: AlglibInteger;
   LMStepTol: AlglibFloat;
-  
+
   Lambda: AlglibFloat;
   LambdaUp: AlglibFloat;
-  LambdaDown: AlglibFloat;  
+  LambdaDown: AlglibFloat;
 
   WBest: TReal1DArray;
-  EBest: AlglibFloat;  
-  
-  zLock: TCriticalSection;  
+  EBest: AlglibFloat;
+
+  zLock: TCriticalSection;
   RepPtr: ^MLPReport;
   InfoPtr: ^AlglibInteger;
 
@@ -131,7 +140,7 @@ begin
   MLPProperties(Network, NIn, NOut, WCount);
   LambdaUp := 10;
   LambdaDown := 0.3;
-  //LMFTol := 0.001;
+  // LMFTol := 0.001;
   LMStepTol := 0.001;
 
   //
@@ -175,8 +184,8 @@ begin
 
   //
   // Multiple passes
-  //  
-  NetworkPtr :=@Network;
+  //
+  NetworkPtr := @Network;
   RepPtr := @Rep;
   InfoPtr := @Info;
   zLock := TCriticalSection.Create;
@@ -506,6 +515,147 @@ Decay: AlglibFloat; Restarts: AlglibInteger; WStep: AlglibFloat; MaxIts: AlglibI
 var Rep: MLPReport);
 var
   I: AlglibInteger;
+  Pass: AlglibInteger;
+  NIn: AlglibInteger;
+  NOut: AlglibInteger;
+  WCount: AlglibInteger;
+  W: TReal1DArray;
+  WBest: TReal1DArray;
+  E: AlglibFloat;
+  V: AlglibFloat;
+  EBest: AlglibFloat;
+  InternalRep: MinLBFGSReport;
+  State: MinLBFGSState;
+begin
+
+  //
+  // Test inputs, parse flags, read network geometry
+  //
+  if AP_FP_Eq(WStep, 0) and (MaxIts = 0) then
+  begin
+    Info := -8;
+    Exit;
+  end;
+  if (NPoints <= 0) or (Restarts < 1) or AP_FP_Less(WStep, 0) or (MaxIts < 0) then
+  begin
+    Info := -1;
+    Exit;
+  end;
+  MLPProperties(Network, NIn, NOut, WCount);
+  if MLPIsSoftmax(Network) then
+  begin
+    I := 0;
+    while I <= NPoints - 1 do
+    begin
+      if (Round(XY[I, NIn]) < 0) or (Round(XY[I, NIn]) >= NOut) then
+      begin
+        Info := -2;
+        Exit;
+      end;
+      Inc(I);
+    end;
+  end;
+  Decay := Max(Decay, MinDecay);
+  Info := 2;
+
+  //
+  // Prepare
+  //
+  MLPInitPreprocessor(Network, XY, NPoints);
+  SetLength(W, WCount - 1 + 1);
+  SetLength(WBest, WCount - 1 + 1);
+  EBest := MaxRealNumber;
+
+  //
+  // Multiple starts
+  //
+  Rep.NCholesky := 0;
+  Rep.NHess := 0;
+  Rep.NGrad := 0;
+  Pass := 1;
+  while Pass <= Restarts do
+  begin
+
+    //
+    // Process
+    //
+    MLPRandomize(Network);
+    APVMove(@W[0], 0, WCount - 1, @Network.Weights[0], 0, WCount - 1);
+    MinLBFGSCreate(WCount, Min(WCount, 10), W, State);
+    MinLBFGSSetCond(State, 0.0, 0.0, WStep, MaxIts);
+    while MinLBFGSIteration(State) do
+    begin
+      APVMove(@Network.Weights[0], 0, WCount - 1, @State.X[0], 0, WCount - 1);
+      MLPGradNBatch(Network, XY, NPoints, State.F, State.G);
+      V := APVDotProduct(@Network.Weights[0], 0, WCount - 1, @Network.Weights[0], 0, WCount - 1);
+      State.F := State.F + 0.5 * Decay * V;
+      APVAdd(@State.G[0], 0, WCount - 1, @Network.Weights[0], 0, WCount - 1, Decay);
+      Rep.NGrad := Rep.NGrad + 1;
+    end;
+    MinLBFGSResults(State, W, InternalRep);
+    APVMove(@Network.Weights[0], 0, WCount - 1, @W[0], 0, WCount - 1);
+
+    //
+    // Compare with best
+    //
+    V := APVDotProduct(@Network.Weights[0], 0, WCount - 1, @Network.Weights[0], 0, WCount - 1);
+    E := MLPErrorN(Network, XY, NPoints) + 0.5 * Decay * V;
+    if AP_FP_Less(E, EBest) then
+    begin
+      APVMove(@WBest[0], 0, WCount - 1, @Network.Weights[0], 0, WCount - 1);
+      EBest := E;
+    end;
+    Inc(Pass);
+  end;
+
+  //
+  // The best network
+  //
+  APVMove(@Network.Weights[0], 0, WCount - 1, @WBest[0], 0, WCount - 1);
+end;
+
+(* ************************************************************************
+  Neural  network  training  using  L-BFGS  algorithm  with  regularization.
+  Subroutine  trains  neural  network  with  restarts from random positions.
+  Algorithm  is  well  suited  for  problems  of  any dimensionality (memory
+  requirements and step complexity are linear by weights number).
+
+  INPUT PARAMETERS:
+  Network     -   neural network with initialized geometry
+  XY          -   training set
+  NPoints     -   training set size
+  Decay       -   weight decay constant, >=0.001
+  Decay term 'Decay*||Weights||^2' is added to error
+  function.
+  If you don't know what Decay to choose, use 0.001.
+  Restarts    -   number of restarts from random position, >0.
+  If you don't know what Restarts to choose, use 2.
+  WStep       -   stopping criterion. Algorithm stops if  step  size  is
+  less than WStep. Recommended value - 0.01.  Zero  step
+  size means stopping after MaxIts iterations.
+  MaxIts      -   stopping   criterion.  Algorithm  stops  after  MaxIts
+  iterations (NOT gradient  calculations).  Zero  MaxIts
+  means stopping when step is sufficiently small.
+
+  OUTPUT PARAMETERS:
+  Network     -   trained neural network.
+  Info        -   return code:
+  * -8, if both WStep=0 and MaxIts=0
+  * -2, if there is a point with class number
+  outside of [0..NOut-1].
+  * -1, if wrong parameters specified
+  (NPoints<0, Restarts<1).
+  *  2, if task has been solved.
+  Rep         -   training report
+
+  -- ALGLIB --
+  Copyright 09.12.2007 by Bochkanov Sergey
+  ************************************************************************ *)
+procedure MLPTrainLBFGS_MT(var Network: MultiLayerPerceptron; const XY: TReal2DArray; NPoints: AlglibInteger;
+Decay: AlglibFloat; Restarts: AlglibInteger; WStep: AlglibFloat; MaxIts: AlglibInteger; var Info: AlglibInteger;
+var Rep: MLPReport);
+var
+  I: AlglibInteger;
   NIn: AlglibInteger;
   NOut: AlglibInteger;
   WCount: AlglibInteger;
@@ -582,12 +732,12 @@ begin
       // Process
       //
       MLPRandomize(NetworkCopy);
-      //{ если тут закомментировать - то хоть что-то прорисовывается
+      // { если тут закомментировать - то хоть что-то прорисовывается
       APVMove(@W[0], 0, WCount - 1, @NetworkCopy.Weights[0], 0, WCount - 1);
-      //MinLBFGSCreate(WCount, Min(WCount, 10), W, State);
-      MinLBFGSCreate(WCount, WCount, W, State);
-      //MinLBFGSSetCond(State, 0.0, 0.0, WStep, MaxIts);
-      MinLBFGSSetCond(State, WStep, WStep, WStep, MaxIts);
+      MinLBFGSCreate(WCount, Min(WCount, 10), W, State);
+      // MinLBFGSCreate(WCount, WCount, W, State);
+      MinLBFGSSetCond(State, 0.0, 0.0, WStep, MaxIts);
+      // MinLBFGSSetCond(State, WStep, WStep, WStep, MaxIts);
       while MinLBFGSIteration(State) do
       begin
         APVMove(@NetworkCopy.Weights[0], 0, WCount - 1, @State.X[0], 0, WCount - 1);
@@ -599,14 +749,14 @@ begin
       end;
       MinLBFGSResults(State, W, InternalRep);
       APVMove(@NetworkCopy.Weights[0], 0, WCount - 1, @W[0], 0, WCount - 1);
-      //}
-      
+      // }
+
       //
       // Compare with best
       //
 
-      //V := APVDotProduct(@NetworkCopy.Weights[0], 0, WCount - 1, @NetworkCopy.Weights[0], 0, WCount - 1);
-      E := MLPErrorN(NetworkCopy, XY, NPoints);// + 0.5 * Decay * V;
+      // V := APVDotProduct(@NetworkCopy.Weights[0], 0, WCount - 1, @NetworkCopy.Weights[0], 0, WCount - 1);
+      E := MLPErrorN(NetworkCopy, XY, NPoints); // + 0.5 * Decay * V;
       if AP_FP_Less(E, EBest) then
       begin
         zLock.Enter;
@@ -624,6 +774,238 @@ begin
   //
   Rep := RepCopy;
 
+  APVMove(@Network.Weights[0], 0, WCount - 1, @WBest[0], 0, WCount - 1);
+end;
+
+procedure MLPTrainLBFGS_MT_Mod(var Network: MultiLayerPerceptron; const XY: TReal2DArray; NPoints: AlglibInteger;
+Decay: AlglibFloat; Restarts: AlglibInteger; WStep, Diameter: AlglibFloat; MaxIts: AlglibInteger; var Info: AlglibInteger;
+var Rep: MLPReport);
+var
+  I: AlglibInteger;
+  NIn: AlglibInteger;
+  NOut: AlglibInteger;
+  WCount: AlglibInteger;
+  WBest: TReal1DArray;
+  EBest: AlglibFloat;
+
+  zLock: TCriticalSection;
+  NetworkPtr: ^MultiLayerPerceptron;
+  RepCopy: MLPReport;
+begin
+
+  //
+  // Test inputs, parse flags, read network geometry
+  //
+  if AP_FP_Eq(WStep, 0) and (MaxIts = 0) then
+  begin
+    Info := -8;
+    Exit;
+  end;
+  if (NPoints <= 0) or (Restarts < 1) or AP_FP_Less(WStep, 0) or (MaxIts < 0) then
+  begin
+    Info := -1;
+    Exit;
+  end;
+  MLPProperties(Network, NIn, NOut, WCount);
+  if MLPIsSoftmax(Network) then
+  begin
+    I := 0;
+    while I <= NPoints - 1 do
+    begin
+      if (Round(XY[I, NIn]) < 0) or (Round(XY[I, NIn]) >= NOut) then
+      begin
+        Info := -2;
+        Exit;
+      end;
+      Inc(I);
+    end;
+  end;
+  Decay := Max(Decay, MinDecay);
+  Info := 2;
+
+  //
+  // Prepare
+  //
+  MLPInitPreprocessor(Network, XY, NPoints);
+  SetLength(WBest, WCount - 1 + 1);
+  EBest := MaxRealNumber;
+
+  //
+  // Multiple starts
+  //
+  Rep.NCholesky := 0;
+  Rep.NHess := 0;
+  Rep.NGrad := 0;
+
+  NetworkPtr := @Network;
+  RepCopy := Rep;
+  zLock := TCriticalSection.Create;
+
+  TParallel.For(1, Restarts,
+    procedure(Pass: AlglibInteger)
+    var
+      Ebegin: AlglibFloat; // начальная ошибка
+      E: AlglibFloat;
+      V: AlglibFloat;
+      W: TReal1DArray;
+      State: MinLBFGSState;
+      InternalRep: MinLBFGSReport;
+      NetworkCopy: MultiLayerPerceptron;
+    begin
+      SetLength(W, WCount - 1 + 1);
+      MLPCopy(NetworkPtr^, NetworkCopy);
+
+      //
+      // Process
+      //
+      MLPRandomize(NetworkCopy, Diameter);
+
+      APVMove(@W[0], 0, WCount - 1, @NetworkCopy.Weights[0], 0, WCount - 1);
+      MinLBFGSCreate(WCount, Min(WCount, 10), W, State);
+      MinLBFGSSetCond(State, 0.0, 0.0, WStep, MaxIts);
+      Ebegin := MLPErrorN(NetworkCopy, XY, NPoints);
+
+      // Compare with best
+      if AP_FP_Less(Ebegin, EBest) then
+      begin
+        zLock.Enter;
+        APVMove(@WBest[0], 0, WCount - 1, @NetworkCopy.Weights[0], 0, WCount - 1);
+        EBest := Ebegin;
+        zLock.Leave;
+      end;
+
+      E := 0;
+      while AP_FP_Less(E, Ebegin) and MinLBFGSIteration(State) do
+      begin
+        APVMove(@NetworkCopy.Weights[0], 0, WCount - 1, @State.X[0], 0, WCount - 1);
+        MLPGradNBatch(NetworkCopy, XY, NPoints, State.F, State.G);
+        V := APVDotProduct(@NetworkCopy.Weights[0], 0, WCount - 1, @NetworkCopy.Weights[0], 0, WCount - 1);
+        State.F := State.F + 0.5 * Decay * V;
+        APVAdd(@State.G[0], 0, WCount - 1, @NetworkCopy.Weights[0], 0, WCount - 1, Decay);
+        RepCopy.NGrad := RepCopy.NGrad + 1;
+
+        // checking
+        MinLBFGSResults(State, W, InternalRep);
+        APVMove(@NetworkCopy.Weights[0], 0, WCount - 1, @W[0], 0, WCount - 1);
+        E := MLPErrorN(NetworkCopy, XY, NPoints);
+
+        // Compare with best
+        if AP_FP_Less(E, EBest) then
+        begin
+          zLock.Enter;
+          APVMove(@WBest[0], 0, WCount - 1, @NetworkCopy.Weights[0], 0, WCount - 1);
+          EBest := E;
+          zLock.Leave;
+        end;
+      end;
+
+      MLPFree(NetworkCopy);
+    end);
+
+  zLock.Free;
+
+  //
+  // The best network
+  //
+  Rep := RepCopy;
+
+  APVMove(@Network.Weights[0], 0, WCount - 1, @WBest[0], 0, WCount - 1);
+end;
+
+procedure MLPTrainMonteCarlo(var Network: MultiLayerPerceptron; const XY: TReal2DArray; NPoints: AlglibInteger;
+MainRestarts, SubRestarts: AlglibInteger; MinError: AlglibFloat; Diameter: AlglibFloat; var Info: AlglibInteger;
+var Rep: MLPReport);
+var
+  I: AlglibInteger;
+  MainPass, SubPass: AlglibInteger;
+  NIn: AlglibInteger;
+  NOut: AlglibInteger;
+  WCount: AlglibInteger;
+  W: TReal1DArray;
+  WBest: TReal1DArray;
+  E: AlglibFloat;
+  EBest: AlglibFloat;
+  EBestSub: AlglibFloat;
+  InternalRep: MinLBFGSReport;
+  State: MinLBFGSState;
+begin
+
+  //
+  // Test inputs, parse flags, read network geometry
+  //
+  if (NPoints <= 0) or (MainRestarts < 1) or (SubRestarts < 1) or (Diameter < 0.01) then
+  begin
+    Info := -1;
+    Exit;
+  end;
+  MLPProperties(Network, NIn, NOut, WCount);
+  if MLPIsSoftmax(Network) then
+  begin
+    I := 0;
+    while I <= NPoints - 1 do
+    begin
+      if (Round(XY[I, NIn]) < 0) or (Round(XY[I, NIn]) >= NOut) then
+      begin
+        Info := -2;
+        Exit;
+      end;
+      Inc(I);
+    end;
+  end;
+  Info := 2;
+
+  //
+  // Prepare
+  //
+  MLPInitPreprocessor(Network, XY, NPoints);
+  SetLength(W, WCount - 1 + 1);
+  SetLength(WBest, WCount - 1 + 1);
+  APVFillValue(@WBest[0], 0, WCount - 1, 0);
+  EBest := MaxRealNumber;
+
+  //
+  // Multiple starts
+  //
+  Rep.NCholesky := 0;
+  Rep.NHess := 0;
+  Rep.NGrad := 0;
+
+  for MainPass := 1 to MainRestarts do
+  begin
+    EBestSub := MaxRealNumber;
+    for SubPass := 1 to SubRestarts do
+    begin
+
+      // Process
+      MLPRandomize(Network, WBest, Diameter);
+
+      // Compare with best
+      E := MLPErrorN(Network, XY, NPoints);
+      if AP_FP_Less(E, EBestSub) then
+      begin
+        if AP_FP_Less(E, EBest) then
+          APVMove(@W[0], 0, WCount - 1, @Network.Weights[0], 0, WCount - 1);
+        EBestSub := E;
+      end;
+
+      if AP_FP_Less(EBestSub, MinError) then
+        Break;
+
+    end;
+
+    // The best network
+    if AP_FP_Less(EBestSub, EBest) then
+    begin
+      APVMove(@WBest[0], 0, WCount - 1, @W[0], 0, WCount - 1);
+      EBest := EBestSub;
+    end;
+
+    if AP_FP_Less(EBest, MinError) then
+      Break;
+
+    Diameter := Diameter * 0.5;
+  end;
+  // The best network
   APVMove(@Network.Weights[0], 0, WCount - 1, @WBest[0], 0, WCount - 1);
 end;
 

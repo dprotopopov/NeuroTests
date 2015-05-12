@@ -2,7 +2,7 @@ unit calc_utils;
 
 interface
 
-uses SysUtils, graphics, Ap, mlpbase, mlptrain;
+uses Windows, SysUtils, graphics, Ap, mlpbase, mlptrain;
 
 procedure NewEmptyMatrix(aWidth, aHeight: Integer; out lXY: TReal2DArray);
 procedure ConstructMatrixFromLine(lX: TReal1DArray; aSubLineWidth, aStep, aCount: Integer; out lXY: TReal2DArray);
@@ -12,7 +12,7 @@ procedure GetSubLine(aXSrc: TReal1DArray; aPosition, aSubLineWidth: Integer; var
 procedure PutImageToArrayLine(aImageIdx, aCharIdx: Integer; aCanvas: TCanvas; aWidth, aHeight: Integer;
   var lXY: TReal2DArray);
 procedure Get1DArrayFromImage(aCanvas: TCanvas; aWidth, aHeight: Integer; var lX: TReal1DArray);
-function NeuroRegression(var lNetwork: MultiLayerPerceptron; lX: TReal1DArray; var lY: TReal1DArray): extended;
+function NeuroRegression(var lNetwork: MultiLayerPerceptron; lX: TReal1DArray; var lY: TReal1DArray): AlglibFloat;
 
 implementation
 
@@ -60,9 +60,9 @@ var
 begin
   Randomize;
   lMaxIts := 500; // количество итераций обучения (внутреннее)
-  lMaxStep := 0.001; // внутренний параметр обучения нейросети
-  lRestarts := 500; // внутренний параметр обучения нейросети
-  lDecay := 0.0001; // затухание.  внутренний параметр обучения нейросети
+  lMaxStep := 0.001; // коэффициент при векторе градиента (влияет на шаг смещения)
+  lRestarts := 50000; // внутренний параметр обучения нейросети
+  lDecay := 0.01; // добавление к градиенту веса с указанным затуханием
   lPoints := Length(lXY); // количество обучающих выборок (в нашем лучае можно и поменьше)
 
   // здесь можно использовать любую из функций MLPCreate
@@ -87,9 +87,10 @@ begin
       end;
   end;
   // один из методов обучения. Можно использовать любой другой
-  //MLPTrainLBFGS(lNetwork, lXY, lPoints, lDecay, lRestarts, lMaxStep, lMaxIts, lInfo, lReport);
+  MLPTrainLBFGS_MT_Mod(lNetwork, lXY, lPoints, lDecay, lRestarts, lMaxStep, 50, lMaxIts, lInfo, lReport);
+  //MLPTrainMonteCarlo(lNetwork, lXY, lPoints, 10, lRestarts, 0, lMaxIts, lInfo, lReport);
   //MLPTrainLM(lNetwork, lXY, lPoints, lDecay, lRestarts, lInfo, lReport);
-  MLPTrainES(lNetwork, lXY, lPoints, lXY, lPoints, lDecay, lRestarts, lInfo, lReport);
+  //MLPTrainES(lNetwork, lXY, lPoints, lXY, lPoints, lDecay, lRestarts, lInfo, lReport);
 
 end;
 
@@ -102,10 +103,17 @@ begin
     aXDest[i] := aXSrc[i + aPosition];
 end;
 
-function NeuroRegression(var lNetwork: MultiLayerPerceptron; lX: TReal1DArray; var lY: TReal1DArray): extended;
+function NeuroRegression(var lNetwork: MultiLayerPerceptron; lX: TReal1DArray; var lY: TReal1DArray): AlglibFloat;
 begin
   MLPProcess(lNetwork, lX, lY);
   Result := lY[0];
+end;
+
+function RgbToGray(RGBColor: TColor): AlglibFloat;
+begin
+  Result := (0.299 * GetRValue(RGBColor)) +
+  (0.587 * GetGValue(RGBColor)) +
+  (0.114 * GetBValue(RGBColor )) * (1 / 255);
 end;
 
 procedure PutImageToArrayLine(aImageIdx, aCharIdx: Integer; aCanvas: TCanvas; aWidth, aHeight: Integer;
@@ -119,7 +127,7 @@ begin
     for y := 0 to aHeight - 1 do
       for x := 0 to aWidth - 1 do
       begin
-        lXY[aImageIdx, i] := aCanvas.Pixels[x, y];
+        lXY[aImageIdx, i] := RgbToGray(aCanvas.Pixels[x, y]);
         inc(i);
       end;
 
@@ -141,7 +149,7 @@ begin
     for y := 0 to aHeight - 1 do
       for x := 0 to aWidth - 1 do
       begin
-        lX[i] := aCanvas.Pixels[x, y];
+        lX[i] := RgbToGray(aCanvas.Pixels[x, y]);
         inc(i);
       end;
   finally

@@ -66,12 +66,12 @@ begin
     DrawDataOnChart(Chart1, SeriesSrc, lX);
 
     ConstructMatrixFromLine(lX, CSubLineWidth, 1, 50, lXY);
-    CalcNeuroMatrix(false, 3, CSubLineWidth, 1, lXY, lNetwork);
+    CalcNeuroMatrix(false, 1, CSubLineWidth, 1, lXY, lNetwork);
 
     SetLength(lXsub, CSubLineWidth);
     SetLength(lXfiltered, Length(lX));
-    SetLength(lY, 1);
-    for i := Low(lX) to CSubLineWidth - 1 do
+    SetLength(lY, 2);
+    for i := 0 to CSubLineWidth - 1 do
       lXfiltered[i] := 0;
     for i := Low(lX) to High(lX) - (CSubLineWidth + 1) do
     begin
@@ -85,7 +85,7 @@ begin
     SetLength(lX, 0);
     SetLength(lXY, 0);
     MLPFree(lNetwork);
-    Winapi.Windows.Beep(500, 1000);
+    Winapi.Windows.Beep(500, 200);
   end;
 end;
 

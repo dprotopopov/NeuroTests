@@ -106,7 +106,9 @@ procedure MLPSerialize(const Network : MultiLayerPerceptron;
      var RLen : AlglibInteger);
 procedure MLPUnserialize(const RA : TReal1DArray;
      var Network : MultiLayerPerceptron);
-procedure MLPRandomize(var Network : MultiLayerPerceptron);
+procedure MLPRandomize(var Network : MultiLayerPerceptron);overload;
+procedure MLPRandomize(var Network : MultiLayerPerceptron; const Diameter: AlglibFloat);overload;
+procedure MLPRandomize(var Network : MultiLayerPerceptron; const WBest: TReal1DArray; const Diameter: AlglibFloat);overload;
 procedure MLPRandomizeFull(var Network : MultiLayerPerceptron);
 procedure MLPInitPreprocessor(var Network : MultiLayerPerceptron;
      const XY : TReal2DArray;
@@ -1173,7 +1175,7 @@ Randomization of neural network weights
   -- ALGLIB --
      Copyright 06.11.2007 by Bochkanov Sergey
 *************************************************************************)
-procedure MLPRandomize(var Network : MultiLayerPerceptron);
+procedure MLPRandomize(var Network : MultiLayerPerceptron);overload;
 var
     I : AlglibInteger;
     NIn : AlglibInteger;
@@ -1181,11 +1183,49 @@ var
     WCount : AlglibInteger;
 begin
     MLPProperties(Network, NIn, NOut, WCount);
-    I:=0;
-    while I<=WCount-1 do
+    for I := 0 to WCount-1 do
     begin
-        Network.Weights[I] := RandomReal-0.5;
-        Inc(I);
+      Network.Weights[I] := RandomReal-0.5;
+    end;
+end;
+
+(*************************************************************************
+Randomization of neural network weights
+
+  -- ALGLIB --
+     Copyright 12.05.2015 by Nikitaev Alexey
+*************************************************************************)
+procedure MLPRandomize(var Network : MultiLayerPerceptron; const Diameter: AlglibFloat);overload;
+var
+    I : AlglibInteger;
+    NIn : AlglibInteger;
+    NOut : AlglibInteger;
+    WCount : AlglibInteger;
+begin
+    MLPProperties(Network, NIn, NOut, WCount);
+    for I := 0 to WCount-1 do
+    begin
+      Network.Weights[I] := (RandomReal-0.5) * Diameter;
+    end;
+end;
+
+(*************************************************************************
+Randomization of neural network weights
+
+  -- ALGLIB --
+     Copyright 11.05.2015 by Nikitaev Alexey
+*************************************************************************)
+procedure MLPRandomize(var Network : MultiLayerPerceptron; const WBest: TReal1DArray; const Diameter: AlglibFloat);overload;
+var
+    I : AlglibInteger;
+    NIn : AlglibInteger;
+    NOut : AlglibInteger;
+    WCount : AlglibInteger;
+begin
+    MLPProperties(Network, NIn, NOut, WCount);
+    for I := 0 to WCount-1 do
+    begin
+      Network.Weights[I] := WBest[I] + (RandomReal-0.5) * Diameter;
     end;
 end;
 
