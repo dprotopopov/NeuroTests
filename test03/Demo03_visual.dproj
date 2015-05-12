@@ -103,6 +103,7 @@
             <Form>Form1</Form>
         </DCCReference>
         <DCCReference Include="..\utils\calc_utils.pas"/>
+        <DCCReference Include="..\alglib\delphi\src\mlptrain.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
