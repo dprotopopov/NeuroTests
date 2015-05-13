@@ -17,12 +17,7 @@ end;
 
 procedure PrintMatrix(X: TReal1DArray; Y: TReal1DArray; aIteration: Integer);
 begin
-  Write(Format('IN[0]  = %5.2f'#13#10'', [X[0]]));
-  Write(Format('IN[1]  = %5.2f'#13#10'', [X[1]]));
-  Write(Format('Prob(Class=0|IN) = %5.2f'#13#10'', [Y[0]]));
-  // Write(Format('Prob(Class=1|IN) = %5.2f'#13#10'', [Y[1]]));
-  // Write(Format('Prob(Class=2|IN) = %5.2f'#13#10'', [Y[2]]));
-  WriteLn(Format('--- %d ------------', [aIteration]));
+  WriteLn(Format('%d: %10.8f -> %10.8f -> %10.8f', [aIteration, X[0], X[1], Y[0]]));
 end;
 
 var
@@ -53,7 +48,7 @@ begin
   lOutCount := 1; // кличество точек - заведомо корректных результатов
   lMaxIts := 500; // количество итераций обучения (внутреннее)
   lMaxStep := 0.001; // внутренний параметр обучения нейросети
-  lRestarts := 50000; // внутренний параметр обучения нейросети
+  lRestarts := 500; // внутренний параметр обучения нейросети
   lDecay := 0.001; // затухание.  внутренний параметр обучения нейросети
   lPoints := 400;//40; // количество обучающих выборок (в нашем лучае можно и поменьше)
 
@@ -80,13 +75,13 @@ begin
   end;
 
   // один из методов обучения. Можно использовать любой другой
-  //MLPTrainLBFGS_MT(lNetwork, lXY, lPoints, lDecay, lRestarts, lMaxStep, lMaxIts, lInfo, lReport);
+  //MLPTrainLBFGS_MT_Mod(lNetwork, lXY, lPoints, lRestarts, lMaxStep, 10, lMaxIts, lInfo, lReport);
+  MLPTrainLBFGS_MT(lNetwork, lXY, lPoints, lDecay, lRestarts, lMaxStep, lMaxIts, lInfo, lReport);
   //MLPTrainLM(lNetwork, lXY, lPoints, lDecay, lRestarts, lInfo, lReport);
-  MLPTrainMonteCarlo(lNetwork, lXY, lPoints, 10, lRestarts, 0, 10, lInfo, lReport);
+  //MLPTrainMonteCarlo(lNetwork, lXY, lPoints, 10, lRestarts, 0, 10, lInfo, lReport);
 
   for i := lPoints - 5 to lPoints + 15 do
   begin
-    Write(Format('Classification task'#13#10'', []));
     DoProcess(1 + i, 2 + i, lNetwork, lX, lY);
     PrintMatrix(lX, lY, i + 1);
   end;

@@ -59,9 +59,9 @@ var
 begin
   Randomize;
   lMaxIts := 500; // количество итераций обучени€ (внутреннее)
-  lMaxStep := 0.01; // коэффициент при векторе градиента (вли€ет на шаг смещени€)
+  lMaxStep := 0.001; // коэффициент при векторе градиента (вли€ет на шаг смещени€)
   lRestarts := 500; // внутренний параметр обучени€ нейросети
-  lDecay := 1; // добавление к градиенту веса с указанным затуханием
+  lDecay := 0.001; // добавление к градиенту веса с указанным затуханием
   lPoints := Length(lXY); // количество обучающих выборок (в нашем лучае можно и поменьше)
 
   // здесь можно использовать любую из функций MLPCreate
@@ -86,8 +86,8 @@ begin
       end;
   end;
   // один из методов обучени€. ћожно использовать любой другой
-  MLPTrainLBFGS_MT_Mod(lNetwork, lXY, lPoints, lRestarts, lMaxStep, 10, lMaxIts, lInfo, lReport);
-  //MLPTrainLBFGS_MT(lNetwork, lXY, lPoints, lDecay, lRestarts, lMaxStep, lMaxIts, lInfo, lReport);
+  //MLPTrainLBFGS_MT_Mod(lNetwork, lXY, lPoints, lRestarts, lMaxStep, 10, lMaxIts, lInfo, lReport);
+  MLPTrainLBFGS_MT(lNetwork, lXY, lPoints, lDecay, lRestarts, lMaxStep, lMaxIts, lInfo, lReport);
   //MLPTrainMonteCarlo(lNetwork, lXY, lPoints, 10, lRestarts, 0, lMaxIts, lInfo, lReport);
   //MLPTrainLM(lNetwork, lXY, lPoints, lDecay, lRestarts, lInfo, lReport);
   //MLPTrainES(lNetwork, lXY, lPoints, lXY, lPoints, lDecay, lRestarts, lInfo, lReport);

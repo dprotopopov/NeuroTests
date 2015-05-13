@@ -613,41 +613,12 @@ begin
 end;
 
 (* ************************************************************************
-  Neural  network  training  using  L-BFGS  algorithm  with  regularization.
-  Subroutine  trains  neural  network  with  restarts from random positions.
-  Algorithm  is  well  suited  for  problems  of  any dimensionality (memory
-  requirements and step complexity are linear by weights number).
-
-  INPUT PARAMETERS:
-  Network     -   neural network with initialized geometry
-  XY          -   training set
-  NPoints     -   training set size
-  Decay       -   weight decay constant, >=0.001
-  Decay term 'Decay*||Weights||^2' is added to error
-  function.
-  If you don't know what Decay to choose, use 0.001.
-  Restarts    -   number of restarts from random position, >0.
-  If you don't know what Restarts to choose, use 2.
-  WStep       -   stopping criterion. Algorithm stops if  step  size  is
-  less than WStep. Recommended value - 0.01.  Zero  step
-  size means stopping after MaxIts iterations.
-  MaxIts      -   stopping   criterion.  Algorithm  stops  after  MaxIts
-  iterations (NOT gradient  calculations).  Zero  MaxIts
-  means stopping when step is sufficiently small.
-
-  OUTPUT PARAMETERS:
-  Network     -   trained neural network.
-  Info        -   return code:
-  * -8, if both WStep=0 and MaxIts=0
-  * -2, if there is a point with class number
-  outside of [0..NOut-1].
-  * -1, if wrong parameters specified
-  (NPoints<0, Restarts<1).
-  *  2, if task has been solved.
-  Rep         -   training report
-
-  -- ALGLIB --
-  Copyright 09.12.2007 by Bochkanov Sergey
+ {
+  WStep - влияет на точность поиска оптимальных весовых коэффициентов. Высокая точность начинается от 0.01
+  Decay - также влияет на точность. Желательно 0.01 - достигается максимальная точность
+  Restarts - влияет на вероятность нахождения наиболее оптимальных весовых коэффициентов >100
+  MaxIts - чем выше требуемая точность - тем больше требуется итераций >=500
+}
   ************************************************************************ *)
 procedure MLPTrainLBFGS_MT(var Network: MultiLayerPerceptron; const XY: TReal2DArray; NPoints: AlglibInteger;
 Decay: AlglibFloat; Restarts: AlglibInteger; WStep: AlglibFloat; MaxIts: AlglibInteger; var Info: AlglibInteger;
@@ -730,12 +701,9 @@ begin
       // Process
       //
       MLPRandomize(NetworkCopy);
-      // { если тут закомментировать - то хоть что-то прорисовывается
       APVMove(@W[0], 0, WCount - 1, @NetworkCopy.Weights[0], 0, WCount - 1);
       MinLBFGSCreate(WCount, Min(WCount, 10), W, State);
-      // MinLBFGSCreate(WCount, WCount, W, State);
       MinLBFGSSetCond(State, 0.0, 0.0, WStep, MaxIts);
-      // MinLBFGSSetCond(State, WStep, WStep, WStep, MaxIts);
       while MinLBFGSIteration(State) do
       begin
         APVMove(@NetworkCopy.Weights[0], 0, WCount - 1, @State.X[0], 0, WCount - 1);
@@ -747,14 +715,12 @@ begin
       end;
       MinLBFGSResults(State, W, InternalRep);
       APVMove(@NetworkCopy.Weights[0], 0, WCount - 1, @W[0], 0, WCount - 1);
-      // }
 
       //
       // Compare with best
       //
 
-      // V := APVDotProduct(@NetworkCopy.Weights[0], 0, WCount - 1, @NetworkCopy.Weights[0], 0, WCount - 1);
-      E := MLPErrorN(NetworkCopy, XY, NPoints); // + 0.5 * Decay * V;
+      E := MLPErrorN(NetworkCopy, XY, NPoints);
       if AP_FP_Less(E, EBest) then
       begin
         zLock.Enter;
@@ -763,6 +729,7 @@ begin
         zLock.Leave;
       end;
       MLPFree(NetworkCopy);
+      MinLBFGSFree(W, State);
     end);
 
   zLock.Free;
