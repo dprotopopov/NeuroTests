@@ -61,7 +61,7 @@ begin
   Randomize;
   lMaxIts := 500; // количество итераций обучения (внутреннее)
   lMaxStep := 0.01; // коэффициент при векторе градиента (влияет на шаг смещения)
-  lRestarts := 50000; // внутренний параметр обучения нейросети
+  lRestarts := 500; // внутренний параметр обучения нейросети
   lDecay := 1; // добавление к градиенту веса с указанным затуханием
   lPoints := Length(lXY); // количество обучающих выборок (в нашем лучае можно и поменьше)
 
@@ -111,9 +111,9 @@ end;
 
 function RgbToGray(RGBColor: TColor): AlglibFloat;
 begin
-  Result := (0.299 * GetRValue(RGBColor)) +
+  Result := ((0.299 * GetRValue(RGBColor)) +
   (0.587 * GetGValue(RGBColor)) +
-  (0.114 * GetBValue(RGBColor )) * (1 / 255);
+  (0.114 * GetBValue(RGBColor ))) * (1 / 255);
 end;
 
 procedure PutImageToArrayLine(aImageIdx, aCharIdx: Integer; aCanvas: TCanvas; aWidth, aHeight: Integer;

@@ -896,7 +896,7 @@ begin
             if (E <= Ebegin) then
             begin
               Ebegin := E;
-              if (E > 1E-50) then
+              if (E < 1E-50) then
                 break;
             end
             else
