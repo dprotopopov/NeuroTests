@@ -58,8 +58,8 @@ procedure MLPTrainLBFGS_MT(var Network: MultiLayerPerceptron; const XY: TReal2DA
   Decay: AlglibFloat; Restarts: AlglibInteger; WStep: AlglibFloat; MaxIts: AlglibInteger; var Info: AlglibInteger;
   var Rep: MLPReport);
 procedure MLPTrainLBFGS_MT_Mod(var Network: MultiLayerPerceptron; const XY: TReal2DArray; NPoints: AlglibInteger;
-  Decay: AlglibFloat; Restarts: AlglibInteger; WStep, Diameter: AlglibFloat; MaxIts: AlglibInteger;
-  var Info: AlglibInteger; var Rep: MLPReport);
+  Restarts: AlglibInteger; WStep, Diameter: AlglibFloat; MaxIts: AlglibInteger; var Info: AlglibInteger;
+  var Rep: MLPReport);
 procedure MLPTrainMonteCarlo(var Network: MultiLayerPerceptron; const XY: TReal2DArray; NPoints: AlglibInteger;
   MainRestarts, SubRestarts: AlglibInteger; MinError: AlglibFloat; Diameter: AlglibFloat; var Info: AlglibInteger;
   var Rep: MLPReport);
@@ -775,9 +775,15 @@ begin
   APVMove(@Network.Weights[0], 0, WCount - 1, @WBest[0], 0, WCount - 1);
 end;
 
+{
+  WStep - влияет на точность поиска оптимальных весовых коэффициентов. Высокая точность начинается от 0.01
+  Restarts - влияет на вероятность нахождения наиболее оптимальных весовых коэффициентов >100
+  MaxIts - чем выше требуемая точность - тем больше требуется итераций >=500
+  Diameter - разброс начальных значений внутри вектора весовых коэффициентов >=2  
+}
 procedure MLPTrainLBFGS_MT_Mod(var Network: MultiLayerPerceptron; const XY: TReal2DArray; NPoints: AlglibInteger;
-Decay: AlglibFloat; Restarts: AlglibInteger; WStep, Diameter: AlglibFloat; MaxIts: AlglibInteger;
-var Info: AlglibInteger; var Rep: MLPReport);
+Restarts: AlglibInteger; WStep, Diameter: AlglibFloat; MaxIts: AlglibInteger; var Info: AlglibInteger;
+var Rep: MLPReport);
 var
   I: AlglibInteger;
   NIn: AlglibInteger;
@@ -818,7 +824,6 @@ begin
       Inc(I);
     end;
   end;
-  Decay := Max(Decay, MinDecay);
   Info := 2;
 
   //
@@ -849,8 +854,12 @@ begin
       State: MinLBFGSState;
       InternalRep: MinLBFGSReport;
       NetworkCopy: MultiLayerPerceptron;
+      Decay: AlglibFloat;
+      Iteration: AlglibInteger;
     begin
       try
+        Decay := 1;
+        Iteration := 0;
         SetLength(W, WCount - 1 + 1);
         MLPCopy(NetworkPtr^, NetworkCopy);
 
@@ -873,39 +882,36 @@ begin
           zLock.Leave;
         end;
 
-        E := 0;
-        V := MaxRealNumber;
-        while (V > 1E-30) and (EBest > 1E-50) and MinLBFGSIteration(State) do
+        while (EBest > 1E-50) and MinLBFGSIteration(State) do
         begin
           APVMove(@NetworkCopy.Weights[0], 0, WCount - 1, @State.X[0], 0, WCount - 1);
           MLPGradNBatch(NetworkCopy, XY, NPoints, State.F, State.G);
           V := APVDotProduct(@NetworkCopy.Weights[0], 0, WCount - 1, @NetworkCopy.Weights[0], 0, WCount - 1);
 
-          // если весовые коэффициенты = 0, то алгоритм "сваливается"
-          if (V > 1E-30) then
+          State.F := State.F + 0.5 * Decay * V;
+          APVAdd(@State.G[0], 0, WCount - 1, @NetworkCopy.Weights[0], 0, WCount - 1, Decay);
+          RepCopy.NGrad := RepCopy.NGrad + 1;
+
+          // checking
+          MinLBFGSResults(State, W, InternalRep);
+          APVMove(@NetworkCopy.Weights[0], 0, WCount - 1, @W[0], 0, WCount - 1);
+          E := MLPErrorN(NetworkCopy, XY, NPoints);
+
+          if (E <= Ebegin) then
           begin
-            State.F := State.F + 0.5 * Decay * V;
-            APVAdd(@State.G[0], 0, WCount - 1, @NetworkCopy.Weights[0], 0, WCount - 1, Decay);
-            RepCopy.NGrad := RepCopy.NGrad + 1;
-
-            // checking
-            MinLBFGSResults(State, W, InternalRep);
-            APVMove(@NetworkCopy.Weights[0], 0, WCount - 1, @W[0], 0, WCount - 1);
-            E := MLPErrorN(NetworkCopy, XY, NPoints);
-
-            if (E <= Ebegin) then
-            begin
-              Ebegin := E;
-              if (E < 1E-50) then
-                break;
-            end
-            else
+            Ebegin := E;
+            if (E < 1E-50) then
               Break;
           end;
+
+          // динамическое изменение Decay
+          Inc(Iteration);
+          //Decay := 1 / ((10 + Iteration) div 10);
+          Decay := 1 / Iteration;
         end;
 
         // Compare with best
-        if (V > 1E-30) and AP_FP_Less(Ebegin, EBest) then
+        if AP_FP_Less(Ebegin, EBest) then
         begin
           zLock.Enter;
           APVMove(@WBest[0], 0, WCount - 1, @NetworkCopy.Weights[0], 0, WCount - 1);
@@ -944,8 +950,6 @@ var
   E: AlglibFloat;
   EBest: AlglibFloat;
   EBestSub: AlglibFloat;
-  InternalRep: MinLBFGSReport;
-  State: MinLBFGSState;
 begin
 
   //

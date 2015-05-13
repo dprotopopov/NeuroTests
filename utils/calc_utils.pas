@@ -48,7 +48,6 @@ end;
 procedure CalcNeuroMatrix(aClassificator: boolean; aLevelCount: byte; lInCount, lOutCount: Integer; lXY: TReal2DArray;
   out lNetwork: MultiLayerPerceptron);
 var
-  x, y:Integer;
   lMaxIts: Integer;
   lMaxStep: Double;
   lRestarts: Integer;
@@ -87,7 +86,8 @@ begin
       end;
   end;
   // один из методов обучения. Можно использовать любой другой
-  MLPTrainLBFGS_MT_Mod(lNetwork, lXY, lPoints, lDecay, lRestarts, lMaxStep, 10, lMaxIts, lInfo, lReport);
+  MLPTrainLBFGS_MT_Mod(lNetwork, lXY, lPoints, lRestarts, lMaxStep, 10, lMaxIts, lInfo, lReport);
+  //MLPTrainLBFGS_MT(lNetwork, lXY, lPoints, lDecay, lRestarts, lMaxStep, lMaxIts, lInfo, lReport);
   //MLPTrainMonteCarlo(lNetwork, lXY, lPoints, 10, lRestarts, 0, lMaxIts, lInfo, lReport);
   //MLPTrainLM(lNetwork, lXY, lPoints, lDecay, lRestarts, lInfo, lReport);
   //MLPTrainES(lNetwork, lXY, lPoints, lXY, lPoints, lDecay, lRestarts, lInfo, lReport);
