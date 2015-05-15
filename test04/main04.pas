@@ -66,7 +66,7 @@ begin
   SetLength(lY, 0);
 end;
 
-const cReservedCharsCount = 2;
+const cReservedCharsCount = 0; //2;
 procedure TForm2.FormShow(Sender: TObject);
 var
   i: Integer;
@@ -83,10 +83,10 @@ begin
     FCharList.Add(ch);
   for ch := 'А' to 'Я' do
     FCharList.Add(ch);
-  FCharList.Add(#0000);
-  FCharList.Add(#0001);
+  //FCharList.Add(#0000);
+  //FCharList.Add(#0001);
   // формируем нейросеть
-  NewEmptyMatrix(ImagePixelCount + FCharList.Count  - cReservedCharsCount, FCharList.Count, lXY);
+  NewEmptyMatrix(ImagePixelCount + 1, FCharList.Count, lXY);
   for i := 0 to FCharList.Count - 1  - cReservedCharsCount do
   begin
     PrintChar(FBitmap.Canvas, FCharList[i]);
@@ -101,7 +101,7 @@ begin
   
   // обучение нейросети
   // для задачи с символами количество слоёв не важно. Важнее количество вариантов
-  CalcNeuroMatrix(False, 1, ImagePixelCount, FCharList.Count - cReservedCharsCount, lXY, lNetwork);
+  CalcNeuroMatrix(True, 1, ImagePixelCount, FCharList.Count - cReservedCharsCount, lXY, lNetwork);
 
   // отобразим букву
   edInputText.Text := 'W';
