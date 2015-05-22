@@ -43,7 +43,7 @@ void ConstructMatrixFromLine(ae_vector * lX, int aSubLineWidth, int aStep, int a
 	ae_matrix_init(lXY, zYCount, aSubLineWidth + 1, DT_REAL, &_state, ae_true);
 	int y = 0;
 	while (y < zYCount) {
-		for (int x = 0; x < aSubLineWidth; x++) {
+		for (int x = 0; x <= aSubLineWidth; x++) {
 			lXY->ptr.pp_double[y][x] = lX->ptr.p_double[y + x];
 		}
 		y += aStep;
@@ -62,10 +62,10 @@ void CalcNeuroMatrix(bool aClassificator, char aLevelCount, int lInCount, int lO
 	ae_frame_make(&_state, &_frame_block);
 
 	randomize();
-	int lMaxIts = 500; // количество итераций обучения (внутреннее)
-	double lMaxStep = 0.001; // внутренний параметр обучения нейросети
+	int lMaxIts = 50; // количество итераций обучения (внутреннее)
+	double lMaxStep = 0.01; // внутренний параметр обучения нейросети
 	int lRestarts = 500; // внутренний параметр обучения нейросети
-	double lDecay = 0.0001; // затухание.  внутренний параметр обучения нейросети
+	double lDecay = 0.001; // затухание.  внутренний параметр обучения нейросети
 	int lPoints = lXY->rows; // количество обучающих выборок (в нашем лучае можно и поменьше)
 
 	// здесь можно использовать любую из функций MLPCreate

@@ -56,9 +56,9 @@ int _tmain(int argc, _TCHAR* argv[]) {
 	QueryPerformanceFrequency(&lFreq);
 	QueryPerformanceCounter(&lBeginQPC);
 
-	//mlptrainlbfgs(&network, &xy, lInCount, 0.001, 500, 0.001, 500, &info, &rep,
+	mlptrainlbfgs(&network, &xy, lInCount, 0.001, 500, 0.001, 500, &info, &rep,
 	//	&_state);
-	mlptrainlm(&network, &xy, lPoints, 0.001, 500, &info, &rep, &_state);
+	//mlptrainlm(&network, &xy, lPoints, 0.001, 500, &info, &rep, &_state);
 	QueryPerformanceCounter(&lEndQPC);
 
 	ae_vector workx;
