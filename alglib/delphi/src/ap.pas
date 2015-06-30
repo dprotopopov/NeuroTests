@@ -37,7 +37,8 @@ const
 /////////////////////////////////////////////////////////////////////////
 type
     AlglibInteger = LongInt;
-    AlglibFloat = Extended;
+    PAlglibInteger = ^AlglibInteger;
+    AlglibFloat = extended;
     PDouble = ^AlglibFloat;
 
     Complex = record

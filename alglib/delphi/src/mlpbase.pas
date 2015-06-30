@@ -37,6 +37,7 @@ type
     Chunks: TReal2DArray;
     NWBuf: TReal1DArray;
   end;
+  PMultiLayerPerceptron = ^MultiLayerPerceptron;
 
 procedure MLPCreate0(NIn: AlglibInteger; NOut: AlglibInteger; var Network: MultiLayerPerceptron);
 procedure MLPCreate1(NIn: AlglibInteger; NHid: AlglibInteger; NOut: AlglibInteger; var Network: MultiLayerPerceptron);

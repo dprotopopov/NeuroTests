@@ -21,9 +21,14 @@ unit mlptrain;
 
 interface
 
-uses Math, Sysutils, System.Threading, System.SyncObjs, Ap, mlpbase, reflections, creflections, hqrnd, matgen, ablasf,
+uses Windows, Messages, Math, Sysutils, System.Threading, System.SyncObjs, Classes,
+  Ap, mlpbase, reflections, creflections,
+  hqrnd, matgen, ablasf,
   ablas, trfac, trlinsolve, safesolve, rcond, matinv, linmin, minlbfgs, hblas, sblas, ortfac, blas, rotations, bdsvd,
   svd, xblas, densesolver;
+
+const
+  WM_MLPTrainMTMessage = WM_USER + 111;
 
 type
   (* ************************************************************************
@@ -38,6 +43,8 @@ type
     NCholesky: AlglibInteger;
   end;
 
+  PMLPReport = ^MLPReport;
+
   (* ************************************************************************
     Cross-validation estimates of generalization error
     ************************************************************************ *)
@@ -49,6 +56,15 @@ type
     AvgRelError: AlglibFloat;
   end;
 
+  MLPProcessData = record
+    TotalRestarts: Integer; // количество рестартов
+    RestartsFinished: Integer; // завершённых рестартов
+    IsTerminated: boolean; // можно выставить в True для того, чтобы прервать выполнение
+    EBest: AlglibFloat; // лучшая ошибка на даный момент
+  end;
+
+  PMLPProcessData = ^MLPProcessData;
+
 procedure MLPTrainLM(var Network: MultiLayerPerceptron; const XY: TReal2DArray; NPoints: AlglibInteger;
   Decay: AlglibFloat; Restarts: AlglibInteger; var Info: AlglibInteger; var Rep: MLPReport);
 procedure MLPTrainLBFGS(var Network: MultiLayerPerceptron; const XY: TReal2DArray; NPoints: AlglibInteger;
@@ -56,7 +72,7 @@ procedure MLPTrainLBFGS(var Network: MultiLayerPerceptron; const XY: TReal2DArra
   var Rep: MLPReport);
 procedure MLPTrainLBFGS_MT(var Network: MultiLayerPerceptron; const XY: TReal2DArray; NPoints: AlglibInteger;
   Decay: AlglibFloat; Restarts: AlglibInteger; WStep: AlglibFloat; MaxIts: AlglibInteger; var Info: AlglibInteger;
-  var Rep: MLPReport);
+  var Rep: MLPReport; aHandle: HWND);
 procedure MLPTrainLBFGS_MT_Mod(var Network: MultiLayerPerceptron; const XY: TReal2DArray; NPoints: AlglibInteger;
   Restarts: AlglibInteger; WStep, Diameter: AlglibFloat; MaxIts: AlglibInteger; var Info: AlglibInteger;
   var Rep: MLPReport);
@@ -73,16 +89,38 @@ procedure MLPKFoldCVLM(const Network: MultiLayerPerceptron; const XY: TReal2DArr
   Decay: AlglibFloat; Restarts: AlglibInteger; FoldsCount: AlglibInteger; var Info: AlglibInteger; var Rep: MLPReport;
   var CVRep: MLPCVReport);
 
+type
+  // отдельный поток для запуска обучения
+  TMLPTrainLBFGS_MT_Thread = class(TThread)
+  private
+    FNetwork: PMultiLayerPerceptron;
+    FXY: TReal2DArray;
+    FNPoints: AlglibInteger;
+    FDecay: AlglibFloat;
+    FRestarts: AlglibInteger;
+    FWStep: AlglibFloat;
+    FMaxIts: AlglibInteger;
+    FInfo: PAlglibInteger;
+    FRep: PMLPReport;
+    FHandle: HWND;
+  protected
+    procedure Execute; override;
+  public
+    constructor Create(var Network: MultiLayerPerceptron; const XY: TReal2DArray; NPoints: AlglibInteger;
+      Decay: AlglibFloat; Restarts: AlglibInteger; WStep: AlglibFloat; MaxIts: AlglibInteger; var Info: AlglibInteger;
+      var Rep: MLPReport; aHandle: HWND);
+  end;
+
 implementation
 
 const
   MinDecay = 0.001;
 
 procedure MLPKFoldCVGeneral(const N: MultiLayerPerceptron; const XY: TReal2DArray; NPoints: AlglibInteger;
-  Decay: AlglibFloat; Restarts: AlglibInteger; FoldsCount: AlglibInteger; LMAlgorithm: Boolean; WStep: AlglibFloat;
+  Decay: AlglibFloat; Restarts: AlglibInteger; FoldsCount: AlglibInteger; LMAlgorithm: boolean; WStep: AlglibFloat;
   MaxIts: AlglibInteger; var Info: AlglibInteger; var Rep: MLPReport; var CVRep: MLPCVReport); forward;
 procedure MLPKFoldSplit(const XY: TReal2DArray; NPoints: AlglibInteger; NClasses: AlglibInteger;
-  FoldsCount: AlglibInteger; StratifiedSplits: Boolean; var Folds: TInteger1DArray); forward;
+  FoldsCount: AlglibInteger; StratifiedSplits: boolean; var Folds: TInteger1DArray); forward;
 
 (* ************************************************************************
   Neural network training  using  modified  Levenberg-Marquardt  with  exact
@@ -209,7 +247,7 @@ begin
       State: MinLBFGSState;
       WBase: TReal1DArray;
       Nu: AlglibFloat;
-      SPD: Boolean;
+      SPD: boolean;
       HMod: TReal2DArray;
       H: TReal2DArray;
       G: TReal1DArray;
@@ -613,16 +651,16 @@ begin
 end;
 
 (* ************************************************************************
- {
+  {
   WStep - влияет на точность поиска оптимальных весовых коэффициентов. Высокая точность начинается от 0.01
   Decay - также влияет на точность. Желательно 0.01 - достигается максимальная точность
   Restarts - влияет на вероятность нахождения наиболее оптимальных весовых коэффициентов >100
   MaxIts - чем выше требуемая точность - тем больше требуется итераций >=500
-}
+  }
   ************************************************************************ *)
 procedure MLPTrainLBFGS_MT(var Network: MultiLayerPerceptron; const XY: TReal2DArray; NPoints: AlglibInteger;
 Decay: AlglibFloat; Restarts: AlglibInteger; WStep: AlglibFloat; MaxIts: AlglibInteger; var Info: AlglibInteger;
-var Rep: MLPReport);
+var Rep: MLPReport; aHandle: HWND);
 var
   I: AlglibInteger;
   NIn: AlglibInteger;
@@ -634,6 +672,7 @@ var
   zLock: TCriticalSection;
   NetworkPtr: ^MultiLayerPerceptron;
   RepCopy: MLPReport;
+  zProcessData: PMLPProcessData;
 begin
 
   //
@@ -672,6 +711,10 @@ begin
   MLPInitPreprocessor(Network, XY, NPoints);
   SetLength(WBest, WCount - 1 + 1);
   EBest := MaxRealNumber;
+  New(zProcessData);
+  zProcessData.TotalRestarts := Restarts;
+  zProcessData.IsTerminated := False;
+  zProcessData.EBest := EBest;
 
   //
   // Multiple starts
@@ -684,62 +727,74 @@ begin
   RepCopy := Rep;
   zLock := TCriticalSection.Create;
 
-  TParallel.For(1, Restarts,
-    procedure(Pass: AlglibInteger)
-    var
-      E: AlglibFloat;
-      V: AlglibFloat;
-      W: TReal1DArray;
-      State: MinLBFGSState;
-      InternalRep: MinLBFGSReport;
-      NetworkCopy: MultiLayerPerceptron;
-    begin
-      SetLength(W, WCount - 1 + 1);
-      MLPCopy(NetworkPtr^, NetworkCopy);
-
-      //
-      // Process
-      //
-      MLPRandomize(NetworkCopy);
-      APVMove(@W[0], 0, WCount - 1, @NetworkCopy.Weights[0], 0, WCount - 1);
-      MinLBFGSCreate(WCount, Min(WCount, 10), W, State);
-      MinLBFGSSetCond(State, 0.0, 0.0, WStep, MaxIts);
-      while MinLBFGSIteration(State) do
+  try
+    TParallel.For(1, Restarts,
+      procedure(Pass: AlglibInteger)
+      var
+        E: AlglibFloat;
+        V: AlglibFloat;
+        W: TReal1DArray;
+        State: MinLBFGSState;
+        InternalRep: MinLBFGSReport;
+        NetworkCopy: MultiLayerPerceptron;
       begin
-        APVMove(@NetworkCopy.Weights[0], 0, WCount - 1, @State.X[0], 0, WCount - 1);
-        MLPGradNBatch(NetworkCopy, XY, NPoints, State.F, State.G);
-        V := APVDotProduct(@NetworkCopy.Weights[0], 0, WCount - 1, @NetworkCopy.Weights[0], 0, WCount - 1);
-        State.F := State.F + 0.5 * Decay * V;
-        APVAdd(@State.G[0], 0, WCount - 1, @NetworkCopy.Weights[0], 0, WCount - 1, Decay);
-        RepCopy.NGrad := RepCopy.NGrad + 1;
-      end;
-      MinLBFGSResults(State, W, InternalRep);
-      APVMove(@NetworkCopy.Weights[0], 0, WCount - 1, @W[0], 0, WCount - 1);
+        SetLength(W, WCount - 1 + 1);
+        MLPCopy(NetworkPtr^, NetworkCopy);
 
-      //
-      // Compare with best
-      //
+        //
+        // Process
+        //
+        MLPRandomize(NetworkCopy);
+        APVMove(@W[0], 0, WCount - 1, @NetworkCopy.Weights[0], 0, WCount - 1);
+        MinLBFGSCreate(WCount, Min(WCount, 10), W, State);
+        MinLBFGSSetCond(State, 0.0, 0.0, WStep, MaxIts);
+        while MinLBFGSIteration(State) do
+        begin
+          APVMove(@NetworkCopy.Weights[0], 0, WCount - 1, @State.X[0], 0, WCount - 1);
+          MLPGradNBatch(NetworkCopy, XY, NPoints, State.F, State.G);
+          V := APVDotProduct(@NetworkCopy.Weights[0], 0, WCount - 1, @NetworkCopy.Weights[0], 0, WCount - 1);
+          State.F := State.F + 0.5 * Decay * V;
+          APVAdd(@State.G[0], 0, WCount - 1, @NetworkCopy.Weights[0], 0, WCount - 1, Decay);
+          RepCopy.NGrad := RepCopy.NGrad + 1;
+        end;
+        MinLBFGSResults(State, W, InternalRep);
+        APVMove(@NetworkCopy.Weights[0], 0, WCount - 1, @W[0], 0, WCount - 1);
 
-      E := MLPErrorN(NetworkCopy, XY, NPoints);
-      if AP_FP_Less(E, EBest) then
-      begin
-        zLock.Enter;
-        APVMove(@WBest[0], 0, WCount - 1, @NetworkCopy.Weights[0], 0, WCount - 1);
-        EBest := E;
-        zLock.Leave;
-      end;
-      MLPFree(NetworkCopy);
-      MinLBFGSFree(W, State);
-    end);
+        //
+        // Compare with best
+        //
 
-  zLock.Free;
+        E := MLPErrorN(NetworkCopy, XY, NPoints);
+        if AP_FP_Less(E, EBest) then
+        begin
+          zLock.Enter;
+          APVMove(@WBest[0], 0, WCount - 1, @NetworkCopy.Weights[0], 0, WCount - 1);
+          EBest := E;
+          zProcessData.EBest := EBest;
+          zLock.Leave;
+        end;
+        MLPFree(NetworkCopy);
+        MinLBFGSFree(W, State);
+        Inc(zProcessData.RestartsFinished);
 
-  //
-  // The best network
-  //
-  Rep := RepCopy;
+        if (aHandle > 0) then
+          Windows.SendMessage(aHandle, WM_MLPTrainMTMessage, NativeUInt(zProcessData), 0);
 
-  APVMove(@Network.Weights[0], 0, WCount - 1, @WBest[0], 0, WCount - 1);
+        if zProcessData.IsTerminated then
+          exit;
+      end);
+
+  finally
+    zLock.Free;
+    Dispose(zProcessData);
+
+    //
+    // The best network
+    //
+    Rep := RepCopy;
+
+    APVMove(@Network.Weights[0], 0, WCount - 1, @WBest[0], 0, WCount - 1);
+  end;
 end;
 
 {
@@ -873,7 +928,7 @@ begin
 
           // динамическое изменение Decay
           Inc(Iteration);
-          //Decay := 1 / ((10 + Iteration) div 10);
+          // Decay := 1 / ((10 + Iteration) div 10);
           Decay := 1 / Iteration;
         end;
 
@@ -1259,7 +1314,7 @@ end;
   Internal cross-validation subroutine
   ************************************************************************ *)
 procedure MLPKFoldCVGeneral(const N: MultiLayerPerceptron; const XY: TReal2DArray; NPoints: AlglibInteger;
-Decay: AlglibFloat; Restarts: AlglibInteger; FoldsCount: AlglibInteger; LMAlgorithm: Boolean; WStep: AlglibFloat;
+Decay: AlglibFloat; Restarts: AlglibInteger; FoldsCount: AlglibInteger; LMAlgorithm: boolean; WStep: AlglibFloat;
 MaxIts: AlglibInteger; var Info: AlglibInteger; var Rep: MLPReport; var CVRep: MLPCVReport);
 var
   I: AlglibInteger;
@@ -1455,7 +1510,7 @@ end;
   "NClasses<0" means regression task with -NClasses real outputs.
   ************************************************************************ *)
 procedure MLPKFoldSplit(const XY: TReal2DArray; NPoints: AlglibInteger; NClasses: AlglibInteger;
-FoldsCount: AlglibInteger; StratifiedSplits: Boolean; var Folds: TInteger1DArray);
+FoldsCount: AlglibInteger; StratifiedSplits: boolean; var Folds: TInteger1DArray);
 var
   I: AlglibInteger;
   J: AlglibInteger;
@@ -1492,6 +1547,33 @@ begin
     end;
     Inc(I);
   end;
+end;
+
+{ TMLPTrainLBFGS_MT_Thread }
+
+constructor TMLPTrainLBFGS_MT_Thread.Create(var Network: MultiLayerPerceptron; const XY: TReal2DArray;
+NPoints: AlglibInteger; Decay: AlglibFloat; Restarts: AlglibInteger; WStep: AlglibFloat; MaxIts: AlglibInteger;
+var Info: AlglibInteger; var Rep: MLPReport; aHandle: HWND);
+begin
+  FreeOnTerminate := False;
+  FNetwork := @Network;
+  FXY := XY;
+  FNPoints := NPoints;
+  FDecay := Decay;
+  FRestarts := Restarts;
+  FWStep := WStep;
+  FMaxIts := MaxIts;
+  FInfo := @Info;
+  FRep := @Rep;
+  FHandle := aHandle;
+
+  inherited Create;
+end;
+
+procedure TMLPTrainLBFGS_MT_Thread.Execute;
+begin
+  // обучение нейросети
+  MLPTrainLBFGS_MT(FNetwork^, FXY, FNPoints, FDecay, FRestarts, FWStep, FMaxIts, FInfo^, FRep^, FHandle);
 end;
 
 end.
