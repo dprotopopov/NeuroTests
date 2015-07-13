@@ -76,7 +76,7 @@ begin
 
   // один из методов обучения. Можно использовать любой другой
   //MLPTrainLBFGS_MT_Mod(lNetwork, lXY, lPoints, lRestarts, lMaxStep, 10, lMaxIts, lInfo, lReport);
-  MLPTrainLBFGS_MT(lNetwork, lXY, lPoints, lDecay, lRestarts, lMaxStep, lMaxIts, lInfo, lReport);
+  MLPTrainLBFGS_MT(lNetwork, lXY, lPoints, lDecay, lRestarts, lMaxStep, lMaxIts, lInfo, lReport, 0);
   //MLPTrainLM(lNetwork, lXY, lPoints, lDecay, lRestarts, lInfo, lReport);
   //MLPTrainMonteCarlo(lNetwork, lXY, lPoints, 10, lRestarts, 0, 10, lInfo, lReport);
 
