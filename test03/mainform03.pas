@@ -66,7 +66,7 @@ begin
     DrawDataOnChart(Chart1, SeriesSrc, lX);
 
     ConstructMatrixFromLine(lX, CSubLineWidth, 1, 50, lXY);
-    CalcNeuroMatrix(false, 1, CSubLineWidth, 1, lXY, lNetwork);
+    CalcNeuroMatrix(false, 3, CSubLineWidth, 1, lXY, lNetwork);
 
     SetLength(lXsub, CSubLineWidth);
     SetLength(lXfiltered, Length(lX));
