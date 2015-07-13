@@ -233,10 +233,10 @@ begin
     var
       I: AlglibInteger;
       NetworkCopy: MultiLayerPerceptron;
-      X: TReal1DArray;
-      Y: TReal1DArray;
-      D: TReal1DArray;
-      Z: TReal2DArray;
+      //X: TReal1DArray;
+      //Y: TReal1DArray;
+      //D: TReal1DArray;
+      //Z: TReal2DArray;
       InvInfo: AlglibInteger;
       InternalRep: MinLBFGSReport;
       SolverRep: DenseSolverReport;
@@ -674,7 +674,6 @@ var
   RepCopy: MLPReport;
   zProcessData: PMLPProcessData;
 begin
-
   //
   // Test inputs, parse flags, read network geometry
   //
@@ -747,6 +746,7 @@ begin
         MLPRandomize(NetworkCopy);
         APVMove(@W[0], 0, WCount - 1, @NetworkCopy.Weights[0], 0, WCount - 1);
         MinLBFGSCreate(WCount, Min(WCount, 10), W, State);
+        //MinLBFGSCreate(WCount, WCount, W, State);
         MinLBFGSSetCond(State, 0.0, 0.0, WStep, MaxIts);
         while MinLBFGSIteration(State) do
         begin
@@ -756,6 +756,8 @@ begin
           State.F := State.F + 0.5 * Decay * V;
           APVAdd(@State.G[0], 0, WCount - 1, @NetworkCopy.Weights[0], 0, WCount - 1, Decay);
           RepCopy.NGrad := RepCopy.NGrad + 1;
+          if zProcessData.IsTerminated then
+            break;
         end;
         MinLBFGSResults(State, W, InternalRep);
         APVMove(@NetworkCopy.Weights[0], 0, WCount - 1, @W[0], 0, WCount - 1);

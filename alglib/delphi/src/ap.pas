@@ -38,6 +38,7 @@ const
 type
     AlglibInteger = LongInt;
     PAlglibInteger = ^AlglibInteger;
+    //AlglibFloat = double;
     AlglibFloat = extended;
     PDouble = ^AlglibFloat;
 
