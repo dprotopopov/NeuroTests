@@ -69,7 +69,7 @@ procedure MLPTrainLM(var Network: MultiLayerPerceptron; const XY: TReal2DArray; 
   Decay: AlglibFloat; Restarts: AlglibInteger; var Info: AlglibInteger; var Rep: MLPReport);
 procedure MLPTrainLBFGS(var Network: MultiLayerPerceptron; const XY: TReal2DArray; NPoints: AlglibInteger;
   Decay: AlglibFloat; Restarts: AlglibInteger; WStep: AlglibFloat; MaxIts: AlglibInteger; var Info: AlglibInteger;
-  var Rep: MLPReport);
+  var Rep: MLPReport; IsTerminated: PBoolean; out EBest: AlglibFloat);
 procedure MLPTrainLBFGS_MT(var Network: MultiLayerPerceptron; const XY: TReal2DArray; NPoints: AlglibInteger;
   Decay: AlglibFloat; Restarts: AlglibInteger; WStep: AlglibFloat; MaxIts: AlglibInteger; var Info: AlglibInteger;
   var Rep: MLPReport; aHandle: HWND);
@@ -91,24 +91,25 @@ procedure MLPKFoldCVLM(const Network: MultiLayerPerceptron; const XY: TReal2DArr
 
 type
   // отдельный поток для запуска обучения
-  TMLPTrainLBFGS_MT_Thread = class(TThread)
+  TMLPTrainLBFGS_Thread = class(TThread)
   private
-    FNetwork: PMultiLayerPerceptron;
     FXY: TReal2DArray;
     FNPoints: AlglibInteger;
     FDecay: AlglibFloat;
     FRestarts: AlglibInteger;
     FWStep: AlglibFloat;
     FMaxIts: AlglibInteger;
-    FInfo: PAlglibInteger;
-    FRep: PMLPReport;
-    FHandle: HWND;
+    FInfo: AlglibInteger;
+    FRep: MLPReport;
+    FIsTerminated: PBoolean;
   protected
     procedure Execute; override;
   public
-    constructor Create(var Network: MultiLayerPerceptron; const XY: TReal2DArray; NPoints: AlglibInteger;
-      Decay: AlglibFloat; Restarts: AlglibInteger; WStep: AlglibFloat; MaxIts: AlglibInteger; var Info: AlglibInteger;
-      var Rep: MLPReport; aHandle: HWND);
+    FNetwork: PMultiLayerPerceptron;
+    EBest: AlglibFloat;
+    constructor Create(Network: PMultiLayerPerceptron; const XY: TReal2DArray; NPoints: AlglibInteger;
+      Decay: AlglibFloat; Restarts: AlglibInteger; WStep: AlglibFloat; MaxIts: AlglibInteger; IsTerminated: PBoolean);
+    property Terminated;
   end;
 
 implementation
@@ -233,10 +234,10 @@ begin
     var
       I: AlglibInteger;
       NetworkCopy: MultiLayerPerceptron;
-      //X: TReal1DArray;
-      //Y: TReal1DArray;
-      //D: TReal1DArray;
-      //Z: TReal2DArray;
+      // X: TReal1DArray;
+      // Y: TReal1DArray;
+      // D: TReal1DArray;
+      // Z: TReal2DArray;
       InvInfo: AlglibInteger;
       InternalRep: MinLBFGSReport;
       SolverRep: DenseSolverReport;
@@ -550,7 +551,7 @@ end;
   ************************************************************************ *)
 procedure MLPTrainLBFGS(var Network: MultiLayerPerceptron; const XY: TReal2DArray; NPoints: AlglibInteger;
 Decay: AlglibFloat; Restarts: AlglibInteger; WStep: AlglibFloat; MaxIts: AlglibInteger; var Info: AlglibInteger;
-var Rep: MLPReport);
+var Rep: MLPReport; IsTerminated: PBoolean; out EBest: AlglibFloat);
 var
   I: AlglibInteger;
   Pass: AlglibInteger;
@@ -561,11 +562,11 @@ var
   WBest: TReal1DArray;
   E: AlglibFloat;
   V: AlglibFloat;
-  EBest: AlglibFloat;
   InternalRep: MinLBFGSReport;
   State: MinLBFGSState;
 begin
 
+  EBest := MaxDouble;
   //
   // Test inputs, parse flags, read network geometry
   //
@@ -620,7 +621,7 @@ begin
     APVMove(@W[0], 0, WCount - 1, @Network.Weights[0], 0, WCount - 1);
     MinLBFGSCreate(WCount, Min(WCount, 10), W, State);
     MinLBFGSSetCond(State, 0.0, 0.0, WStep, MaxIts);
-    while MinLBFGSIteration(State) do
+    while not IsTerminated^ and MinLBFGSIteration(State) do
     begin
       APVMove(@Network.Weights[0], 0, WCount - 1, @State.X[0], 0, WCount - 1);
       MLPGradNBatch(Network, XY, NPoints, State.F, State.G);
@@ -746,7 +747,7 @@ begin
         MLPRandomize(NetworkCopy);
         APVMove(@W[0], 0, WCount - 1, @NetworkCopy.Weights[0], 0, WCount - 1);
         MinLBFGSCreate(WCount, Min(WCount, 10), W, State);
-        //MinLBFGSCreate(WCount, WCount, W, State);
+        // MinLBFGSCreate(WCount, WCount, W, State);
         MinLBFGSSetCond(State, 0.0, 0.0, WStep, MaxIts);
         while MinLBFGSIteration(State) do
         begin
@@ -757,7 +758,7 @@ begin
           APVAdd(@State.G[0], 0, WCount - 1, @NetworkCopy.Weights[0], 0, WCount - 1, Decay);
           RepCopy.NGrad := RepCopy.NGrad + 1;
           if zProcessData.IsTerminated then
-            break;
+            Break;
         end;
         MinLBFGSResults(State, W, InternalRep);
         APVMove(@NetworkCopy.Weights[0], 0, WCount - 1, @W[0], 0, WCount - 1);
@@ -783,7 +784,7 @@ begin
           Windows.SendMessage(aHandle, WM_MLPTrainMTMessage, NativeUInt(zProcessData), 0);
 
         if zProcessData.IsTerminated then
-          exit;
+          Exit;
       end);
 
   finally
@@ -1338,6 +1339,8 @@ var
   InternalRep: MLPReport;
   X: TReal1DArray;
   Y: TReal1DArray;
+  IsTerminated: boolean;
+  EBest: AlglibFloat;
 begin
 
   //
@@ -1413,7 +1416,8 @@ begin
     end
     else
     begin
-      MLPTrainLBFGS(Network, CVSet, CVSSize, Decay, Restarts, WStep, MaxIts, Info, InternalRep);
+      IsTerminated := False;
+      MLPTrainLBFGS(Network, CVSet, CVSSize, Decay, Restarts, WStep, MaxIts, Info, InternalRep, @IsTerminated, EBest);
     end;
     if Info < 0 then
     begin
@@ -1553,29 +1557,34 @@ end;
 
 { TMLPTrainLBFGS_MT_Thread }
 
-constructor TMLPTrainLBFGS_MT_Thread.Create(var Network: MultiLayerPerceptron; const XY: TReal2DArray;
+constructor TMLPTrainLBFGS_Thread.Create(Network: PMultiLayerPerceptron; const XY: TReal2DArray;
 NPoints: AlglibInteger; Decay: AlglibFloat; Restarts: AlglibInteger; WStep: AlglibFloat; MaxIts: AlglibInteger;
-var Info: AlglibInteger; var Rep: MLPReport; aHandle: HWND);
+IsTerminated: PBoolean);
 begin
   FreeOnTerminate := False;
-  FNetwork := @Network;
+  FNetwork := Network;
   FXY := XY;
   FNPoints := NPoints;
   FDecay := Decay;
   FRestarts := Restarts;
   FWStep := WStep;
   FMaxIts := MaxIts;
-  FInfo := @Info;
-  FRep := @Rep;
-  FHandle := aHandle;
+  //FInfo := @Info;
+  //FRep := @Rep;
+  FIsTerminated := IsTerminated;
 
   inherited Create;
 end;
 
-procedure TMLPTrainLBFGS_MT_Thread.Execute;
+procedure TMLPTrainLBFGS_Thread.Execute;
 begin
   // обучение нейросети
-  MLPTrainLBFGS_MT(FNetwork^, FXY, FNPoints, FDecay, FRestarts, FWStep, FMaxIts, FInfo^, FRep^, FHandle);
+  // MLPTrainLBFGS_MT(FNetwork^, FXY, FNPoints, FDecay, FRestarts, FWStep, FMaxIts, FInfo^, FRep^, FHandle);
+  try
+    MLPTrainLBFGS(FNetwork^, FXY, FNPoints, FDecay, FRestarts, FWStep, FMaxIts, FInfo, FRep, FIsTerminated, EBest);
+  finally
+    Terminate;
+  end;
 end;
 
 end.
